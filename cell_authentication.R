@@ -1,9 +1,8 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env rscript
 
 # Command parser and packages -------------------------------------------------
 
 # Install missing packages (if applicable)
-#packages = c("argparse", "GenomicRanges", "plyr")
 packages = c("docopt", "GenomicRanges", "plyr")
 if ( length(setdiff(packages, rownames(installed.packages()))) > 0 ) {
   cat('installing missing packages ...\n')

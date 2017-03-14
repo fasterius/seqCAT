@@ -3,7 +3,8 @@
 # Command parser and packages -------------------------------------------------
 
 # Install missing packages (if applicable)
-packages = c("argparse", "GenomicRanges", "plyr")
+#packages = c("argparse", "GenomicRanges", "plyr")
+packages = c("docopt", "GenomicRanges", "plyr")
 if ( length(setdiff(packages, rownames(installed.packages()))) > 0 ) {
   cat('installing missing packages ...\n')
   tryCatch (silent=TRUE,
@@ -20,36 +21,31 @@ if ( length(setdiff(packages, rownames(installed.packages()))) > 0 ) {
 }
 
 # Command parser
-suppressPackageStartupMessages(library("argparse"))
-parser = ArgumentParser(epilog=gsub("[\r\n]", "", 'Compares variant calling 
-                                    data to the COSMIC cell line mutational 
-                                    database.'))
-parser$add_argument('input', type='character', help='input data file path')
-parser$add_argument('output', type='character', help='output data file path')
-parser$add_argument('-a', '--assembly', type='character', dest='assembly',
-                    help='GRCh37 or GRCh38 (default)', default='GRCh38',
-                    metavar='')
-parser$add_argument('-P', '--print-stats', action='store_true', dest='print',
-                    help='print stats of existing authentication file')
-parser$add_argument('-c', '--comparison', type='character', dest='cell.line',
-                    metavar='', default='all',
-                    help='cell line to compare with COSMIC data (default: all)')
-parser$add_argument('-s', '--sample', type='character', dest='sample',
-                    metavar='', default='sample.1', help='name of input sample')
-parser$add_argument('-p', '--paired', type='character', dest='input.2', 
-                    help='provide a second data file to compare with',
-                    default='', metavar='')
-parser$add_argument('-S', '--sample2', type='character', dest='sample2',
-                    default='sample.2', help='name of input sample 2',
-                    metavar='')
-args = parser$parse_args()
+suppressPackageStartupMessages(library('docopt'))
+doc = "
+Usage: 
+    cell_authentication.R [options] <input> <output> 
+
+Options:
+    -h, --help                              show this help message
+    -P, --print                             print stats of existing auth file
+    -a <assembly>, --assembly <assembly>    GRCh37 or GRCh38 [default: GRCh38]
+    -c <cell>, --comparison <cell>          COSMIC cell line to compare with
+                                                    [default: all]
+    -p <file>, --paired <file>              input a second file to compare with
+    -s <name>, --sample <name>              name of input sample 
+                                                    [default: sample.1]
+    -S <file>, --sample.2 <name>            name of input sample 2
+                                                    [default: sample.2]
+"
+opts = docopt(doc)
 
 # show statistics for finished auth file --------------------------------------
 
-if ( args$print ) {
+if ( opts$print ) {
   
   # Read data
-  data = read.table(args$input, sep='\t', header=TRUE, stringsAsFactors=FALSE,
+  data = read.table(opts$input, sep='\t', header=TRUE, stringsAsFactors=FALSE,
                     comment='', quote='\"')
   
   # Check if file is COSMIC or pairwise comparison
@@ -133,8 +129,8 @@ addMetadata = function(query, subject, column.suffix) {
 # -----------------------------------------------------------------------------
 
 # Read input data
-cat(paste('reading sample data "', basename(args$input), '" ...\n', sep=''))
-data = read.table(args$input, sep='\t', quote='\"', comment='', 
+cat(paste('reading sample data "', basename(opts$input), '" ...\n', sep=''))
+data = read.table(opts$input, sep='\t', quote='\"', comment='', 
                   stringsAsFactors=FALSE)
 colnames = c('chr', 'pos', 'rsID', 'REF', 'ALT', 'gene', 'ENSTID', 'ENSGID', 
              'impact', 'effect', 'feature.type', 'transcript.biotype', 
@@ -145,7 +141,7 @@ data$ALT = gsub('\\[|\\]', '', data$ALT)
 data = data[!duplicated(data[, c('chr', 'pos', 'ENSGID')]), ]
 
 # Add sample name
-data$sample = args$sample
+data$sample = opts$sample
 
 # Remove indels
 data = data[(nchar(data$allele_1) == 1 & nchar(data$allele_2) == 1), ]
@@ -166,12 +162,12 @@ data.gr = suppressWarnings(keepSeqlevels(data.gr,
 # -----------------------------------------------------------------------------
 
 # Optional secondary input
-if ( args$input.2 != '' ) {
+if ( !is.null(opts$paired) ) {
   
-  cat(paste('reading sample data "', basename(args$input.2), '" ...\n', sep=''))
+  cat(paste('reading sample data "', basename(opts$paired), '" ...\n', sep=''))
   
   # Read data
-  data2 = read.table(args$input.2, sep='\t', quote='\"', comment='', 
+  data2 = read.table(opts$paired, sep='\t', quote='\"', comment='', 
                      stringsAsFactors=FALSE)
   names(data2) = colnames
   data2$ALT = gsub('\\[|\\]', '', data2$ALT)
@@ -182,7 +178,7 @@ if ( args$input.2 != '' ) {
                   'filter', 'AD', 'warnings')]
   
   # Add sample name
-  data2$sample = args$sample2
+  data2$sample = opts$sample.2
   
   # Remove indels
   data2 = data2[(nchar(data2$allele_1) == 1 & nchar(data2$allele_2) == 1), ]
@@ -198,8 +194,8 @@ if ( args$input.2 != '' ) {
                                             c(as.character(1:22), 'X', 'Y')))
   
   # Names of files
-  name.1 = strsplit(args$sample,'/')[[1]][1]
-  name.2 = strsplit(args$sample2,'/')[[1]][1]
+  name.1 = strsplit(opts$sample,'/')[[1]][1]
+  name.2 = strsplit(opts$sample.2,'/')[[1]][1]
   cat(paste(name.1, ' vs. ', name.2, ' ...\n', sep=''))
   
   # Merge metadata with first sample data (keeping all records)
@@ -251,8 +247,8 @@ if ( args$input.2 != '' ) {
     variants.match = 0
     
     # Re-introduce sample names
-    data[1, 'sample.input.1'] = args$sample
-    data[1, 'sample.input.2'] = args$sample2
+    data[1, 'sample.input.1'] = opts$sample
+    data[1, 'sample.input.2'] = opts$sample.2
     
   }
   
@@ -270,18 +266,18 @@ if ( args$input.2 != '' ) {
               variants.concordance))
   
   # Output
-  write.table(data, args$output, sep='\t', row.names=FALSE, quote=TRUE)
+  write.table(data, opts$output, sep='\t', row.names=FALSE, quote=TRUE)
   quit()
 }
 
 # -----------------------------------------------------------------------------
 
 # Check assembly version
-if ( tolower(args$assembly) == 'grch37' ) {
-  assembly = '~/local/scripts/script.data/CosmicCLP_MutantExport.GRCh37.txt'
+if ( tolower(opts$assembly) == 'grch37' ) {
+  assembly = '~/local/scripts/script_data/CosmicCLP_MutantExport.GRCh37.txt'
   cat('[ using GRCh37 assembly ]\n')
-} else if ( tolower(args$assembly) == 'grch38') {
-  assembly = '~/local/scripts/script.data/CosmicCLP_MutantExport.GRCh38.txt'
+} else if ( tolower(opts$assembly) == 'grch38') {
+  assembly = '~/local/scripts/script_data/CosmicCLP_MutantExport.GRCh38.txt'
   cat('[ using GRCh38 assembly ]\n')
 } else {
   cat('ERROR: no assembly provided!\n')
@@ -306,10 +302,10 @@ cosmic.all$sample.name = tolower(gsub('[-_. ]', '', cosmic.all$sample.name))
 cosmic.all = cosmic.all[cosmic.all$mutation.genome.position != '', ]
 
 # Compare all or a single cell lines
-if ( args$cell.line == 'all' ) {
+if ( opts$comparison == 'all' ) {
   comparisons = unique(cosmic.all$sample.name)
 } else {
-  comparisons = args$cell.line
+  comparisons = opts$comparison
 }
 
 # Perform comparison for all selected cell lines
@@ -395,7 +391,7 @@ for ( line in comparisons ) {
   # ---------------------------------------------------------------------------
 
   # Concordance with Yu et al. SNPs
-  yu = read.table('~/local/scripts/script.data/yu.snps.txt', header=TRUE, 
+  yu = read.table('~/local/scripts/script_data/yu.snps.txt', header=TRUE, 
                   sep='\t')
   yu$cName = tolower(gsub('[-_. ]', '', yu$cName))
   
@@ -408,7 +404,7 @@ for ( line in comparisons ) {
     yu$alleles = as.character(yu$alleles)
     
     # RefSNP orientation data
-    strand = read.table('~/local/scripts/script.data/RefSNP.strand.txt', 
+    strand = read.table('~/local/scripts/script_data/RefSNP.strand.txt', 
                         header=TRUE)
     yu = merge(yu, strand, by='rsID', all.x=TRUE)
     
@@ -459,8 +455,8 @@ for ( line in comparisons ) {
               'Matches', 'Concordance', 'Yu calls', 'Yu matches'))
   cat(sprintf('%11s\t%s\t%10s\t%11s\t%8s\t%10s\n', n.unique.snps, n.cosmic, 
               n.cosmic.match, conc.cosmic, n.yu, n.yu.match))
-  print(dim(data))
+  
   # Write all variants to .txt-file for characterisation plots
-  write.table(data, args$output, sep='\t', na='', row.names=FALSE)
+  write.table(data, opts$output, sep='\t', na='', row.names=FALSE)
 }
 

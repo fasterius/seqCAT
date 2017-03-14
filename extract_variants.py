@@ -1,7 +1,6 @@
-#!/Library/Frameworks/Python.framework/Versions/3.5/bin/python3
+#!/usr/bin/env python3
 
-import glob
-import os
+# Import modules
 import sys
 import vcf
 

@@ -21,20 +21,14 @@ Options:
 "
 opts = docopt(doc)
 
-# Read variant set 1
-message(paste0('reading sample data ', basename(opts$input_1), ' ...'))
+# Read variant data
 data_1 = readVariants(opts$input_1, opts$sample_1)
-
-# Read variant set 2
-message(paste0('reading sample data ', basename(opts$input_2), ' ...'))
 data_2 = readVariants(opts$input_2, opts$sample_2)
 
 # Find overlaps between the variant sets
-message('finding variant overlaps ...'
 data = variantOverlaps(data_1, data_2)
 
 # Filter variants
-message('filtering variants ...')
 data = filterVariants(data)
 
 # Write output to file

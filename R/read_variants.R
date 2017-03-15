@@ -55,7 +55,7 @@ readVariants = function(file, sample_name) {
     seqlevels(data.gr) = gsub("chr", "", seqlevels(data.gr))
     data.gr = 
         suppressWarnings(keepSeqlevels(data.gr, 
-                                       (as.character(1:22), 'X', 'Y')))
+                                       c(as.character(1:22), 'X', 'Y')))
 
     # Return the GenomicRanges object
     return(data.gr)

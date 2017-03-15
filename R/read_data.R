@@ -12,8 +12,12 @@
 
 readVariants = function(file, sample_name) {
 
+    # Load packages
+    source("load_packages.R", chdir=TRUE)
+    loadPackages('GenomicRanges')
+
     # Output message
-    message(paste0('reading sample data "', basename(opts$input), '" ...'))
+    message(paste0('reading sample data "', basename(file), '" ...'))
 
     # Read data
     data = read.table(file, sep='\t', quote='\"', comment='', 
@@ -21,7 +25,7 @@ readVariants = function(file, sample_name) {
 
     # Change column names
     # TODO: fix the 'extract_variants.py' script to just give correct names
-    colnames = c('chr', 'pos', 'rsID', 'REF', 'ALT', 'gene', 'ENSTID', 'ENSGID', 
+    colnames = c('chr', 'pos', 'rsID', 'REF', 'ALT', 'gene', 'ENSTID', 'ENSGID',
                  'impact', 'effect', 'feature.type', 'transcript.biotype', 
                  'allele_1', 'allele_2','DP', 'filter', 'AD', 'nucleotide',
                  'amino.acid', 'warnings')
@@ -38,7 +42,6 @@ readVariants = function(file, sample_name) {
     data = data[(nchar(data$allele_1) == 1 & nchar(data$allele_2) == 1), ]
 
     # Convert to GRanges object
-    suppressPackageStartupMessages(library("GenomicRanges"))
     data.gr = makeGRangesFromDataFrame(data, 
                                        keep.extra.columns=TRUE, 
                                        ignore.strand=TRUE,
@@ -50,9 +53,10 @@ readVariants = function(file, sample_name) {
 
     # Rename and remove seqlevels
     seqlevels(data.gr) = gsub("chr", "", seqlevels(data.gr))
-    data.gr = suppressWarnings(keepSeqlevels(data.gr, 
-                                             c(as.character(1:22), 'X', 'Y')))
+    data.gr = 
+        suppressWarnings(keepSeqlevels(data.gr, 
+                                       (as.character(1:22), 'X', 'Y')))
 
-    # Return the GRanges object
+    # Return the GenomicRanges object
     return(data.gr)
 }

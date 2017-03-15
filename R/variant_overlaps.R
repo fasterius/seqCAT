@@ -60,8 +60,8 @@ variantOverlaps = function(object_1, object_2) {
     union.gr = union(object_1, object_2)
 
     # Add metadata from both objects to the union object
-    union.gr = addMetadata(union.gr, object_1, '_input.1')
-    union.gr = addMetadata(union.gr, object_2, '_input.2')
+    union.gr = addMetadata(union.gr, object_1, '.input_1')
+    union.gr = addMetadata(union.gr, object_2, '.input_2')
 
     # Convert to data frame
     data = as.data.frame(union.gr)

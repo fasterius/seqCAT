@@ -16,7 +16,8 @@ loadPackages = function(packages) {
     for ( package in packages ) {
 
         # Load package, install if missing
-        if ( ! require(package, character.only=TRUE) ) {
+        if ( ! suppressPackageStartupMessages(
+             require(package, character.only=TRUE)) ) {
 
             # First try to install from CRAN ...
             tryCatch (silent=TRUE,
@@ -35,7 +36,7 @@ loadPackages = function(packages) {
             )
 
             # Load package after installation
-            require(package)
+            suppressPackageStartupMessages(require(package))
         }
     }
 }

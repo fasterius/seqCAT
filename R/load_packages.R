@@ -21,7 +21,7 @@ loadPackages = function(packages) {
             # First try to install from CRAN ...
             tryCatch (silent=TRUE,
                 install.package(package, 
-                                repos='http://cran.us.r-project.org')
+                                repos='http://cran.us.r-project.org'),
                 
                 # ... then from BioConductor, if unsuccessful
                 warning = function(bc) {

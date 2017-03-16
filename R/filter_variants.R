@@ -12,7 +12,7 @@
 #' filter_variants(data)
 #' filter_variants(data, overlaps = FALSE)
 
-#' @expose
+#' @export
 filter_variants = function(variants, overlaps = TRUE) {
 
     # Filter on sequencing depth for each variant set

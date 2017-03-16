@@ -1,0 +1,16 @@
+Package: authentication
+Title: Performs Cell Authentication.
+Version: 0.1.0
+Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: 
+    R (>= 3.3.1)
+Imports: 
+    docopt
+    GenomicRanges
+    plyr
+    dplyr
+    tidyr
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true

@@ -8,10 +8,10 @@
 #' @param sample_name The sample name from which the file originates.
 #' @return A GenomicRanges object.
 #' @examples
-#' readVariants('~/project/data/variants/extract.txt', 'HeLa')
+#' read_variants('~/project/data/variants/extract.txt', 'HeLa')
 
 #' @expose
-readVariants = function(file, sample_name) {
+read_variants = function(file, sample_name) {
 
     # Output message
     message(paste0('reading sample data "', basename(file), '" ...'))

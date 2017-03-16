@@ -10,7 +10,7 @@
 #' @examples
 #' read_variants('~/project/data/variants/extract.txt', 'HeLa')
 
-#' @expose
+#' @export
 read_variants = function(file, sample_name) {
 
     # Output message

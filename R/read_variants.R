@@ -12,10 +12,6 @@
 
 readVariants = function(file, sample_name) {
 
-    # Load packages
-    source("load_packages.R", chdir=TRUE)
-    loadPackages('GenomicRanges')
-
     # Output message
     message(paste0('reading sample data "', basename(file), '" ...'))
 

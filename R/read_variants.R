@@ -15,9 +15,6 @@
 #' @export
 read_variants = function(file, sample_name) {
 
-    # Output message
-    message(paste0('reading sample data "', basename(file), '" ...'))
-
     # Read data
     data = read.table(file, sep='\t', quote='\"', comment='', 
                       stringsAsFactors=FALSE)

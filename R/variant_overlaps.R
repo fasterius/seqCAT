@@ -10,9 +10,6 @@
 #' wrapper function that calls add_metadata twice in succession, ensuring that
 #' even non-overlapping variants are included in the final result.
 #'
-#' @importFrom IRanges findOverlaps
-#' @importFrom GenomicRanges mcols 
-#' @importFrom S4Vectors union queryHits subjectHits
 #' @param query The query to add subject metadata to.
 #' @param subject The subject whose metadata gets added to query.
 #' @param column_suffix A string which will be added to all the metadata
@@ -24,6 +21,7 @@
 #' add_metadata(data_first, data_second)
 #' variant_overlaps(data_first, data_second)
 
+#' @export
 #' @rdname variant_overlaps
 add_metadata = function(query, subject, column_suffix) {
 

@@ -1,4 +1,4 @@
-#' Find overlapping variants in two GenomicRanges objects
+#' Find overlapping variants in two GenomicRanges objects.
 #'
 #' This are functions for finding overlapping variants in two different
 #' GenomicRanges objects, returning another GRanges object.
@@ -10,8 +10,6 @@
 #' wrapper function that calls add_metadata twice in succession, ensuring that
 #' even non-overlapping variants are included in the final result.
 #' 
-#' @section 
-#'
 #' @param query The query to add subject metadata to.
 #' @param subject The subject whose metadata gets added to query.
 #' @param column_suffix A string which will be added to all the metadata
@@ -23,7 +21,7 @@
 #' add_metadata(data_first, data_second)
 #' variant_overlaps(data_first, data_second)
 
-#' @rdname add_metadata
+#' @rdname variant_overlaps
 add_metadata = function(query, subject, column_suffix) {
 
     # Find overlapping ranges
@@ -49,8 +47,8 @@ add_metadata = function(query, subject, column_suffix) {
     return(query)
 }
 
-#' @rdname variant_overlaps
 #' @export
+#' @rdname variant_overlaps
 variant_overlaps = function(object_1, object_2) {
 
     # Find the union of all ranges in both objects

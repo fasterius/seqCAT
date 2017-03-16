@@ -9,5 +9,5 @@
 #'
 #' @docType package
 #' @name CellAuthentication
-#' @import docopt
+#' @importFrom docopt docopt
 NULL

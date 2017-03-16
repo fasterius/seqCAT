@@ -50,6 +50,7 @@ add_metadata = function(query, subject, column_suffix) {
 }
 
 #' @rdname variant_overlaps
+#' @expose
 variant_overlaps = function(object_1, object_2) {
 
     # Find the union of all ranges in both objects

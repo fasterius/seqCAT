@@ -1,13 +1,7 @@
 #!/usr/bin/env Rscript
 
-# Sources
-source('filter_variants.R', chdir = TRUE)
-source('load_packages.R', chdir = TRUE)
-source('read_variants.R', chdir = TRUE)
-source('variant_overlaps.R', chdir = TRUE)
-
-# Load wrapper-specific packages
-loadPackages('docopt')
+# Load package
+library("CellAuthentication")
 
 # Command parser
 doc = "
@@ -19,17 +13,17 @@ Options:
     -s <name>, --sample_1 <name>    name of input sample 1 [default: sample_1]
     -S <name>, --sample_2 <name>    name of input sample 2 [default: sample_2]
 "
-opts = docopt(doc)
+opts = docopt::docopt(doc)
 
 # Read variant data
-data_1 = readVariants(opts$input_1, opts$sample_1)
-data_2 = readVariants(opts$input_2, opts$sample_2)
+data_1 = read_variants(opts$input_1, opts$sample_1)
+data_2 = read_variants(opts$input_2, opts$sample_2)
 
 # Find overlaps between the variant sets
-data = variantOverlaps(data_1, data_2)
+data = variant_overlaps(data_1, data_2)
 
 # Filter variants
-data = filterVariants(data)
+data = filter_variants(data)
 
 # Write output to file
 write.table(data, opts$output, sep='\t', na='', row.names=FALSE)

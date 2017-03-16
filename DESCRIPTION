@@ -1,16 +1,17 @@
 Package: authentication
-Title: Performs Cell Authentication.
+Title: Cell Authentication Through Analysis Of RNA Sequencing Data
 Version: 0.1.0
-Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", role = c("aut", "cre"))
+Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", 
+    role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: 
     R (>= 3.3.1)
-    GenomicRanges
+    GenomicRanges (>= 1.26.1)
 Imports: 
-    docopt
-    plyr
-    dplyr
-    tidyr
+    docopt (>= 0.4.5)
+    plyr (>= 1.8.4)
+    dplyr (>= 0.5.0)
+    tidyr (>= 0.6.1)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

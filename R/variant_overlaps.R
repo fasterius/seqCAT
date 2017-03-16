@@ -3,11 +3,11 @@
 #' This are functions for finding overlapping variants in two different
 #' GenomicRanges objects, returning another GRanges object.
 #'
-#' The addMetadata function is a function for adding metadata (i.e. any
+#' The add_metadata function is a function for adding metadata (i.e. any
 #' column that is not the "seqnames", "start" or "end" fields in a
 #' GenomicRanges object) from the "subject" GRanges object to the "query" 
-#' GRanges object. The variantOverlaps function, on the other hand, is a
-#' wrapper function that calls addMetadata twice in succession, ensuring that
+#' GRanges object. The variant_overlaps function, on the other hand, is a
+#' wrapper function that calls add_metadata twice in succession, ensuring that
 #' even non-overlapping variants are included in the final result.
 #' 
 #' @section 
@@ -15,16 +15,16 @@
 #' @param query The query to add subject metadata to.
 #' @param subject The subject whose metadata gets added to query.
 #' @param column_suffix A string which will be added to all the metadata
-#'     columns from the current addMetadata operation
+#'     columns from the current add_metadata operation
 #' @param object_1 The first variant GRanges object.
 #' @param object_2 The second variant GRanges object.
 #' @return Each function returns a single GRanges object.
 #' @examples
-#' addMetadata(data_first, data_second)
-#' variantOverlaps(data_first, data_second)
+#' add_metadata(data_first, data_second)
+#' variant_overlaps(data_first, data_second)
 
-#' @rdname addMetadata
-addMetadata = function(query, subject, column_suffix) {
+#' @rdname add_metadata
+add_metadata = function(query, subject, column_suffix) {
 
     # Find overlapping ranges
     hits = findOverlaps(query, subject)
@@ -49,15 +49,15 @@ addMetadata = function(query, subject, column_suffix) {
     return(query)
 }
 
-#' @rdname variantOverlaps
-variantOverlaps = function(object_1, object_2) {
+#' @rdname variant_overlaps
+variant_overlaps = function(object_1, object_2) {
 
     # Find the union of all ranges in both objects
     union.gr = union(object_1, object_2)
 
     # Add metadata from both objects to the union object
-    union.gr = addMetadata(union.gr, object_1, '.input_1')
-    union.gr = addMetadata(union.gr, object_2, '.input_2')
+    union.gr = add_metadata(union.gr, object_1, '.input_1')
+    union.gr = add_metadata(union.gr, object_2, '.input_2')
 
     # Convert to data frame
     data = as.data.frame(union.gr)

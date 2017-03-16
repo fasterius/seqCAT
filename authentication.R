@@ -15,8 +15,12 @@ Options:
 "
 opts = docopt::docopt(doc)
 
-# Read variant data
+# Read first variant dataset
+message(paste0('reading sample data "', basename(opts$input_1), '" ...'))
 data_1 = read_variants(opts$input_1, opts$sample_1)
+
+# Read second variant dataset
+message(paste0('reading sample data "', basename(opts$input_2), '" ...'))
 data_2 = read_variants(opts$input_2, opts$sample_2)
 
 # Find overlaps between the variant sets

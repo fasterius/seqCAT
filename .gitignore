@@ -1,4 +1,4 @@
 *.un*
 .idea
 .Rhistory
-.ignore
+ignore

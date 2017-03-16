@@ -9,12 +9,11 @@ Description: The CellAuthentication package uses variant calling data (in the
     biological samples used in scientific endeavours.
 Depends: 
     R (>= 3.3.1),
-    GenomicRanges (>= 1.26.1)
 Imports: 
     docopt (>= 0.4.5),
-    plyr (>= 1.8.4),
-    dplyr (>= 0.5.0),
-    tidyr (>= 0.6.1)
+    GenomicRanges (>= 1.26.1),
+    IRanges (>= 2.8.0),
+    S4Vectors (>= 0.12.0)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

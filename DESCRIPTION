@@ -1,9 +1,12 @@
-Package: authentication
-Title: Cell Authentication Through Analysis Of RNA Sequencing Data
+Package: CellAuthentication
+Title: Cell Authentication Through Analysis Of High Throughput Sequencing Data
 Version: 0.1.0
 Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", 
     role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: The CellAuthentication package uses variant calling data (in the
+    form of VCF files) from high throughput sequencing technologies to
+    authenticate and validate the source, function and characteristcs of
+    biological samples used in scientific endeavours.
 Depends: 
     R (>= 3.3.1),
     GenomicRanges (>= 1.26.1)

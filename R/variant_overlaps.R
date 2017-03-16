@@ -52,10 +52,6 @@ addMetadata = function(query, subject, column_suffix) {
 #' @rdname variantOverlaps
 variantOverlaps = function(object_1, object_2) {
 
-    # Load packages
-    source('load_packages.R', chdir=TRUE)
-    loadPackages('GenomicRanges')
-
     # Find the union of all ranges in both objects
     union.gr = union(object_1, object_2)
 

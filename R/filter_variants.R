@@ -9,10 +9,10 @@
 #'     (enabled by default)
 #' @return A data frame containing the filtered variants.
 #' @examples
-#' filterVariants(data)
-#' filterVariants(data, overlaps = FALSE)
+#' filter_variants(data)
+#' filter_variants(data, overlaps = FALSE)
 
-filterVariants = function(variants, overlaps = TRUE) {
+filter_variants = function(variants, overlaps = TRUE) {
 
     # Filter on sequencing depth for each variant set
     variants = variants[variants$DP.input_1 >= 10 & 

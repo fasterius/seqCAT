@@ -9,7 +9,10 @@
 #' GRanges object. The variant_overlaps function, on the other hand, is a
 #' wrapper function that calls add_metadata twice in succession, ensuring that
 #' even non-overlapping variants are included in the final result.
-#' 
+#'
+#' @importFrom IRanges findOverlaps
+#' @importFrom GenomicRanges mcols 
+#' @importFrom S4Vectors union queryHits subjectHits
 #' @param query The query to add subject metadata to.
 #' @param subject The subject whose metadata gets added to query.
 #' @param column_suffix A string which will be added to all the metadata
@@ -25,24 +28,27 @@
 add_metadata = function(query, subject, column_suffix) {
 
     # Find overlapping ranges
-    hits = findOverlaps(query, subject)
+    hits = IRanges::findOverlaps(query, subject)
 
-    for ( column in names(mcols(subject)) ) {
+    for ( column in names(S4Vectors::mcols(subject)) ) {
 
         # Create empty metadata column to be filled
-        mcols(query)[paste(column, column_suffix, sep='')] = NA
+        S4Vectors::mcols(query)[paste(column, column_suffix, sep='')] = NA
 
         # Convert DNAStringSet / DNAStringSetList columns to character vectors
-        if (class(mcols(subject)[[column]])[1] == 'DNAStringSet') {
-          mcols(subject)[column] = as.character(mcols(subject)[[column]])
-        } else if (class(mcols(subject)[[column]])[1] == 'DNAStringSetList') {
-          mcols(subject)[column] = 
-            unstrsplit(CharacterList(mcols(subject)[[column]]))
+        if (class(S4Vectors::mcols(subject)[[column]])[1] == 'DNAStringSet') {
+          S4Vectors::mcols(subject)[column] = 
+              as.character(S4Vectors::mcols(subject)[[column]])
+        } else if (class(S4Vectors::mcols(subject)[[column]])[1] == 
+                   'DNAStringSetList') {
+          S4Vectors::mcols(subject)[column] = 
+            unstrsplit(CharacterList(S4Vectors::mcols(subject)[[column]]))
         }
 
     # Add subject metadata to query
-    mcols(query)[queryHits(hits), paste(column, column_suffix, sep='')] = 
-      mcols(subject)[subjectHits(hits), column]
+    S4Vectors::mcols(query)[S4Vectors::queryHits(hits), 
+                                paste(column, column_suffix, sep='')] = 
+      S4Vectors::mcols(subject)[S4Vectors::subjectHits(hits), column]
     }
     return(query)
 }
@@ -52,14 +58,14 @@ add_metadata = function(query, subject, column_suffix) {
 variant_overlaps = function(object_1, object_2) {
 
     # Find the union of all ranges in both objects
-    union.gr = union(object_1, object_2)
+    union.gr = S4Vectors::union(object_1, object_2)
 
     # Add metadata from both objects to the union object
     union.gr = add_metadata(union.gr, object_1, '.input_1')
     union.gr = add_metadata(union.gr, object_2, '.input_2')
 
     # Convert to data frame
-    data = as.data.frame(union.gr)
+    data = GenomicRanges::as.data.frame(union.gr)
     
     # Return the final object as a data frame
     return(data)

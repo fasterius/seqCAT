@@ -1,12 +1,30 @@
 #!/usr/bin/env python3
 
 # Import modules
-import sys
+#import sys
+import argparse
 import vcf
+import os.path
 
-sample = sys.argv[2]
+# Argument parser
+parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF file'
+        'and outputs it as a .txt-file.')
+parser.add_argument('input', type=str, help='input file path')
+parser.add_argument('sample', type=str, help='sample to extract')
+parser.add_argument('output', type=str, help='output file path')
+args = parser.parse_args()
 
-vcf_reader = vcf.Reader(open(sys.argv[1], 'r'))
+#  sample = sys.argv[2]
+sample = args.sample
+
+# Remove output file if already existing
+if os.path.isfile(args.output):
+    os.remove(args.output)
+
+# Open output file for appending
+output_file = open(args.output, 'a')
+
+vcf_reader = vcf.Reader(open(args.input, 'r'))
 
 for record in vcf_reader:
     ref=record.REF
@@ -84,6 +102,27 @@ for record in vcf_reader:
         for line in result:
             gene, ensgid, impact, effect, feature, enst, biotype, nucl, aacid, warnings = line.split(' ')
             if impact == max_impact:
-                print(str(chrom) + "\t" + str(pos) + "\t" + str(id) + "\t" + str(ref) + "\t" + str(alt) + "\t" + str(gene) + "\t" + str(enst) + "\t" + str(ensgid) + "\t" + str(impact) + \
-                    "\t" + str(effect) + "\t" + str(feature) + "\t" + str(biotype) + "\t" + str(A1GT) + "\t" + str(A2GT) + \
-                    "\t" + str(dp) + "\t" + str(filt) + "\t" + str(ad1) + "\t" + str(nucl) + "\t" + str(aacid) + "\t" + str(warnings))
+                current = str(chrom) + "\t" + \
+                          str(pos) + "\t" + \
+                          str(id) + "\t" +  \
+                          str(ref) + "\t" + \
+                          str(alt) + "\t" + \
+                          str(gene) + "\t" + \
+                          str(enst) + "\t" + \
+                          str(ensgid) + "\t" + \
+                          str(impact) + "\t" + \
+                          str(effect) + "\t" + \
+                          str(feature) + "\t" + \
+                          str(biotype) + "\t" + \
+                          str(A1GT) + "\t" + \
+                          str(A2GT) + "\t" + \
+                          str(dp) + "\t" + \
+                          str(filt) + "\t" + \
+                          str(ad1) + "\t" + \
+                          str(nucl) + "\t" + \
+                          str(aacid) + "\t" + \
+                          str(warnings) + "\n"
+                # print(current)
+                output_file.write(current)
+
+output_file.close()

@@ -1,29 +1,32 @@
 #!/usr/bin/env python3
 
 # Import modules
-#import sys
 import argparse
 import vcf
 import os.path
 
 # Argument parser
-parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF file'
-        'and outputs it as a .txt-file.')
+parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF.')
 parser.add_argument('input', type=str, help='input file path')
 parser.add_argument('sample', type=str, help='sample to extract')
-parser.add_argument('output', type=str, help='output file path')
+parser.add_argument('-f', '--file', type=str, dest='file', default='',
+        help='output to file [default: stdout]', metavar='')
 args = parser.parse_args()
 
-#  sample = sys.argv[2]
+# Sample to extract from VCF
 sample = args.sample
 
-# Remove output file if already existing
-if os.path.isfile(args.output):
-    os.remove(args.output)
+# Output method
+if args.file != '':
 
-# Open output file for appending
-output_file = open(args.output, 'a')
+    # Remove output file if already existing
+    if os.path.isfile(args.file):
+        os.remove(args.file)
 
+    # Open output file for appending
+    output_file = open(args.file, 'a')
+
+# Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))
 
 for record in vcf_reader:
@@ -122,7 +125,13 @@ for record in vcf_reader:
                           str(nucl) + "\t" + \
                           str(aacid) + "\t" + \
                           str(warnings) + "\n"
-                # print(current)
-                output_file.write(current)
 
-output_file.close()
+                # Print according to output method (stdout or file)
+                if args.file != '':
+                    output_file.write(current)
+                else:
+                    print(current)
+
+# Close file if outputting to file
+if args.file != '':
+    output_file.close()

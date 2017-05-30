@@ -10,7 +10,8 @@ Usage:
 
 Options:
     -h, --help                      show this help message
-    -f <depth>, --filter <depth>    skip variants below <filter> depth
+    -f <depth>, --filter <depth>    skip variants below <filter> depth 
+                                        [default: 10]
 "
 opts <- docopt::docopt(doc)
 

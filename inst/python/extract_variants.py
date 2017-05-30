@@ -10,6 +10,8 @@ parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF.')
 parser.add_argument('input', type=str, help='input VCF file path')
 parser.add_argument('sample', type=str, help='sample to extract')
 parser.add_argument('output', type=str, help='output file path')
+parser.add_argument('-f', '--filter-depth', type=int, dest='filter_depth',
+        default=10, help='filter variants with depth below <filter>')
 args = parser.parse_args()
 
 # Sample to extract from VCF
@@ -37,23 +39,30 @@ for record in vcf_reader:
         gt = record.genotype(str(sample))['GT']
         ad1 = record.genotype(str(sample))['AD']
         dp = record.genotype(str(sample))['DP']
-
     except AttributeError:
         continue
 
+    # Collect annotation infor (skip record if missing)
     try:
         ann=record.INFO['ANN']
+        qual=record.QUAL
+        filt=record.FILTER
     except KeyError:
         continue
 
-    qual=record.QUAL
-    filt1=record.FILTER
+    # Skip variant if below filtering depth
+    if dp < args.filter_depth:
+        continue
 
-    if filt1:
-         filt=filt1[0]
+    # Get filter info
+    if filt:
+         filt=filt[0]
     else:
          filt='None'
 
+    # Skip record if it's not passing filters
+    if filt != 'None':
+        continue
 
     if gt:
 

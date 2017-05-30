@@ -10,10 +10,11 @@ Usage:
 
 Options:
     -h, --help                      show this help message
+    -f <depth>, --filter <depth>    skip variants below <filter> depth
 "
 opts <- docopt::docopt(doc)
 
 # Extract variants
 message(paste0("reading '", basename(opts$vcf_file), "' ..."))
-extract_variants(opts$vcf_file, opts$sample, opts$output_file)
+extract_variants(opts$vcf_file, opts$sample, opts$output_file, opts$filter)
 message("finished.")

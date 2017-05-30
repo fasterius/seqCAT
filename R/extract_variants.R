@@ -15,12 +15,12 @@
 
 #' @export
 #' @rdname extract_variants
-extract_variants = function(vcf_file, sample, output_file) {
+extract_variants = function(vcf_file, sample, output_file, filter_depth=10) {
     
     # Source the Python script
     command = system.file('python/extract_variants.py', package='CellAuthentication')
 
     # Run Python code
-    system2(command, args=c(vcf_file, sample, output_file))
+    system2(command, args=c(vcf_file, sample, output_file, '-f', filter_depth))
 
 }

@@ -8,20 +8,19 @@
 #'
 #' @param vcf_file The VCF file from which variants will be extracted.
 #' @param sample The sample in the VCF that will be extracted.
-#' @param output_file File to store results in, when not outputting to STDOUT.
-#' @return Returns the extracted variants to STDOUT or to a file. 
+#' @param output_file Results will be output to this file
+#' @return Does not return any data object, but output results to output_file
 #' @examples
-#' extract_variants(vcf_file, sample)
 #' extract_variants_file(vcf_file, sample, output_file)
 
 #' @export
 #' @rdname extract_variants
-extract_variants = function(vcf_file, sample) {
-   sdfadfk{{{ 
+extract_variants = function(vcf_file, sample, output_file) {
+    
     # Source the Python script
-    source(system.file('python/extract_variants.py', package='CellAuthentication'))
-}
+    command = system.file('python/extract_variants.py', package='CellAuthentication')
 
-command = '/Users/erikfasterius/local/scripts/authentication/inst/python/extract_variants.py'
-args = c('/Users/erikfasterius/local/data/scrna/data/GSE75688/SRR2973353/03_variant_calling/SRR2973353.vcf', 'SRR2973353', 'test.output.txt')
-system2(command, args=args)
+    # Run Python code
+    system2(command, args=c(vcf_file, sample, output_file))
+
+}

@@ -14,6 +14,7 @@ parser.add_argument('-f', '--filter-depth', type=int, dest='filter_depth',
         default=10, help='filter variants with depth below <filter>')
 args = parser.parse_args()
 
+
 # Sample to extract from VCF
 sample = args.sample
 
@@ -23,6 +24,29 @@ if os.path.isfile(args.output):
 
 # Open output file for appending
 output_file = open(args.output, 'a')
+
+# Header row
+header = 'chr\t' + \
+    'pos\t' + \
+    'rsID\t' + \
+    'REF\t' + \
+    'ALT\t' + \
+    'gene\t' + \
+    'ENSGID\t' + \
+    'ENSTID\t' + \
+    'impact\t' + \
+    'effect\t' + \
+    'feature\t' + \
+    'biotype\t' + \
+    'DP\t' + \
+    'AD1\t' + \
+    'AD2\t' + \
+    'A1\t' + \
+    'A2\t' + \
+    'warnings\n'
+
+# Write header to file
+output_file.write(header)
 
 # Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))
@@ -37,11 +61,11 @@ for record in vcf_reader:
     # Collect genotype info (skip record if any is missing)
     try:
         gt = record.genotype(str(sample))['GT']
-        ad1 = record.genotype(str(sample))['AD']
+        ad = record.genotype(str(sample))['AD']
         dp = record.genotype(str(sample))['DP']
     except AttributeError:
         continue
-
+    
     # Collect annotation infor (skip record if missing)
     try:
         ann=record.INFO['ANN']
@@ -114,21 +138,19 @@ for record in vcf_reader:
                           str(pos) + "\t" + \
                           str(id) + "\t" +  \
                           str(ref) + "\t" + \
-                          str(alt) + "\t" + \
+                          str(alt[0]) + "\t" + \
                           str(gene) + "\t" + \
-                          str(enst) + "\t" + \
                           str(ensgid) + "\t" + \
+                          str(enst) + "\t" + \
                           str(impact) + "\t" + \
                           str(effect) + "\t" + \
                           str(feature) + "\t" + \
                           str(biotype) + "\t" + \
+                          str(dp) + "\t" + \
+                          str(ad[0]) + "\t" + \
+                          str(ad[1]) + "\t" + \
                           str(A1GT) + "\t" + \
                           str(A2GT) + "\t" + \
-                          str(dp) + "\t" + \
-                          str(filt) + "\t" + \
-                          str(ad1) + "\t" + \
-                          str(nucl) + "\t" + \
-                          str(aacid) + "\t" + \
                           str(warnings) + "\n"
 
                 # Write to file

@@ -53,10 +53,14 @@ vcf_reader = vcf.Reader(open(args.input, 'r'))
 
 for record in vcf_reader:
     ref=record.REF
-    alt=record.ALT
+    alt=str(record.ALT).strip('[]')
     id=record.ID
     chrom=record.CHROM
     pos=record.POS
+    
+    # Skip non-SNVs
+    if len(ref) > 1 or len(alt) > 1:
+        continue
 
     # Collect genotype info (skip record if any is missing)
     try:

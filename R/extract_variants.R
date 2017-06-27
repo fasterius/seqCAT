@@ -64,6 +64,10 @@ extract_variants = function(vcf_file,
         # Convert to data frame
         data = GenomicRanges::as.data.frame(gr)
 
+        # Remove non-SNVs
+        data = data[nchar(data$REF) == 1 &
+                    nchar(data$ALT) == 1, ]
+
         # Get rsIDs if existing
         data$rsID = row.names(data)
         data[!grepl('^rs[0-9]+', data$rsID), 'rsID'] = 'None'

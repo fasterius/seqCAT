@@ -26,7 +26,7 @@ extract_variants = function(vcf_file,
     if (python) {
 
         # Use Python
-        message('[Extracting with Python]')
+        message('[extracting with Python]')
 
         # Source the Python script
         command = system.file('python/extract_variants.py',

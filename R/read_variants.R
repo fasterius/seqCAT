@@ -14,26 +14,13 @@
 read_variants = function(file, sample_name) {
 
     # Read data
-    data = read.table(file, sep='\t', quote='\"', comment='', 
-                      stringsAsFactors=FALSE)
-
-    # Change column names
-    # TODO: fix the 'extract_variants.py' script to just give correct names
-    colnames = c('chr', 'pos', 'rsID', 'REF', 'ALT', 'gene', 'ENSTID', 'ENSGID',
-                 'impact', 'effect', 'feature.type', 'transcript.biotype', 
-                 'allele_1', 'allele_2','DP', 'filter', 'AD', 'nucleotide',
-                 'amino.acid', 'warnings')
-    names(data) = colnames
-    data$ALT = gsub('\\[|\\]', '', data$ALT)
+    data = read.table(file, sep='\t', header=TRUE, stringsAsFactors=FALSE)
 
     # Remove duplicate variants
     data = data[!duplicated(data[, c('chr', 'pos', 'ENSGID')]), ]
 
     # Add sample name
     data$sample = sample_name
-
-    # Remove indels
-    data = data[(nchar(data$allele_1) == 1 & nchar(data$allele_2) == 1), ]
 
     # Convert to GRanges object
     data.gr = GenomicRanges::makeGRangesFromDataFrame(

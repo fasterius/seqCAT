@@ -22,8 +22,11 @@ extract_variants = function(vcf_file,
                             filter_depth=10,
                             python=FALSE) {
     
-    # Extract using ...
-    if (python) { # ... Python
+    # Extract variants
+    if (python) {
+
+        # Use Python
+        message('[Extracting with Python]')
 
         # Source the Python script
         command = system.file('python/extract_variants.py',
@@ -33,7 +36,10 @@ extract_variants = function(vcf_file,
         system2(command, args=c(vcf_file, sample, output_file, '-f',
 				filter_depth))
 
-    } else { # ... R
+    } else {
+
+        # Use R
+        message('[extracting with R]')
 
         # Read VCF file
         vcf = VariantAnnotation::readVcf(vcf_file)

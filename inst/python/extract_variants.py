@@ -88,6 +88,12 @@ for record in vcf_reader:
     if filt != 'None':
         continue
 
+    # Make AD into list if only one value is available
+    try:
+        ad[0] = ad[0]
+    except TypeError:
+        ad = [ad, 0]
+
     if gt:
 
         gts = gt.split('/')

@@ -59,7 +59,7 @@ extract_variants = function(vcf_file,
         gr$FILTER = NULL
 
         # Remove variants below the given depth threshold
-        gr = gr[gr$DP >= filter_depth, ]
+        gr = gr[gr$DP >= filter_depth & !is.na(gr$DP), ]
 
         # Convert to data frame
         data = GenomicRanges::as.data.frame(gr)

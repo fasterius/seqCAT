@@ -11,7 +11,8 @@
 #' @param output_file Results will be output to this file
 #' @return Does not return any data object, but output results to output_file
 #' @examples
-#' extract_variants_file(vcf_file, sample, output_file)
+#' extract_variants_file(vcf_file, sample, output_file, filter_depth=10,
+#'                       python=FALSE)
 
 #' @export
 #' @rdname extract_variants

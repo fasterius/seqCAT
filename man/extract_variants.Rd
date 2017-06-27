@@ -4,17 +4,18 @@
 \alias{extract_variants}
 \title{Extract relevant variant information from a VCF file}
 \usage{
-extract_variants(vcf_file, sample)
+extract_variants(vcf_file, sample, output_file, filter_depth = 10,
+  python = FALSE)
 }
 \arguments{
 \item{vcf_file}{The VCF file from which variants will be extracted.}
 
 \item{sample}{The sample in the VCF that will be extracted.}
 
-\item{output_file}{File to store results in, when not outputting to STDOUT.}
+\item{output_file}{Results will be output to this file}
 }
 \value{
-Returns the extracted variants to STDOUT or to a file.
+Does not return any data object, but output results to output_file
 }
 \description{
 This function is a wrapper to the "extract_variants.py" Python script, which
@@ -24,6 +25,6 @@ which is especially relevant when more than one pairwise comparison will be
 performed on the same sample.
 }
 \examples{
-extract_variants(vcf_file, sample)
-extract_variants_file(vcf_file, sample, output_file)
+extract_variants_file(vcf_file, sample, output_file, filter_depth=10,
+                      python=FALSE)
 }

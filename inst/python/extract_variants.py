@@ -4,6 +4,7 @@
 import argparse
 import vcf
 import os.path
+import re
 
 # Argument parser
 parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF.')
@@ -13,7 +14,6 @@ parser.add_argument('output', type=str, help='output file path')
 parser.add_argument('-f', '--filter-depth', type=int, dest='filter_depth',
         default=10, help='filter variants with depth below <filter>')
 args = parser.parse_args()
-
 
 # Sample to extract from VCF
 sample = args.sample
@@ -29,11 +29,11 @@ output_file = open(args.output, 'a')
 header = 'chr\t' + \
     'pos\t' + \
     'rsID\t' + \
-    'REF\t' + \
-    'ALT\t' + \
     'gene\t' + \
     'ENSGID\t' + \
     'ENSTID\t' + \
+    'REF\t' + \
+    'ALT\t' + \
     'impact\t' + \
     'effect\t' + \
     'feature\t' + \
@@ -50,6 +50,11 @@ output_file.write(header)
 
 # Initialise set for unique lines
 unique_lines = set()
+
+# Function for ordering on columns
+def col_sort(string):
+    s = string.split('\t')
+    return s[0], int(s[1]), s[3].upper(), s[4], s[5], s[8], s[9], s[10]
 
 # Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))
@@ -150,11 +155,11 @@ for record in vcf_reader:
                 current = str(chrom) + "\t" + \
                           str(pos) + "\t" + \
                           str(id) + "\t" +  \
-                          str(ref) + "\t" + \
-                          str(alt[0]) + "\t" + \
                           str(gene) + "\t" + \
                           str(ensgid) + "\t" + \
                           str(enst) + "\t" + \
+                          str(ref) + "\t" + \
+                          str(alt[0]) + "\t" + \
                           str(impact) + "\t" + \
                           str(effect) + "\t" + \
                           str(feature) + "\t" + \
@@ -171,7 +176,7 @@ for record in vcf_reader:
                     unique_lines.add(current)
 
 # Sort and write to file
-output_file.writelines(sorted(unique_lines))
+output_file.writelines(sorted(unique_lines, key=col_sort))
 
 # Close output file
 output_file.close()

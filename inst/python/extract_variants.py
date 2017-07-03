@@ -4,7 +4,6 @@
 import argparse
 import vcf
 import os.path
-import re
 
 # Argument parser
 parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF.')
@@ -12,7 +11,7 @@ parser.add_argument('input', type=str, help='input VCF file path')
 parser.add_argument('sample', type=str, help='sample to extract')
 parser.add_argument('output', type=str, help='output file path')
 parser.add_argument('-f', '--filter-depth', type=int, dest='filter_depth',
-        default=10, help='filter variants with depth below <filter>')
+                    default=10, help='remove variants with DP below <filter>')
 args = parser.parse_args()
 
 # Sample to extract from VCF
@@ -51,12 +50,14 @@ output_file.write(header)
 # Initialise set for unique lines
 unique_lines = set()
 
+
 # Function for ordering on columns
 def col_sort(string):
     s = string.split('\t')
-    return [ s[0], int(s[1]), s[3].upper(), s[4].upper(),
-            s[5].upper().replace('.', ':'),
-            s[8].upper(), s[9].upper(), s[10].upper() ]
+    return [s[0].upper().replace('_', ' '), int(s[1]), s[3].upper(),
+            s[4].upper(), s[5].upper().replace('.', ':'),
+            s[8].upper(), s[9].upper(), s[10].upper()]
+
 
 # Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))

@@ -82,8 +82,8 @@ extract_variants = function(vcf_file,
 
         # Separate allelic depths
         data$AD = gsub('c\\(', '', gsub('\\)', '', data$AD))
-        data = tidyr::separate(data=data, col=AD,
-                               into=c('AD1', 'AD2'), remove=TRUE)
+        data = tidyr::separate(data=data, col=AD, into=c('AD1', 'AD2'), 
+                               remove=TRUE)
 
         # Add alleles
         data = tidyr::separate(data=data, col=GT, sep='/', into=c('A1', 'A2'),
@@ -121,9 +121,21 @@ extract_variants = function(vcf_file,
 
 			# Separate into columns
 			ann = tidyr::separate(as.data.frame(ann), col=ann, sep='\\|',
-				into=c('ALT', 'effect', 'impact', 'gene', 'ENSGID', 'feature',
-					   'ENSTID', 'biotype', 'rank', 'HGSV.c', 'HGSV.p',
-					   'cDNA.pos', 'CDS.pos', 'protein.pos', 'distance',
+				into=c('ALT',
+                       'effect',
+                       'impact',
+                       'gene',
+                       'ENSGID',
+                       'feature',
+					   'ENSTID',
+                       'biotype',
+                       'rank',
+                       'HGSV.c',
+                       'HGSV.p',
+					   'cDNA.pos',
+                       'CDS.pos',
+                       'protein.pos',
+                       'distance',
 					   'warnings'), remove=TRUE)
 
 			# Remove unwanted data columns
@@ -139,22 +151,24 @@ extract_variants = function(vcf_file,
 			# Keep only the highest impact SNV(s)
 			impacts = unique(ann$impact)
 			if ('HIGH' %in% impacts) {
-
 				ann = ann[ann$impact == 'HIGH', ]
-
 			} else if ('MODERATE' %in% impacts) {
-
 				ann = ann[ann$impact == 'MODERATE', ]
-
 			} else if ('LOW' %in% impacts) {
-
 				ann = ann[ann$impact == 'LOW', ]
-
 			}
 
 			# SNV data columns
-			data.cols = c('seqnames', 'start', 'rsID', 'REF', 'ALT', 'DP',
-						  'AD1', 'AD2', 'A1', 'A2')
+			data.cols = c('seqnames',
+                          'start',
+                          'rsID',
+                          'REF',
+                          'ALT',
+                          'DP',
+						  'AD1',
+                          'AD2',
+                          'A1',
+                          'A2')
 
 			# Add SNV data to each annotation
 			for (col in data.cols) {
@@ -167,10 +181,24 @@ extract_variants = function(vcf_file,
 		}
 
 		# Finalise output
-		results = results[c('seqnames', 'start', 'rsID', 'gene', 'ENSGID', 
-                            'ENSTID', 'REF', 'ALT', 'impact', 'effect',
-							'feature', 'biotype', 'DP', 'AD1', 'AD2', 'A1',
-							'A2', 'warnings')]
+		results = results[c('seqnames',
+                            'start',
+                            'rsID',
+                            'gene',
+                            'ENSGID', 
+                            'ENSTID',
+                            'REF',
+                            'ALT',
+                            'impact',
+                            'effect',
+							'feature',
+                            'biotype',
+                            'DP',
+                            'AD1',
+                            'AD2',
+                            'A1',
+							'A2',
+                            'warnings')]
 
 		names(results) = c('chr', 'pos', names(results)[3:18])
 
@@ -178,9 +206,12 @@ extract_variants = function(vcf_file,
         results = unique(results)
 
         # Sort output
-        results = results[order(as.character(results$chr), results$pos, 
-                                results$gene, results$ENSGID,
-                                gsub('\\:', '\\.', results$ENSTID), results$effect,
+        results = results[order(as.character(results$chr), 
+                                results$pos, 
+                                results$gene, 
+                                results$ENSGID,
+                                gsub('\\:', '\\.', results$ENSTID), 
+                                results$effect,
                                 results$feature, results$biotype), ]
 
 		# Write results to file

@@ -54,7 +54,9 @@ unique_lines = set()
 # Function for ordering on columns
 def col_sort(string):
     s = string.split('\t')
-    return s[0], int(s[1]), s[3].upper(), s[4], s[5], s[8], s[9], s[10]
+    return [ s[0], int(s[1]), s[3].upper(), s[4].upper(),
+            s[5].upper().replace('.', ':'),
+            s[8].upper(), s[9].upper(), s[10].upper() ]
 
 # Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))

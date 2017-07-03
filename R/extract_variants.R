@@ -178,6 +178,10 @@ extract_variants = function(vcf_file,
         # Remove duplicate rows (if present)
         results = unique(results)
 
+        # Sort output
+        results = results[order(results$chr, results$pos,
+                                results$ENSGID, results$ENSTID), ]
+
 		# Write results to file
 		write.table(results, output_file, sep='\t', row.names=FALSE, 
                     quote=FALSE)

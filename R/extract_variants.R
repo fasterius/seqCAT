@@ -175,6 +175,9 @@ extract_variants = function(vcf_file,
 
 		names(results) = c('chr', 'pos', names(results)[3:18])
 
+        # Remove duplicate rows (if present)
+        results = unique(results)
+
 		# Write results to file
 		write.table(results, output_file, sep='\t', row.names=FALSE, 
                     quote=FALSE)

@@ -168,8 +168,8 @@ extract_variants = function(vcf_file,
 		}
 
 		# Finalise output
-		results = results[c('seqnames', 'start', 'rsID', 'REF', 'ALT',
-							'gene', 'ENSGID', 'ENSTID', 'impact', 'effect',
+		results = results[c('seqnames', 'start', 'rsID', 'gene', 'ENSGID', 
+                            'ENSTID', 'REF', 'ALT', 'impact', 'effect',
 							'feature', 'biotype', 'DP', 'AD1', 'AD2', 'A1',
 							'A2', 'warnings')]
 

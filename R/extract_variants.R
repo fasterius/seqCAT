@@ -178,10 +178,10 @@ extract_variants = function(vcf_file,
         results = unique(results)
 
         # Sort output
-        results = results[order(as.character(results$chr), results$pos, results$gene,
-                                results$ENSGID, results$ENSTID, 
-                                results$effect, results$feature, 
-                                results$biotype), ]
+        results = results[order(as.character(results$chr), results$pos, 
+                                results$gene, results$ENSGID,
+                                gsub('\\:', '\\.', results$ENSTID), results$effect,
+                                results$feature, results$biotype), ]
 
 		# Write results to file
 		write.table(results, output_file, sep='\t', row.names=FALSE, 

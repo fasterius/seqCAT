@@ -7,13 +7,18 @@ Usage:
 
 Options:
     -h, --help                      show this help message
+    -v, --verbose                   verbose output [default: false]
     -s <name>, --sample_1 <name>    name of input sample 1 [default: sample_1]
     -S <name>, --sample_2 <name>    name of input sample 2 [default: sample_2]
 "
 opts = docopt::docopt(doc)
 
 # Load package
-library("CellAuthentication")
+if (opts$verbose) {
+    library("CellAuthentication")
+} else {
+    suppressPackageStartupMessages(library("CellAuthentication"))
+}
 
 # Read first variant dataset
 message(paste0('reading sample data "', basename(opts$input_1), '" ...'))

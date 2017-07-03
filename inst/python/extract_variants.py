@@ -2,8 +2,22 @@
 
 # Import modules
 import argparse
-import vcf
 import os.path
+import vcf
+
+
+# Sorting function
+def col_sort(string):
+    s = string.split('\t')
+    return [s[0].upper().replace('_', ' '),
+            int(s[1]),
+            s[3].upper(),
+            s[4].upper(),
+            s[5].upper().replace('.', ':'),
+            s[8].upper(),
+            s[9].upper(),
+            s[10].upper()]
+
 
 # Argument parser
 parser = argparse.ArgumentParser(epilog='Extracts variant data from a VCF.')
@@ -50,25 +64,22 @@ output_file.write(header)
 # Initialise set for unique lines
 unique_lines = set()
 
-
-# Function for ordering on columns
-def col_sort(string):
-    s = string.split('\t')
-    return [s[0].upper().replace('_', ' '), int(s[1]), s[3].upper(),
-            s[4].upper(), s[5].upper().replace('.', ':'),
-            s[8].upper(), s[9].upper(), s[10].upper()]
-
+# Priority list for impacts
+priority_list = ['MODIFIER', 'LOW', 'MODERATE', 'HIGH']
 
 # Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))
 
+# Read each record in the VCF file
 for record in vcf_reader:
-    ref=record.REF
-    alt=str(record.ALT).strip('[]')
-    id=record.ID
-    chrom=record.CHROM
-    pos=record.POS
-    
+
+    # Get record info
+    ref = record.REF
+    alt = str(record.ALT).strip('[]')
+    rsid = record.ID
+    chrom = record.CHROM
+    pos = record.POS
+
     # Skip non-SNVs
     if len(ref) > 1 or len(alt) > 1:
         continue
@@ -80,26 +91,26 @@ for record in vcf_reader:
         dp = record.genotype(str(sample))['DP']
     except AttributeError:
         continue
-    
+
     # Collect annotation infor (skip record if missing)
     try:
-        ann=record.INFO['ANN']
-        qual=record.QUAL
-        filt=record.FILTER
+        ann = record.INFO['ANN']
+        qual = record.QUAL
+        filt = record.FILTER
     except KeyError:
         continue
 
-    # Skip variant if below filtering depth
+    # Skip variant if filtering depth is below threshold
     if dp < args.filter_depth:
         continue
 
     # Get filter info
     if filt:
-         filt=filt[0]
+        filt = filt[0]
     else:
-         filt='None'
+        filt = 'None'
 
-    # Skip record if it's not passing filters
+    # Skip record if it doesn't pass filters
     if filt != 'None':
         continue
 
@@ -109,74 +120,66 @@ for record in vcf_reader:
     except TypeError:
         ad = [ad, 0]
 
-    if gt:
+    # Get genotypes
+    gts = gt.split('/')
+    A1 = gts[0]
+    A2 = gts[1]
 
-        gts = gt.split('/')
-        A1 = gts[0]
-        A2 = gts[1]
+    # First allele
+    if A1 == '0':
+        A1GT = ref
+    else:
+        A1GT = alt
 
-        if A1=='0':
-            A1GT=ref
-        else:
-            if A1=='1':
-                A1GT=alt[0]
-            else:
-                if A1=='2':
-                    A1GT=alt[1]
-                else:
-                    A1GT='NONE'
+    # Second allele
+    if A2 == '0':
+        A2GT = ref
+    else:
+        A2GT = alt
 
-        if A2=='0':
-           A2GT=ref
-        else:
-            if A2=='1':
-                A2GT=alt[0]
-            else:
-                if A2=='2':
-                    A2GT=alt[1]
-                else:
-                    A2GT='NONE'
+    # Collate record info to a set
+    result = ['%s %s %s %s %s %s %s %s %s %s' %
+              (line.split('|')[3], line.split('|')[4], line.split('|')[2],
+               line.split('|')[1], line.split('|')[5], line.split('|')[6],
+               line.split('|')[7], line.split('|')[9], line.split('|')[10],
+               line.split('|')[15]) for line in ann]
+    result = set(result)
 
-        result = ['%s %s %s %s %s %s %s %s %s %s' %
-            (line.split('|')[3], line.split('|')[4], line.split('|')[2],
-             line.split('|')[1], line.split('|')[5], line.split('|')[6],
-             line.split('|')[7], line.split('|')[9], line.split('|')[10],
-             line.split('|')[15]) for line in ann]
+    # Find the highest impact for the current record
+    max_index = -1
+    for line in result:
+        [gene, ensgid, impact, effect, feature, enst, biotype, nucl, aacid,
+            warnings] = line.split(' ')
+        max_index = max(max_index, priority_list.index(impact))
+    max_impact = priority_list[max_index]
 
-        result = set(result)
-        priority_list = list(reversed(['HIGH', 'MODERATE', 'LOW', 'MODIFIER']))
-        max_index = -1
+    # Add all unique highest impact lines to final set
+    for line in result:
+        [gene, ensgid, impact, effect, feature, enst, biotype, nucl, aacid,
+            warnings] = line.split(' ')
+        if impact == max_impact:
+            current = str(chrom) + "\t" + \
+                      str(pos) + "\t" + \
+                      str(rsid) + "\t" +  \
+                      str(gene) + "\t" + \
+                      str(ensgid) + "\t" + \
+                      str(enst) + "\t" + \
+                      str(ref) + "\t" + \
+                      str(alt[0]) + "\t" + \
+                      str(impact) + "\t" + \
+                      str(effect) + "\t" + \
+                      str(feature) + "\t" + \
+                      str(biotype) + "\t" + \
+                      str(dp) + "\t" + \
+                      str(ad[0]) + "\t" + \
+                      str(ad[1]) + "\t" + \
+                      str(A1GT) + "\t" + \
+                      str(A2GT) + "\t" + \
+                      str(warnings) + "\n"
 
-        for line in result:
-            gene, ensgid, impact, effect, feature, enst, biotype, nucl, aacid, warnings = line.split(' ')
-            max_index = max(max_index, priority_list.index(impact))
-        max_impact = priority_list[max_index]
-
-        for line in result:
-            gene, ensgid, impact, effect, feature, enst, biotype, nucl, aacid, warnings = line.split(' ')
-            if impact == max_impact:
-                current = str(chrom) + "\t" + \
-                          str(pos) + "\t" + \
-                          str(id) + "\t" +  \
-                          str(gene) + "\t" + \
-                          str(ensgid) + "\t" + \
-                          str(enst) + "\t" + \
-                          str(ref) + "\t" + \
-                          str(alt[0]) + "\t" + \
-                          str(impact) + "\t" + \
-                          str(effect) + "\t" + \
-                          str(feature) + "\t" + \
-                          str(biotype) + "\t" + \
-                          str(dp) + "\t" + \
-                          str(ad[0]) + "\t" + \
-                          str(ad[1]) + "\t" + \
-                          str(A1GT) + "\t" + \
-                          str(A2GT) + "\t" + \
-                          str(warnings) + "\n"
-
-                # Add to lines (if unique)
-                if current not in unique_lines:
-                    unique_lines.add(current)
+            # Add to final set (if unique)
+            if current not in unique_lines:
+                unique_lines.add(current)
 
 # Sort and write to file
 output_file.writelines(sorted(unique_lines, key=col_sort))

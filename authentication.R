@@ -26,8 +26,8 @@ data_2 = read_variants(opts$input_2, opts$sample_2)
 # Find overlaps between the variant sets
 data = variant_overlaps(data_1, data_2)
 
-# Filter variants
-data = filter_variants(data)
+# Find matching variants
+data = variant_matches(data)
 
 # Write output to file
 write.table(data, opts$output, sep='\t', na='', row.names=FALSE)

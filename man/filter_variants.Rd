@@ -4,13 +4,12 @@
 \alias{filter_variants}
 \title{Filter variants on specified criteria}
 \usage{
-filter_variants(variants, overlaps = TRUE)
+filter_variants(variants, filter_depth = 10)
 }
 \arguments{
 \item{variants}{The data frame containing the variant data to be filtered.}
 
-\item{overlaps}{Boolean that governs filtering on complete genotypes
-(enabled by default)}
+\item{filter_depth}{Threshold for variant depth (default 10)}
 }
 \value{
 A data frame containing the filtered variants.
@@ -18,9 +17,9 @@ A data frame containing the filtered variants.
 \description{
 This is a function for filtering variants on various criteria. Variants with
 a depth lower than 10 are removed, as are variants that don't have a
-complete genotype for both samples (by default).
+complete genotype for both samples.
 }
 \examples{
 filter_variants(data)
-filter_variants(data, overlaps = FALSE)
+filter_variants(data, filter_depth=20)
 }

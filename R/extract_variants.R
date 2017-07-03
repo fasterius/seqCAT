@@ -64,6 +64,10 @@ extract_variants = function(vcf_file,
         # Convert to data frame
         data = GenomicRanges::as.data.frame(gr)
 
+        # Remove non-SNVs
+        data = data[nchar(data$REF) == 1 &
+                    nchar(data$ALT) == 1, ]
+
         # Get rsIDs if existing
         data$rsID = row.names(data)
         data[!grepl('^rs[0-9]+', data$rsID), 'rsID'] = 'None'
@@ -77,10 +81,9 @@ extract_variants = function(vcf_file,
         data$QUAL = NULL
 
         # Separate allelic depths
-        data = tidyr::separate(data=data, col=AD, sep='\\,\\ ',
+        data$AD = gsub('c\\(', '', gsub('\\)', '', data$AD))
+        data = tidyr::separate(data=data, col=AD,
                                into=c('AD1', 'AD2'), remove=TRUE)
-		data$AD1 = gsub('c\\(', '', data$AD1)
-		data$AD2 = gsub('\\)', '', data$AD2)
 
         # Add alleles
         data = tidyr::separate(data=data, col=GT, sep='/', into=c('A1', 'A2'),
@@ -164,12 +167,21 @@ extract_variants = function(vcf_file,
 		}
 
 		# Finalise output
-		results = results[c('seqnames', 'start', 'rsID', 'REF', 'ALT',
-							'gene', 'ENSGID', 'ENSTID', 'impact', 'effect',
+		results = results[c('seqnames', 'start', 'rsID', 'gene', 'ENSGID', 
+                            'ENSTID', 'REF', 'ALT', 'impact', 'effect',
 							'feature', 'biotype', 'DP', 'AD1', 'AD2', 'A1',
 							'A2', 'warnings')]
 
 		names(results) = c('chr', 'pos', names(results)[3:18])
+
+        # Remove duplicate rows (if present)
+        results = unique(results)
+
+        # Sort output
+        results = results[order(as.character(results$chr), results$pos, 
+                                results$gene, results$ENSGID,
+                                gsub('\\:', '\\.', results$ENSTID), results$effect,
+                                results$feature, results$biotype), ]
 
 		# Write results to file
 		write.table(results, output_file, sep='\t', row.names=FALSE, 

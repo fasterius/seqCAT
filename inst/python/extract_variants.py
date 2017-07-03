@@ -48,6 +48,9 @@ header = 'chr\t' + \
 # Write header to file
 output_file.write(header)
 
+# Initialise set for unique lines
+unique_lines = set()
+
 # Open input VCF file
 vcf_reader = vcf.Reader(open(args.input, 'r'))
 
@@ -163,8 +166,12 @@ for record in vcf_reader:
                           str(A2GT) + "\t" + \
                           str(warnings) + "\n"
 
-                # Write to file
-                output_file.write(current)
+                # Add to lines (if unique)
+                if current not in unique_lines:
+                    unique_lines.add(current)
+
+# Sort and write to file
+output_file.writelines(sorted(unique_lines))
 
 # Close output file
 output_file.close()

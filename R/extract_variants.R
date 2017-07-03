@@ -81,10 +81,9 @@ extract_variants = function(vcf_file,
         data$QUAL = NULL
 
         # Separate allelic depths
-        data = tidyr::separate(data=data, col=AD, sep='\\,\\ ',
+        data$AD = gsub('c\\(', '', gsub('\\)', '', data$AD))
+        data = tidyr::separate(data=data, col=AD,
                                into=c('AD1', 'AD2'), remove=TRUE)
-		data$AD1 = gsub('c\\(', '', data$AD1)
-		data$AD2 = gsub('\\)', '', data$AD2)
 
         # Add alleles
         data = tidyr::separate(data=data, col=GT, sep='/', into=c('A1', 'A2'),
@@ -179,8 +178,10 @@ extract_variants = function(vcf_file,
         results = unique(results)
 
         # Sort output
-        results = results[order(results$chr, results$pos,
-                                results$ENSGID, results$ENSTID), ]
+        results = results[order(as.character(results$chr), results$pos, results$gene,
+                                results$ENSGID, results$ENSTID, 
+                                results$effect, results$feature, 
+                                results$biotype), ]
 
 		# Write results to file
 		write.table(results, output_file, sep='\t', row.names=FALSE, 

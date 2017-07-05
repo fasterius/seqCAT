@@ -21,14 +21,9 @@ variants_2 = read.table(extract, sep="\t", header=TRUE,
 file.remove(extract)
 
 # Tests
-test_that("extract_variants yields correct number of columns", {
-    expect_equal(ncol(variants_1), 18)
-    expect_equal(ncol(variants_2), 18)
-})
-
-test_that("extract_variants yields correct number of variants", {
-    expect_equal(nrow(variants_1), 433)
-    expect_equal(nrow(variants_2), 431)
+test_that("extract_variants yields correct dimensions", {
+    expect_equal(dim(variants_1), c(432, 18))
+    expect_equal(dim(variants_2), c(430, 18))
 })
 
 test_that("only variants passing the depth threshold are extracted", {

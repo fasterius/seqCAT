@@ -7,11 +7,13 @@ Description: The CellAuthentication package uses variant calling data (in the
     form of VCF files) from high throughput sequencing technologies to
     authenticate and validate the source, function and characteristics of
     biological samples used in scientific endeavours.
-Depends: 
+Depends:
     R (>= 3.3.1),
     VariantAnnotation(>= 1.20.3)
-Imports: 
+Imports:
     docopt (>= 0.4.5)
+Suggests:
+    testthat
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

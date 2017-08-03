@@ -6,7 +6,7 @@
 #' The add_metadata function is a function for adding metadata (i.e. any
 #' column that is not the "seqnames", "start" or "end" fields in a
 #' GenomicRanges object) from the "subject" GRanges object to the "query" 
-#' GRanges object. The variant_overlaps function, on the other hand, is a
+#' GRanges object. The overlap_variants function, on the other hand, is a
 #' wrapper function that calls add_metadata twice in succession, ensuring that
 #' even non-overlapping variants are included in the final result.
 #'
@@ -19,10 +19,10 @@
 #' @return Each function returns a single GRanges object.
 #' @examples
 #' add_metadata(data_first, data_second)
-#' variant_overlaps(data_first, data_second)
+#' overlap_variants(data_first, data_second)
 
 #' @export
-#' @rdname variant_overlaps
+#' @rdname overlap_variants
 add_metadata = function(query, subject, column_suffix) {
 
     # Find overlapping ranges
@@ -52,8 +52,8 @@ add_metadata = function(query, subject, column_suffix) {
 }
 
 #' @export
-#' @rdname variant_overlaps
-variant_overlaps = function(object_1, object_2) {
+#' @rdname overlap_variants
+overlap_variants = function(object_1, object_2) {
 
     # Find the union of all ranges in both objects
     union.gr = S4Vectors::union(object_1, object_2)

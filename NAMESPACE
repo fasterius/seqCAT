@@ -3,6 +3,6 @@
 export(add_metadata)
 export(extract_variants)
 export(filter_variants)
+export(overlap_variants)
 export(read_variants)
 export(variant_matches)
-export(variant_overlaps)

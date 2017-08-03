@@ -29,10 +29,10 @@ message(paste0('reading sample data "', basename(opts$input_2), '" ...'))
 data_2 = read_variants(opts$input_2, opts$sample_2)
 
 # Find overlaps between the variant sets
-data = variant_overlaps(data_1, data_2)
+data = overlap_variants(data_1, data_2)
 
 # Find matching variants
-data = variant_matches(data)
+data = compare_variants(data)
 
 # Write output to file
 write.table(data, opts$output, sep='\t', na='', row.names=FALSE)

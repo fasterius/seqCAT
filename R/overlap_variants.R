@@ -64,7 +64,11 @@ overlap_variants = function(object_1, object_2) {
 
     # Convert to data frame
     data = GenomicRanges::as.data.frame(union.gr)
+
+    # Remove non-complete genotypes
+    alleles = c("A1.input_1", "A2.input_1", "A1.input_2", "A2.input_2")
+    data = data[complete.cases(data[, alleles]), ]
     
-    # Return the final object as a data frame
+    # Return the final data frame
     return(data)
 }

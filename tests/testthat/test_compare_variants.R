@@ -1,0 +1,24 @@
+library("CellAuthentication")
+context("Compare variant genotypes")
+
+# Get variants
+file <- system.file("extdata",
+                    "overlaps.txt",
+                    package = "CellAuthentication")
+variants <- read.table(file,
+                       sep = "\t",
+                       header = TRUE,
+                       stringsAsFactors = FALSE)
+
+# Tests
+compared <- compare_variants(variants)
+test_that("correct number of matches and mismatches are found", {
+    expect_equal(nrow(compared), 51)
+    expect_equal(nrow(compared[compared$match == "match", ]), 38)
+    expect_equal(nrow(compared[compared$match == "mismatch", ]), 13)
+})
+
+alleles <- paste(c("A1", "A1", "A2", "A2"), c(sample_1, sample_2), sep=".")
+test_that("no missing genotypes are found", {
+    expect_equal(nrow(compared[complete.cases(compared[, alleles]), ]), 51)
+})

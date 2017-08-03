@@ -1,8 +1,8 @@
 #' Filter variants on specified criteria
 #'
-#' This is a function for filtering variants on various criteria. Variants with
-#' a depth lower than 10 are removed, as are variants that don't have a
-#' complete genotype for both samples. 
+#' This is a function for filtering variants on sequencing depth. Variants with
+#' a depth lower than 10 are removed by default, but can be changed in the
+#' function call.
 #'
 #' @param variants The data frame containing the variant data to be filtered.
 #' @param filter_depth Threshold for variant depth (default 10)
@@ -14,20 +14,13 @@
 #' @export
 filter_variants = function(variants, filter_depth=10) {
 
+    # Find sample names
+    sample_1 = unique(variants$sample_1)
+    sample_2 = unique(variants$sample_2)
+
     # Filter on sequencing depth
-    variants = variants[variants$DP.input_1 >= filter_depth & 
-                        variants$DP.input_2 >= filter_depth, ]
-
-    # Find variants that have complete genotypes in both samples
-    alleles = c('A1.input_1', 'A2.input_1', 
-                'A1.input_2', 'A2.input_2')
-        
-    # Find rows with data for both alleles
-    complete = row.names(
-        subset(variants,rowSums(is.na(variants[, alleles])) == 0))
-
-    # Remove non-complete genotypes
-    variants = variants[complete, ]
+    variants = variants[variants[[paste0("DP.", sample_1)]] >= filter_depth & 
+                        variants[[paste0("DP.", sample_2)]] >= filter_depth, ]
 
     # Return the filtered variants
     return(variants)

@@ -6,24 +6,22 @@
 #' The add_metadata function is a function for adding metadata (i.e. any
 #' column that is not the "seqnames", "start" or "end" fields in a
 #' GenomicRanges object) from the "subject" GRanges object to the "query" 
-#' GRanges object. The variant_overlaps function, on the other hand, is a
-#' wrapper function that calls add_metadata twice in succession, ensuring that
-#' even non-overlapping variants are included in the final result.
+#' GRanges object. The overlap_variants function, on the other hand, is a
+#' wrapper function that calls add_metadata twice in succession, to add named
+#' metadata to the intersection of variants between the two datasets.
 #'
-#' @param query The query to add subject metadata to.
-#' @param subject The subject whose metadata gets added to query.
-#' @param column_suffix A string which will be added to all the metadata
-#'     columns from the current add_metadata operation
 #' @param object_1 The first variant GRanges object.
 #' @param object_2 The second variant GRanges object.
-#' @return Each function returns a single GRanges object.
+#' @param sample_1 Name of the first sample.
+#' @param sample_2 Name of the second sample.
+#' @return A GRanges object.
 #' @examples
-#' add_metadata(data_first, data_second)
-#' variant_overlaps(data_first, data_second)
+#' overlap_variants(data_first, data_second, "first_sample", "second_sample")
 
-#' @export
-#' @rdname variant_overlaps
-add_metadata = function(query, subject, column_suffix) {
+#' @rdname overlap_variants
+add_metadata = function(query,
+                        subject,
+                        column_suffix) {
 
     # Find overlapping ranges
     hits = IRanges::findOverlaps(query, subject)
@@ -52,19 +50,39 @@ add_metadata = function(query, subject, column_suffix) {
 }
 
 #' @export
-#' @rdname variant_overlaps
-variant_overlaps = function(object_1, object_2) {
+#' @rdname overlap_variants
+overlap_variants = function(object_1,
+                            object_2,
+                            sample_1="sample_1",
+                            sample_2="sample_2") {
 
-    # Find the union of all ranges in both objects
-    union.gr = S4Vectors::union(object_1, object_2)
+    # Find the intersection of all ranges in both objects
+    intersect.gr = S4Vectors::intersect(object_1, object_2)
 
     # Add metadata from both objects to the union object
-    union.gr = add_metadata(union.gr, object_1, '.input_1')
-    union.gr = add_metadata(union.gr, object_2, '.input_2')
+    intersect.gr = add_metadata(intersect.gr, object_1, paste0(".", sample_1))
+    intersect.gr = add_metadata(intersect.gr, object_2, paste0(".", sample_2))
 
     # Convert to data frame
-    data = GenomicRanges::as.data.frame(union.gr)
+    data = GenomicRanges::as.data.frame(intersect.gr)
+
+    # Remove non-complete variants
+    alleles = paste(c("A1", "A1", "A2", "A2"), c(sample_1, sample_2), sep=".")
+    data = data[complete.cases(data[, alleles]), ]
+
+    # Add empty data frame with sample names if no variants overlap
+    if (nrow(data) == 0) {
+        data[1, "sample_1"] = sample_1
+        data[1, "sample_2"] = sample_2
+    } else {
+        data$sample_1 = sample_1
+        data$sample_2 = sample_2
+    }
     
-    # Return the final object as a data frame
+    # Remove redundant sample name columns
+    redundant = paste0("sample.", c(sample_1, sample_2))
+    data = data[!names(data) %in% redundant]
+
+    # Return the final data frame
     return(data)
 }

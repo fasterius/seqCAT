@@ -7,15 +7,19 @@ Usage:
 
 Options:
     -h, --help                      show this help message
-    -p, --python                    use python 
-                                        [default: false]
+    -p, --python                    use python [default: false]
+    -v, --verbose                   verbose output [default: false]
     -f <depth>, --filter <depth>    skip variants below <filter> depth 
                                         [default: 10]
 "
-opts <- docopt::docopt(doc)
+opts = docopt::docopt(doc)
 
 # Load package
-suppressPackageStartupMessages(library("CellAuthentication"))
+if (opts$verbose) {
+    library("CellAuthentication")
+} else {
+    suppressPackageStartupMessages(library("CellAuthentication"))
+}
 
 # Extract variants
 extract_variants(opts$vcf_file,

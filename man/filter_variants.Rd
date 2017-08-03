@@ -15,9 +15,9 @@ filter_variants(variants, filter_depth = 10)
 A data frame containing the filtered variants.
 }
 \description{
-This is a function for filtering variants on various criteria. Variants with
-a depth lower than 10 are removed, as are variants that don't have a
-complete genotype for both samples.
+This is a function for filtering variants on sequencing depth. Variants with
+a depth lower than 10 are removed by default, but can be changed in the
+function call.
 }
 \examples{
 filter_variants(data)

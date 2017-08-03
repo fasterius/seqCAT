@@ -67,7 +67,7 @@ overlap_variants = function(object_1,
     data = GenomicRanges::as.data.frame(intersect.gr)
 
     # Remove non-complete variants
-    alleles = paste(c("A1", "A2", "A1", "A2"), c(sample_1, sample_2), sep=".")
+    alleles = paste(c("A1", "A1", "A2", "A2"), c(sample_1, sample_2), sep=".")
     data = data[complete.cases(data[, alleles]), ]
 
     # Add empty data frame with sample names if no variants overlap

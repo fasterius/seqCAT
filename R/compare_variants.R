@@ -15,20 +15,15 @@
 compare_variants = function(data) {
 
     # Get sample names
-    sample_1 = unique(data$sample.input_1)
-    sample_2 = unique(data$sample.input_2)
+    sample_1 = unique(data$sample_1)
+    sample_2 = unique(data$sample_2)
 
-    # Specify columns containing the alleles
-    alleles = c('A1.input_1', 'A2.input_1', 'A1.input_2', 'A2.input_2')
+    # Find for overlapping variants with complete genotypes
+    alleles = paste(c("A1", "A2", "A1", "A2"), c(sample_1, sample_2), sep=".")
+    idx.notna = row.names(data[complete.cases(data[, alleles]), ])
 
-    # Find variants with full genotypes in both samples
-    idx.notna = row.names(subset(data, rowSums(is.na(data[, alleles])) == 0))
-
-    # Check if there are overlapping variants
-    if ( length(idx.notna) != 0 ) {  # At least one overlapping variant
-
-        # Remove non-overlapping variants
-        data = data[idx.notna, ]
+    # Check for matches if there are any overlapping variants
+    if ( length(idx.notna) != 0 ) {
 
         # Check for genotype matches
         data$match = 'mismatch'
@@ -46,13 +41,6 @@ compare_variants = function(data) {
                             function(x) x['in.1.rev'] %in% x['in.2'])
         data[idx.match.1, 'match'] = 'match'
         data[idx.match.2, 'match'] = 'match'
-
-    } else {  # No overlapping variants
-
-        # Re-introduce sample names
-        data[1, 'sample.input_1'] = sample_1
-        data[1, 'sample.input_2'] = sample_2
-
     }
 
     # Return the results

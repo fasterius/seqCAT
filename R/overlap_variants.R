@@ -72,10 +72,17 @@ overlap_variants = function(object_1,
 
     # Add empty data frame with sample names if no variants overlap
     if (nrow(data) == 0) {
-        data[1, paste0("sample.", sample_1)] = sample_1
-        data[1, paste0("sample.", sample_2)] = sample_2
+        data[1, "sample_1"] = sample_1
+        data[1, "sample_2"] = sample_2
+    } else {
+        data$sample_1 = sample_1
+        data$sample_2 = sample_2
     }
     
+    # Remove redundant sample name columns
+    redundant = paste0("sample.", c(sample_1, sample_2))
+    data = data[!names(data) %in% redundant]
+
     # Return the final data frame
     return(data)
 }

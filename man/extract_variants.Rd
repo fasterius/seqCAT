@@ -18,13 +18,14 @@ extract_variants(vcf_file, sample, output_file, filter_depth = 10,
 Does not return any data object, but output results to output_file
 }
 \description{
-This function is a wrapper to the "extract_variants.py" Python script, which
+This function is a wrapper to the 'extract_variants.py' Python script, which
 extracts relevant variant information from a VCF file. Extraction is
 performed to facilitate and accelerate the cell authentication procedures,
 which is especially relevant when more than one pairwise comparison will be
 performed on the same sample.
 }
 \examples{
-extract_variants_file(vcf_file, sample, output_file, filter_depth=10,
-                      python=FALSE)
+extract_variants_file(vcf_file, sample, output_file)
+extract_variants_file(vcf_file, sample, output_file, filter_depth = 15)
+extract_variants_file(vcf_file, sample, output_file, python = TRUE)
 }

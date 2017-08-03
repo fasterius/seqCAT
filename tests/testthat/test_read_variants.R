@@ -2,20 +2,35 @@ library("CellAuthentication")
 context("Read extracted variants")
 
 # Files
-file1 = system.file("extdata", "extract.sample1.txt", 
-                    package="CellAuthentication")
-file2 = system.file("extdata", "extract.sample2.txt", 
-                    package="CellAuthentication")
-file3 = system.file("extdata", "variants.sample1.txt",
-                    package="CellAuthentication")
-file4 = system.file("extdata", "variants.sample2.txt",
-                    package="CellAuthentication")
+file1 <- system.file("extdata",
+                     "extract.sample1.txt",
+                     package = "CellAuthentication")
+file2 <- system.file("extdata",
+                     "extract.sample2.txt",
+                     package = "CellAuthentication")
+file3 <- system.file("extdata",
+                     "variants.sample1.txt",
+                     package = "CellAuthentication")
+file4 <- system.file("extdata",
+                     "variants.sample2.txt",
+                     package = "CellAuthentication")
 
 # Read variants
-data1 = as.data.frame(read_variants(file1, "sample1"))
-data2 = as.data.frame(read_variants(file2, "sample2"))
-expected1 = read.table(file3, sep="\t", header=TRUE, stringsAsFactors=FALSE)
-expected2 = read.table(file4, sep="\t", header=TRUE, stringsAsFactors=FALSE)
+data1 <- as.data.frame(read_variants(file        = file1,
+                                     sample_name = "sample1"))
+
+data2 <- as.data.frame(read_variants(file        = file2,
+                                     sample_name = "sample2"))
+
+expected1 <- read.table(file             = file3,
+                        sep              = "\t",
+                        header           = TRUE,
+                        stringsAsFactors = FALSE)
+
+expected2 <- read.table(file             = file4,
+                        sep              = "\t",
+                        header           = TRUE,
+                        stringsAsFactors = FALSE)
 
 # Tests
 test_that("correct number of variants are read and de-duplicated", {

@@ -11,34 +11,37 @@
 #' read_variants('~/project/data/variants/extract.txt', 'HeLa')
 
 #' @export
-read_variants = function(file, sample_name) {
+read_variants <- function(file,
+                          sample_name) {
 
     # Read data
-    data = read.table(file, sep='\t', header=TRUE, stringsAsFactors=FALSE)
+    data <- read.table(file             = file,
+                       sep              = "\t",
+                       header           = TRUE,
+                       stringsAsFactors = FALSE)
 
     # Remove duplicate variants
-    data = data[!duplicated(data[, c('chr', 'pos', 'ENSGID')]), ]
+    data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
 
     # Add sample name
-    data$sample = sample_name
+    data$sample <- sample_name
 
     # Convert to GRanges object
-    data.gr = GenomicRanges::makeGRangesFromDataFrame(
-        data, 
-        keep.extra.columns=TRUE, 
-        ignore.strand=TRUE,
-        seqinfo=NULL, 
-        seqnames.field='chr',
-        start.field="pos",
-        end.field="pos",
-        starts.in.df.are.0based=FALSE)
+    data_gr <- GenomicRanges::makeGRangesFromDataFrame(data,
+        keep.extra.columns      = TRUE,
+        ignore.strand           = TRUE,
+        seqinfo                 = NULL,
+        seqnames.field          = "chr",
+        start.field             = "pos",
+        end.field               = "pos",
+        starts.in.df.are.0based = FALSE)
 
     # Rename and remove seqlevels
-    GenomeInfoDb::seqlevels(data.gr) = 
-        gsub("chr", "", GenomeInfoDb::seqlevels(data.gr))
-    data.gr = suppressWarnings(GenomeInfoDb::keepSeqlevels(
-        data.gr, c(as.character(1:22), 'X', 'Y')))
+    GenomeInfoDb::seqlevels(data_gr) <-
+        gsub("chr", "", GenomeInfoDb::seqlevels(data_gr))
+    data_gr <- suppressWarnings(GenomeInfoDb::keepSeqlevels(
+        data_gr, c(as.character(1:22), "X", "Y")))
 
     # Return the GenomicRanges object
-    return(data.gr)
+    return(data_gr)
 }

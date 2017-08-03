@@ -10,15 +10,15 @@ compare_variants(data)
 \item{data}{The dataframe to analyse.}
 }
 \value{
-A dataframe with an added "match" column
+A dataframe with an added 'match' column
 }
 \description{
 This is a function for comparing matching or mismatching variants across
 two samples contained in a single data frame.
 }
 \details{
-A new column ("match") will be added to the data frame, which indicates if
-each variant's genotype is a match or not (i.e. "match" or "mismatch").
+A new column ('match') will be added to the data frame, which indicates if
+each variant's genotype is a match or not (i.e. 'match' or 'mismatch').
 }
 \examples{
 compare_variants(variants.df)

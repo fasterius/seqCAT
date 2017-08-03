@@ -5,9 +5,10 @@ context("Optional filtration of overlapping variants")
 file <- system.file("extdata",
                     "overlaps.txt",
                     package = "CellAuthentication")
-variants <- read.table(file,
-                       sep = "\t",
-                       header = TRUE,
+
+variants <- read.table(file             = file,
+                       sep              = "\t",
+                       header           = TRUE,
                        stringsAsFactors = FALSE)
 
 # Tests

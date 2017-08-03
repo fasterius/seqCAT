@@ -9,18 +9,19 @@
 #' @return A data frame containing the filtered variants.
 #' @examples
 #' filter_variants(data)
-#' filter_variants(data, filter_depth=20)
+#' filter_variants(data, filter_depth = 20)
 
 #' @export
-filter_variants = function(variants, filter_depth=10) {
+filter_variants <- function(variants,
+                            filter_depth = 10) {
 
     # Find sample names
-    sample_1 = unique(variants$sample_1)
-    sample_2 = unique(variants$sample_2)
+    sample_1 <- unique(variants$sample_1)
+    sample_2 <- unique(variants$sample_2)
 
     # Filter on sequencing depth
-    variants = variants[variants[[paste0("DP.", sample_1)]] >= filter_depth & 
-                        variants[[paste0("DP.", sample_2)]] >= filter_depth, ]
+    variants <- variants[variants[[paste0("DP.", sample_1)]] >= filter_depth &
+                         variants[[paste0("DP.", sample_2)]] >= filter_depth, ]
 
     # Return the filtered variants
     return(variants)

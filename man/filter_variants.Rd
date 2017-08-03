@@ -21,5 +21,5 @@ function call.
 }
 \examples{
 filter_variants(data)
-filter_variants(data, filter_depth=20)
+filter_variants(data, filter_depth = 20)
 }

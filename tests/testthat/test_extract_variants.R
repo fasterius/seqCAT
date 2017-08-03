@@ -2,23 +2,37 @@ library("CellAuthentication")
 context("VCF variant extraction")
 
 # Files
-vcf_file = system.file("extdata", "example.vcf", package="CellAuthentication")
-extract = 'extract.txt'
+file <- system.file("extdata",
+                    "example.vcf",
+                    package = "CellAuthentication")
 
-# Extract variants (sample 1)
-suppressMessages(extract_variants(vcf_file, "sample1", extract,
-                                  filter_depth=10, python=FALSE))
-variants_1 = read.table(extract, sep="\t", header=TRUE,
-                      stringsAsFactors=FALSE)
+# Extract variants
+suppressMessages(extract_variants(vcf_file     = file,
+                                  sample       = "sample1",
+                                  output_file  = "extract_1.txt",
+                                  filter_depth = 10,
+                                  python       = FALSE))
 
-# Extract variants (sample 2)
-suppressMessages(extract_variants(vcf_file, "sample2", extract,
-                                  filter_depth=10, python=FALSE))
-variants_2 = read.table(extract, sep="\t", header=TRUE,
-                      stringsAsFactors=FALSE)
+suppressMessages(extract_variants(vcf_file     = file,
+                                  sample       = "sample2",
+                                  output_file  = "extract_2.txt",
+                                  filter_depth = 10,
+                                  python       = FALSE))
+
+# Read files
+variants_1 <- read.table(file             = "extract_1.txt",
+                         sep              = "\t",
+                         header           = TRUE,
+                         stringsAsFactors = FALSE)
+
+variants_2 <- read.table(file             = "extract_2.txt",
+                         sep              = "\t",
+                         header           = TRUE,
+                         stringsAsFactors = FALSE)
 
 # Remove extract file
-file.remove(extract)
+file.remove("extract_1.txt")
+file.remove("extract_2.txt")
 
 # Tests
 test_that("extract_variants yields correct dimensions", {

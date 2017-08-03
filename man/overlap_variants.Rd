@@ -7,22 +7,20 @@
 \usage{
 add_metadata(query, subject, column_suffix)
 
-overlap_variants(object_1, object_2)
+overlap_variants(object_1, object_2, sample_1 = "sample_1",
+  sample_2 = "sample_2")
 }
 \arguments{
-\item{query}{The query to add subject metadata to.}
-
-\item{subject}{The subject whose metadata gets added to query.}
-
-\item{column_suffix}{A string which will be added to all the metadata
-columns from the current add_metadata operation}
-
 \item{object_1}{The first variant GRanges object.}
 
 \item{object_2}{The second variant GRanges object.}
+
+\item{sample_1}{Name of the first sample.}
+
+\item{sample_2}{Name of the second sample.}
 }
 \value{
-Each function returns a single GRanges object.
+A GRanges object.
 }
 \description{
 This are functions for finding overlapping variants in two different
@@ -33,10 +31,9 @@ The add_metadata function is a function for adding metadata (i.e. any
 column that is not the "seqnames", "start" or "end" fields in a
 GenomicRanges object) from the "subject" GRanges object to the "query" 
 GRanges object. The overlap_variants function, on the other hand, is a
-wrapper function that calls add_metadata twice in succession, ensuring that
-even non-overlapping variants are included in the final result.
+wrapper function that calls add_metadata twice in succession, to add named
+metadata to the intersection of variants between the two datasets.
 }
 \examples{
-add_metadata(data_first, data_second)
-overlap_variants(data_first, data_second)
+overlap_variants(data_first, data_second, "first_sample", "second_sample")
 }

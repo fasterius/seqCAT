@@ -1,384 +1,384 @@
-seqnames	start	end	width	strand	rsID	gene	ENSGID	ENSTID	REF	ALT	impact	effect	feature	biotype	DP	AD1	AD2	A1	A2	warnings	sample
-1	16229	16229	1	*	None	DDX11L1	ENSG00000223972	ENST00000456328	C	A	MODIFIER	downstream_gene_variant	transcript	processed_transcript	27	21	6	C	A	NA	sample1
-1	16298	16298	1	*	rs200451305	DDX11L1	ENSG00000223972	ENST00000456328	C	T	MODIFIER	downstream_gene_variant	transcript	processed_transcript	19	8	11	C	T	NA	sample1
-1	16495	16495	1	*	rs141130360	DDX11L1	ENSG00000223972	ENST00000450305	G	C	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	33	24	9	G	C	NA	sample1
-1	16495	16495	1	*	rs141130360	WASH7P	ENSG00000227232	ENST00000423562	G	C	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	33	24	9	G	C	NA	sample1
-1	16534	16534	1	*	rs201459529	DDX11L1	ENSG00000223972	ENST00000450305	C	T	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	22	13	9	C	T	NA	sample1
-1	16534	16534	1	*	rs201459529	WASH7P	ENSG00000227232	ENST00000423562	C	T	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	22	13	9	C	T	NA	sample1
-1	16949	16949	1	*	rs199745162	DDX11L1	ENSG00000223972	ENST00000450305	A	C	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	23	18	5	A	C	NA	sample1
-1	16949	16949	1	*	rs199745162	WASH7P	ENSG00000227232	ENST00000423562	A	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	23	18	5	A	C	NA	sample1
-1	17716	17716	1	*	None	DDX11L1	ENSG00000223972	ENST00000450305	G	A	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	11	8	3	G	A	NA	sample1
-1	17716	17716	1	*	None	WASH7P	ENSG00000227232	ENST00000423562	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	11	8	3	G	A	NA	sample1
-1	20037	20037	1	*	None	WASH7P	ENSG00000227232	ENST00000423562	A	C	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	16	12	4	A	C	NA	sample1
-1	20245	20245	1	*	rs71262674	WASH7P	ENSG00000227232	ENST00000423562	G	A	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	33	26	7	G	A	NA	sample1
-1	20254	20254	1	*	None	WASH7P	ENSG00000227232	ENST00000423562	G	A	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	29	17	12	G	A	NA	sample1
-1	20467	20467	1	*	rs200424443	WASH7P	ENSG00000227232	ENST00000423562	C	T	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	12	8	4	C	T	NA	sample1
-1	20512	20512	1	*	rs201171480	WASH7P	ENSG00000227232	ENST00000423562	G	T	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	10	7	3	G	T	NA	sample1
-1	564598	564598	1	*	rs6594028	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	476	3	473	G	G	NA	sample1
-1	564598	564598	1	*	rs6594028	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
-1	564814	564814	1	*	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	65	40	25	G	A	NA	sample1
-1	564814	564814	1	*	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
-1	565406	565406	1	*	rs6594029	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	82	12	70	C	T	NA	sample1
-1	565406	565406	1	*	rs6594029	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
-1	565508	565508	1	*	rs9283150	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	15	0	15	A	A	NA	sample1
-1	565508	565508	1	*	rs9283150	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
-1	565541	565541	1	*	rs6594031	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	14	0	14	G	G	NA	sample1
-1	565541	565541	1	*	rs6594031	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
-1	565591	565591	1	*	rs7416152	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	46	2	44	T	T	NA	sample1
-1	565591	565591	1	*	rs7416152	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
-1	565697	565697	1	*	rs3021087	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	27	8	19	A	G	NA	sample1
-1	565697	565697	1	*	rs3021087	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
-1	566390	566390	1	*	rs7418044	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	10	0	10	C	C	NA	sample1
-1	566390	566390	1	*	rs7418044	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
-1	566573	566573	1	*	rs1856866	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	108	8	100	G	G	NA	sample1
-1	566573	566573	1	*	rs1856866	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
-1	566792	566792	1	*	rs9283152	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	11	0	11	C	C	NA	sample1
-1	566792	566792	1	*	rs9283152	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
-1	566816	566816	1	*	rs2185537	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	MTATP6P1	ENSG00000248527	ENST00000514057	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	MTATP8P1	ENSG00000240409	ENST00000467115	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	MTND1P23	ENSG00000225972	ENST00000416931	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	MTND2P28	ENSG00000225630	ENST00000457540	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	A	MODIFIER	intron_variant	transcript	lincRNA	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	64	0	64	A	A	NA	sample1
-1	566816	566816	1	*	rs2185537	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	71	0	71	A	A	NA	sample1
-1	566849	566849	1	*	rs2185538	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
-1	566916	566916	1	*	rs3949348	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	18	1	17	G	G	NA	sample1
-1	566916	566916	1	*	rs3949348	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	37	0	37	G	G	NA	sample1
-1	566933	566933	1	*	rs113120793	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
-1	566960	566960	1	*	rs2185540	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	29	0	29	C	C	NA	sample1
-1	566960	566960	1	*	rs2185540	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	45	0	45	C	C	NA	sample1
-1	567092	567092	1	*	rs9326622	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	MTATP6P1	ENSG00000248527	ENST00000514057	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	MTATP8P1	ENSG00000240409	ENST00000467115	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	MTND1P23	ENSG00000225972	ENST00000416931	A	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	MTND2P28	ENSG00000225630	ENST00000457540	A	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	C	MODIFIER	intron_variant	transcript	lincRNA	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	71	0	71	C	C	NA	sample1
-1	567119	567119	1	*	rs9283153	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
-1	567191	567191	1	*	rs2185541	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	351	1	350	T	T	NA	sample1
-1	567191	567191	1	*	rs2185541	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
-1	567242	567242	1	*	rs7518996	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	1717	75	1642	A	A	NA	sample1
-1	567242	567242	1	*	rs7518996	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
-1	567486	567486	1	*	rs1972377	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	125	2	123	C	C	NA	sample1
-1	567486	567486	1	*	rs1972377	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	150	6	144	C	C	NA	sample1
-1	567489	567489	1	*	rs1972378	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
-1	567579	567579	1	*	rs112232512	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	412	0	412	T	T	NA	sample1
-1	567579	567579	1	*	rs112232512	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
-1	567783	567783	1	*	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	181	19	162	C	C	NA	sample1
-1	567783	567783	1	*	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
-1	567825	567825	1	*	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	200	1	199	T	T	NA	sample1
-1	567825	567825	1	*	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
-1	567867	567867	1	*	rs2000096	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	208	19	189	G	G	NA	sample1
-1	567867	567867	1	*	rs2000096	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
-1	568201	568201	1	*	rs4098611	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	134	0	134	C	C	NA	sample1
-1	568201	568201	1	*	rs4098611	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
-1	568256	568256	1	*	rs4098612	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	68	0	68	T	T	NA	sample1
-1	568256	568256	1	*	rs4098612	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
-1	568322	568322	1	*	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	19	0	19	G	G	NA	sample1
-1	568322	568322	1	*	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
-1	568361	568361	1	*	rs4098613	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	46	3	43	C	C	NA	sample1
-1	568361	568361	1	*	rs4098613	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	40	2	38	C	C	NA	sample1
-1	568419	568419	1	*	rs3905037	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	101	0	101	C	C	NA	sample1
-1	568442	568442	1	*	rs7419218	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
-1	568463	568463	1	*	rs2153587	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	180	0	180	G	G	NA	sample1
-1	568463	568463	1	*	rs2153587	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
-1	568572	568572	1	*	rs7413388	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	24	0	24	A	A	NA	sample1
-1	568572	568572	1	*	rs7413388	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
-1	568616	568616	1	*	rs7411884	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	131	1	130	G	G	NA	sample1
-1	568616	568616	1	*	rs7411884	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
-1	569004	569004	1	*	rs9285835	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	13	0	13	C	C	NA	sample1
-1	569004	569004	1	*	rs9285835	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	12	0	12	C	C	NA	sample1
-1	569010	569010	1	*	rs9285836	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
-1	569052	569052	1	*	rs2153588	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	32	0	32	T	T	NA	sample1
-1	569052	569052	1	*	rs2153588	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
-1	569094	569094	1	*	rs9283154	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	68	2	66	G	G	NA	sample1
-1	569094	569094	1	*	rs9283154	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
-1	569204	569204	1	*	rs112660509	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	87	8	79	C	C	NA	sample1
-1	569204	569204	1	*	rs112660509	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
-1	569226	569226	1	*	rs6594032	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	MTATP6P1	ENSG00000248527	ENST00000514057	C	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	MTATP8P1	ENSG00000240409	ENST00000467115	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	MTND1P23	ENSG00000225972	ENST00000416931	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	MTND2P28	ENSG00000225630	ENST00000457540	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	A	MODIFIER	intron_variant	transcript	lincRNA	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	75	0	75	A	A	NA	sample1
-1	569226	569226	1	*	rs6594032	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	756	22	734	A	A	NA	sample1
-1	569267	569267	1	*	rs6650105	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+seqnames	start	end	rsID	gene	ENSGID	ENSTID	REF	ALT	impact	effect	feature	biotype	DP	AD1	AD2	A1	A2	warnings	sample
+1	16229	16229	None	DDX11L1	ENSG00000223972	ENST00000456328	C	A	MODIFIER	downstream_gene_variant	transcript	processed_transcript	27	21	6	C	A	NA	sample1
+1	16298	16298	rs200451305	DDX11L1	ENSG00000223972	ENST00000456328	C	T	MODIFIER	downstream_gene_variant	transcript	processed_transcript	19	8	11	C	T	NA	sample1
+1	16495	16495	rs141130360	DDX11L1	ENSG00000223972	ENST00000450305	G	C	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	33	24	9	G	C	NA	sample1
+1	16495	16495	rs141130360	WASH7P	ENSG00000227232	ENST00000423562	G	C	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	33	24	9	G	C	NA	sample1
+1	16534	16534	rs201459529	DDX11L1	ENSG00000223972	ENST00000450305	C	T	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	22	13	9	C	T	NA	sample1
+1	16534	16534	rs201459529	WASH7P	ENSG00000227232	ENST00000423562	C	T	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	22	13	9	C	T	NA	sample1
+1	16949	16949	rs199745162	DDX11L1	ENSG00000223972	ENST00000450305	A	C	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	23	18	5	A	C	NA	sample1
+1	16949	16949	rs199745162	WASH7P	ENSG00000227232	ENST00000423562	A	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	23	18	5	A	C	NA	sample1
+1	17716	17716	None	DDX11L1	ENSG00000223972	ENST00000450305	G	A	MODIFIER	downstream_gene_variant	transcript	transcribed_unprocessed_pseudogene	11	8	3	G	A	NA	sample1
+1	17716	17716	None	WASH7P	ENSG00000227232	ENST00000423562	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	11	8	3	G	A	NA	sample1
+1	20037	20037	None	WASH7P	ENSG00000227232	ENST00000423562	A	C	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	16	12	4	A	C	NA	sample1
+1	20245	20245	rs71262674	WASH7P	ENSG00000227232	ENST00000423562	G	A	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	33	26	7	G	A	NA	sample1
+1	20254	20254	None	WASH7P	ENSG00000227232	ENST00000423562	G	A	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	29	17	12	G	A	NA	sample1
+1	20467	20467	rs200424443	WASH7P	ENSG00000227232	ENST00000423562	C	T	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	12	8	4	C	T	NA	sample1
+1	20512	20512	rs201171480	WASH7P	ENSG00000227232	ENST00000423562	G	T	MODIFIER	intron_variant	transcript	unprocessed_pseudogene	10	7	3	G	T	NA	sample1
+1	564598	564598	rs6594028	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	476	3	473	G	G	NA	sample1
+1	564598	564598	rs6594028	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	476	3	473	G	G	NA	sample1
+1	564814	564814	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	564814	564814	None	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	564814	564814	None	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	564814	564814	None	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	564814	564814	None	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	564814	564814	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	564814	564814	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	65	40	25	G	A	NA	sample1
+1	564814	564814	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	65	40	25	G	A	NA	sample1
+1	564814	564814	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	65	40	25	G	A	NA	sample1
+1	565406	565406	rs6594029	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	82	12	70	C	T	NA	sample1
+1	565406	565406	rs6594029	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	82	12	70	C	T	NA	sample1
+1	565508	565508	rs9283150	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	15	0	15	A	A	NA	sample1
+1	565508	565508	rs9283150	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	15	0	15	A	A	NA	sample1
+1	565541	565541	rs6594031	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	14	0	14	G	G	NA	sample1
+1	565541	565541	rs6594031	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	14	0	14	G	G	NA	sample1
+1	565591	565591	rs7416152	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	46	2	44	T	T	NA	sample1
+1	565591	565591	rs7416152	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	2	44	T	T	NA	sample1
+1	565697	565697	rs3021087	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	27	8	19	A	G	NA	sample1
+1	565697	565697	rs3021087	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	27	8	19	A	G	NA	sample1
+1	566390	566390	rs7418044	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	10	0	10	C	C	NA	sample1
+1	566390	566390	rs7418044	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	10	0	10	C	C	NA	sample1
+1	566573	566573	rs1856866	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	108	8	100	G	G	NA	sample1
+1	566573	566573	rs1856866	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	108	8	100	G	G	NA	sample1
+1	566792	566792	rs9283152	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	11	0	11	C	C	NA	sample1
+1	566792	566792	rs9283152	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	11	0	11	C	C	NA	sample1
+1	566816	566816	rs2185537	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	MTATP6P1	ENSG00000248527	ENST00000514057	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	MTATP8P1	ENSG00000240409	ENST00000467115	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	MTND1P23	ENSG00000225972	ENST00000416931	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	MTND2P28	ENSG00000225630	ENST00000457540	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	A	MODIFIER	intron_variant	transcript	lincRNA	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	64	0	64	A	A	NA	sample1
+1	566816	566816	rs2185537	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	64	0	64	A	A	NA	sample1
+1	566849	566849	rs2185538	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	71	0	71	A	A	NA	sample1
+1	566849	566849	rs2185538	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	A	A	NA	sample1
+1	566916	566916	rs3949348	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	18	1	17	G	G	NA	sample1
+1	566916	566916	rs3949348	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	18	1	17	G	G	NA	sample1
+1	566933	566933	rs113120793	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	37	0	37	G	G	NA	sample1
+1	566933	566933	rs113120793	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	37	0	37	G	G	NA	sample1
+1	566960	566960	rs2185540	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	29	0	29	C	C	NA	sample1
+1	566960	566960	rs2185540	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	29	0	29	C	C	NA	sample1
+1	567092	567092	rs9326622	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	45	0	45	C	C	NA	sample1
+1	567092	567092	rs9326622	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	45	0	45	C	C	NA	sample1
+1	567119	567119	rs9283153	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	MTATP6P1	ENSG00000248527	ENST00000514057	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	MTATP8P1	ENSG00000240409	ENST00000467115	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	MTND1P23	ENSG00000225972	ENST00000416931	A	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	MTND2P28	ENSG00000225630	ENST00000457540	A	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	C	MODIFIER	intron_variant	transcript	lincRNA	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	71	0	71	C	C	NA	sample1
+1	567119	567119	rs9283153	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	71	0	71	C	C	NA	sample1
+1	567191	567191	rs2185541	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	351	1	350	T	T	NA	sample1
+1	567191	567191	rs2185541	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	351	1	350	T	T	NA	sample1
+1	567242	567242	rs7518996	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	1717	75	1642	A	A	NA	sample1
+1	567242	567242	rs7518996	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	1717	75	1642	A	A	NA	sample1
+1	567486	567486	rs1972377	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	125	2	123	C	C	NA	sample1
+1	567486	567486	rs1972377	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	125	2	123	C	C	NA	sample1
+1	567489	567489	rs1972378	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	150	6	144	C	C	NA	sample1
+1	567489	567489	rs1972378	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	150	6	144	C	C	NA	sample1
+1	567579	567579	rs112232512	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	412	0	412	T	T	NA	sample1
+1	567579	567579	rs112232512	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	412	0	412	T	T	NA	sample1
+1	567783	567783	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567783	567783	None	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567783	567783	None	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567783	567783	None	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567783	567783	None	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567783	567783	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567783	567783	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	181	19	162	C	C	NA	sample1
+1	567783	567783	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	181	19	162	C	C	NA	sample1
+1	567783	567783	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	181	19	162	C	C	NA	sample1
+1	567825	567825	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567825	567825	None	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567825	567825	None	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567825	567825	None	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567825	567825	None	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567825	567825	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567825	567825	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	200	1	199	T	T	NA	sample1
+1	567825	567825	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	200	1	199	T	T	NA	sample1
+1	567825	567825	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	200	1	199	T	T	NA	sample1
+1	567867	567867	rs2000096	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	208	19	189	G	G	NA	sample1
+1	567867	567867	rs2000096	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	208	19	189	G	G	NA	sample1
+1	568201	568201	rs4098611	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	134	0	134	C	C	NA	sample1
+1	568201	568201	rs4098611	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	134	0	134	C	C	NA	sample1
+1	568256	568256	rs4098612	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	68	0	68	T	T	NA	sample1
+1	568256	568256	rs4098612	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	68	0	68	T	T	NA	sample1
+1	568322	568322	None	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568322	568322	None	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568322	568322	None	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568322	568322	None	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568322	568322	None	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568322	568322	None	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568322	568322	None	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	19	0	19	G	G	NA	sample1
+1	568322	568322	None	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	19	0	19	G	G	NA	sample1
+1	568322	568322	None	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	19	0	19	G	G	NA	sample1
+1	568361	568361	rs4098613	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	46	3	43	C	C	NA	sample1
+1	568361	568361	rs4098613	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	46	3	43	C	C	NA	sample1
+1	568419	568419	rs3905037	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	40	2	38	C	C	NA	sample1
+1	568419	568419	rs3905037	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	40	2	38	C	C	NA	sample1
+1	568442	568442	rs7419218	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	101	0	101	C	C	NA	sample1
+1	568442	568442	rs7419218	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	101	0	101	C	C	NA	sample1
+1	568463	568463	rs2153587	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	180	0	180	G	G	NA	sample1
+1	568463	568463	rs2153587	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	180	0	180	G	G	NA	sample1
+1	568572	568572	rs7413388	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	24	0	24	A	A	NA	sample1
+1	568572	568572	rs7413388	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	24	0	24	A	A	NA	sample1
+1	568616	568616	rs7411884	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	131	1	130	G	G	NA	sample1
+1	568616	568616	rs7411884	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	131	1	130	G	G	NA	sample1
+1	569004	569004	rs9285835	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	13	0	13	C	C	NA	sample1
+1	569004	569004	rs9285835	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	13	0	13	C	C	NA	sample1
+1	569010	569010	rs9285836	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	12	0	12	C	C	NA	sample1
+1	569010	569010	rs9285836	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	12	0	12	C	C	NA	sample1
+1	569052	569052	rs2153588	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	MTATP6P1	ENSG00000248527	ENST00000514057	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	MTATP8P1	ENSG00000240409	ENST00000467115	C	T	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	MTND1P23	ENSG00000225972	ENST00000416931	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	MTND2P28	ENSG00000225630	ENST00000457540	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	T	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	T	MODIFIER	intron_variant	transcript	lincRNA	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	T	MODIFIER	upstream_gene_variant	transcript	lincRNA	32	0	32	T	T	NA	sample1
+1	569052	569052	rs2153588	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	T	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	32	0	32	T	T	NA	sample1
+1	569094	569094	rs9283154	hsa-mir-6723	ENSG00000237973	ENST00000414273	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	MTATP6P1	ENSG00000248527	ENST00000514057	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	MTATP8P1	ENSG00000240409	ENST00000467115	A	G	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	MTND1P23	ENSG00000225972	ENST00000416931	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	MTND2P28	ENSG00000225630	ENST00000457540	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	RP5-857K21.11	ENSG00000198744	ENST00000416718	A	G	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	RP5-857K21.4	ENSG00000230021	ENST00000440200	A	G	MODIFIER	intron_variant	transcript	lincRNA	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	RP5-857K21.5	ENSG00000223659	ENST00000452176	A	G	MODIFIER	upstream_gene_variant	transcript	lincRNA	68	2	66	G	G	NA	sample1
+1	569094	569094	rs9283154	RP5-857K21.7	ENSG00000229344	ENST00000427426	A	G	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	68	2	66	G	G	NA	sample1
+1	569204	569204	rs112660509	hsa-mir-6723	ENSG00000237973	ENST00000414273	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	MTATP6P1	ENSG00000248527	ENST00000514057	T	C	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	MTATP8P1	ENSG00000240409	ENST00000467115	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	MTND1P23	ENSG00000225972	ENST00000416931	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	MTND2P28	ENSG00000225630	ENST00000457540	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	RP5-857K21.11	ENSG00000198744	ENST00000416718	T	C	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	RP5-857K21.4	ENSG00000230021	ENST00000440200	T	C	MODIFIER	intron_variant	transcript	lincRNA	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	RP5-857K21.5	ENSG00000223659	ENST00000452176	T	C	MODIFIER	upstream_gene_variant	transcript	lincRNA	87	8	79	C	C	NA	sample1
+1	569204	569204	rs112660509	RP5-857K21.7	ENSG00000229344	ENST00000427426	T	C	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	87	8	79	C	C	NA	sample1
+1	569226	569226	rs6594032	hsa-mir-6723	ENSG00000237973	ENST00000414273	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	MTATP6P1	ENSG00000248527	ENST00000514057	C	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	MTATP8P1	ENSG00000240409	ENST00000467115	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	MTND1P23	ENSG00000225972	ENST00000416931	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	MTND2P28	ENSG00000225630	ENST00000457540	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	RP5-857K21.11	ENSG00000198744	ENST00000416718	C	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	RP5-857K21.4	ENSG00000230021	ENST00000440200	C	A	MODIFIER	intron_variant	transcript	lincRNA	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	RP5-857K21.5	ENSG00000223659	ENST00000452176	C	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	75	0	75	A	A	NA	sample1
+1	569226	569226	rs6594032	RP5-857K21.7	ENSG00000229344	ENST00000427426	C	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	75	0	75	A	A	NA	sample1
+1	569267	569267	rs6650105	hsa-mir-6723	ENSG00000237973	ENST00000414273	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	MTATP6P1	ENSG00000248527	ENST00000514057	G	A	MODIFIER	non_coding_exon_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	MTATP8P1	ENSG00000240409	ENST00000467115	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	MTND1P23	ENSG00000225972	ENST00000416931	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	MTND2P28	ENSG00000225630	ENST00000457540	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	RP5-857K21.11	ENSG00000198744	ENST00000416718	G	A	MODIFIER	upstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	RP5-857K21.4	ENSG00000230021	ENST00000440200	G	A	MODIFIER	intron_variant	transcript	lincRNA	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	RP5-857K21.5	ENSG00000223659	ENST00000452176	G	A	MODIFIER	upstream_gene_variant	transcript	lincRNA	756	22	734	A	A	NA	sample1
+1	569267	569267	rs6650105	RP5-857K21.7	ENSG00000229344	ENST00000427426	G	A	MODIFIER	downstream_gene_variant	transcript	unprocessed_pseudogene	756	22	734	A	A	NA	sample1

@@ -7,21 +7,15 @@
 #' column that is not the "seqnames", "start" or "end" fields in a
 #' GenomicRanges object) from the "subject" GRanges object to the "query" 
 #' GRanges object. The overlap_variants function, on the other hand, is a
-#' wrapper function that calls add_metadata twice in succession, ensuring that
-#' even non-overlapping variants are included in the final result.
+#' wrapper function that calls add_metadata twice in succession, to add named
+#' metadata to the intersection of variants between the two datasets.
 #'
-#' @param query The query to add subject metadata to.
-#' @param subject The subject whose metadata gets added to query.
-#' @param column_suffix A string which will be added to all the metadata
-#'     columns from the current add_metadata operation
 #' @param object_1 The first variant GRanges object.
 #' @param object_2 The second variant GRanges object.
-#' @return Each function returns a single GRanges object.
+#' @return A GRanges object.
 #' @examples
-#' add_metadata(data_first, data_second)
 #' overlap_variants(data_first, data_second)
 
-#' @export
 #' @rdname overlap_variants
 add_metadata = function(query, subject, column_suffix) {
 
@@ -55,17 +49,17 @@ add_metadata = function(query, subject, column_suffix) {
 #' @rdname overlap_variants
 overlap_variants = function(object_1, object_2) {
 
-    # Find the union of all ranges in both objects
-    union.gr = S4Vectors::union(object_1, object_2)
+    # Find the intersection of all ranges in both objects
+    intersect.gr = S4Vectors::intersect(object_1, object_2)
 
     # Add metadata from both objects to the union object
-    union.gr = add_metadata(union.gr, object_1, '.input_1')
-    union.gr = add_metadata(union.gr, object_2, '.input_2')
+    intersect.gr = add_metadata(intersect.gr, object_1, '.input_1')
+    intersect.gr = add_metadata(intersect.gr, object_2, '.input_2')
 
     # Convert to data frame
-    data = GenomicRanges::as.data.frame(union.gr)
+    data = GenomicRanges::as.data.frame(intersect.gr)
 
-    # Remove non-complete genotypes
+    # Remove non-complete variants
     alleles = c("A1.input_1", "A2.input_1", "A1.input_2", "A2.input_2")
     data = data[complete.cases(data[, alleles]), ]
     

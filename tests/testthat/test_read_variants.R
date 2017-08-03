@@ -18,7 +18,7 @@ expected1 = read.table(file3, sep="\t", header=TRUE, stringsAsFactors=FALSE)
 expected2 = read.table(file4, sep="\t", header=TRUE, stringsAsFactors=FALSE)
 
 # Tests
-test_that("variants are correctly de-duplicated", {
+test_that("correct number of variants are read and de-duplicated", {
     expect_equal(nrow(unique(data1[c("seqnames", "start", "ENSGID")])), 383)
     expect_equal(nrow(unique(data2[c("seqnames", "start", "ENSGID")])), 382)
 })

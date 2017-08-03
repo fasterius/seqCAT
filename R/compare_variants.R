@@ -1,18 +1,18 @@
 #' Find matching variants in a data frame.
 #'
-#' This is a function for finding matching or mismatching variants across
+#' This is a function for comparing matching or mismatching variants across
 #' two samples contained in a single data frame.
 #'
 #' A new column ("match") will be added to the data frame, which indicates if
-#' each variant is a perfect match or not (i.e. "match" or "mismatch").
+#' each variant's genotype is a match or not (i.e. "match" or "mismatch").
 #'
 #' @param data The dataframe to analyse.
 #' @return A dataframe with an added "match" column
 #' @examples
-#' variant_matches(variants.df)
+#' compare_variants(variants.df)
 
 #' @export
-variant_matches = function(data) {
+compare_variants = function(data) {
 
     # Get sample names
     sample_1 = unique(data$sample.input_1)

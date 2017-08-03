@@ -12,12 +12,16 @@
 #'
 #' @param object_1 The first variant GRanges object.
 #' @param object_2 The second variant GRanges object.
+#' @param sample_1 Name of the first sample.
+#' @param sample_2 Name of the second sample.
 #' @return A GRanges object.
 #' @examples
-#' overlap_variants(data_first, data_second)
+#' overlap_variants(data_first, data_second, "first_sample", "second_sample")
 
 #' @rdname overlap_variants
-add_metadata = function(query, subject, column_suffix) {
+add_metadata = function(query,
+                        subject,
+                        column_suffix) {
 
     # Find overlapping ranges
     hits = IRanges::findOverlaps(query, subject)
@@ -47,21 +51,30 @@ add_metadata = function(query, subject, column_suffix) {
 
 #' @export
 #' @rdname overlap_variants
-overlap_variants = function(object_1, object_2) {
+overlap_variants = function(object_1,
+                            object_2,
+                            sample_1="sample_1",
+                            sample_2="sample_2") {
 
     # Find the intersection of all ranges in both objects
     intersect.gr = S4Vectors::intersect(object_1, object_2)
 
     # Add metadata from both objects to the union object
-    intersect.gr = add_metadata(intersect.gr, object_1, '.input_1')
-    intersect.gr = add_metadata(intersect.gr, object_2, '.input_2')
+    intersect.gr = add_metadata(intersect.gr, object_1, paste0(".", sample_1))
+    intersect.gr = add_metadata(intersect.gr, object_2, paste0(".", sample_2))
 
     # Convert to data frame
     data = GenomicRanges::as.data.frame(intersect.gr)
 
     # Remove non-complete variants
-    alleles = c("A1.input_1", "A2.input_1", "A1.input_2", "A2.input_2")
+    alleles = paste(c("A1", "A2", "A1", "A2"), c(sample_1, sample_2), sep=".")
     data = data[complete.cases(data[, alleles]), ]
+
+    # Add empty data frame with sample names if no variants overlap
+    if (nrow(data) == 0) {
+        data[1, paste0("sample.", sample_1)] = sample_1
+        data[1, paste0("sample.", sample_2)] = sample_2
+    }
     
     # Return the final data frame
     return(data)

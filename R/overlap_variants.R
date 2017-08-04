@@ -1,58 +1,23 @@
 #' Find overlapping variants in two GenomicRanges objects.
 #'
-#' This are functions for finding overlapping variants in two different
-#' GenomicRanges objects, returning another GRanges object.
+#' This is a function for finding overlapping variants in two different
+#' GenomicRanges objects.
 #'
-#' The add_metadata function is a function for adding metadata (i.e. any
-#' column that is not the "seqnames", "start" or "end" fields in a
-#' GenomicRanges object) from the "subject" GRanges object to the "query" 
-#' GRanges object. The overlap_variants function, on the other hand, is a
-#' wrapper function that calls add_metadata twice in succession, to add named
-#' metadata to the intersection of variants between the two datasets.
-#'
+#' The overlap_variants function is a wrapper function that adds metadata to an
+#' intersection of two GRanges objects twice, in order to merge the metadata
+#' for those overlapping variants, returning a data frame.
+
+#' @export
+#' @rdname overlap_variants
 #' @param object_1 The first variant GRanges object.
 #' @param object_2 The second variant GRanges object.
 #' @param sample_1 Name of the first sample.
 #' @param sample_2 Name of the second sample.
-#' @return A GRanges object.
+#' @return A data frame.
 #' @examples
 #' data(granges_1)
 #' data(granges_2)
 #' overlap_variants(granges_1, granges_2, "sample1", "sample2")
-
-#' @rdname overlap_variants
-add_metadata <- function(query,
-                         subject,
-                         column_suffix) {
-
-    # Find overlapping ranges
-    hits <- IRanges::findOverlaps(query, subject)
-
-    for (column in names(S4Vectors::mcols(subject))) {
-
-        # Create empty metadata column to be filled
-        S4Vectors::mcols(query)[paste(column, column_suffix, sep = "")] <- NA
-
-        # Convert DNAStringSet / DNAStringSetList columns to character vectors
-        if (class(S4Vectors::mcols(subject)[[column]])[1] == "DNAStringSet") {
-          S4Vectors::mcols(subject)[column] <-
-              as.character(S4Vectors::mcols(subject)[[column]])
-        } else if (class(S4Vectors::mcols(subject)[[column]])[1] ==
-                   "DNAStringSetList") {
-          S4Vectors::mcols(subject)[column] <-
-            unstrsplit(CharacterList(S4Vectors::mcols(subject)[[column]]))
-        }
-
-    # Add subject metadata to query
-    S4Vectors::mcols(query)[S4Vectors::queryHits(hits),
-                            paste(column, column_suffix, sep = "")] <-
-      S4Vectors::mcols(subject)[S4Vectors::subjectHits(hits), column]
-    }
-    return(query)
-}
-
-#' @export
-#' @rdname overlap_variants
 overlap_variants <- function(object_1,
                              object_2,
                              sample_1 = "sample_1",
@@ -89,4 +54,36 @@ overlap_variants <- function(object_1,
 
     # Return the final data frame
     return(data)
+}
+
+# Function for adding metadata from a GRanges <subject> to a GRanges <query>,
+# while adding <column_suffix> to the added metadata columns.
+add_metadata <- function(query,
+                         subject,
+                         column_suffix) {
+
+    # Find overlapping ranges
+    hits <- IRanges::findOverlaps(query, subject)
+
+    for (column in names(S4Vectors::mcols(subject))) {
+
+        # Create empty metadata column to be filled
+        S4Vectors::mcols(query)[paste(column, column_suffix, sep = "")] <- NA
+
+        # Convert DNAStringSet / DNAStringSetList columns to character vectors
+        if (class(S4Vectors::mcols(subject)[[column]])[1] == "DNAStringSet") {
+          S4Vectors::mcols(subject)[column] <-
+              as.character(S4Vectors::mcols(subject)[[column]])
+        } else if (class(S4Vectors::mcols(subject)[[column]])[1] ==
+                   "DNAStringSetList") {
+          S4Vectors::mcols(subject)[column] <-
+            unstrsplit(CharacterList(S4Vectors::mcols(subject)[[column]]))
+        }
+
+    # Add subject metadata to query
+    S4Vectors::mcols(query)[S4Vectors::queryHits(hits),
+                            paste(column, column_suffix, sep = "")] <-
+      S4Vectors::mcols(subject)[S4Vectors::subjectHits(hits), column]
+    }
+    return(query)
 }

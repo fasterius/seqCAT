@@ -21,5 +21,6 @@ A new column ('match') will be added to the data frame, which indicates if
 each variant's genotype is a match or not (i.e. 'match' or 'mismatch').
 }
 \examples{
-compare_variants(variants.df)
+data(overlaps)
+compare_variants(overlaps)
 }

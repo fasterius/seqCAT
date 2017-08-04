@@ -8,11 +8,13 @@
 #' @param sample_name The sample name from which the file originates.
 #' @return A GenomicRanges object.
 #' @examples
-#' read_variants('~/project/data/variants/extract.txt', 'HeLa')
+#' extract = system.file("extdata",
+#'                       "extract.sample.1.txt",
+#'                       package = "CellAuthentication")
+#' read_variants(extract, 'sample1')
 
 #' @export
-read_variants <- function(file,
-                          sample_name) {
+read_variants <- function(file, sample_name) {
 
     # Read data
     data <- read.table(file             = file,

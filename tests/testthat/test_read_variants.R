@@ -1,44 +1,27 @@
 library("CellAuthentication")
 context("Read extracted variants")
 
-# Files
-file1 <- system.file("extdata",
-                     "extract.sample1.txt",
-                     package = "CellAuthentication")
-file2 <- system.file("extdata",
-                     "extract.sample2.txt",
-                     package = "CellAuthentication")
-file3 <- system.file("extdata",
-                     "variants.sample1.txt",
-                     package = "CellAuthentication")
-file4 <- system.file("extdata",
-                     "variants.sample2.txt",
-                     package = "CellAuthentication")
-
 # Read variants
-data1 <- as.data.frame(read_variants(file        = file1,
-                                     sample_name = "sample1"))
+file_1 <- system.file("extdata",
+                      "extract.sample1.txt",
+                      package = "CellAuthentication")
+file_2 <- system.file("extdata",
+                      "extract.sample2.txt",
+                      package = "CellAuthentication")
 
-data2 <- as.data.frame(read_variants(file        = file2,
-                                     sample_name = "sample2"))
+data_1 <- as.data.frame(read_variants(file        = file_1,
+                                      sample_name = "sample1"))
 
-expected1 <- read.table(file             = file3,
-                        sep              = "\t",
-                        header           = TRUE,
-                        stringsAsFactors = FALSE)
-
-expected2 <- read.table(file             = file4,
-                        sep              = "\t",
-                        header           = TRUE,
-                        stringsAsFactors = FALSE)
+data_2 <- as.data.frame(read_variants(file        = file_2,
+                                      sample_name = "sample2"))
 
 # Tests
 test_that("correct number of variants are read and de-duplicated", {
-    expect_equal(nrow(unique(data1[c("seqnames", "start", "ENSGID")])), 383)
-    expect_equal(nrow(unique(data2[c("seqnames", "start", "ENSGID")])), 382)
+    expect_equal(nrow(unique(data_1[c("seqnames", "start", "ENSGID")])), 383)
+    expect_equal(nrow(unique(data_2[c("seqnames", "start", "ENSGID")])), 382)
 })
 
 test_that("only chromosome 1-22, X and Y are read", {
-    expect_equal(nrow(data1[!(data1$seqnames %in% c(1:22, "X", "Y")), ]), 0)
-    expect_equal(nrow(data2[!(data2$seqnames %in% c(1:22, "X", "Y")), ]), 0)
+    expect_equal(nrow(data_1[!(data_1$seqnames %in% c(1:22, "X", "Y")), ]), 0)
+    expect_equal(nrow(data_2[!(data_2$seqnames %in% c(1:22, "X", "Y")), ]), 0)
 })

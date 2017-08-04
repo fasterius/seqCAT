@@ -25,7 +25,12 @@ which is especially relevant when more than one pairwise comparison will be
 performed on the same sample.
 }
 \examples{
-extract_variants_file(vcf_file, sample, output_file)
-extract_variants_file(vcf_file, sample, output_file, filter_depth = 15)
-extract_variants_file(vcf_file, sample, output_file, python = TRUE)
+vcf_file = system.file("extdata",
+                       "example.vcf", 
+                       package = "CellAuthentication")
+sample = "sample1"
+output_file = "test_extract.txt"
+extract_variants(vcf_file, sample, output_file)
+extract_variants(vcf_file, sample, output_file, filter_depth = 15)
+extract_variants(vcf_file, sample, output_file, python = TRUE)
 }

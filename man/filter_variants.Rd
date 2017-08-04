@@ -4,12 +4,12 @@
 \alias{filter_variants}
 \title{Filter variants on specified criteria}
 \usage{
-filter_variants(variants, filter_depth = 10)
+filter_variants(overlaps, filter_depth = 10)
 }
 \arguments{
-\item{variants}{The data frame containing the variant data to be filtered.}
-
 \item{filter_depth}{Threshold for variant depth (default 10)}
+
+\item{variants}{The data frame containing the variant data to be filtered.}
 }
 \value{
 A data frame containing the filtered variants.
@@ -20,6 +20,7 @@ a depth lower than 10 are removed by default, but can be changed in the
 function call.
 }
 \examples{
-filter_variants(data)
-filter_variants(data, filter_depth = 20)
+data(overlaps)
+filter_variants(overlaps)
+filter_variants(overlaps, filter_depth = 20)
 }

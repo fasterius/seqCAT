@@ -9,11 +9,18 @@
 #' @param vcf_file The VCF file from which variants will be extracted.
 #' @param sample The sample in the VCF that will be extracted.
 #' @param output_file Results will be output to this file
+#' @param filter_depth Remove variants below this sequencing depth
+#' @param python Extract variants using Python instead of R
 #' @return Does not return any data object, but output results to output_file
 #' @examples
-#' extract_variants_file(vcf_file, sample, output_file)
-#' extract_variants_file(vcf_file, sample, output_file, filter_depth = 15)
-#' extract_variants_file(vcf_file, sample, output_file, python = TRUE)
+#' vcf_file = system.file("extdata",
+#'                        "example.vcf", 
+#'                        package = "CellAuthentication")
+#' sample = "sample1"
+#' output_file = "test_extract.txt"
+#' extract_variants(vcf_file, sample, output_file)
+#' extract_variants(vcf_file, sample, output_file, filter_depth = 15)
+#' extract_variants(vcf_file, sample, output_file, python = TRUE)
 
 #' @export
 #' @rdname extract_variants

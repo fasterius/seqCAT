@@ -13,51 +13,51 @@
 #' compare_variants(overlaps)
 
 #' @export
-compare_variants <- function(data) {
+compare_variants <- function(overlaps) {
 
     # Get sample names
-    sample_1 <- unique(data$sample_1)
-    sample_2 <- unique(data$sample_2)
+    sample_1 <- unique(overlaps$sample_1)
+    sample_2 <- unique(overlaps$sample_2)
 
     # Find overlapping variants with complete genotypes
     alleles <- paste(c("A1", "A1", "A2", "A2"),
                      c(sample_1, sample_2),
                      sep = ".")
-    idx_notna <- row.names(data[complete.cases(data[, alleles]), ])
+    idx_notna <- row.names(overlaps[complete.cases(overlaps[, alleles]), ])
 
     # Check for matches if there are overlapping variants
     if (length(idx_notna) != 0) {
 
         # Set all to "mismatch"
-        data$match <- "mismatch"
+        overlaps$match <- "mismatch"
 
         # Construct alleles
-        data_alleles <- data[alleles]
-        data_alleles$in_1 <- paste(data_alleles[, 1],
-                                   data_alleles[, 3],
+        overlaps_alleles <- overlaps[alleles]
+        overlaps_alleles$in_1 <- paste(overlaps_alleles[, 1],
+                                   overlaps_alleles[, 3],
                                    sep = ":")
-        data_alleles$in_2 <- paste(data_alleles[, 2],
-                                   data_alleles[, 4],
+        overlaps_alleles$in_2 <- paste(overlaps_alleles[, 2],
+                                   overlaps_alleles[, 4],
                                    sep = ":")
-        data_alleles$in_1_rev <- paste(data_alleles[, 3],
-                                       data_alleles[, 1],
+        overlaps_alleles$in_1_rev <- paste(overlaps_alleles[, 3],
+                                       overlaps_alleles[, 1],
                                        sep = ":")
 
         # Check and set matching genotypes as appropriate
-        idx_match_1 <- apply(data_alleles, 1,
+        idx_match_1 <- apply(overlaps_alleles, 1,
                             function(x) x["in_1"] %in% x["in_2"])
-        idx_match_2 <- apply(data_alleles, 1,
+        idx_match_2 <- apply(overlaps_alleles, 1,
                             function(x) x["in_1_rev"] %in% x["in_2"])
-        data[idx_match_1, "match"] <- "match"
-        data[idx_match_2, "match"] <- "match"
+        overlaps[idx_match_1, "match"] <- "match"
+        overlaps[idx_match_2, "match"] <- "match"
 
     } else {
 
         # Add empty match column if no overlapping variants are found
-        data$match <- NA
+        overlaps$match <- NA
     }
 
     # Return the results
-    return(data)
+    return(overlaps)
 
 }

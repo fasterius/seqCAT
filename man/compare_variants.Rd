@@ -4,7 +4,7 @@
 \alias{compare_variants}
 \title{Find matching variants in a data frame.}
 \usage{
-compare_variants(data)
+compare_variants(overlaps)
 }
 \arguments{
 \item{overlaps}{The dataframe to analyse.}

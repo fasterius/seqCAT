@@ -1,18 +1,11 @@
 library("CellAuthentication")
 context("Optional filtration of overlapping variants")
 
-# Get variants
-file <- system.file("extdata",
-                    "overlaps.txt",
-                    package = "CellAuthentication")
-
-variants <- read.table(file             = file,
-                       sep              = "\t",
-                       header           = TRUE,
-                       stringsAsFactors = FALSE)
+# Get overlapping variants
+data(overlaps)
 
 # Tests
 test_that("correct number of variants are filtered", {
-    expect_equal(nrow(filter_variants(variants, 15)), 43)
-    expect_equal(nrow(filter_variants(variants, 50)), 24)
+    expect_equal(nrow(filter_variants(overlaps, 15)), 43)
+    expect_equal(nrow(filter_variants(overlaps, 50)), 24)
 })

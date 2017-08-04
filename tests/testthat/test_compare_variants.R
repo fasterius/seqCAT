@@ -1,18 +1,11 @@
 library("CellAuthentication")
 context("Compare variant genotypes")
 
-# Get variants
-file <- system.file("extdata",
-                    "overlaps.txt",
-                    package = "CellAuthentication")
-
-variants <- read.table(file             = file,
-                       sep              = "\t",
-                       header           = TRUE,
-                       stringsAsFactors = FALSE)
+# Get overlapping variants variants
+data(overlaps)
 
 # Tests
-compared <- compare_variants(variants)
+compared <- compare_variants(overlaps)
 test_that("correct number of matches and mismatches are found", {
     expect_equal(nrow(compared), 51)
     expect_equal(nrow(compared[compared$match == "match", ]), 50)

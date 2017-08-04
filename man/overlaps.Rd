@@ -27,6 +27,7 @@
     \item{A1.sample_1}{allele 1, sample 1}
     \item{A2.sample_1}{allele 2, sample 1}
     \item{warnings.sample_1}{warnings from variant calling, sample 1}
+    \item{sample_1}{name, sample 1}
     \item{rsID.sample_2}{mutation ID, sample 2}
     \item{gene.sample_2}{associated gene, sample 2}
     \item{ENSGID.sample_2}{ensembl gene ID, sample 2}
@@ -43,6 +44,7 @@
     \item{A1.sample_2}{allele 1, sample 2}
     \item{A2.sample_2}{allele 2, sample 2}
     \item{warnings.sample_2}{warnings from variant calling, sample 2}
+    \item{sample_2}{name, sample 2}
 }}
 \usage{
 data(overlaps)

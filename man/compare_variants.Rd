@@ -7,7 +7,7 @@
 compare_variants(data)
 }
 \arguments{
-\item{data}{The dataframe to analyse.}
+\item{overlaps}{The dataframe to analyse.}
 }
 \value{
 A dataframe with an added 'match' column

@@ -7,9 +7,9 @@
 filter_variants(overlaps, filter_depth = 10)
 }
 \arguments{
-\item{filter_depth}{Threshold for variant depth (default 10)}
+\item{overlaps}{The data frame containing the variant data to be filtered.}
 
-\item{variants}{The data frame containing the variant data to be filtered.}
+\item{filter_depth}{Threshold for variant depth (default 10)}
 }
 \value{
 A data frame containing the filtered variants.

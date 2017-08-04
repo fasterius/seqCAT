@@ -13,6 +13,10 @@ extract_variants(vcf_file, sample, output_file, filter_depth = 10,
 \item{sample}{The sample in the VCF that will be extracted.}
 
 \item{output_file}{Results will be output to this file}
+
+\item{filter_depth}{Remove variants below this sequencing depth}
+
+\item{python}{Extract variants using Python instead of R}
 }
 \value{
 Does not return any data object, but output results to output_file

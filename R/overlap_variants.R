@@ -16,9 +16,9 @@
 #' @param sample_2 Name of the second sample.
 #' @return A GRanges object.
 #' @examples
-#' data(variants_1)
-#' data(variants_2)
-#' overlap_variants(variants_1, variants_2, "sample1", "sample2")
+#' data(granges_1)
+#' data(granges_2)
+#' overlap_variants(granges_1, granges_2, "sample1", "sample2")
 
 #' @rdname overlap_variants
 add_metadata <- function(query,

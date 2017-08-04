@@ -35,7 +35,7 @@ wrapper function that calls add_metadata twice in succession, to add named
 metadata to the intersection of variants between the two datasets.
 }
 \examples{
-data(variants_1)
-data(variants_2)
-overlap_variants(variants_1, variants_2, "sample1", "sample2")
+data(granges_1)
+data(granges_2)
+overlap_variants(granges_1, granges_2, "sample1", "sample2")
 }

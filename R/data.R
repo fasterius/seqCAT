@@ -1,15 +1,13 @@
-#' Example variants from "sample1"
+#' GRanges variants 1
 #'
-#' Variants from "sample1" read with the read_variants function, for use in
-#' examples and tests.
+#' Variants in GRanges format from "sample1", originating from the
+#' extract.sample1.txt in the inst/extdata directory, for use in examples and
+#' tests.
 #'
 #' @docType data
-#' @usage data(variants_1)
-#' @format A data frame with 383 rows and 20 columns:
+#' @usage data(granges_1)
+#' @format A GRanges object with 383 elements and 17 metadata columns:
 #' \describe{
-#'     \item{seqnames}{chromosome}
-#'     \item{start}{start position}
-#'     \item{end}{end position}
 #'     \item{rsID}{mutation ID, if available}
 #'     \item{gene}{associated gene}
 #'     \item{ENSGID}{ensembl gene ID}
@@ -28,20 +26,18 @@
 #'     \item{warnings}{warnings from variant calling}
 #'     \item{sample}{sample name}
 #' }
-"variants_1"
+"granges_1"
 
-#' Example variants from "sample2"
+#' GRanges variants 1
 #'
-#' Variants from "sample2" read with the read_variants function, for use in
-#' examples and tests.
+#' Variants in GRanges format from "sample2", originating from the
+#' extract.sample2.txt in the inst/extdata directory, for use in examples and
+#' tests.
 #'
 #' @docType data
-#' @usage data(variants_2)
-#' @format A data frame with 382 rows and 20 columns:
+#' @usage data(granges_2)
+#' @format A GRanges object with 382 elements and 17 metadata columns:
 #' \describe{
-#'     \item{seqnames}{chromosome}
-#'     \item{start}{start position}
-#'     \item{end}{end position}
 #'     \item{rsID}{mutation ID, if available}
 #'     \item{gene}{associated gene}
 #'     \item{ENSGID}{ensembl gene ID}
@@ -60,7 +56,7 @@
 #'     \item{warnings}{warnings from variant calling}
 #'     \item{sample}{sample name}
 #' }
-"variants_2"
+"granges_2"
 
 #' Overlapping example variants
 #'
@@ -93,6 +89,7 @@
 #'     \item{A1.sample_1}{allele 1, sample 1}
 #'     \item{A2.sample_1}{allele 2, sample 1}
 #'     \item{warnings.sample_1}{warnings from variant calling, sample 1}
+#'     \item{sample_1}{name, sample 1}
 #'     \item{rsID.sample_2}{mutation ID, sample 2}
 #'     \item{gene.sample_2}{associated gene, sample 2}
 #'     \item{ENSGID.sample_2}{ensembl gene ID, sample 2}
@@ -109,5 +106,6 @@
 #'     \item{A1.sample_2}{allele 1, sample 2}
 #'     \item{A2.sample_2}{allele 2, sample 2}
 #'     \item{warnings.sample_2}{warnings from variant calling, sample 2}
+#'     \item{sample_2}{name, sample 2}
 #' }
 "overlaps"

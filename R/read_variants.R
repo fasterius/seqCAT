@@ -17,10 +17,10 @@
 read_variants <- function(file, sample_name) {
 
     # Read data
-    data <- read.table(file             = file,
-                       sep              = "\t",
-                       header           = TRUE,
-                       stringsAsFactors = FALSE)
+    data <- utils::read.table(file             = file,
+                              sep              = "\t",
+                              header           = TRUE,
+                              stringsAsFactors = FALSE)
 
     # Remove duplicate variants
     data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]

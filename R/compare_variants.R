@@ -23,7 +23,8 @@ compare_variants <- function(overlaps) {
     alleles <- paste(c("A1", "A1", "A2", "A2"),
                      c(sample_1, sample_2),
                      sep = ".")
-    idx_notna <- row.names(overlaps[complete.cases(overlaps[, alleles]), ])
+    idx_notna <- row.names(
+        overlaps[stats::complete.cases(overlaps[, alleles]), ])
 
     # Check for matches if there are overlapping variants
     if (length(idx_notna) != 0) {

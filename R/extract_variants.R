@@ -6,6 +6,11 @@
 #' which is especially relevant when more than one pairwise comparison will be
 #' performed on the same sample.
 #'
+
+#' @export
+#' @rdname extract_variants
+#' @importFrom GenomicRanges as.data.frame
+#' @importFrom VariantAnnotation geno
 #' @param vcf_file The VCF file from which variants will be extracted.
 #' @param sample The sample in the VCF that will be extracted.
 #' @param output_file Results will be output to this file
@@ -21,9 +26,6 @@
 #' extract_variants(vcf_file, sample, output_file)
 #' extract_variants(vcf_file, sample, output_file, filter_depth = 15)
 #' extract_variants(vcf_file, sample, output_file, python = TRUE)
-
-#' @export
-#' @rdname extract_variants
 extract_variants <- function(vcf_file,
                             sample,
                             output_file,
@@ -82,26 +84,26 @@ extract_variants <- function(vcf_file,
 
         # Remove unwanted columns
         row.names(data) <- NULL
-        data <- dplyr::select(data,
-                              -end,
-                              -width,
-                              -strand,
-                              -paramRangeID,
-                              -QUAL)
+        data <- dplyr::select_(data,
+                               "-end",
+                               "-width",
+                               "-strand",
+                               "-paramRangeID",
+                               "-QUAL")
 
         # Separate allelic depths
         data$AD <- gsub("c\\(", "", gsub("\\)", "", data$AD))
-        data <- tidyr::separate(data   = data,
-                                col    = AD,
-                                into   = c("AD1", "AD2"),
-                                remove = TRUE)
+        data <- tidyr::separate_(data   = data,
+                                 col    = "AD",
+                                 into   = c("AD1", "AD2"),
+                                 remove = TRUE)
 
         # Add alleles
-        data <- tidyr::separate(data   = data,
-                                col    = GT,
-                                sep    = "/",
-                                into   = c("A1", "A2"),
-                                remove = TRUE)
+        data <- tidyr::separate_(data   = data,
+                                 col    = "GT",
+                                 sep    = "/",
+                                 into   = c("A1", "A2"),
+                                 remove = TRUE)
 
         data[data$A1 == 0, "A1"] <- data[data$A1 == 0, "REF"]
         data[data$A1 == 1, "A1"] <- data[data$A1 == 1, "ALT"]
@@ -137,37 +139,37 @@ extract_variants <- function(vcf_file,
 			ann <- data[n, "ANN"][[1]]
 
 			# Separate into columns
-			ann <- tidyr::separate(as.data.frame(ann),
-                                   col    = ann,
-                                   sep    = "\\|",
-                                   remove = TRUE,
-				                   into   = c("ALT",
-                                              "effect",
-                                              "impact",
-                                              "gene",
-                                              "ENSGID",
-                                              "feature",
-                                              "ENSTID",
-                                              "biotype",
-                                              "rank",
-                                              "HGSV.c",
-                                              "HGSV.p",
-                                              "cDNA.pos",
-                                              "CDS.pos",
-                                              "protein.pos",
-                                              "distance",
-                                              "warnings"))
+			ann <- tidyr::separate_(as.data.frame(ann),
+                                    col    = "ann",
+                                    sep    = "\\|",
+                                    remove = TRUE,
+				                    into   = c("ALT",
+                                               "effect",
+                                               "impact",
+                                               "gene",
+                                               "ENSGID",
+                                               "feature",
+                                               "ENSTID",
+                                               "biotype",
+                                               "rank",
+                                               "HGSV.c",
+                                               "HGSV.p",
+                                               "cDNA.pos",
+                                               "CDS.pos",
+                                               "protein.pos",
+                                               "distance",
+                                               "warnings"))
 
 			# Remove unwanted data columns
-            ann <- dplyr::select(ann,
-                                 -ALT,
-                                 -rank,
-                                 -HGSV.c,
-                                 -HGSV.p,
-                                 -cDNA.pos,
-                                 -CDS.pos,
-                                 -protein.pos,
-                                 -distance)
+            ann <- dplyr::select_(ann,
+                                  "-ALT",
+                                  "-rank",
+                                  "-HGSV.c",
+                                  "-HGSV.p",
+                                  "-cDNA.pos",
+                                  "-CDS.pos",
+                                  "-protein.pos",
+                                  "-distance")
 
 			# Keep only the highest impact SNV(s)
 			impacts <- unique(ann$impact)
@@ -180,7 +182,7 @@ extract_variants <- function(vcf_file,
             }
 
 			# SNV data columns
-			data.cols <- c("seqnames",
+			data_cols <- c("seqnames",
                            "start",
                            "rsID",
                            "REF",
@@ -191,8 +193,8 @@ extract_variants <- function(vcf_file,
                            "A1",
                            "A2")
 
-			# Add SNV data to each annotation
-			for (col in data.cols) {
+            # Add SNV data to each annotation
+			for (col in data_cols) {
                 ann[[col]] <- data[n, col]
 			}
 
@@ -228,19 +230,20 @@ extract_variants <- function(vcf_file,
 
         # Sort output
         results <- results[order(as.character(results$chr),
-                                results$pos,
-                                results$gene,
-                                results$ENSGID,
-                                gsub("\\:", "\\.", results$ENSTID),
-                                results$effect,
-                                results$feature,
-                                results$biotype), ]
+                                              results$pos,
+                                              results$gene,
+                                              results$ENSGID,
+                                              gsub("\\:", "\\.",
+                                                   results$ENSTID),
+                                              results$effect,
+                                              results$feature,
+                                              results$biotype), ]
 
 		# Write results to file
-		write.table(results,
-                    file      = output_file,
-                    sep       = "\t",
-                    row.names = FALSE,
-                    quote     = FALSE)
+		utils::write.table(results,
+                           file      = output_file,
+                           sep       = "\t",
+                           row.names = FALSE,
+                           quote     = FALSE)
     }
 }

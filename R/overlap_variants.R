@@ -37,7 +37,7 @@ overlap_variants <- function(object_1,
     alleles <- paste(c("A1", "A1", "A2", "A2"),
                      c(sample_1, sample_2),
                      sep = ".")
-    data <- data[complete.cases(data[, alleles]), ]
+    data <- data[stats::complete.cases(data[, alleles]), ]
 
     # Add empty data frame with sample names if no variants overlap
     if (nrow(data) == 0) {
@@ -77,7 +77,8 @@ add_metadata <- function(query,
         } else if (class(S4Vectors::mcols(subject)[[column]])[1] ==
                    "DNAStringSetList") {
           S4Vectors::mcols(subject)[column] <-
-            unstrsplit(CharacterList(S4Vectors::mcols(subject)[[column]]))
+            S4Vectors::unstrsplit(IRanges::CharacterList(
+                S4Vectors::mcols(subject)[[column]]))
         }
 
     # Add subject metadata to query

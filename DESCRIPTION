@@ -1,6 +1,6 @@
 Package: CellAuthentication
 Title: Cell Authentication Through Analysis Of High Throughput Sequencing Data
-Version: 0.3.0
+Version: 0.3.2
 Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", 
     role = c("aut", "cre"))
 Description: The CellAuthentication package uses variant calling data (in the
@@ -10,16 +10,17 @@ Description: The CellAuthentication package uses variant calling data (in the
 Depends:
     R (>= 3.3.1),
     GenomicRanges (>= 1.26.4),
+    VariantAnnotation(>= 1.20.3)
 Imports:
     dplyr (>= 0.5.0),
     GenomeInfoDb (>= 1.10.1),
     IRanges (>= 2.8.2),
     S4Vectors (>= 0.12.2),
+    stats,
     SummarizedExperiment (>= 1.4.0),
     tidyr (>= 0.6.1),
-    VariantAnnotation(>= 1.20.3)
+    utils
 Suggests:
-    docopt,
     testthat
 License: MIT + file LICENCE
 Encoding: UTF-8

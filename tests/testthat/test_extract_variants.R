@@ -3,7 +3,7 @@ context("VCF variant extraction")
 
 # Files
 file <- system.file("extdata",
-                    "example.vcf",
+                    "example.vcf.gz",
                     package = "CellAuthentication")
 
 # Extract variants

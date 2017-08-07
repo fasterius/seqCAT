@@ -3,10 +3,10 @@ context("Read extracted variants")
 
 # Read variants
 file_1 <- system.file("extdata",
-                      "extract.sample1.txt",
+                      "extract.sample1.txt.gz",
                       package = "CellAuthentication")
 file_2 <- system.file("extdata",
-                      "extract.sample2.txt",
+                      "extract.sample2.txt.gz",
                       package = "CellAuthentication")
 
 granges_1 <- read_variants(file        = file_1,

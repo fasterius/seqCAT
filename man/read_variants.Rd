@@ -21,7 +21,7 @@ returned as a GenomicRanges object, suitable for merging of metadata.
 }
 \examples{
 extract = system.file("extdata",
-                      "extract.sample1.txt",
+                      "extract.sample1.txt.gz",
                       package = "CellAuthentication")
 read_variants(extract, 'sample1')
 }

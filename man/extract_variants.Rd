@@ -30,7 +30,7 @@ performed on the same sample.
 }
 \examples{
 vcf_file = system.file("extdata",
-                       "example.vcf", 
+                       "example.vcf.gz", 
                        package = "CellAuthentication")
 sample = "sample1"
 output_file = "test_extract.txt"

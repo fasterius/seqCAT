@@ -9,7 +9,7 @@
 #' @return A GenomicRanges object.
 #' @examples
 #' extract = system.file("extdata",
-#'                       "extract.sample1.txt",
+#'                       "extract.sample1.txt.gz",
 #'                       package = "CellAuthentication")
 #' read_variants(extract, 'sample1')
 
@@ -41,8 +41,10 @@ read_variants <- function(file, sample_name) {
     # Rename and remove seqlevels
     GenomeInfoDb::seqlevels(data_gr) <-
         gsub("chr", "", GenomeInfoDb::seqlevels(data_gr))
-    data_gr <- suppressWarnings(GenomeInfoDb::keepSeqlevels(
-        data_gr, c(as.character(1:22), "X", "Y")))
+    data_gr <- GenomeInfoDb::dropSeqlevels(data_gr,
+                                           "MT",
+                                           pruning.mode = "coarse")
+    data_gr <- GenomeInfoDb::keepStandardChromosomes(data_gr)
 
     # Return the GenomicRanges object
     return(data_gr)

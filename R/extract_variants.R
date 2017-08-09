@@ -35,9 +35,6 @@ extract_variants <- function(vcf_file,
     # Extract variants
     if (python) {
 
-        # Use Python
-        message("[extracting with Python]")
-
         # Source the Python script
         command <- system.file("python/extract_variants.py",
 							  package = "CellAuthentication")
@@ -47,9 +44,6 @@ extract_variants <- function(vcf_file,
 				filter_depth))
 
     } else {
-
-        # Use R
-        message("[extracting with R]")
 
         # Read VCF file
         vcf <- VariantAnnotation::readVcf(vcf_file)

@@ -8,8 +8,7 @@ output:
     BiocStyle::pdf_document:
         highlight: tango
 vignette: >
-    %\VignetteIndexEntry{Cell Authentication Toolkit (CAT): validation and
-                   evaluation of cells}
+    %\VignetteIndexEntry{CAT: The Cell Authentication Toolkit}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---

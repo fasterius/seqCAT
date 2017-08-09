@@ -1,0 +1,151 @@
+---
+title: "CAT: The Cell Authentication Toolkit"
+author: "Erik Fasterius"
+# abstract: "This is the vignette for the Cell Authentication Toolkit (CAT) R
+          # package."
+date: "`r Sys.Date()`"
+output:
+    BiocStyle::pdf_document:
+        highlight: tango
+vignette: >
+    %\VignetteIndexEntry{Cell Authentication Toolkit (CAT): validation and
+                   evaluation of cells}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+This vignette describes a workflow of using the \Rpackage{"CellAuthentication"}
+package for authentication, characterisation and evaluation of two or more
+high throughput sequencing (*i.e.* RNA-seq or whole genome sequencing) samples.
+The general principle is to create *single nucelotide variant* (SNV) profiles
+of every sample of interest, followed by comparisons between each set to find
+their overall similarity, in addition to detailed analyses of the differences.
+By analysing your data with this workflow you will not only be able to
+authenticate your samples to a high degree of confidence, but you will also be
+able to investigate what genes and transcripts are affected by SNVs differing
+between your samples, what biological effect they will have, which pathways
+they belong to, and more. The workflow consists of three separate steps:
+
+    1.  Creation of SNV profiles
+    2.  SNV profile comparisons
+    3.  Authentication, characterisation and evaluation
+
+Each step has its own section below demonstrating how to perform the
+analyses. Input data should be in the form of [VCF files](http://www.internationalgenome.org/wiki/Analysis/variant-call-format), *i.e* output from variant callers such as [the Genome Analysis ToolKit](https://software.broadinstitute.org/gatk/).
+
+# Creation of SNV profiles
+
+The first step of the workflow is to create the SNV profile of each sample,
+which can then be compared to each other. While computation time is usually not
+an issue for simple binary comparisons (*i.e.* comparisons with only two
+samples), this can quickly become a concern for analyses where samples are
+compared to several others (*i.e.* A vs B, A vs C, ..., A vs Z). In order to
+decrease the computation time for large comparison sets and to facilitate
+re-analyses with different parameters each SNV profile is saved on disc as a
+normal `.txt` file.
+
+The creation of a SNV profile includes filtering of low-confidence variants and
+removal of variants below a sequencing depth threshold (`10` by default). Only
+records with the highest SNV impact (*i.e.* putative impact on protein 
+function) for each variant is kept, as they are most likely to affect the
+biology of the cells.
+
+## Standard profiles with R
+
+The example data used in the demonstration can be found in the `inst/extdata/`
+directory.
+
+```{r Create SNV profile with R}
+# Load the package
+library("CellAuthentication")
+
+# List the example VCF file
+file <- system.file("extdata", "example.vcf.gz",
+                    package = "CellAuthentication")
+
+# Create two SNV profiles
+extract_variants(file, "sample1", "extract_1.txt")
+extract_variants(file, "sample2", "extract_2.txt", filter_depth = 15)
+```
+
+This creates SNV profiles for the two samples found in the example data
+(`sample1` and `sample2`) and saves them as `extract_1.txt` and `extract_2.txt`
+in the current directory, respectively. The profile of the second sample was
+created with a non-standard filter for sequencing depth (`15`), which should
+only be done if you want a stricter criteria for your profile.
+
+## Faster profiles with Python
+
+SNV profiles can also be created with Python, another scripting langage, if you
+have it installed. The `extract_variants` function also doubles as a wrapper
+for the `extract_variants.py` script included in the package, which can create
+SNV profiles much quicker than its `R` equivalent. This might not be important
+for a lot of users, but is nevertheless included for cases where it helps to
+have the extra speed.
+
+```{r Create SNV profile with Python}
+extract_variants(file, "sample2", "extract_2.txt", python = TRUE)
+```
+
+In order to run the `Python` SNV creation script, you will need to have the
+[PyVCF](https://pypi.python.org/pypi/PyVCF) installed.
+
+# SNV profile comparisons
+
+Once each relevant sample has its own SNV profile the comparisons can be
+performed. First, each profile is read using the `read_variants` function,
+which outputs `GRanges` objects for fast and efficient overlapping of variants.
+
+```{r Read SNV profiles}
+profile_1 <- read_variants("extract_1.txt", "sample1")
+profile_2 <- read_variants("extract_2.txt", "sample2")
+head(profile_1)
+```
+
+```{r Remove temporary files, echo = FALSE, results = "hide"}
+file.remove("extract_1.txt")
+file.remove("extract_2.txt")
+```
+
+Once each profile has been read, the overlapping variants between them can be
+found using the `overlap_variants` function. Only variants found in both
+profiles are considered to overlap, as similarity calculations between profiles
+where some variants only have confident calls in one of the samples are
+inappropriate.
+
+```{r Overlap SNV profiles}
+overlaps <- overlap_variants(profile_1, profile_2)
+```
+
+The final step is to see which SNVs match between the two profiles being
+compared, which is accomplished with the `compare_variants` function. A SNV is
+considered a match if it has an identical genotype in both profiles. 
+
+```{r Compare profiles}
+overlaps <- compare_variants(overlaps)
+```
+
+We can look at the resulting data frame:
+
+```{r Inspect comparison}
+overlaps[1:5, c(1, 2, 5, 19, 20, 35, 36)]
+```
+
+You are now ready for downstream analyses!
+
+# Authentication, characterisation and evaluation
+
+# Performance
+
+# Citation
+
+If you are using CAT to analyse your samples, please cite it formally:
+
+Fasterius, E., Raso, C., Kennedy, S., Rauch, N., Lundin, P., Kolch, W., et al. (2017). A novel RNA sequencing data analysis method for cell line authentication. PloS One, 12(2), e0171435. http://doi.org/10.1371/journal.pone.0171435
+
+# Session info
+```{r Session info, echo = FALSE}
+sessionInfo()
+```

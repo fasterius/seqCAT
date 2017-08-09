@@ -26,6 +26,7 @@ Suggests:
     rmarkdown,
     testthat
 biocViews:
+    GenomicVariation
 License: MIT + file LICENCE
 Encoding: UTF-8
 LazyData: true

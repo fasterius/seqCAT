@@ -6,7 +6,6 @@
 #' which is especially relevant when more than one pairwise comparison will be
 #' performed on the same sample.
 #'
-
 #' @export
 #' @rdname extract_variants
 #' @importFrom GenomicRanges as.data.frame
@@ -37,11 +36,11 @@ extract_variants <- function(vcf_file,
 
         # Source the Python script
         command <- system.file("python/extract_variants.py",
-							  package = "CellAuthentication")
+                               package = "CellAuthentication")
 
         # Run Python code
         system2(command, args = c(vcf_file, sample, output_file, "-f",
-				filter_depth))
+                filter_depth))
 
     } else {
 
@@ -104,40 +103,39 @@ extract_variants <- function(vcf_file,
         data[data$A2 == 0, "A2"] <- data[data$A2 == 0, "REF"]
         data[data$A2 == 1, "A2"] <- data[data$A2 == 1, "ALT"]
 
-		# Initialise empty data frame for final results
-		results <- data.frame(
-            effect           = character(),
-            impact           = character(),
-            gene             = character(),
-            ENSGID           = character(),
-            feature          = character(),
-            ENSTID           = character(),
-            biotype          = character(),
-            warnings         = character(),
-            seqnames         = integer(),
-            start            = integer(),
-            rsID             = character(),
-            REF              = character(),
-            ALT              = character(),
-            DP               = integer(),
-            AD1              = integer(),
-            AD2              = integer(),
-            A1               = character(),
-            A2               = character(),
-            stringsAsFactors = FALSE)
+        # Initialise empty data frame for final results
+        results <- data.frame(effect           = character(),
+                              impact           = character(),
+                              gene             = character(),
+                              ENSGID           = character(),
+                              feature          = character(),
+                              ENSTID           = character(),
+                              biotype          = character(),
+                              warnings         = character(),
+                              seqnames         = integer(),
+                              start            = integer(),
+                              rsID             = character(),
+                              REF              = character(),
+                              ALT              = character(),
+                              DP               = integer(),
+                              AD1              = integer(),
+                              AD2              = integer(),
+                              A1               = character(),
+                              A2               = character(),
+                              stringsAsFactors = FALSE)
 
-		# Loop over each SNV
-		for (n in c(1:nrow(data))) {
+        # Loop over each SNV
+        for (n in c(1:nrow(data))) {
 
-			# Get annotation data for current SNV
-			ann <- data[n, "ANN"][[1]]
+            # Get annotation data for current SNV
+            ann <- data[n, "ANN"][[1]]
 
-			# Separate into columns
-			ann <- tidyr::separate_(as.data.frame(ann),
+            # Separate into columns
+            ann <- tidyr::separate_(as.data.frame(ann),
                                     col    = "ann",
                                     sep    = "\\|",
                                     remove = TRUE,
-				                    into   = c("ALT",
+                                    into   = c("ALT",
                                                "effect",
                                                "impact",
                                                "gene",
@@ -154,7 +152,7 @@ extract_variants <- function(vcf_file,
                                                "distance",
                                                "warnings"))
 
-			# Remove unwanted data columns
+            # Remove unwanted data columns
             ann <- dplyr::select_(ann,
                                   "-ALT",
                                   "-rank",
@@ -165,8 +163,8 @@ extract_variants <- function(vcf_file,
                                   "-protein.pos",
                                   "-distance")
 
-			# Keep only the highest impact SNV(s)
-			impacts <- unique(ann$impact)
+            # Keep only the highest impact SNV(s)
+            impacts <- unique(ann$impact)
             if ("HIGH" %in% impacts) {
                 ann <- ann[ann$impact == "HIGH", ]
             } else if ("MODERATE" %in% impacts) {
@@ -175,29 +173,29 @@ extract_variants <- function(vcf_file,
                 ann <- ann[ann$impact == "LOW", ]
             }
 
-			# SNV data columns
-			data_cols <- c("seqnames",
+            # SNV data columns
+            data_cols <- c("seqnames",
                            "start",
                            "rsID",
                            "REF",
                            "ALT",
                            "DP",
-						   "AD1",
+                           "AD1",
                            "AD2",
                            "A1",
                            "A2")
 
             # Add SNV data to each annotation
-			for (col in data_cols) {
+            for (col in data_cols) {
                 ann[[col]] <- data[n, col]
-			}
+            }
 
-			# Append to final results data frame
-			results <- rbind(results, ann)
+            # Append to final results data frame
+            results <- rbind(results, ann)
 
         }
 
-		# Finalise output
+        # Finalise output
         results <- results[c("seqnames",
                              "start",
                              "rsID",
@@ -208,7 +206,7 @@ extract_variants <- function(vcf_file,
                              "ALT",
                              "impact",
                              "effect",
-				             "feature",
+                             "feature",
                              "biotype",
                              "DP",
                              "AD1",
@@ -217,7 +215,7 @@ extract_variants <- function(vcf_file,
                              "A2",
                              "warnings")]
 
-		names(results) <- c("chr", "pos", names(results)[3:18])
+        names(results) <- c("chr", "pos", names(results)[3:18])
 
         # Remove duplicate rows (if present)
         results <- unique(results)
@@ -233,8 +231,8 @@ extract_variants <- function(vcf_file,
                                               results$feature,
                                               results$biotype), ]
 
-		# Write results to file
-		utils::write.table(results,
+        # Write results to file
+        utils::write.table(results,
                            file      = output_file,
                            sep       = "\t",
                            row.names = FALSE,

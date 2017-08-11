@@ -38,6 +38,25 @@ callers such as the [Genome Analysis ToolKit][2].
 [1]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
 [2]: https://software.broadinstitute.org/gatk/
 
+## Installation
+
+The latest stable release of this package can be found on [BioConductor][3] and
+installed using the `biocLite` function:
+
+```{r Installation, eval = FALSE}
+source("https://bioconductor.org/biocLite.R")
+biocLite("CellAuthentication")
+```
+
+This will also install any missing packages requires for full functionality,
+should they not already exist in your system. If you haven't installed
+BioConductor, you can do so by simply calling `biocLite()` without specifying a
+package, and it will be installed for you. You can read more about this at
+BioConductor's [installation page][4].
+
+[3]: http://bioconductor.org/
+[4]: http://bioconductor.org/install/
+
 # Creation of SNV profiles
 
 The first step of the workflow is to create the SNV profile of each sample,
@@ -55,7 +74,7 @@ records with the highest SNV impact (*i.e.* putative impact on protein
 function) for each variant is kept, as they are most likely to affect the
 biology of the cells.
 
-## Standard profiles with R
+## Create profiles with R
 
 The example data used in the demonstration can be found in the `inst/extdata/`
 directory.
@@ -79,7 +98,7 @@ in the current directory, respectively. The profile of the second sample was
 created with a non-standard filter for sequencing depth (`15`), which should
 only be done if you want a stricter criteria for your profile.
 
-## Faster profiles with Python
+## Faster profile creation with Python
 
 SNV profiles can also be created with Python, another scripting langage, if you
 have it installed. The `create_profile` function also doubles as a wrapper

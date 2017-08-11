@@ -1,11 +1,10 @@
-#' GRanges variants 1
+#' SNV profile 1
 #'
-#' Variants in GRanges format from "sample1", originating from the
-#' extract.sample1.txt in the inst/extdata directory, for use in examples and
-#' tests.
+#' SNV profile in GRanges format from "sample1", originating from the
+#' profile_1.txt in the inst/extdata directory, for use in examples and tests.
 #'
 #' @docType data
-#' @usage data(granges_1)
+#' @usage data(profile_1)
 #' @format A GRanges object with 383 elements and 17 metadata columns:
 #' \describe{
 #'     \item{rsID}{mutation ID, if available}
@@ -26,16 +25,15 @@
 #'     \item{warnings}{warnings from variant calling}
 #'     \item{sample}{sample name}
 #' }
-"granges_1"
+"profile_1"
 
-#' GRanges variants 1
+#' SNV profile 2
 #'
-#' Variants in GRanges format from "sample2", originating from the
-#' extract.sample2.txt in the inst/extdata directory, for use in examples and
-#' tests.
+#' SNV profile in GRanges format from "sample2", originating from the
+#' profile_2.txt in the inst/extdata directory, for use in examples and tests.
 #'
 #' @docType data
-#' @usage data(granges_2)
+#' @usage data(profile_2)
 #' @format A GRanges object with 382 elements and 17 metadata columns:
 #' \describe{
 #'     \item{rsID}{mutation ID, if available}
@@ -56,7 +54,7 @@
 #'     \item{warnings}{warnings from variant calling}
 #'     \item{sample}{sample name}
 #' }
-"granges_2"
+"profile_2"
 
 #' Overlapping example variants
 #'

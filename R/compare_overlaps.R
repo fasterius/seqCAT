@@ -1,19 +1,18 @@
-#' Find matching variants in a data frame.
+#' Find matching variants in a dataframe of overlapping SNV profiles.
 #'
-#' This is a function for comparing matching or mismatching variants across
-#' two samples contained in a single data frame.
+#' This is a function for comparing the genotypes of each variant between two
+#' overlapping SNV profiles contained in a single dataframe. A new column
+#' ('match') will be added to the dataframe, which indicates if each 
+#' variant's genotype is a match or not (i.e. 'match' or 'mismatch').
 #'
-#' A new column ('match') will be added to the data frame, which indicates if
-#' each variant's genotype is a match or not (i.e. 'match' or 'mismatch').
-#'
-#' @param overlaps The dataframe to analyse.
+#' @param overlaps The dataframe with the two overlapping SNV profiles
 #' @return A dataframe with an added 'match' column
 #' @examples
 #' data(overlaps)
-#' compare_variants(overlaps)
+#' compare_overlaps(overlaps)
 
 #' @export
-compare_variants <- function(overlaps) {
+compare_overlaps <- function(overlaps) {
 
     # Get sample names
     sample_1 <- unique(overlaps$sample_1)

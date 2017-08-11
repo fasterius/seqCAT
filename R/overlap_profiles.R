@@ -1,34 +1,37 @@
 #' Find overlapping variants in two GenomicRanges objects.
 #'
-#' This is a function for finding overlapping variants in two different
-#' GenomicRanges objects.
-#'
-#' The overlap_variants function is a wrapper function that adds metadata to an
-#' intersection of two GRanges objects twice, in order to merge the metadata
-#' for those overlapping variants, returning a data frame.
+#' This is a function for finding overlapping variants in two different SNV
+#' profiles (stored as GenomicRanges objects). The overlap_profiles function
+#' is a wrapper function that adds metadata to an intersection of two GRanges
+#' objects twice, in order to merge the metadata for those overlapping
+#' profiles, returning a data frame.
 
 #' @export
-#' @rdname overlap_variants
-#' @param object_1 The first variant GRanges object.
-#' @param object_2 The second variant GRanges object.
+#' @rdname overlap_profiles
+#' @param profile_1 The first variant GRanges object.
+#' @param profile_2 The second variant GRanges object.
 #' @param sample_1 Name of the first sample.
 #' @param sample_2 Name of the second sample.
 #' @return A data frame.
 #' @examples
-#' data(granges_1)
-#' data(granges_2)
-#' overlap_variants(granges_1, granges_2, "sample1", "sample2")
-overlap_variants <- function(object_1,
-                             object_2,
+#' data(profile_1)
+#' data(profile_2)
+#' overlap_profiles(profile_1, profile_2, "sample1", "sample2")
+overlap_profiles <- function(profile_1,
+                             profile_2,
                              sample_1 = "sample_1",
                              sample_2 = "sample_2") {
 
     # Find the intersection of all ranges in both objects
-    intersect_gr <- S4Vectors::intersect(object_1, object_2)
+    intersect_gr <- S4Vectors::intersect(profile_1, profile_2)
 
     # Add metadata from both objects to the union object
-    intersect_gr <- add_metadata(intersect_gr, object_1, paste0(".", sample_1))
-    intersect_gr <- add_metadata(intersect_gr, object_2, paste0(".", sample_2))
+    intersect_gr <- add_metadata(intersect_gr,
+                                 profile_1,
+                                 paste0(".", sample_1))
+    intersect_gr <- add_metadata(intersect_gr,
+                                 profile_2,
+                                 paste0(".", sample_2))
 
     # Convert to data frame
     data <- GenomicRanges::as.data.frame(intersect_gr)

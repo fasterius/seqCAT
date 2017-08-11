@@ -1,13 +1,15 @@
-#' Extract relevant variant information from a VCF file
+#' Create an SNV profile from a VCF file
 #'
-#' This function is a wrapper to the 'extract_variants.py' Python script, which
-#' extracts relevant variant information from a VCF file. Extraction is
-#' performed to facilitate and accelerate the cell authentication procedures,
-#' which is especially relevant when more than one pairwise comparison will be
-#' performed on the same sample.
+#' This function creates a SNV profile from a given VCF file by extracting the
+#' variants that pass the filtering criterias. It can either be performed using
+#' R, or by the create_profile.py function included (which requires that Python
+#' is installed, along with the PyVCF package). Profile creation is performed
+#' to facilitate and accelerate the cell authentication procedures, which is
+#' especially relevant when more than one pairwise comparison will be performed
+#' on the same sample.
 #'
 #' @export
-#' @rdname extract_variants
+#' @rdname create_profile
 #' @importFrom GenomicRanges as.data.frame
 #' @importFrom VariantAnnotation geno
 #' @param vcf_file The VCF file from which variants will be extracted.
@@ -20,28 +22,29 @@
 #' vcf_file = system.file("extdata",
 #'                        "example.vcf.gz", 
 #'                        package = "CellAuthentication")
-#' sample = "sample1"
-#' output_file = "test_extract.txt"
-#' extract_variants(vcf_file, sample, output_file)
-#' extract_variants(vcf_file, sample, output_file, filter_depth = 15)
-#' extract_variants(vcf_file, sample, output_file, python = TRUE)
-extract_variants <- function(vcf_file,
-                            sample,
-                            output_file,
-                            filter_depth = 10,
-                            python       = FALSE) {
+#' create_profile(vcf_file, "sample1", "profile1.txt")
+#' create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
+#' create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
+create_profile <- function(vcf_file,
+                           sample,
+                           output_file,
+                           filter_depth = 10,
+                           python       = FALSE) {
 
-    # Extract variants
+    # Use Python
     if (python) {
 
-        # Source the Python script
-        command <- system.file("python/extract_variants.py",
+        # Python script
+        command <- system.file("python/create_profile.py",
                                package = "CellAuthentication")
 
         # Run Python code
-        system2(command, args = c(vcf_file, sample, output_file, "-f",
-                filter_depth))
+        system2(command, args = c(vcf_file,
+                                  sample,
+                                  output_file,
+                                  "-f", filter_depth))
 
+    # Use R
     } else {
 
         # Read VCF file

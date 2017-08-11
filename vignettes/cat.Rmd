@@ -33,7 +33,7 @@ they belong to, and more. The workflow consists of three separate steps:
 
 Each step has its own section below demonstrating how to perform the analyses.
 Input data should be in the form of [VCF files][1], *i.e* output from variant
-callers such as [the Genome Analysis ToolKit][2].
+callers such as the [Genome Analysis ToolKit][2].
 
 [1]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
 [2]: https://software.broadinstitute.org/gatk/
@@ -69,12 +69,12 @@ file <- system.file("extdata", "example.vcf.gz",
                     package = "CellAuthentication")
 
 # Create two SNV profiles
-extract_variants(file, "sample1", "extract_1.txt")
-extract_variants(file, "sample2", "extract_2.txt", filter_depth = 15)
+create_profile(file, "sample1", "profile_1.txt")
+create_profile(file, "sample2", "profile_2.txt", filter_depth = 15)
 ```
 
 This creates SNV profiles for the two samples found in the example data
-(`sample1` and `sample2`) and saves them as `extract_1.txt` and `extract_2.txt`
+(`sample1` and `sample2`) and saves them as `profile_1.txt` and `profile_2.txt`
 in the current directory, respectively. The profile of the second sample was
 created with a non-standard filter for sequencing depth (`15`), which should
 only be done if you want a stricter criteria for your profile.
@@ -82,52 +82,58 @@ only be done if you want a stricter criteria for your profile.
 ## Faster profiles with Python
 
 SNV profiles can also be created with Python, another scripting langage, if you
-have it installed. The `extract_variants` function also doubles as a wrapper
-for the `extract_variants.py` script included in the package, which can create
+have it installed. The `create_profile` function also doubles as a wrapper
+for the `create_profile.py` script included in the package, which can create
 SNV profiles much quicker than its `R` equivalent. This might not be important
 for a lot of users, but is nevertheless included for cases where it helps to
 have the extra speed.
 
 ```{r Create SNV profile with Python}
-extract_variants(file, "sample2", "extract_2.txt", python = TRUE)
+create_profile(file, "sample2", "profile_2.txt", python = TRUE)
 ```
 
 In order to run the `Python` SNV creation script, you will need to have the
-[PyVCF](https://pypi.python.org/pypi/PyVCF) installed.
+[PyVCF](https://pypi.python.org/pypi/PyVCF) installed. You can also run the
+python script directly from the command line, supplying its input arguments
+from there. To see the arguments, use:
+
+```{r Python command line, engine = "bash", eval = FALSE}
+$ python create_profile.py --help
+```
 
 # SNV profile comparisons
 
 Once each relevant sample has its own SNV profile the comparisons can be
-performed. First, each profile is read using the `read_variants` function,
+performed. First, each profile is read using the `read_profile` function,
 which outputs `GRanges` objects for fast and efficient overlapping of variants.
 
 ```{r Read SNV profiles}
-profile_1 <- read_variants("extract_1.txt", "sample1")
-profile_2 <- read_variants("extract_2.txt", "sample2")
-head(profile_1)
+profile1 <- read_profile("profile_1.txt", "sample1")
+profile2 <- read_profile("profile_2.txt", "sample2")
+head(profile1)
 ```
 
 ```{r Remove temporary files, echo = FALSE, results = "hide"}
-file.remove("extract_1.txt")
-file.remove("extract_2.txt")
+file.remove("profile_1.txt")
+file.remove("profile_2.txt")
 ```
 
 Once each profile has been read, the overlapping variants between them can be
-found using the `overlap_variants` function. Only variants found in both
+found using the `overlap_profiles` function. Only variants found in both
 profiles are considered to overlap, as similarity calculations between profiles
 where some variants only have confident calls in one of the samples are
 inappropriate.
 
 ```{r Overlap SNV profiles}
-overlaps <- overlap_variants(profile_1, profile_2)
+overlaps <- overlap_profiles(profile1, profile2)
 ```
 
 The final step is to see which SNVs match between the two profiles being
-compared, which is accomplished with the `compare_variants` function. A SNV is
+compared, which is accomplished with the `compare_overlaps` function. A SNV is
 considered a match if it has an identical genotype in both profiles. 
 
 ```{r Compare profiles}
-overlaps <- compare_variants(overlaps)
+overlaps <- compare_overlaps(overlaps)
 ```
 
 We can look at the resulting data frame:

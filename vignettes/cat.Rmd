@@ -7,6 +7,7 @@ date: "`r Sys.Date()`"
 output:
     BiocStyle::pdf_document:
         highlight: tango
+bibliography: bibliography.bib
 vignette: >
     %\VignetteIndexEntry{CAT: The Cell Authentication Toolkit}
     %\VignetteEngine{knitr::rmarkdown}
@@ -165,6 +166,52 @@ You are now ready for downstream analyses!
 
 # Authentication, characterisation and evaluation
 
+## Similarity and global statistics
+
+When you finally have your matched, overlapping SNVs, it's time to analyse and
+characterise them. The first thing you might want to check are the global
+similarities and summary statistics, which can be done with the
+`calculate_similarity` function. The `concordance` is simply the number of
+matching genotypes divided by the total number of overlapping variants, while
+the `similarity score` is a weighted measure of the concordance in the form of
+a binomial experiment, taking into account the number of overlapping variants
+available:
+
+$$Similarity = \frac{s + a}{n + a + b}$$
+
+... where `s` is the number of matching genotypes, `n` is the total number of 
+overlapping SNVs, `a` and `b` being the parameters used to weigh the
+concordance in favour of comparisons with more overlaps. The default
+parameters of `1` and `5` were selected to yield an equivalent cutoff to a
+previously used one [@Yu2015], which results in a lower limit 44 of perfectly
+matching overlapping variants with a similarity score of 90. The similarity
+score is thus a better measure of biological equivalency than just the
+concordance.
+
+```{r Calculate similarities}
+similarity <- calculate_similarity(overlaps)
+similarity
+```
+
+Here, you can see a summary of the relevant statistics for your particular
+comparison: the number of overlaps between your two samples, the number of
+matching genotypes, their concordance as well as their similarity score. You
+may additionally change the parameters of the score (if you, for example, want
+a stricter calculation). You may also supply the `calculate_similarity`
+function with an existing dataframe with summary data produced previously, in
+order to aggregate scores and statistics for an arbitrary number of
+comparisons:
+
+```{r Calculate similarities iteratively}
+similarities <- calculate_similarity(overlaps, similarity, a = 1, b = 10)
+similarities
+```
+
+Notice that the new `similarities` dataframe contains two rows, but the
+second one has a lower score due to the changing of the `b` parameter from `1`
+to `10`. Any number of samples can be added using this function, for use in
+further downstream  analyses.
+
 # Performance
 
 # Citation
@@ -180,3 +227,5 @@ http://doi.org/10.1371/journal.pone.0171435
 ```{r Session info, echo = FALSE}
 sessionInfo()
 ```
+
+# References

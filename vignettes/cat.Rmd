@@ -64,7 +64,7 @@ The first step of the workflow is to create the SNV profile of each sample,
 which can then be compared to each other. While computation time is usually not
 an issue for simple binary comparisons (*i.e.* comparisons with only two
 samples), this can quickly become a concern for analyses where samples are
-compared to several others (*i.e.* A vs B, A vs C, ..., A vs Z). In order to
+compared to several others (A vs B, A vs C, ..., and so on). In order to
 decrease the computation time for large comparison sets and to facilitate
 re-analyses with different parameters each SNV profile is saved on disc as a
 normal `.txt` file.
@@ -77,8 +77,11 @@ biology of the cells.
 
 ## Create profiles with R
 
-The example data used in the demonstration can be found in the `inst/extdata/`
-directory.
+Throughout this vignette we will be using some example data, `example.vcf.gz`,
+which comes from the initial publication of the general process of this method.
+[@Fasterius2017] It is a simplified multi-sample VCF file on a subset of
+chromosome 12 (containing all variants up to position `25400000`) for three
+different colorectal cancer cell lines: *HCT116*, *HKE3* and *RKO*.
 
 ```{r Create SNV profile with R}
 # Load the package
@@ -89,12 +92,12 @@ file <- system.file("extdata", "example.vcf.gz",
                     package = "CellAuthentication")
 
 # Create two SNV profiles
-create_profile(file, "sample1", "profile_1.txt")
-create_profile(file, "sample2", "profile_2.txt", filter_depth = 15)
+create_profile(file, "HCT116", "hct116_profile.txt")
+create_profile(file, "RKO", "rko_profile.txt", filter_depth = 15)
 ```
 
 This creates SNV profiles for the two samples found in the example data
-(`sample1` and `sample2`) and saves them as `profile_1.txt` and `profile_2.txt`
+(`HCT116` and `RKO`) and saves them as `hct116.profile` and `rko_profile.txt`
 in the current directory, respectively. The profile of the second sample was
 created with a non-standard filter for sequencing depth (`15`), which should
 only be done if you want a stricter criteria for your profile.
@@ -108,8 +111,8 @@ SNV profiles much quicker than its `R` equivalent. This might not be important
 for a lot of users, but is nevertheless included for cases where it helps to
 have the extra speed.
 
-```{r Create SNV profile with Python}
-create_profile(file, "sample2", "profile_2.txt", python = TRUE)
+```{r Create SNV profile with Python, eval = FALSE}
+create_profile(file, "RKO", "RKO_profile.txt", python = TRUE)
 ```
 
 In order to run the `Python` SNV creation script, you will need to have the
@@ -128,14 +131,9 @@ performed. First, each profile is read using the `read_profile` function,
 which outputs `GRanges` objects for fast and efficient overlapping of variants.
 
 ```{r Read SNV profiles}
-profile1 <- read_profile("profile_1.txt", "sample1")
-profile2 <- read_profile("profile_2.txt", "sample2")
-head(profile1)
-```
-
-```{r Remove temporary files, echo = FALSE, results = "hide"}
-file.remove("profile_1.txt")
-file.remove("profile_2.txt")
+hct116 <- read_profile("hct116_profile.txt", "HCT116")
+rko <- read_profile("rko_profile.txt", "RKO")
+head(hct116)
 ```
 
 Once each profile has been read, the overlapping variants between them can be
@@ -145,7 +143,7 @@ where some variants only have confident calls in one of the samples are
 inappropriate.
 
 ```{r Overlap SNV profiles}
-overlaps <- overlap_profiles(profile1, profile2)
+overlaps <- overlap_profiles(hct116, rko)
 ```
 
 The final step is to see which SNVs match between the two profiles being
@@ -195,22 +193,48 @@ similarity
 
 Here, you can see a summary of the relevant statistics for your particular
 comparison: the number of overlaps between your two samples, the number of
-matching genotypes, their concordance as well as their similarity score. You
-may additionally change the parameters of the score (if you, for example, want
-a stricter calculation). You may also supply the `calculate_similarity`
+matching genotypes, their concordance as well as their similarity score. The
+cutoff used by Yu *et al.* for cell line authenticity was `90 %` for their 48
+SNP panel, something that would be considered the baseline for this method as
+well. The score, `68.7`, is well below that cutoff, and we can thus be certain
+that these two cells are indeed not the same (as expected). While a score just
+below `90` does not mean that the cell definitely are different, it *does* mean
+that more rigorous evaluation needs to be performed in order to ensure their
+biological equivalency.
+
+You may additionally change the parameters of the score (if you, for example,
+want a stricter calculation). You may also supply the `calculate_similarity`
 function with an existing dataframe with summary data produced previously, in
 order to aggregate scores and statistics for an arbitrary number of
-comparisons:
+comparisons.
 
 ```{r Calculate similarities iteratively}
-similarities <- calculate_similarity(overlaps, similarity, a = 1, b = 10)
+# Create and read HKE3 profile
+create_profile(file, "HKE3", "hke3_profile.txt")
+hke3 <- read_profile("hke3_profile.txt", "HKE3")
+
+# Overlap HCT116 and HKE3
+overlaps_hct116_hke3 <- overlap_profiles(hct116, hke3)
+overlaps_hct116_hke3 <- compare_overlaps(overlaps_hct116_hke3)
+
+# Add HCT116/HKE3 similarities to HCT116/RKO similarities
+similarities <- calculate_similarity(overlaps_hct116_hke3,
+                                     similarity, a = 1, b = 10)
 similarities
 ```
 
-Notice that the new `similarities` dataframe contains two rows, but the
-second one has a lower score due to the changing of the `b` parameter from `1`
-to `10`. Any number of samples can be added using this function, for use in
-further downstream  analyses.
+Notice that the new `similarities` dataframe contains both the comparisons of
+HCT116/RKO and HCT116/HKE3, and we can clearly see that HCT116 and HKE3 are
+indeed very similar, as expected (HKE3 was derived from HCT116). This is true
+even when using a higher value for the `b` parameter. Any number of samples can
+be added using the `calculate_similarity` function, for use in further
+downstream analyses.
+
+```{r Remove temporary files, echo = FALSE, results = "hide"}
+file.remove("hct116_profile.txt")
+file.remove("rko_profile.txt")
+file.remove("hke3_profile.txt")
+```
 
 # Performance
 

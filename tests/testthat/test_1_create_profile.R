@@ -3,7 +3,7 @@ context("Creation of SNV profiles")
 
 # Files
 file <- system.file("extdata",
-                    "example.vcf.gz",
+                    "test.vcf.gz",
                     package = "CellAuthentication")
 
 # Extract variants

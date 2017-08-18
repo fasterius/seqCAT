@@ -2,10 +2,10 @@ library("CellAuthentication")
 context("Compare SNV profile overlaps")
 
 # Get overlapping variants
-data(overlaps)
+data(test_overlaps)
 
 # Tests
-compared <- compare_overlaps(overlaps)
+compared <- compare_overlaps(test_overlaps)
 test_that("correct number of matches and mismatches are found", {
     expect_equal(nrow(compared), 51)
     expect_equal(nrow(compared[compared$match == "match", ]), 50)

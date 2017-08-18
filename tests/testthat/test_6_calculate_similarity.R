@@ -2,8 +2,8 @@ library("CellAuthentication")
 context("Calculation of summary statistics for overlaps")
 
 # Get compared, overlapping variants
-data(overlaps)
-overlaps <- compare_overlaps(overlaps)
+data(test_overlaps)
+overlaps <- compare_overlaps(test_overlaps)
 
 # Tests
 test_that("dataframe checking works correctly", {

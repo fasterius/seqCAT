@@ -80,20 +80,21 @@ biology of the cells.
 Throughout this vignette we will be using some example data, `example.vcf.gz`,
 which comes from the initial publication of the general process of this method.
 [@Fasterius2017] It is a simplified multi-sample VCF file on a subset of
-chromosome 12 (containing all variants up to position `25400000`) for three
-different colorectal cancer cell lines: *HCT116*, *HKE3* and *RKO*.
+chromosome 12 (containing all variants up to position `25400000`, in order to
+keep the file size low) for three different colorectal cancer cell lines:
+*HCT116*, *HKE3* and *RKO*.
 
 ```{r Create SNV profile with R}
 # Load the package
 library("CellAuthentication")
 
 # List the example VCF file
-file <- system.file("extdata", "example.vcf.gz",
-                    package = "CellAuthentication")
+vcf <- system.file("extdata", "example.vcf.gz",
+                   package = "CellAuthentication")
 
 # Create two SNV profiles
-create_profile(file, "HCT116", "hct116_profile.txt")
-create_profile(file, "RKO", "rko_profile.txt", filter_depth = 15)
+create_profile(vcf, "HCT116", "hct116_profile.txt")
+create_profile(vcf, "RKO", "rko_profile.txt", filter_depth = 15)
 ```
 
 This creates SNV profiles for the two samples found in the example data
@@ -112,13 +113,13 @@ for a lot of users, but is nevertheless included for cases where it helps to
 have the extra speed.
 
 ```{r Create SNV profile with Python, eval = FALSE}
-create_profile(file, "RKO", "RKO_profile.txt", python = TRUE)
+create_profile(vcf, "RKO", "RKO_profile.txt", python = TRUE)
 ```
 
-In order to run the `Python` SNV creation script, you will need to have the
-[PyVCF](https://pypi.python.org/pypi/PyVCF) installed. You can also run the
-python script directly from the command line, supplying its input arguments
-from there. To see the arguments, use:
+In order to run the `Python` SNV profile creation script, you will need to have
+the [PyVCF](https://pypi.python.org/pypi/PyVCF) module installed. You can also
+run the python script directly from the command line, supplying its input
+arguments from there. To see the arguments, use:
 
 ```{r Python command line, engine = "bash", eval = FALSE}
 $ python create_profile.py --help
@@ -210,7 +211,7 @@ comparisons.
 
 ```{r Calculate similarities iteratively}
 # Create and read HKE3 profile
-create_profile(file, "HKE3", "hke3_profile.txt")
+create_profile(vcf, "HKE3", "hke3_profile.txt")
 hke3 <- read_profile("hke3_profile.txt", "HKE3")
 
 # Overlap HCT116 and HKE3

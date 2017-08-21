@@ -1,6 +1,6 @@
 Package: CellAuthentication
 Title: Cell Authentication Through Analysis Of High Throughput Sequencing Data
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", 
     role = c("aut", "cre"))
 Description: The CellAuthentication package uses variant calling data (in the

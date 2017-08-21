@@ -28,7 +28,7 @@ function, in which case it will simply add another row for the current
 samples, facilitating downstream aggregate analyses.
 }
 \examples{
-data(overlaps)
-similarity <- calculate_similarity(overlaps)
-calculate_similarity(overlaps, similarity = similarity)
+data(test_overlaps)
+similarity <- calculate_similarity(test_overlaps)
+calculate_similarity(test_overlaps, similarity = similarity)
 }

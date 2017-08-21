@@ -1,10 +1,10 @@
 #' SNV profile 1
 #'
 #' SNV profile in GRanges format from "sample1", originating from the
-#' profile_1.txt in the inst/extdata directory, for use in examples and tests.
+#' test_profile_1.txt in the inst/extdata directory, for use in unit tests.
 #'
 #' @docType data
-#' @usage data(profile_1)
+#' @usage data(test_profile_1)
 #' @format A GRanges object with 383 elements and 17 metadata columns:
 #' \describe{
 #'     \item{rsID}{mutation ID, if available}
@@ -25,15 +25,15 @@
 #'     \item{warnings}{warnings from variant calling}
 #'     \item{sample}{sample name}
 #' }
-"profile_1"
+"test_profile_1"
 
 #' SNV profile 2
 #'
 #' SNV profile in GRanges format from "sample2", originating from the
-#' profile_2.txt in the inst/extdata directory, for use in examples and tests.
+#' test_profile_2.txt in the inst/extdata directory, for use in unit tests.
 #'
 #' @docType data
-#' @usage data(profile_2)
+#' @usage data(test_profile_2)
 #' @format A GRanges object with 382 elements and 17 metadata columns:
 #' \describe{
 #'     \item{rsID}{mutation ID, if available}
@@ -54,16 +54,16 @@
 #'     \item{warnings}{warnings from variant calling}
 #'     \item{sample}{sample name}
 #' }
-"profile_2"
+"test_profile_2"
 
-#' Overlapping example variants
+#' Overlapping and compared SNVs
 #'
-#' Overlapping variants from "sample1" and "sample2" originating from the
-#' example.vcf file included in the inst/extdata directory, for use in examples
-#' and tests.
+#' Overlapping and compared variants from "sample1" and "sample2" originating
+#' from the example.vcf file included in the inst/extdata directory, for use in
+#' unit tests.
 #'
 #' @docType data
-#' @usage data(overlaps)
+#' @usage data(test_overlaps)
 #' @format A data frame with 51 rows and 39 columns:
 #' \describe{
 #'     \item{seqnames}{chromosome}
@@ -105,5 +105,6 @@
 #'     \item{A2.sample_2}{allele 2, sample 2}
 #'     \item{warnings.sample_2}{warnings from variant calling, sample 2}
 #'     \item{sample_2}{name, sample 2}
+#'     \item{match}{status of genotype comparison}
 #' }
-"overlaps"
+"test_overlaps"

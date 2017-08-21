@@ -129,7 +129,7 @@ $ python create_profile.py --help
 
 Once each relevant sample has its own SNV profile the comparisons can be
 performed. First, each profile is read using the `read_profile` function,
-which outputs `GRanges` objects for fast and efficient overlapping of variants.
+which outputs `GRanges` objects for fast and efficient comparisons.
 
 ```{r Read SNV profiles}
 hct116 <- read_profile("hct116_profile.txt", "HCT116")
@@ -137,28 +137,16 @@ rko <- read_profile("rko_profile.txt", "RKO")
 head(hct116)
 ```
 
-Once each profile has been read, the overlapping variants between them can be
-found using the `overlap_profiles` function. Only variants found in both
-profiles are considered to overlap, as similarity calculations between profiles
-where some variants only have confident calls in one of the samples are
-inappropriate.
-
-```{r Overlap SNV profiles}
-overlaps <- overlap_profiles(hct116, rko)
-```
-
-The final step is to see which SNVs match between the two profiles being
-compared, which is accomplished with the `compare_overlaps` function. A SNV is
-considered a match if it has an identical genotype in both profiles. 
+Once each profile has been read, the genotypes of the overlapping variants
+between them can be compared using the `compare_profiles` function. Only
+variants found in both profiles are considered to overlap, as similarity
+calculations between profiles where some variants only have confident calls in
+one of the samples are inappropriate. An SNV is considered a match if it has an
+identical genotype in both profiles.
 
 ```{r Compare profiles}
-overlaps <- compare_overlaps(overlaps)
-```
-
-We can look at the resulting data frame:
-
-```{r Inspect comparison}
-overlaps[1:5, c(1, 2, 5, 19, 20, 35, 36)]
+comparison <- compare_profiles(hct116, rko)
+comparison[1:5, c(1, 2, 5, 19, 20, 35, 36)]
 ```
 
 You are now ready for downstream analyses!
@@ -188,7 +176,7 @@ score is thus a better measure of biological equivalency than just the
 concordance.
 
 ```{r Calculate similarities}
-similarity <- calculate_similarity(overlaps)
+similarity <- calculate_similarity(comparison)
 similarity
 ```
 
@@ -215,11 +203,10 @@ create_profile(vcf, "HKE3", "hke3_profile.txt")
 hke3 <- read_profile("hke3_profile.txt", "HKE3")
 
 # Overlap HCT116 and HKE3
-overlaps_hct116_hke3 <- overlap_profiles(hct116, hke3)
-overlaps_hct116_hke3 <- compare_overlaps(overlaps_hct116_hke3)
+comparison_hct116_hke3 <- compare_profiles(hct116, hke3)
 
 # Add HCT116/HKE3 similarities to HCT116/RKO similarities
-similarities <- calculate_similarity(overlaps_hct116_hke3,
+similarities <- calculate_similarity(comparison_hct116_hke3,
                                      similarity, a = 1, b = 10)
 similarities
 ```

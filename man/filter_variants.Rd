@@ -20,7 +20,7 @@ a depth lower than 10 are removed by default, but can be changed in the
 function call.
 }
 \examples{
-data(overlaps)
-filter_variants(overlaps)
-filter_variants(overlaps, filter_depth = 20)
+data(test_overlaps)
+filter_variants(test_overlaps)
+filter_variants(test_overlaps, filter_depth = 20)
 }

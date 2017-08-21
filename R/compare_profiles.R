@@ -1,23 +1,26 @@
-#' Find overlapping variants in two GenomicRanges objects.
+#' Overlap and compare genotypes in two SNV profiles.
 #'
 #' This is a function for finding overlapping variants in two different SNV
-#' profiles (stored as GenomicRanges objects). The overlap_profiles function
-#' is a wrapper function that adds metadata to an intersection of two GRanges
-#' objects twice, in order to merge the metadata for those overlapping
-#' profiles, returning a data frame.
+#' profiles (stored as GenomicRanges objects), followed by comparing the
+#' genotypes of the overlapping variants. The "compare_overlaps" function calls
+#' the "add_metadata" function twice in succession in order to merge the
+#' metadata for the two profiles (supplied as GRanges objects), returns the
+#' results as a dataframe, compares the genotypes of the overlapping variants
+#' using the "compare_genotypes" function and, finally, returns the final
+#' dataframe with all variant overlaps and their similarity.
 
 #' @export
-#' @rdname overlap_profiles
+#' @rdname compare_profiles
 #' @param profile_1 The first variant GRanges object.
 #' @param profile_2 The second variant GRanges object.
 #' @param sample_1 Name of the first sample.
 #' @param sample_2 Name of the second sample.
 #' @return A data frame.
 #' @examples
-#' data(profile_1)
-#' data(profile_2)
-#' overlap_profiles(profile_1, profile_2, "sample1", "sample2")
-overlap_profiles <- function(profile_1,
+#' data(test_profile_1)
+#' data(test_profile_2)
+#' compare_profiles(test_profile_1, test_profile_2, "sample1", "sample2")
+compare_profiles <- function(profile_1,
                              profile_2,
                              sample_1 = "sample_1",
                              sample_2 = "sample_2") {
@@ -55,6 +58,9 @@ overlap_profiles <- function(profile_1,
     redundant <- paste0("sample.", c(sample_1, sample_2))
     data <- data[!names(data) %in% redundant]
 
+    # Compare genotypes in each overlapping SNV
+    data <- compare_genotypes(data)
+
     # Return the final data frame
     return(data)
 }
@@ -90,4 +96,55 @@ add_metadata <- function(query,
       S4Vectors::mcols(subject)[S4Vectors::subjectHits(hits), column]
     }
     return(query)
+}
+
+# Function for comparing genotypes in overlapping SNVs
+compare_genotypes <- function(overlaps) {
+
+    # Get sample names
+    sample_1 <- unique(overlaps$sample_1)
+    sample_2 <- unique(overlaps$sample_2)
+
+    # Find overlapping variants with complete genotypes
+    alleles <- paste(c("A1", "A1", "A2", "A2"),
+                     c(sample_1, sample_2),
+                     sep = ".")
+    idx_notna <- row.names(
+        overlaps[stats::complete.cases(overlaps[, alleles]), ])
+
+    # Check for matches if there are overlapping variants
+    if (length(idx_notna) != 0) {
+
+        # Set all to "mismatch"
+        overlaps$match <- "mismatch"
+
+        # Construct alleles
+        overlaps_alleles <- overlaps[alleles]
+        overlaps_alleles$in_1 <- paste(overlaps_alleles[, 1],
+                                   overlaps_alleles[, 3],
+                                   sep = ":")
+        overlaps_alleles$in_2 <- paste(overlaps_alleles[, 2],
+                                   overlaps_alleles[, 4],
+                                   sep = ":")
+        overlaps_alleles$in_1_rev <- paste(overlaps_alleles[, 3],
+                                       overlaps_alleles[, 1],
+                                       sep = ":")
+
+        # Check and set matching genotypes as appropriate
+        idx_match_1 <- apply(overlaps_alleles, 1,
+                            function(x) x["in_1"] %in% x["in_2"])
+        idx_match_2 <- apply(overlaps_alleles, 1,
+                            function(x) x["in_1_rev"] %in% x["in_2"])
+        overlaps[idx_match_1, "match"] <- "match"
+        overlaps[idx_match_2, "match"] <- "match"
+
+    } else {
+
+        # Add empty match column if no overlapping variants are found
+        overlaps$match <- NA
+    }
+
+    # Return the results
+    return(overlaps)
+
 }

@@ -8,9 +8,9 @@
 #' @param filter_depth Threshold for variant depth (default 10)
 #' @return A data frame containing the filtered variants.
 #' @examples
-#' data(overlaps)
-#' filter_variants(overlaps)
-#' filter_variants(overlaps, filter_depth = 20)
+#' data(test_overlaps)
+#' filter_variants(test_overlaps)
+#' filter_variants(test_overlaps, filter_depth = 20)
 
 #' @export
 filter_variants <- function(overlaps, filter_depth = 10) {

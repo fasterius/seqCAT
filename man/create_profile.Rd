@@ -32,7 +32,7 @@ on the same sample.
 }
 \examples{
 vcf_file = system.file("extdata",
-                       "example.vcf.gz", 
+                       "test.vcf.gz", 
                        package = "CellAuthentication")
 create_profile(vcf_file, "sample1", "profile1.txt")
 create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)

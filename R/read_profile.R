@@ -9,7 +9,7 @@
 #' @return A GenomicRanges object.
 #' @examples
 #' profile = system.file("extdata",
-#'                       "profile_1.txt.gz",
+#'                       "test_profile_1.txt.gz",
 #'                       package = "CellAuthentication")
 #' read_profile(profile, "sample1")
 

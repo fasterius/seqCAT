@@ -92,6 +92,7 @@ create_profile <- function(vcf_file,
         data <- tidyr::separate_(data   = data,
                                  col    = "AD",
                                  into   = c("AD1", "AD2"),
+                                 fill   = "right",
                                  remove = TRUE)
 
         # Add alleles
@@ -99,6 +100,7 @@ create_profile <- function(vcf_file,
                                  col    = "GT",
                                  sep    = "/",
                                  into   = c("A1", "A2"),
+                                 fill   = "right",
                                  remove = TRUE)
 
         data[data$A1 == 0, "A1"] <- data[data$A1 == 0, "REF"]
@@ -137,6 +139,8 @@ create_profile <- function(vcf_file,
             ann <- tidyr::separate_(as.data.frame(ann),
                                     col    = "ann",
                                     sep    = "\\|",
+                                    extra  = "drop",
+                                    fill   = "right",
                                     remove = TRUE,
                                     into   = c("ALT",
                                                "effect",
@@ -147,11 +151,11 @@ create_profile <- function(vcf_file,
                                                "ENSTID",
                                                "biotype",
                                                "rank",
-                                               "HGSV.c",
-                                               "HGSV.p",
-                                               "cDNA.pos",
-                                               "CDS.pos",
-                                               "protein.pos",
+                                               "HGSV_c",
+                                               "HGSV_p",
+                                               "cDNA_pos",
+                                               "CDS_pos",
+                                               "protein_pos",
                                                "distance",
                                                "warnings"))
 
@@ -159,11 +163,11 @@ create_profile <- function(vcf_file,
             ann <- dplyr::select_(ann,
                                   "-ALT",
                                   "-rank",
-                                  "-HGSV.c",
-                                  "-HGSV.p",
-                                  "-cDNA.pos",
-                                  "-CDS.pos",
-                                  "-protein.pos",
+                                  "-HGSV_c",
+                                  "-HGSV_p",
+                                  "-cDNA_pos",
+                                  "-CDS_pos",
+                                  "-protein_pos",
                                   "-distance")
 
             # Keep only the highest impact SNV(s)

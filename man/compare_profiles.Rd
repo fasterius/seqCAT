@@ -4,8 +4,7 @@
 \alias{compare_profiles}
 \title{Overlap and compare genotypes in two SNV profiles.}
 \usage{
-compare_profiles(profile_1, profile_2, sample_1 = "sample_1",
-  sample_2 = "sample_2")
+compare_profiles(profile_1, profile_2)
 }
 \arguments{
 \item{profile_1}{The first variant GRanges object.}
@@ -32,5 +31,5 @@ dataframe with all variant overlaps and their similarity.
 \examples{
 data(test_profile_1)
 data(test_profile_2)
-compare_profiles(test_profile_1, test_profile_2, "sample1", "sample2")
+compare_profiles(test_profile_1, test_profile_2)
 }

@@ -19,11 +19,13 @@
 #' @examples
 #' data(test_profile_1)
 #' data(test_profile_2)
-#' compare_profiles(test_profile_1, test_profile_2, "sample1", "sample2")
+#' compare_profiles(test_profile_1, test_profile_2)
 compare_profiles <- function(profile_1,
-                             profile_2,
-                             sample_1 = "sample_1",
-                             sample_2 = "sample_2") {
+                             profile_2) {
+
+    # Find sample names
+    sample_1 <- unique(profile_1$sample)
+    sample_2 <- unique(profile_2$sample)
 
     # Find the intersection of all ranges in both objects
     intersect_gr <- S4Vectors::intersect(profile_1, profile_2)
@@ -47,22 +49,21 @@ compare_profiles <- function(profile_1,
 
     # Add empty data frame with sample names if no variants overlap
     if (nrow(data) == 0) {
+
         data[1, "sample_1"] <- sample_1
         data[1, "sample_2"] <- sample_2
+
     } else {
+
         data$sample_1 <- sample_1
         data$sample_2 <- sample_2
     }
 
-    # Remove redundant sample name columns
-    redundant <- paste0("sample.", c(sample_1, sample_2))
-    data <- data[!names(data) %in% redundant]
-
     # Compare genotypes in each overlapping SNV
-    data <- compare_genotypes(data)
+    data <- compare_genotypes(data, sample_1, sample_2)
 
     # Collate metadata columns
-    data <- collate_metadata(data)
+    data <- collate_metadata(data, sample_1, sample_2)
 
     # Return the final data frame
     return(data)
@@ -102,11 +103,7 @@ add_metadata <- function(query,
 }
 
 # Function for comparing genotypes in overlapping SNVs
-compare_genotypes <- function(overlaps) {
-
-    # Get sample names
-    sample_1 <- unique(overlaps$sample_1)
-    sample_2 <- unique(overlaps$sample_2)
+compare_genotypes <- function(overlaps, sample_1, sample_2) {
 
     # Find overlapping variants with complete genotypes
     alleles <- paste(c("A1", "A1", "A2", "A2"),
@@ -144,7 +141,7 @@ compare_genotypes <- function(overlaps) {
     } else {
 
         # Add empty match column if no overlapping variants are found
-        overlaps$match <- NA
+        overlaps$match <- "no overlaps"
     }
 
     # Return the results
@@ -152,33 +149,44 @@ compare_genotypes <- function(overlaps) {
 }
 
 # Function for collating metadata columns from both samples
-collate_metadata <- function(data) {
+collate_metadata <- function(data, sample_1, sample_2) {
+
+    # Remove redundant sample name columns
+    data <- dplyr::select_(data,
+                           paste0("-sample.", sample_1),
+                           paste0("-sample.", sample_2))
 
     # Find sample-specific metadata columns
-    mcols <- grep("\\.sample_1", names(data),
+    mcols <- grep(paste0("\\.", sample_1),
+                  names(data),
                   value = TRUE)
-    mcols <- grep("DP|AD1|AD2|A1|A2|warnings", mcols,
+    mcols <- grep("DP|AD1|AD2|A1|A2|warnings",
+                  mcols,
                   value = TRUE, invert = TRUE)
 
     # Loop over metadata columns and merge as applicable
-    for (mcol_1 in mcols) {
+    for (mcol_s1 in mcols) {
 
         # Current metadata column name
-        mcol <- gsub("\\.sample_1", "", mcol_1)
-        mcol_2 <- gsub("\\.sample_1", "\\.sample_2", mcol_1)
+        mcol <- gsub(paste0("\\.", sample_1),
+                     "",
+                     mcol_s1)
+        mcol_s2 <- gsub(paste0("\\.", sample_1),
+                        paste0("\\.", sample_2),
+                        mcol_s1)
 
         # Create merged metadata column as appropriate
-        if (!(all(is.na(data[[mcol_1]]), is.na(data[[mcol_2]])))) {
+        if (!(all(is.na(data[[mcol_s1]]), is.na(data[[mcol_s2]])))) {
 
-            data[data[[mcol_1]] == data[[mcol_2]], mcol] <- data[[mcol_1]]
-            data[data[[mcol_1]] != data[[mcol_2]], mcol] <-
-                paste0("[", data[[mcol_1]], ",", data[[mcol_2]], "]")
+            data[data[[mcol_s1]] == data[[mcol_s2]], mcol] <- data[[mcol_s1]]
+            data[data[[mcol_s1]] != data[[mcol_s2]], mcol] <-
+                paste0("[", data[[mcol_s1]], ",", data[[mcol_s2]], "]")
         }
 
         # Remove old metadata columns
         data <- dplyr::select_(data,
-                               paste0("-", mcol_1),
-                               paste0("-", mcol_2))
+                               paste0("-", mcol_s1),
+                               paste0("-", mcol_s2))
     }
 
     # Delete unneccesary columns

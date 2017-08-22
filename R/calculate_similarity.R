@@ -16,9 +16,9 @@
 #' @param similarity Optional dataframe to add results to
 #' @return A dataframe with summary statistics
 #' @examples
-#' data(test_overlaps)
-#' similarity <- calculate_similarity(test_overlaps)
-#' calculate_similarity(test_overlaps, similarity = similarity)
+#' data(test_comparison)
+#' similarity <- calculate_similarity(test_comparison)
+#' calculate_similarity(test_comparison, similarity = similarity)
 calculate_similarity <- function(overlaps,
                                  similarity = NULL,
                                  a          = 1,

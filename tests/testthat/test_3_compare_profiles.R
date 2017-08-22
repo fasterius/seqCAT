@@ -33,11 +33,11 @@ test_that("no missing genotypes are found", {
 })
 
 test_that("profiles with zero overlaps are handled correctly", {
-    expect_equal(length(zero_1[is.na(zero_1)]), 38)
+    expect_equal(length(zero_1[is.na(zero_1)]), 15)
     expect_equal(length(grep("sample", t(zero_1), value = TRUE)), 2)
 })
 
 test_that("missing genotypes are handled correctly", {
-    expect_equal(length(zero_2[is.na(zero_2)]), 38)
+    expect_equal(length(zero_2[is.na(zero_2)]), 15)
     expect_equal(length(grep("sample", t(zero_2), value = TRUE)), 2)
 })

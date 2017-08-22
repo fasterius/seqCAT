@@ -2,22 +2,22 @@ library("CellAuthentication")
 context("Calculation of summary statistics for overlaps")
 
 # Get compared, overlapping variants
-data(test_overlaps)
+data(test_comparison)
 
 # Calculate similarities
-similarity <- calculate_similarity(test_overlaps)
-similarity <- calculate_similarity(test_overlaps, similarity)
+similarity <- calculate_similarity(test_comparison)
+similarity <- calculate_similarity(test_comparison, similarity)
 
 # Dummy for structure test
 dummy <- data.frame(sample_1 = 1, sample_2 = 2, dummy = 3)
 
 # Tests
 test_that("dataframe checking works correctly", {
-    expect_error(calculate_similarity(test_overlaps, 1), "not a dataframe")
+    expect_error(calculate_similarity(test_comparison, 1), "not a dataframe")
 })
 
 test_that("dataframe structure checks are working correctly", {
-    expect_error(calculate_similarity(test_overlaps, dummy), "structure")
+    expect_error(calculate_similarity(test_comparison, dummy), "structure")
 })
 
 test_that("correct statistics are calculated", {

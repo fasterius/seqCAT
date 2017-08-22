@@ -61,6 +61,9 @@ compare_profiles <- function(profile_1,
     # Compare genotypes in each overlapping SNV
     data <- compare_genotypes(data)
 
+    # Collate metadata columns
+    data <- collate_metadata(data)
+
     # Return the final data frame
     return(data)
 }
@@ -146,5 +149,47 @@ compare_genotypes <- function(overlaps) {
 
     # Return the results
     return(overlaps)
+}
 
+# Function for collating metadata columns from both samples
+collate_metadata <- function(data) {
+
+    # Find sample-specific metadata columns
+    mcols <- grep("\\.sample_1", names(data),
+                  value = TRUE)
+    mcols <- grep("DP|AD1|AD2|A1|A2|warnings", mcols,
+                  value = TRUE, invert = TRUE)
+
+    # Loop over metadata columns and merge as applicable
+    for (mcol_1 in mcols) {
+
+        # Current metadata column name
+        mcol <- gsub("\\.sample_1", "", mcol_1)
+        mcol_2 <- gsub("\\.sample_1", "\\.sample_2", mcol_1)
+
+        # Create merged metadata column as appropriate
+        if (!(all(is.na(data[[mcol_1]]), is.na(data[[mcol_2]])))) {
+
+            data[data[[mcol_1]] == data[[mcol_2]], mcol] <- data[[mcol_1]]
+            data[data[[mcol_1]] != data[[mcol_2]], mcol] <-
+                paste0("[", data[[mcol_1]], ",", data[[mcol_2]], "]")
+        }
+
+        # Remove old metadata columns
+        data <- dplyr::select_(data,
+                               paste0("-", mcol_1),
+                               paste0("-", mcol_2))
+    }
+
+    # Delete unneccesary columns
+    data <- dplyr::select_(data,
+                          "-end",
+                          "-width",
+                          "-strand")
+
+    # Rename columns
+    names(data)[1:2] <- c("chr", "pos")
+
+    # Return final data
+    return(data)
 }

@@ -146,7 +146,7 @@ identical genotype in both profiles.
 
 ```{r Compare profiles}
 comparison <- compare_profiles(hct116, rko)
-comparison[1:5, c(1, 2, 5, 19, 20, 35, 36)]
+head(comparison)
 ```
 
 You are now ready for downstream analyses!

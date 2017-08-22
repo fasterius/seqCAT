@@ -9,12 +9,18 @@ plot_impacts(comparison, annotate = TRUE, legend = TRUE,
 }
 \arguments{
 \item{comparison}{The profile comparison to be plotted}
+
+\item{annotate}{Annotate each category}
+
+\item{legend}{Show/hide legend}
+
+\item{palette}{Colour palette for filling of bars}
 }
 \description{
 This function creates publication-ready plots of the impact distribution
 from a binary dataset comparison across the matched/mismatched SNVs.
 }
 \examples{
-data(test_overlaps)
-plot_impacts(test_overlaps)
+data(test_comparison)
+plot_impacts(test_comparison)
 }

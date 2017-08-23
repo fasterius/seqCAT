@@ -25,9 +25,10 @@ plot_impacts <- function(comparison,
     comparison$impact <- factor(comparison$impact, levels = impacts)
 
     # Calculate impact distribution
-    data <- dplyr::group_by(comparison, match, impact)
-    data <- dplyr::summarise(data, count = n())
-    data <- dplyr::mutate(data, prop = count / sum(count) * 100)
+    data <- dplyr::group_by_(comparison, "match", "impact")
+    data <- dplyr::summarise_(data, count = ~n())
+    data <- dplyr::mutate_(data, .dots = stats::setNames(
+        list(lazyeval::interp(quote(count / sum(count) * 100))), "prop"))
 
     # Add zeroes to empty groups
     for (impact in impacts) {
@@ -49,9 +50,9 @@ plot_impacts <- function(comparison,
     }
 
     # Create plot object
-    gg <- ggplot2::ggplot(data, ggplot2::aes(x    = impact,
-                                             y    = prop,
-                                             fill = match)) +
+    gg <- ggplot2::ggplot(data, ggplot2::aes_string(x    = "impact",
+                                              y    = "prop",
+                                              fill = "match")) +
         ggplot2::geom_bar(stat     = "identity",
                           position = "dodge",
                           colour   = "#000000",
@@ -74,26 +75,25 @@ plot_impacts <- function(comparison,
         # Add annotations to plot
         gg <- gg +
             ggplot2::geom_text(
-                ggplot2::aes(label = count),
-                position           = ggplot2::position_dodge(width = 0.9),
-                vjust              = -0.5,
-                size               = 2.5,
-                colour             = "#000000") +
+                ggplot2::aes_string(label = "count"),
+                position = ggplot2::position_dodge(width = 0.9),
+                vjust    = -0.5,
+                size     = 2.5,
+                colour   = "#000000") +
             ggplot2::geom_text(
-                data               = data[data$prop > 5, ],
-                ggplot2::aes(label = percent),
-                position           = ggplot2::position_dodge(width = 0.9),
-                vjust              = 1.6,
-                size               = 3.5,
-                colour             = "#FFFFFF") +
+                ggplot2::aes_string(label = "percent"),
+                data     = data[data$prop > 5, ],
+                position = ggplot2::position_dodge(width = 0.9),
+                vjust    = 1.6,
+                size     = 3.5,
+                colour   = "#FFFFFF") +
             ggplot2::geom_text(
-                data               = data[data$prop <= 5, ],
-                ggplot2::aes(label = percent,
-                             y     = 0),
-                position           = ggplot2::position_dodge(width = 0.9),
-                vjust              = 1.5,
-                size               = 3.5,
-                colour             = "#4D4D4D")
+                ggplot2::aes_string(label = "percent", y = 0),
+                data     = data[data$prop <= 5, ],
+                position = ggplot2::position_dodge(width = 0.9),
+                vjust    = 1.5,
+                size     = 3.5,
+                colour   = "#4D4D4D")
     }
 
     # Remove legend (if applicable)

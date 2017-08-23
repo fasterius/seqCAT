@@ -10,10 +10,6 @@ compare_profiles(profile_1, profile_2)
 \item{profile_1}{The first variant GRanges object.}
 
 \item{profile_2}{The second variant GRanges object.}
-
-\item{sample_1}{Name of the first sample.}
-
-\item{sample_2}{Name of the second sample.}
 }
 \value{
 A data frame.

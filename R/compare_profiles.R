@@ -13,8 +13,6 @@
 #' @rdname compare_profiles
 #' @param profile_1 The first variant GRanges object.
 #' @param profile_2 The second variant GRanges object.
-#' @param sample_1 Name of the first sample.
-#' @param sample_2 Name of the second sample.
 #' @return A data frame.
 #' @examples
 #' data(test_profile_1)

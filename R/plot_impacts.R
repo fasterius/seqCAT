@@ -9,6 +9,7 @@
 #' @param annotate Annotate each category
 #' @param legend Show/hide legend
 #' @param palette Colour palette for filling of bars
+#' @return A ggplot2 graphical object
 #' @examples
 #' data(test_comparison)
 #' plot_impacts(test_comparison)

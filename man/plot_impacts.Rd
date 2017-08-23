@@ -16,6 +16,9 @@ plot_impacts(comparison, annotate = TRUE, legend = TRUE,
 
 \item{palette}{Colour palette for filling of bars}
 }
+\value{
+A ggplot2 graphical object
+}
 \description{
 This function creates publication-ready plots of the impact distribution
 from a binary dataset comparison across the matched/mismatched SNVs.

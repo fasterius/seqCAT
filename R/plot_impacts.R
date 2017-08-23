@@ -28,7 +28,7 @@ plot_impacts <- function(comparison,
     data <- dplyr::group_by_(comparison, "match", "impact")
     data <- dplyr::summarise_(data, count = ~n())
     data <- dplyr::mutate_(data, .dots = stats::setNames(
-        list(lazyeval::interp(quote(count / sum(count) * 100))), "prop"))
+        lazyeval::interp("count / sum(count) * 100"), "prop"))
 
     # Add zeroes to empty groups
     for (impact in impacts) {
@@ -58,7 +58,7 @@ plot_impacts <- function(comparison,
                           colour   = "#000000",
                           size     = 0.3) +
         ggplot2::theme_bw() +
-        ggplot2::labs(x    = "data category",
+        ggplot2::labs(x    = "Impact category",
                       y    = "Proportion of SNVs in category (%)",
                       fill = "") +
         ggplot2::scale_fill_manual(values = palette,

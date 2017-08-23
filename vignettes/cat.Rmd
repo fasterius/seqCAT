@@ -5,7 +5,7 @@ author: "Erik Fasterius"
           # package."
 date: "`r Sys.Date()`"
 output:
-    BiocStyle::pdf_document:
+    BiocStyle::html_document:
         highlight: tango
 bibliography: bibliography.bib
 vignette: >
@@ -13,6 +13,10 @@ vignette: >
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
+
+```{r Options, echo = FALSE}
+knitr::opts_chunk$set(fig.align = "center")
+```
 
 # Introduction
 
@@ -145,8 +149,8 @@ one of the samples are inappropriate. An SNV is considered a match if it has an
 identical genotype in both profiles.
 
 ```{r Compare profiles}
-comparison <- compare_profiles(hct116, rko)
-head(comparison)
+comparison_hct116_rko <- compare_profiles(hct116, rko)
+head(comparison_hct116_rko)
 ```
 
 You are now ready for downstream analyses!
@@ -176,7 +180,7 @@ score is thus a better measure of biological equivalency than just the
 concordance.
 
 ```{r Calculate similarities}
-similarity <- calculate_similarity(comparison)
+similarity <- calculate_similarity(comparison_hct116_rko)
 similarity
 ```
 
@@ -217,6 +221,24 @@ indeed very similar, as expected (HKE3 was derived from HCT116). This is true
 even when using a higher value for the `b` parameter. Any number of samples can
 be added using the `calculate_similarity` function, for use in further
 downstream analyses.
+
+## Impact distributions
+
+An SNV's *impact* represent the putative effect that variant may have on the
+function of the resulting protein, and ranges from HIGH through MODERATE, LOW
+and MODIFIER, in decreasing order of magnitude. HIGH impact variants may, for
+example, lead to truncated proteins due to the introduction of a stop codon,
+while MODIFIER variants have little to no effect on the protein at all. It is
+informative to look at the distribution of the impacts of the overlapping SNVs
+between two profiles, a task easily performed by the `plot_impacts` function:
+
+```{r Impact distributions}
+impacts <- plot_impacts(comparison_hct116_rko)
+impacts
+```
+
+We can see that most of the SNVs are present in the MODIFIER impact category,
+and that there is not a single mismatched HIGH impact SNV.
 
 ```{r Remove temporary files, echo = FALSE, results = "hide"}
 file.remove("hct116_profile.txt")

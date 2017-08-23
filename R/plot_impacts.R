@@ -18,28 +18,45 @@ plot_impacts <- function(comparison,
                          palette = c("#0D2D59", "#1954A6")) {
 
     # Factorise match and impact columns
-    comparison$match <- factor(comparison$match,
-                               levels = c("match", "mismatch"))
-    comparison$impact <-
-        factor(comparison$impact,
-               levels = c("HIGH", "MODERATE", "LOW", "MODIFIER"))
+    matches <- c("match", "mismatch")
+    impacts <- c("HIGH", "MODERATE", "LOW", "MODIFIER")
+    comparison$match <- factor(comparison$match, levels = matches)
+    comparison$impact <- factor(comparison$impact, levels = impacts)
 
     # Calculate impact distribution
-    # impact <- comparison %>%
-    impact <- dplyr::group_by(comparison, match, impact)
-    impact <- dplyr::summarise(impact, count = n())
-    impact <- dplyr::mutate(impact, prop = count / sum(count) * 100)
+    data <- dplyr::group_by(comparison, match, impact)
+    data <- dplyr::summarise(data, count = n())
+    data <- dplyr::mutate(data, prop = count / sum(count) * 100)
+
+    # Add zeroes to empty groups
+    for (impact in impacts) {
+        for (match in matches) {
+
+            # Check current combination for existing data
+            current <- data[data$impact == impact &
+                            data$match == match, ]$count
+
+            # Add to non-existing data
+            if (length(current) == 0) {
+
+                data[nrow(data) + 1, "match"] <- match
+                data[nrow(data), "impact"] <- impact
+                data[nrow(data), "count"] <- 0
+                data[nrow(data), "prop"] <- 0
+            }
+        }
+    }
 
     # Create plot object
-    gg <- ggplot2::ggplot(impact, ggplot2::aes(x    = impact,
-                                               y    = prop,
-                                               fill = match)) +
+    gg <- ggplot2::ggplot(data, ggplot2::aes(x    = impact,
+                                             y    = prop,
+                                             fill = match)) +
         ggplot2::geom_bar(stat     = "identity",
                           position = "dodge",
                           colour   = "#000000",
                           size     = 0.3) +
         ggplot2::theme_bw() +
-        ggplot2::labs(x    = "Impact category",
+        ggplot2::labs(x    = "data category",
                       y    = "Proportion of SNVs in category (%)",
                       fill = "") +
         ggplot2::scale_fill_manual(values = palette,
@@ -50,7 +67,7 @@ plot_impacts <- function(comparison,
     if (annotate) {
 
         # Create labels
-        impact$percent <- paste0(format(impact$prop, nsmall = 1,
+        data$percent <- paste0(format(data$prop, nsmall = 1,
                                         digits = 1), " %")
 
         # Add annotations to plot
@@ -62,17 +79,18 @@ plot_impacts <- function(comparison,
                 size               = 2.5,
                 colour             = "#000000") +
             ggplot2::geom_text(
-                data               = impact[impact$prop > 5, ],
+                data               = data[data$prop > 5, ],
                 ggplot2::aes(label = percent),
                 position           = ggplot2::position_dodge(width = 0.9),
                 vjust              = 1.6,
                 size               = 3.5,
                 colour             = "#FFFFFF") +
             ggplot2::geom_text(
-                data               = impact[impact$prop <= 5, ],
-                ggplot2::aes(label = percent),
+                data               = data[data$prop <= 5, ],
+                ggplot2::aes(label = percent,
+                             y     = 0),
                 position           = ggplot2::position_dodge(width = 0.9),
-                vjust              = 1.6,
+                vjust              = 1.5,
                 size               = 3.5,
                 colour             = "#4D4D4D")
     }

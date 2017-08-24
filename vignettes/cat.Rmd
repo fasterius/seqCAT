@@ -129,7 +129,7 @@ arguments from there. To see the arguments, use:
 $ python create_profile.py --help
 ```
 
-# SNV profile comparisons
+# Comparing SNV profiles
 
 Once each relevant sample has its own SNV profile the comparisons can be
 performed. First, each profile is read using the `read_profile` function,
@@ -149,13 +149,13 @@ one of the samples are inappropriate. An SNV is considered a match if it has an
 identical genotype in both profiles.
 
 ```{r Compare profiles}
-comparison_hct116_rko <- compare_profiles(hct116, rko)
-head(comparison_hct116_rko)
+hct116_rko <- compare_profiles(hct116, rko)
+head(hct116_rko)
 ```
 
 You are now ready for downstream analyses!
 
-# Authentication, characterisation and evaluation
+# Evaluating binary comparisons
 
 ## Similarity and global statistics
 
@@ -180,7 +180,7 @@ score is thus a better measure of biological equivalency than just the
 concordance.
 
 ```{r Calculate similarities}
-similarity <- calculate_similarity(comparison_hct116_rko)
+similarity <- calculate_similarity(hct116_rko)
 similarity
 ```
 
@@ -207,10 +207,10 @@ create_profile(vcf, "HKE3", "hke3_profile.txt")
 hke3 <- read_profile("hke3_profile.txt", "HKE3")
 
 # Overlap HCT116 and HKE3
-comparison_hct116_hke3 <- compare_profiles(hct116, hke3)
+hct116_hke3 <- compare_profiles(hct116, hke3)
 
 # Add HCT116/HKE3 similarities to HCT116/RKO similarities
-similarities <- calculate_similarity(comparison_hct116_hke3,
+similarities <- calculate_similarity(hct116_hke3,
                                      similarity, a = 1, b = 10)
 similarities
 ```
@@ -222,7 +222,7 @@ even when using a higher value for the `b` parameter. Any number of samples can
 be added using the `calculate_similarity` function, for use in further
 downstream analyses.
 
-## Impact distributions
+## Evaluation of SNV impacts
 
 An SNV's *impact* represent the putative effect that variant may have on the
 function of the resulting protein, and ranges from HIGH through MODERATE, LOW
@@ -233,12 +233,140 @@ informative to look at the distribution of the impacts of the overlapping SNVs
 between two profiles, a task easily performed by the `plot_impacts` function:
 
 ```{r Impact distributions}
-impacts <- plot_impacts(comparison_hct116_rko)
+impacts <- plot_impacts(hct116_rko)
 impacts
 ```
 
-We can see that most of the SNVs are present in the MODIFIER impact category,
-and that there is not a single mismatched HIGH impact SNV.
+This function takes a comparison dataframe as input and simply plots the impact
+distribution of the overlapping variants. It has a number of arguments with
+defaults, such as if you want to add text with the actual numbers to the plot
+(`annotate = TRUE` by default), if you want to show the legend (`legend =
+TRUE` by default) and what colours you want to plot the match-categories with
+(`palette = c("#0D2D59", "#1954A6")` by default, two nice shades of blue). We
+can see that most of the SNVs are present in the MODIFIER impact category, and
+that there is not a single mismatched HIGH impact SNV.
+
+You might also want to look at only a subset of variants, *e.g.* only the
+variants with HIGH or MODERATE impacts, which is easily achieved with some data
+manipulation:
+
+```{r Subset impacts}
+hct116_rko_hm <- hct116_rko[hct116_rko$impact == "HIGH" |
+                            hct116_rko$impact == "MODERATE", ]
+head(hct116_rko_hm)
+```
+
+## Evaluation of specific chromosomes, regions, genes and transcripts
+
+You might be interested in a specific chromosome or a region on a chromosome,
+and it might be useful to work with data for only that subset. This operation
+is easily performed on a comparison dataframe:
+
+```{r Subset chromosome or region}
+hct116_rko_region <- hct116_rko[hct116_rko$chr == 12 &
+                                hct116_rko$pos >= 25000000 &
+                                hct116_rko$pos <= 30000000, ]
+head(hct116_rko_region)
+```
+
+You might also be interested in a specific gene or transcript, of special
+importance to your study:
+
+```{r Subset gene or transcript}
+hct116_rko_eps8_t <- hct116_rko[hct116_rko$ENSTID == "ENST00000281172", ]
+hct116_rko_vamp1 <- hct116_rko[hct116_rko$ENSGID == "ENSG00000139190", ]
+hct116_rko_ldhb <- hct116_rko[hct116_rko$gene == "LDHB", ]
+head(hct116_rko_ldhb)
+```
+
+Here we see two mutations in the LDHB gene, one mismatching MODIFIER variant
+and one matching LOW variant. This is a good way to check for known mutations
+in your dataset. For example, the HCT116 cell line is supposed to have a KRAS
+G13D mutation. We might look for this using its known `rsID` or position:
+
+```{r Subset KRAS}
+hct116_rko_kras <- hct116_rko[hct116_rko$rsID == "rs112445441", ]
+hct116_rko_kras <- hct116_rko[hct116_rko$chr == 12 &
+                              hct116_rko$pos == 25398281, ]
+hct116_rko_kras
+```
+
+This yields only empty dataframes. Why is this? The likely reason here is that
+this is not a mutation present in the RKO cell line, or that there simply
+wasn't enough data to get a confident variant call for this position. As the
+`compare_profiles` function only looks at SNVs overlapping between two variant
+profiles, variants are only seen if it is present in both profiles (or,
+alternatively, a confident REF/REF call). Luckily, there is a way to check this
+by simply looking for the specific variant in the originating SNV profiles
+individually:
+
+```{r Subset KRAS individually}
+hct116[seqnames(hct116) == 12 & start(hct116) == 25398281, ]
+rko[seqnames(rko) == 12 & start(rko) == 25398281, ]
+```
+
+Here we see that the KRAS G13D mutation is indeed present in the HCT116
+profile, but not in RKO. (Please note that this data was aligned and analysed
+using the GRCh37 / hg19 assembly and that listed positions might not be
+accurate for subsequent assemblies.)
+
+# Evaluating multiple comparisons
+
+While binary analyses between two samples can tell you a lot about their
+similarities, many scientific studies have more than just two, not even
+mentioning meta-studies and large-scale comparisons. It is therefore important
+to be able to characterise and evaluate not just binary comparisons, but also
+many-to-one or many-to-many cases - the `CellAuthentication` package provides a
+number of functions and procedures for doing so. 
+
+## Performing multiple profile comparisons
+
+The first step of any such analyses is to create and read SNV profiles for each
+sample that is to be evaluated (please see the sections above). The example
+data used here has three different samples: HCT116, HKE3 and RKO. The
+`compare_many` function is a helper function for creating either one-to-many or
+many-to-many SNV profile comparisons, and returns a `list` of the global
+similarities for all combinations of profiles and their respective data (for
+downstream analyses):
+
+```{r Many-to-many comparisons}
+# Create list of SNV profiles
+profiles <- list(hct116, hke3, rko)
+
+# Perform many-to-many comparisons
+many <- compare_many(profiles)
+many[[1]]
+```
+
+We can here see the summary statistics of all three combinations of the cell
+lines in the example data. Notice that `compare_many` will only perform a
+comparison that has not already been performed, *i.e.* it will not perform the
+*RKO* vs. *HCT116* comparison if it has already performed *HCT116* vs. *RKO*.
+Also notice that it *does* perform self-comparisons (i.e. *HCT116* vs.
+*HCT116*), which is useful for downstream visualisations.
+
+The similarities are stored in the first element of the results (`many[[1]]`),
+while the data for each comparison is stored in the second (`many[[2]]`). The
+second element is itself also a list, whose indices correspond to the row names
+of the similarity object. If we, for example, are interested in the *HKE3*
+self-comparison, we can see that its row name is `4`. We can then access its
+data like this:
+
+```{r HKE3 self-comparisons}
+hke3_hke3 <- many[[2]][[4]]
+head(hke3_hke3)
+```
+
+If you are interested in only a one-to-many comparison (for cases when you have
+a "true" baseline profile to compare against), you can do this by also
+specifying the `one = <profile>` parameter in the function call. You may also
+specify the `a` and `b` similarity score parameters, as above. 
+
+It is important to note that performing many comparisons like this may take
+quite some time, depending on the number of profiles and how much data each
+profile has. By returning all the data in a list you may then save each
+comparison to a file, for later re-analysis without having to re-do the
+comparisons.
 
 ```{r Remove temporary files, echo = FALSE, results = "hide"}
 file.remove("hct116_profile.txt")

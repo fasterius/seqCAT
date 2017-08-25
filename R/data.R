@@ -64,7 +64,7 @@
 #'
 #' @docType data
 #' @usage data(test_comparison)
-#' @format A data frame with 51 rows and 39 columns:
+#' @format A dataframe with 51 rows and 39 columns:
 #' \describe{
 #'     \item{chr}{chromosome}
 #'     \item{pos}{SNV position}
@@ -95,3 +95,21 @@
 #'     \item{biotype}{transcript biotype}
 #' }
 "test_comparison"
+
+#' Collated similarities object
+#'
+#' Collated similarities of multiple sample comparisons from "sample1" and
+#' "sample" from the example.vcf file, for use in unit tests.
+#'
+#' @docType data
+#' @usage data(test_similarities)
+#' format A dataframe with 3 rows and 6 columns:
+#' \describe{
+#'      \item{sample_1}{name of sample 1}
+#'      \item{sample_2}{name of sample 2}
+#'      \item{overlaps}{the number of overlaps for the comparison}
+#'      \item{matches}{the number of matches for the comparison}
+#'      \item{concordance}{the concordance of the profiles}
+#'      \item{similarity_score}{the similarity score of the profiles}
+#' }
+"test_similarities"

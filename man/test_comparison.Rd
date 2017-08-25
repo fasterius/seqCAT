@@ -4,7 +4,7 @@
 \name{test_comparison}
 \alias{test_comparison}
 \title{Overlapping and compared SNVs}
-\format{A data frame with 51 rows and 39 columns:
+\format{A dataframe with 51 rows and 39 columns:
 \describe{
     \item{chr}{chromosome}
     \item{pos}{SNV position}

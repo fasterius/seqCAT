@@ -374,6 +374,40 @@ file.remove("rko_profile.txt")
 file.remove("hke3_profile.txt")
 ```
 
+## Visualising multiple comparisons
+
+A useful and straightforward way of visualising multiple profile comparisons is
+to use a heatmap. We can use the summary statistics listed in the similarity
+object from above as input to the function `plot_heatmap`, which gives you a
+simple overview of all your comparisons:
+
+```{r Plot heatmap, out.width = "60 %"}
+heatmap <- plot_heatmap(many[[1]])
+heatmap
+```
+
+Here we see a blue colour gradient for the similarity score of the three cell
+lines, which are clustered according to their similarity (using `cluster =
+TRUE`, as default). You may change the size of the text annotations using
+`annotation_size = 5` (default) or suppress them entirely (`annotate = FALSE`).
+You may also suppress the legend (`legend = FALSE`), change the main colour of
+the gradient (`colour = "#1954A6"` by default) or change the limits of the
+gradient (`limits = c(0, 50, 90, 100)` by default). The choice of gradient
+limits are based on clarity (comparisons with a similarity score less than 50,
+*i.e.* those that likely have too few overlapping variants to begin with, are
+suppressed) and the previously mentioned 90 % concordance threshold [@Yu2015].
+
+This heatmap makes it clear that HCT116 and HKE3 are, indeed, very similar to
+each other, while RKO differs from them both. These types of heatmaps can be
+created for an arbitrary number of samples, which will then give a great
+overview of the global similarities of all the samples studied. This can be
+used to evaluate the quality of the datasets (*e.g.* to see which comparisons
+have very few overlaps), find similarity clusters and potential unexpected
+outliers. If a sample stands out in a heatmap such as this, that is grounds for
+further investigation, using both the methods described above and more
+classical evaluations of sequencing data (read quality, adapter contamination,
+alignments, variant calling, and so on).
+
 # Performance
 
 # Citation

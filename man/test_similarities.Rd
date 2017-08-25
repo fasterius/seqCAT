@@ -4,10 +4,7 @@
 \name{test_similarities}
 \alias{test_similarities}
 \title{Collated similarities object}
-\format{An object of class \code{data.frame} with 6 rows and 6 columns.}
-\usage{
-data(test_similarities)
-format A dataframe with 3 rows and 6 columns:
+\format{A dataframe with 3 rows and 6 columns:
 \describe{
      \item{sample_1}{name of sample 1}
      \item{sample_2}{name of sample 2}
@@ -15,7 +12,9 @@ format A dataframe with 3 rows and 6 columns:
      \item{matches}{the number of matches for the comparison}
      \item{concordance}{the concordance of the profiles}
      \item{similarity_score}{the similarity score of the profiles}
-}
+}}
+\usage{
+data(test_similarities)
 }
 \description{
 Collated similarities of multiple sample comparisons from "sample1" and

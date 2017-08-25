@@ -103,7 +103,7 @@
 #'
 #' @docType data
 #' @usage data(test_similarities)
-#' format A dataframe with 3 rows and 6 columns:
+#' @format A dataframe with 3 rows and 6 columns:
 #' \describe{
 #'      \item{sample_1}{name of sample 1}
 #'      \item{sample_2}{name of sample 2}

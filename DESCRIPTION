@@ -17,6 +17,7 @@ Imports:
     ggplot2 (>= 2.2.1),
     IRanges (>= 2.8.2),
     lazyeval (>= 0.2.0),
+    scales (>= 0.4.1),
     S4Vectors (>= 0.12.2),
     stats,
     SummarizedExperiment (>= 1.4.0),

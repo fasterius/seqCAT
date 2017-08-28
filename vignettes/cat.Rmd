@@ -129,7 +129,71 @@ arguments from there. To see the arguments, use:
 $ python create_profile.py --help
 ```
 
+## Create COSMIC profiles
+
+While looking at the entirety of either the genome (whole genome sequencing) or
+transcriptome (RNA sequencing) and using the variants found therein gives
+unprecedented statistical power and great opportunities for functional
+evaluations, there are also good reasons to compare your samples' variants to
+some external source. Such a source is the *Catalogue of somatic mutations in
+cancer*, or *COSMIC*. COSMIC has over a thousand cell line-specific mutational
+profiles, and is thus a very useful resource if you are working with cell
+lines.
+
+In order to use the COSMIC cell line database, you need to sign up for an
+account at their [website][6] and get permission to download their files (which
+is given free of charge to academia and non-profit organisation, but requires a
+commersial license for for-profit organisations). The file you are looking for
+is the `CosmicCLP_MutantExport.tsv.gz`, listed under *complete mutational data*
+[here][7]. As redistributing this file is not allowed by the COSMIC team, this
+package includes an extremely minimal subset of the original file, only useful
+for examples in this vignette and unit testing. *Do not* use this file for your
+own analyses, as your results will neither be complete nor correct!
+
+[6]: http://cancer.sanger.ac.uk/cosmic
+[7]: http://cancer.sanger.ac.uk/cell_lines/download
+
+The first thing you might want to do is to see if your specific cell line is
+available in the database, which can be accomplished using the `list_cosmic`
+function:
+
+```{r List COSMIC}
+file <- system.file("extdata", "subset_CosmicCLP_MutantExport.tsv.gz",
+                    package = "CellAuthentication")
+cell_lines <- list_cosmic(file)
+head(cell_lines)
+```
+
+This gives us a simple vector containing all the available cell lines in the
+COSMIC database (this version of the file is for the GRCh37 assembly). You can
+search it for a cell line of your choice:
+
+```{r Search COSMIC}
+any(grepl("HCT116", cell_lines))
+```
+
+All COSMIC-related functions perform some simplification of cell line names (as
+there is variation in the usage of dashes, dots and other symbols), and are
+case-insensitive. When you have asserted that your cell line of interest is
+available, you can then read the profile for that cell line using the
+`read_cosmic` function:
+
+```{r Read COSMIC}
+cosmic <- read_cosmic(file, "HCT116")
+head(cosmic)
+```
+
+You now have a small, COSMIC SNV profile for your cell line, which you can
+compare to any other profile you may have data for (more on this below). You
+can also check how many variants are listed in COSMIC for your particular cell:
+
+```{r Count COSMIC}
+length(cosmic)
+```
+
 # Comparing SNV profiles
+
+## Comparing full profiles
 
 Once each relevant sample has its own SNV profile the comparisons can be
 performed. First, each profile is read using the `read_profile` function,
@@ -153,7 +217,24 @@ hct116_rko <- compare_profiles(hct116, rko)
 head(hct116_rko)
 ```
 
-You are now ready for downstream analyses!
+## Comparing to COSMIC profiles
+
+If you are working with cell lines and only want to analyse a subset of your
+data or as a orthogonal method complementary to others, you could compare your
+profile to a COSMIC profile. This works much in the same way as comparing to
+another full profile, but gives slightly different output:
+
+```{r Compare with COSMIC}
+hct116_cosmic <- compare_profiles(hct116, cosmic)
+head(hct116_cosmic)
+```
+
+You can use all the functions for downstream analyses for comparisons with
+COSMIC data as you would full SNV profiles, but your options for functional
+analyses will be limited, given that the COSMIC database is biased towards
+well-known and characterised mutations. It is, however, an excellent way to
+authenticate your cell lines and to assert the status of those mutations that
+*should* exist in your cells.
 
 # Evaluating binary comparisons
 
@@ -244,7 +325,9 @@ defaults, such as if you want to add text with the actual numbers to the plot
 TRUE` by default) and what colours you want to plot the match-categories with
 (`palette = c("#0D2D59", "#1954A6")` by default, two nice shades of blue). We
 can see that most of the SNVs are present in the MODIFIER impact category, and
-that there is not a single mismatched HIGH impact SNV.
+that there is not a single mismatched HIGH impact SNV. (You can also visualise
+the impact distribution between your sample and the COSMIC database in exactly
+the same way.)
 
 You might also want to look at only a subset of variants, *e.g.* only the
 variants with HIGH or MODERATE impacts, which is easily achieved with some data

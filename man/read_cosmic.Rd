@@ -13,11 +13,11 @@ list_cosmic(file_path)
 \item{file_path}{Location of the CosmicCLP_MutantExport.tsv.gz file}
 
 \item{cell_line}{The cell line to be investigated}
-
-\item{file_path}{Location of the CosmicCLP_MutantExport.tsv.gz file}
 }
 \value{
 A GRanges object with COSMIC SNVs
+
+A vector of cell line names
 }
 \description{
 This function reads the "CosmicCLP_MutantExport.tsv.gz" file obtained from

@@ -139,8 +139,7 @@ read_cosmic <- function(file_path, cell_line) {
 #'
 #' @export
 #' @rdname read_cosmic
-#' @param file_path Location of the CosmicCLP_MutantExport.tsv.gz file
-#' @returns A vector of cell line names
+#' @return A vector of cell line names
 #' @examples
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",

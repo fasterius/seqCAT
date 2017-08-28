@@ -21,13 +21,13 @@ test_that("a GRanges object is returned", {
 })
 
 test_that("correct number of variants are read and de-duplicated", {
-    expect_equal(length(test_profile_1), 383)
-    expect_equal(length(test_profile_2), 382)
+    expect_equal(length(test_profile_1), 375)
+    expect_equal(length(test_profile_2), 374)
     expect_equal(length(mcols(test_profile_1)), 17)
     expect_equal(length(mcols(test_profile_2)), 17)
 })
 
 test_that("non-standard chromosomes are removed correcty", {
-    expect_identical(levels(seqnames(test_profile_1)), "1")
-    expect_identical(levels(seqnames(test_profile_2)), "1")
+    expect_identical(levels(seqnames(test_profile_1)), c("1", "12"))
+    expect_identical(levels(seqnames(test_profile_2)), c("1", "12"))
 })

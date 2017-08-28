@@ -36,8 +36,8 @@ file.remove("profile_2.txt")
 
 # Tests
 test_that("extract_variants yields correct dimensions", {
-    expect_equal(dim(profile_1), c(432, 18))
-    expect_equal(dim(profile_2), c(430, 18))
+    expect_equal(dim(profile_1), c(427, 18))
+    expect_equal(dim(profile_2), c(425, 18))
 })
 
 test_that("only variants passing the depth threshold are extracted", {

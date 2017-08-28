@@ -95,12 +95,12 @@ read_cosmic <- function(file_path, cell_line) {
     # Rename columns to adhere to non-COSMIC structure
     names(cosmic) <- c("gene",
                        "sample",
-                       "COSMIC_ID",
-                       "COSMIC_CDS",
-                       "COSMIC_AA",
-                       "COSMIC_description",
-                       "COSMIC_somatic_status",
-                       "COSMIC_verification_status",
+                       "ID",
+                       "CDS",
+                       "AA",
+                       "description",
+                       "somatic_status",
+                       "verification_status",
                        "chr",
                        "start",
                        "end",
@@ -108,6 +108,9 @@ read_cosmic <- function(file_path, cell_line) {
                        "ALT",
                        "A1",
                        "A2")
+
+    # Add "COSMIC" to sample name
+    cosmic$sample <- paste0("COSMIC.", cosmic$sample)
 
     # Convert to GRanges object
     cosmic_gr <- GenomicRanges::makeGRangesFromDataFrame(

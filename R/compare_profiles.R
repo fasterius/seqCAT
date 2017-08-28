@@ -154,24 +154,24 @@ collate_metadata <- function(data, sample_1, sample_2) {
                            paste0("-sample.", sample_1),
                            paste0("-sample.", sample_2))
 
-    # Find sample-specific metadata columns
-    mcols <- grep(paste0("\\.", sample_1),
-                  names(data),
-                  value = TRUE)
+    # Find common, sample-specific metadata columns
+    s1 <- paste0("\\.", sample_1)
+    s2 <- paste0("\\.", sample_2)
+    mcols_sample_1 <- gsub(s1, "", grep(s1, names(data), value = TRUE))
+    mcols_sample_2 <- gsub(s2, "", grep(s2, names(data), value = TRUE))
+    mcols <- mcols_sample_1[mcols_sample_1 %in% mcols_sample_2]
+
+    # Remove data-specific metadata columns
     mcols <- grep("DP|AD1|AD2|A1|A2|warnings",
                   mcols,
                   value = TRUE, invert = TRUE)
 
     # Loop over metadata columns and merge as applicable
-    for (mcol_s1 in mcols) {
+    for (mcol in mcols) {
 
         # Current metadata column name
-        mcol <- gsub(paste0("\\.", sample_1),
-                     "",
-                     mcol_s1)
-        mcol_s2 <- gsub(paste0("\\.", sample_1),
-                        paste0("\\.", sample_2),
-                        mcol_s1)
+        mcol_s1 <- paste0(mcol, ".", sample_1)
+        mcol_s2 <- paste0(mcol, ".", sample_2)
 
         # Create merged metadata column as appropriate
         if (!(all(is.na(data[[mcol_s1]]), is.na(data[[mcol_s2]])))) {
@@ -195,6 +195,16 @@ collate_metadata <- function(data, sample_1, sample_2) {
 
     # Rename columns
     names(data)[1:2] <- c("chr", "pos")
+
+    # Re-order columns
+    with_sample <- grep("\\.", names(data), value = TRUE)
+    without_sample <- grep("\\.", names(data), value = TRUE, invert = TRUE)
+    data <- data[c(without_sample, with_sample)]
+
+    # Remove redundant columns for comparisons without overlaps
+    if (nrow(data) == 1 & data[1, "match"] == "no overlaps") {
+        data <- data[c("sample_1", "sample_2", "match")]
+    }
 
     # Return final data
     return(data)

@@ -108,7 +108,7 @@ read_cosmic <- function(file_path, cell_line) {
                        "ALT",
                        "A1",
                        "A2")
-    
+
     # Convert to GRanges object
     cosmic_gr <- GenomicRanges::makeGRangesFromDataFrame(
         cosmic,

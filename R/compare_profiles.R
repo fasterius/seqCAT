@@ -196,10 +196,19 @@ collate_metadata <- function(data, sample_1, sample_2) {
     # Rename columns
     names(data)[1:2] <- c("chr", "pos")
 
+    # Fix column names for COSMIC comparisons
+    cols <- c("rsID", "ENSGID", "ENSTID", "impact",
+              "effect", "feature", "biotype")
+    for (col in cols) {
+        names(data)[grep(col, names(data))] <- col
+    }
+
     # Re-order columns
     with_sample <- grep("\\.", names(data), value = TRUE)
     without_sample <- grep("\\.", names(data), value = TRUE, invert = TRUE)
-    data <- data[c(without_sample, with_sample)]
+    firsts <- c("chr", "pos", "sample_1", "sample_2", "match")
+    without_sample <- setdiff(without_sample, firsts)
+    data <- data[c(firsts, without_sample, with_sample)]
 
     # Remove redundant columns for comparisons without overlaps
     if (nrow(data) == 1 & data[1, "match"] == "no overlaps") {

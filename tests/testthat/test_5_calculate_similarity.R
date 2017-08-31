@@ -1,4 +1,4 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Calculation of summary statistics for overlaps")
 
 # Get compared, overlapping variants

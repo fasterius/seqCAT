@@ -14,7 +14,7 @@
 #' @examples
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",
-#'                     package = "CellAuthentication")
+#'                     package = "seqCAT")
 #' cosmic_hct116 <- read_cosmic(file, "HCT116")
 read_cosmic <- function(file_path, cell_line) {
 
@@ -143,7 +143,7 @@ read_cosmic <- function(file_path, cell_line) {
 #' @examples
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",
-#'                     package = "CellAuthentication")
+#'                     package = "seqCAT")
 #' cell_lines <- list_cosmic(file)
 list_cosmic <- function(file_path) {
 

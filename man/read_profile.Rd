@@ -22,6 +22,6 @@ metadata.
 \examples{
 profile = system.file("extdata",
                       "test_profile_1.txt.gz",
-                      package = "CellAuthentication")
+                      package = "seqCAT")
 read_profile(profile, "sample1")
 }

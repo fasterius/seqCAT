@@ -34,10 +34,10 @@ seeing if your particular cell line is listed in COSMIC or not.
 \examples{
 file <- system.file("extdata",
                     "subset_CosmicCLP_MutantExport.tsv.gz",
-                    package = "CellAuthentication")
+                    package = "seqCAT")
 cosmic_hct116 <- read_cosmic(file, "HCT116")
 file <- system.file("extdata",
                     "subset_CosmicCLP_MutantExport.tsv.gz",
-                    package = "CellAuthentication")
+                    package = "seqCAT")
 cell_lines <- list_cosmic(file)
 }

@@ -1,15 +1,16 @@
 ---
-title: "CAT: The Cell Authentication Toolkit"
+title: "seqCAT: The High Throughput Sequencing Cell Authentication Toolkit"
 author: "Erik Fasterius"
-# abstract: "This is the vignette for the Cell Authentication Toolkit (CAT) R
-          # package."
 date: "`r Sys.Date()`"
 output:
     BiocStyle::html_document:
         highlight: tango
+        toc: true
+        number_sections: true
 bibliography: bibliography.bib
 vignette: >
-    %\VignetteIndexEntry{CAT: The Cell Authentication Toolkit}
+    %\VignetteIndexEntry{seqCAT: The High Throughput Sequencing Cell
+                         Authentication Toolkit}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(fig.align = "center")
 
 # Introduction
 
-This vignette describes a workflow of using the \Rpackage{"CellAuthentication"}
+This vignette describes a workflow of using the \Rpackage{"seqCAT"}
 package for authentication, characterisation and evaluation of two or more
 high throughput sequencing (*i.e.* RNA-seq or whole genome sequencing) samples.
 The general principle is to create *single nucelotide variant* (SNV) profiles
@@ -29,19 +30,21 @@ their overall similarity, in addition to detailed analyses of the differences.
 By analysing your data with this workflow you will not only be able to
 authenticate your samples to a high degree of confidence, but you will also be
 able to investigate what genes and transcripts are affected by SNVs differing
-between your samples, what biological effect they will have, which pathways
-they belong to, and more. The workflow consists of three separate steps:
+between your samples, what biological effect they will have, and more. The
+workflow consists of three separate steps:
 
     1.  Creation of SNV profiles
-    2.  SNV profile comparisons
-    3.  Authentication, characterisation and evaluation
+    2.  Comparisons of SNV profiles
+    3.  Authentication, characterisation and evaluation of comparisons
 
-Each step has its own section below demonstrating how to perform the analyses.
-Input data should be in the form of [VCF files][1], *i.e* output from variant
-callers such as the [Genome Analysis ToolKit][2].
+Each step has its own section(s) below demonstrating how to perform the
+analyses. Input data should be in the form of [VCF files][1], *i.e* output from
+variant callers such as the [Genome Analysis ToolKit][2] and annotated with
+software such as [SnpEff][3].
 
 [1]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
 [2]: https://software.broadinstitute.org/gatk/
+[3]: http://snpeff.sourceforge.net/
 
 ## Installation
 
@@ -50,7 +53,7 @@ installed using the `biocLite` function:
 
 ```{r Installation, eval = FALSE}
 source("https://bioconductor.org/biocLite.R")
-biocLite("CellAuthentication")
+biocLite("seqCAT")
 ```
 
 This will also install any missing packages requires for full functionality,
@@ -59,8 +62,13 @@ BioConductor, you can do so by simply calling `biocLite()` without specifying a
 package, and it will be installed for you. You can read more about this at
 BioConductor's [installation page][4].
 
-[3]: http://bioconductor.org/
-[4]: http://bioconductor.org/install/
+[4]: http://bioconductor.org/
+[5]: http://bioconductor.org/install/
+
+You can find the development version of this package on [GitHub][6]. Please
+note that it may contain bugs and work-in-progress.
+
+[6]: https://github.com/fasterius/seqCAT
 
 # Creation of SNV profiles
 
@@ -90,11 +98,11 @@ keep the file size low) for three different colorectal cancer cell lines:
 
 ```{r Create SNV profile with R}
 # Load the package
-library("CellAuthentication")
+library("seqCAT")
 
 # List the example VCF file
 vcf <- system.file("extdata", "example.vcf.gz",
-                   package = "CellAuthentication")
+                   package = "seqCAT")
 
 # Create two SNV profiles
 create_profile(vcf, "HCT116", "hct116_profile.txt")
@@ -145,13 +153,13 @@ account at their [website][6] and get permission to download their files (which
 is given free of charge to academia and non-profit organisation, but requires a
 commersial license for for-profit organisations). The file you are looking for
 is the `CosmicCLP_MutantExport.tsv.gz`, listed under *complete mutational data*
-[here][7]. As redistributing this file is not allowed by the COSMIC team, this
-package includes an extremely minimal subset of the original file, only useful
-for examples in this vignette and unit testing. *Do not* use this file for your
-own analyses, as your results will neither be complete nor correct!
+[here][7]. As redistributing this file is not allowed, this package includes an
+extremely minimal subset of the original file, only useful for examples in this
+vignette and unit testing. *Do not* use this file for your own analyses, as
+your results will neither be complete nor correct!
 
-[6]: http://cancer.sanger.ac.uk/cosmic
-[7]: http://cancer.sanger.ac.uk/cell_lines/download
+[7]: http://cancer.sanger.ac.uk/cosmic
+[8]: http://cancer.sanger.ac.uk/cell_lines/download
 
 The first thing you might want to do is to see if your specific cell line is
 available in the database, which can be accomplished using the `list_cosmic`
@@ -159,7 +167,7 @@ function:
 
 ```{r List COSMIC}
 file <- system.file("extdata", "subset_CosmicCLP_MutantExport.tsv.gz",
-                    package = "CellAuthentication")
+                    package = "seqCAT")
 cell_lines <- list_cosmic(file)
 head(cell_lines)
 ```
@@ -191,6 +199,12 @@ can also check how many variants are listed in COSMIC for your particular cell:
 length(cosmic)
 ```
 
+Here we only see a single variant for the HCT116 cell line, which is only
+because of the extreme small subset of the actual file being used here. HCT116
+has, in fact, over 2000 listed COSMIC SNVs, making it one of the more
+abundantly characterised cell lines available (as most cell lines has only a
+few hundred SNVs listed in COSMIC).
+
 # Comparing SNV profiles
 
 ## Comparing full profiles
@@ -205,6 +219,12 @@ rko <- read_profile("rko_profile.txt", "RKO")
 head(hct116)
 ```
 
+SNV profiles contain most of the relevant annotation data from the original VCF
+file, including SNV impacts, gene/transcript IDs, mutational (rs) ID, and so
+on. The `DP` (depth) field lists the total sequencing depth of this variant,
+while the specific allelic depths can be found in `AD1` and `AD2`. The alleles
+of each variant can be found in `A1` and `A2`.
+
 Once each profile has been read, the genotypes of the overlapping variants
 between them can be compared using the `compare_profiles` function. Only
 variants found in both profiles are considered to overlap, as similarity
@@ -216,6 +236,11 @@ identical genotype in both profiles.
 hct116_rko <- compare_profiles(hct116, rko)
 head(hct116_rko)
 ```
+
+The resulting dataframe retains all the information from each input profile
+(including any differing annotation, should they exist), and lists the depths
+and alleles by adding the sample names as suffixes to the relevant column
+names.
 
 ## Comparing to COSMIC profiles
 
@@ -287,7 +312,7 @@ comparisons.
 create_profile(vcf, "HKE3", "hke3_profile.txt")
 hke3 <- read_profile("hke3_profile.txt", "HKE3")
 
-# Overlap HCT116 and HKE3
+# Compare HCT116 and HKE3
 hct116_hke3 <- compare_profiles(hct116, hke3)
 
 # Add HCT116/HKE3 similarities to HCT116/RKO similarities
@@ -336,7 +361,7 @@ manipulation:
 ```{r Subset impacts}
 hct116_rko_hm <- hct116_rko[hct116_rko$impact == "HIGH" |
                             hct116_rko$impact == "MODERATE", ]
-head(hct116_rko_hm)
+nrow(hct116_rko_hm)
 ```
 
 ## Evaluation of specific chromosomes, regions, genes and transcripts
@@ -371,7 +396,7 @@ G13D mutation. We might look for this using its known `rsID` or position:
 hct116_rko_kras <- hct116_rko[hct116_rko$rsID == "rs112445441", ]
 hct116_rko_kras <- hct116_rko[hct116_rko$chr == 12 &
                               hct116_rko$pos == 25398281, ]
-hct116_rko_kras
+nrow(hct116_rko_kras)
 ```
 
 This yields only empty dataframes. Why is this? The likely reason here is that
@@ -399,7 +424,7 @@ While binary analyses between two samples can tell you a lot about their
 similarities, many scientific studies have more than just two, not even
 mentioning meta-studies and large-scale comparisons. It is therefore important
 to be able to characterise and evaluate not just binary comparisons, but also
-many-to-one or many-to-many cases - the `CellAuthentication` package provides a
+many-to-one or many-to-many cases - the `seqCAT` package provides a
 number of functions and procedures for doing so. 
 
 ## Performing multiple profile comparisons
@@ -424,14 +449,14 @@ many[[1]]
 We can here see the summary statistics of all three combinations of the cell
 lines in the example data. Notice that `compare_many` will only perform a
 comparison that has not already been performed, *i.e.* it will not perform the
-*RKO* vs. *HCT116* comparison if it has already performed *HCT116* vs. *RKO*.
-Also notice that it *does* perform self-comparisons (i.e. *HCT116* vs.
-*HCT116*), which is useful for downstream visualisations.
+RKO vs. HCT116 comparison if it has already performed HCT116 vs. RKO.
+Also notice that it does perform self-comparisons (*i.e.* HCT116 vs.
+HCT116), which is useful for downstream visualisations.
 
 The similarities are stored in the first element of the results (`many[[1]]`),
 while the data for each comparison is stored in the second (`many[[2]]`). The
 second element is itself also a list, whose indices correspond to the row names
-of the similarity object. If we, for example, are interested in the *HKE3*
+of the similarity object. If we, for example, are interested in the HKE3
 self-comparison, we can see that its row name is `4`. We can then access its
 data like this:
 
@@ -440,22 +465,22 @@ hke3_hke3 <- many[[2]][[4]]
 head(hke3_hke3)
 ```
 
-If you are interested in only a one-to-many comparison (for cases when you have
-a "true" baseline profile to compare against), you can do this by also
-specifying the `one = <profile>` parameter in the function call. You may also
-specify the `a` and `b` similarity score parameters, as above. 
+You may also specify the `a` and `b` similarity score parameters, as above. If
+you are interested in only a one-to-many comparison (for cases when you have a
+"true" baseline profile to compare against), you can do this by also specifying
+the `one = <profile>` parameter in the function call. This is useful if you
+have a COSMIC profile to compare against, for example:
+
+```{r COSMIC-to-many comparisons}
+many_cosmic <- compare_many(profiles, one = cosmic)
+many_cosmic[[1]]
+```
 
 It is important to note that performing many comparisons like this may take
 quite some time, depending on the number of profiles and how much data each
 profile has. By returning all the data in a list you may then save each
 comparison to a file, for later re-analysis without having to re-do the
 comparisons.
-
-```{r Remove temporary files, echo = FALSE, results = "hide"}
-file.remove("hct116_profile.txt")
-file.remove("rko_profile.txt")
-file.remove("hke3_profile.txt")
-```
 
 ## Visualising multiple comparisons
 
@@ -491,20 +516,27 @@ further investigation, using both the methods described above and more
 classical evaluations of sequencing data (read quality, adapter contamination,
 alignments, variant calling, and so on).
 
-# Performance
+```{r Remove temporary files, echo = FALSE, results = "hide"}
+file.remove("hct116_profile.txt")
+file.remove("rko_profile.txt")
+file.remove("hke3_profile.txt")
+```
 
-# Citation
+# Citation {-}
 
-If you are using CAT to analyse your samples, please cite it formally:
+If you are using seqCAT to analyse your samples, please cite the
+article from which the methodology was first published.
 
 Fasterius, E., Raso, C., Kennedy, S., Rauch, N., Lundin, P., Kolch, W., et al.
 (2017). A novel RNA sequencing data analysis method for cell line
 authentication. PloS One, 12(2), e0171435.
 http://doi.org/10.1371/journal.pone.0171435
 
-# Session info
+# Session info {-}
+
 ```{r Session info, echo = FALSE}
 sessionInfo()
 ```
 
 # References
+

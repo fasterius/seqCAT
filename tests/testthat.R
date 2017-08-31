@@ -1,4 +1,4 @@
 library(testthat)
-library(CellAuthentication)
+library(seqCAT)
 
-test_check("CellAuthentication")
+test_check("seqCAT")

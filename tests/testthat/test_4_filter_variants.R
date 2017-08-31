@@ -1,4 +1,4 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Optional filtration of overlapping variants")
 
 # Get overlapping variants

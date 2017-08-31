@@ -33,7 +33,7 @@ on the same sample.
 \examples{
 vcf_file = system.file("extdata",
                        "test.vcf.gz", 
-                       package = "CellAuthentication")
+                       package = "seqCAT")
 create_profile(vcf_file, "sample1", "profile1.txt")
 create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
 create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)

@@ -1,4 +1,4 @@
-citHeader("To cite the Cell Authentication Toolkit (CAT) in publications use:")
+citHeader("To cite the Cell Authentication Toolkit (seqCAT) in publications use:")
 
 citEntry(entry = "Article",
 	title = "A novel RNA sequencing data analysis method for cell line authentication.",

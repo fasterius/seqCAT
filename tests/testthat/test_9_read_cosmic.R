@@ -1,10 +1,10 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Read COSMIC data")
 
 # Input file
 file <- system.file("extdata",
                     "subset_CosmicCLP_MutantExport.tsv.gz",
-                    package = "CellAuthentication")
+                    package = "seqCAT")
 
 # Read COSMIC data
 cosmic <- read_cosmic(file, "HCT116")

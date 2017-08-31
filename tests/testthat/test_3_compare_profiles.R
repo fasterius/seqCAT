@@ -1,4 +1,4 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Overlap and compare SNV profiles")
 
 # Get GRanges objects containing the variants

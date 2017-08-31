@@ -1,13 +1,13 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Read SNV profiles")
 
 # Read variants
 file_1 <- system.file("extdata",
                       "test_profile_1.txt.gz",
-                      package = "CellAuthentication")
+                      package = "seqCAT")
 file_2 <- system.file("extdata",
                       "test_profile_2.txt.gz",
-                      package = "CellAuthentication")
+                      package = "seqCAT")
 
 test_profile_1 <- read_profile(file        = file_1,
                                sample_name = "sample1")

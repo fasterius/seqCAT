@@ -21,7 +21,7 @@
 #' @examples
 #' vcf_file = system.file("extdata",
 #'                        "test.vcf.gz", 
-#'                        package = "CellAuthentication")
+#'                        package = "seqCAT")
 #' create_profile(vcf_file, "sample1", "profile1.txt")
 #' create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
 #' create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
@@ -36,7 +36,7 @@ create_profile <- function(vcf_file,
 
         # Python script
         command <- system.file("python/create_profile.py",
-                               package = "CellAuthentication")
+                               package = "seqCAT")
 
         # Run Python code
         system2(command, args = c(vcf_file,

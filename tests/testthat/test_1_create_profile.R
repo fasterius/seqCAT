@@ -1,10 +1,10 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Creation of SNV profiles")
 
 # Files
 file <- system.file("extdata",
                     "test.vcf.gz",
-                    package = "CellAuthentication")
+                    package = "seqCAT")
 
 # Extract variants
 create_profile(vcf_file     = file,

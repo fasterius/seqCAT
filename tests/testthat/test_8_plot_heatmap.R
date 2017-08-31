@@ -1,4 +1,4 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Plot heatmap for multiple comparisons")
 
 # Load similarities

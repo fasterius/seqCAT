@@ -1,4 +1,4 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Plot impact distributions")
 
 # Load data

@@ -1,4 +1,4 @@
-library("CellAuthentication")
+library("seqCAT")
 context("Compare many profiles")
 
 # Load profiles

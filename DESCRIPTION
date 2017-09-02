@@ -3,6 +3,8 @@ Title: High Throughput Sequencing Cell Authentication Toolkit
 Version: 0.5.3
 Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", 
     role = c("aut", "cre"))
+Author: Erik Fasterius [aut, cre]
+Maintainer: Erik Fasterius <erikfas@kth.se>
 Description: The seqCAT package uses variant calling data (in the
     form of VCF files) from high throughput sequencing technologies to
     authenticate and validate the source, function and characteristics of

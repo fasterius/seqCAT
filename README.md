@@ -52,7 +52,9 @@ comparisons <- compare_many(list(hct116, hke3, rko))
 # Create an heatmap of comparisons
 plot_heatmap(comparisons[[1]])
 ```
-![Example heatmap](man/figures/README_example_1.png)
+<p align="center">
+ <img src="man/figures/README_example_1.png", alt="Example heatmap"/>
+</p>
 
 For more detailed demonstrations on how to use seqCAT, please see the vignette.
 
@@ -62,9 +64,9 @@ If you are using seqCAT to analyse your samples, please cite the following
 publication: 
 
 > Fasterius, E., Raso, C., Kennedy, S., Kolch, W., Al-Khalili C. et al. (2017)
-> *A novel RNA sequencing data analysis method for cell line authentication*
-> PloS One, 12(2), e0171435.
-> [http://doi.org/10.1371/journal.pone.0171435]
+> <br/> *A novel RNA sequencing data analysis method for cell line
+> authentication* <br/> PloS One, 12(2), e0171435. <br/>
+> http://doi.org/10.1371/journal.pone.0171435
 
 ## License
 

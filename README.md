@@ -33,8 +33,7 @@ The general workflow of seqCAT consists of three steps:
 library("seqCAT")
 
 # List the example VCF file
-vcf <- system.file("extdata", "example.vcf.gz",
-                   package = "seqCAT")
+vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 
 # Create SNV profiles
 create_profile(vcf, "HCT116", "hct116_profile.txt")
@@ -49,7 +48,7 @@ rko <- read_profile("rko_profile.txt", "RKO")
 # Compare all profiles to each other
 comparisons <- compare_many(list(hct116, hke3, rko))
 
-# Create an heatmap of comparisons
+# Create an heatmap of comparisons and their similarity scores
 plot_heatmap(comparisons[[1]])
 ```
 <p align="center">
@@ -63,10 +62,10 @@ For more detailed demonstrations on how to use seqCAT, please see the vignette.
 If you are using seqCAT to analyse your samples, please cite the following
 publication: 
 
-> Fasterius, E., Raso, C., Kennedy, S., Kolch, W., Al-Khalili C. et al. (2017)
-> <br/> *A novel RNA sequencing data analysis method for cell line
-> authentication* <br/> PloS One, 12(2), e0171435. <br/>
-> http://doi.org/10.1371/journal.pone.0171435
+> **A novel RNA sequencing data analysis method for cell line authentication**
+> <br/> Fasterius, E., Raso, C., Kennedy, S., Kolch, W., Al-Khalili C. et al.
+> <br/> PloS One, 12(2), e0171435. (2017)
+> <br/> doi: http://doi.org/10.1371/journal.pone.0171435
 
 ## License
 

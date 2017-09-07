@@ -1,4 +1,4 @@
-# seqCAT
+# seqCAT [!Build status][travis-image][travis-url]
 
 ## Overview
 
@@ -72,3 +72,6 @@ publication:
 seqCAT is released with a MIT licence. seqCAT is free software: you may
 redistribute it and/or modify it under the terms of the MIT license. For more
 information, please see the `LICENCE` file that comes with the seqCAT package.
+
+[travis-image]: https://travis-ci.org/fasterius/seqCAT.svg?branch=master
+[travis-url]: https://travis-ci.org/fasterius/seqCAT

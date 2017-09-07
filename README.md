@@ -10,9 +10,10 @@
 
 The High Throughput Sequencing Cell Authentication Toolkit (**seqCAT**) is an
 R-package for authenticating, evaluating and characterisation of cells using
-*single nucleotide variants* (SNVs)sequencing data. Its input data should be on
-the form of [VCF files][5], *i.e.* output from variant callers such as the
-[Genome Analysis ToolKit][6] and annotated with software such as [SnpEff][7].
+*single nucleotide variants* (SNVs) from sequencing data. Its input data should
+be on the form of [VCF files][5], *i.e.* output from variant callers such as
+the [Genome Analysis ToolKit][6] and annotated with software such as
+[SnpEff][7].
 
 [5]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
 [6]: https://software.broadinstitute.org/gatk/

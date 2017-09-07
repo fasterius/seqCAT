@@ -1,20 +1,22 @@
 # seqCAT
-[![Build status][travis-image]][travis-url]
+[![Build status][1]][2] [![Coverage Status][3]][4]
 
-[travis-image]: https://travis-ci.org/fasterius/seqCAT.svg?branch=master
-[travis-url]: https://travis-ci.org/fasterius/seqCAT
+[1]: https://travis-ci.org/fasterius/seqCAT.svg?branch=master
+[2]: https://travis-ci.org/fasterius/seqCAT
+[3]: https://coveralls.io/repos/github/fasterius/seqCAT/badge.svg?branch=master
+[4]: https://coveralls.io/github/fasterius/seqCAT?branch=master
 
 ## Overview
 
 The High Throughput Sequencing Cell Authentication Toolkit (**seqCAT**) is an
 R-package for authenticating, evaluating and characterisation of cells using
 *single nucleotide variants* (SNVs)sequencing data. Its input data should be on
-the form of [VCF files][1], *i.e.* output from variant callers such as the
-[Genome Analysis ToolKit][2] and annotated with software such as [SnpEff][3].
+the form of [VCF files][5], *i.e.* output from variant callers such as the
+[Genome Analysis ToolKit][6] and annotated with software such as [SnpEff][7].
 
-[1]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
-[2]: https://software.broadinstitute.org/gatk/
-[3]: http://snpeff.sourceforge.net/
+[5]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
+[6]: https://software.broadinstitute.org/gatk/
+[7]: http://snpeff.sourceforge.net/
 
 ## Installation
 

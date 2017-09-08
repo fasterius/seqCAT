@@ -41,6 +41,9 @@ create_profile <- function(vcf_file,
     # Use Python
     if (python) {
 
+        # Message (start)
+        message("Creating SNV profile with Python ...")
+
         # Python script
         command <- system.file("python/create_profile.py",
                                package = "seqCAT")
@@ -53,6 +56,9 @@ create_profile <- function(vcf_file,
 
     # Use R
     } else {
+
+        # Message
+        message("Creating SNV profile ...")
 
         # Read VCF file
         vcf <- VariantAnnotation::readVcf(vcf_file)
@@ -252,4 +258,7 @@ create_profile <- function(vcf_file,
                            row.names = FALSE,
                            quote     = FALSE)
     }
+
+    # Message (end)
+    message(paste0("Done; profile saved as ", output_file, "."))
 }

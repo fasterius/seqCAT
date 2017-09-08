@@ -25,6 +25,9 @@
 #' cosmic_hct116 <- read_cosmic(file, "HCT116")
 read_cosmic <- function(file_path, cell_line) {
 
+    # Message
+    message("Reading COSMIC cell line data ...")
+
     # Read COSMIC data
     cosmic <- utils::read.table(file_path,
                                 header           = TRUE,
@@ -47,7 +50,7 @@ read_cosmic <- function(file_path, cell_line) {
                        "Mutation.verification.status")]
     names(cosmic) <- tolower(gsub("\\.", "_", names(cosmic)))
 
-    # Simplify cell line names
+    # Simplify COSMIC cell line names
     cosmic$sample_name <- toupper(gsub("[-. ]", "", cosmic$sample_name))
     cell_line <- toupper(gsub("[-. ]", "", cell_line))
 
@@ -153,6 +156,9 @@ read_cosmic <- function(file_path, cell_line) {
 #'                     package = "seqCAT")
 #' cell_lines <- list_cosmic(file)
 list_cosmic <- function(file_path) {
+
+    # Message
+    message("Reading COSMIC cell line data ...")
 
     # Set colClasses to only read "Sample names" column
     col_classes <- c(rep("NULL", 4), "character", rep("NULL", 33))

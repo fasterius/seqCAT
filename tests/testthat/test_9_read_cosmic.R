@@ -7,8 +7,8 @@ file <- system.file("extdata",
                     package = "seqCAT")
 
 # Read COSMIC data
-cosmic <- read_cosmic(file, "HCT116")
-cosmic_list <- list_cosmic(file)
+cosmic <- suppressMessages(read_cosmic(file, "HCT116"))
+cosmic_list <- suppressMessages(list_cosmic(file))
 
 # Tests
 test_that("the returned object is a GRanges object", {

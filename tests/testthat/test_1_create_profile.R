@@ -7,17 +7,17 @@ file <- system.file("extdata",
                     package = "seqCAT")
 
 # Extract variants
-create_profile(vcf_file     = file,
-               sample       = "sample1",
-               output_file  = "profile_1.txt",
-               filter_depth = 10,
-               python       = FALSE)
+suppressMessages(create_profile(vcf_file     = file,
+                               sample       = "sample1",
+                               output_file  = "profile_1.txt",
+                               filter_depth = 10,
+                               python       = FALSE))
 
-create_profile(vcf_file     = file,
-               sample       = "sample2",
-               output_file  = "profile_2.txt",
-               filter_depth = 10,
-               python       = FALSE)
+suppressMessages(create_profile(vcf_file     = file,
+                               sample       = "sample2",
+                               output_file  = "profile_2.txt",
+                               filter_depth = 10,
+                               python       = FALSE))
 
 # Read files
 profile_1 <- read.table(file             = "profile_1.txt",

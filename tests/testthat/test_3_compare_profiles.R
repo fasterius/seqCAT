@@ -11,9 +11,9 @@ test_profile_3$A1 <- NA
 test_profile_3$sample <- "sample3"
 
 # Comparisons
-compared <- compare_profiles(test_profile_1, test_profile_2)
-zero_1 <- compare_profiles(test_profile_2, test_profile_3)
-zero_2 <- compare_profiles(test_profile_1, test_profile_3)
+compared <- suppressMessages(compare_profiles(test_profile_1, test_profile_2))
+zero_1 <- suppressMessages(compare_profiles(test_profile_2, test_profile_3))
+zero_2 <- suppressMessages(compare_profiles(test_profile_1, test_profile_3))
 
 # Tests
 test_that("correct number of variants overlap", {

@@ -2,9 +2,9 @@
 title: "seqCAT: The High Throughput Sequencing Cell Authentication Toolkit"
 author: "Erik Fasterius"
 date: "`r Sys.Date()`"
+package: "`r pkg_ver('seqCAT')`"
 output:
     BiocStyle::html_document:
-        highlight: tango
         toc: true
         number_sections: true
 bibliography: bibliography.bib
@@ -15,7 +15,7 @@ vignette: >
 ---
 
 ```{r Options, echo = FALSE}
-knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(fig.align = "center", message = FALSE)
 ```
 
 # Introduction

@@ -9,8 +9,8 @@ data(test_profile_2)
 profiles <- list(test_profile_1, test_profile_2)
 
 # Comparisons
-many <- compare_many(profiles)
-one <- compare_many(profiles, profiles[[1]])
+many <- suppressMessages(compare_many(profiles))
+one <- suppressMessages(compare_many(profiles, profiles[[1]]))
 
 # Tests
 test_that("the returned object is a list", {

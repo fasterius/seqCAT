@@ -1,10 +1,14 @@
-#' Calculate similarity and summary statistics for SNV overlaps
+#' @title SNV profile similarity calculations
 #'
+#' @description \link{calculate_similarity} returns the summary statistics for
+#'  SNV profile comparisons
+#'
+#' @details
 #' This function calculates various summary statistics and sample similarities
-#' for a given SNV overlaps dataframe. It returns a small dataframe with the
-#' overall similarity score (whose parameters `a` and `b` can be adjusted in
-#' the function call), total SNV overlaps, the concordance of the overlaps and
-#' the sample names in question. This dataframe can also be given to the 
+#' for a given profile comparison dataframe. It returns a small dataframe with
+#' the overall similarity score (whose parameters `a` and `b` can be adjusted
+#' in the function call), total SNV overlaps, the concordance of the overlaps
+#' and the sample names in question. This dataframe can also be given to the 
 #' function, in which case it will simply add another row for the current
 #' samples, facilitating downstream aggregate analyses.
 #'
@@ -15,9 +19,15 @@
 #' @param b Similarity score parameter b
 #' @param similarity Optional dataframe to add results to
 #' @return A dataframe with summary statistics
+#'
 #' @examples
+#' # Load test data
 #' data(test_comparison)
+#'
+#' # Calculate similarities
 #' similarity <- calculate_similarity(test_comparison)
+#'
+#' # Add another row of summary statistics
 #' calculate_similarity(test_comparison, similarity = similarity)
 calculate_similarity <- function(overlaps,
                                  similarity = NULL,

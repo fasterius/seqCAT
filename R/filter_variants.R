@@ -1,18 +1,23 @@
-#' Filter variants on specified criteria
+#' @title Variant filtering
 #'
-#' This is a function for filtering variants on sequencing depth. Variants with
-#' a depth lower than 10 are removed by default, but can be changed in the
-#' function call.
+#' @description \link{filter_variants} filters variants on sequencing depth
 #'
+#' @details This is a function for filtering variants on sequencing depth.
+#' Variants with a depth lower than 10 are removed by default, but can be
+#' changed in the function call.
+#'
+#' @export
 #' @param overlaps The data frame containing the variant data to be filtered.
 #' @param filter_depth Threshold for variant depth (default 10)
 #' @return A data frame containing the filtered variants.
+#'
 #' @examples
+#' # Load test comparisons
 #' data(test_comparison)
-#' filter_variants(test_comparison)
-#' filter_variants(test_comparison, filter_depth = 20)
-
-#' @export
+#'
+#' # Filter variants
+#' filt_1 <- filter_variants(test_comparison)
+#' filt_2 <- filter_variants(test_comparison, filter_depth = 20)
 filter_variants <- function(overlaps, filter_depth = 10) {
 
     # Find sample names

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_impacts.R
 \name{plot_impacts}
 \alias{plot_impacts}
-\title{Plot SNV impact distributions for a binary comparison}
+\title{Plot SNV impact distribution}
 \usage{
 plot_impacts(comparison, annotate = TRUE, legend = TRUE,
   palette = c("#0D2D59", "#1954A6"))
@@ -20,10 +20,18 @@ plot_impacts(comparison, annotate = TRUE, legend = TRUE,
 A ggplot2 graphical object
 }
 \description{
-This function creates publication-ready plots of the impact distribution
-from a binary dataset comparison across the matched/mismatched SNVs.
+\link{plot_impacts} plots SNV impact distributions for a
+ binary comparison
+}
+\details{
+This function creates publication-ready plots of the impact
+distribution from a binary dataset comparison across the matched/mismatched
+SNVs.
 }
 \examples{
+# Load test comparison data
 data(test_comparison)
-plot_impacts(test_comparison)
+
+# Plot the impact distribution
+impacts <- plot_impacts(test_comparison)
 }

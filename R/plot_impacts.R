@@ -1,7 +1,11 @@
-#' Plot SNV impact distributions for a binary comparison
+#' @title Plot SNV impact distribution
 #'
-#' This function creates publication-ready plots of the impact distribution
-#' from a binary dataset comparison across the matched/mismatched SNVs.
+#' @description \link{plot_impacts} plots SNV impact distributions for a
+#'  binary comparison
+#'
+#' @details This function creates publication-ready plots of the impact
+#' distribution from a binary dataset comparison across the matched/mismatched
+#' SNVs.
 #'
 #' @export
 #' @rdname plot_impacts
@@ -10,9 +14,13 @@
 #' @param legend Show/hide legend
 #' @param palette Colour palette for filling of bars
 #' @return A ggplot2 graphical object
+#'
 #' @examples
+#' # Load test comparison data
 #' data(test_comparison)
-#' plot_impacts(test_comparison)
+#'
+#' # Plot the impact distribution
+#' impacts <- plot_impacts(test_comparison)
 plot_impacts <- function(comparison,
                          annotate = TRUE,
                          legend = TRUE,

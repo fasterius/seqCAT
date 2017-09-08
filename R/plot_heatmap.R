@@ -1,8 +1,11 @@
-#' Plot a heatmap of multiple sample comparisons
+#' @title Plot similarity heatmap
 #'
-#' This function creates publication-ready plots of heatmaps for many-to-many
-#' sample comparisons, taking a long-format dataframe containing the summary
-#' statistics of each comparison as input.
+#' @description \link{plot_heatmap} plots a heatmap of similarities from 
+#'  multiple sample comparisons
+#'
+#' @details This function creates publication-ready plots of heatmaps for
+#' many-to-many  sample comparisons, taking a long-format dataframe containing
+#' the summary statistics of each comparison as input.
 #'
 #' @export
 #' @rdname plot_heatmap
@@ -14,9 +17,13 @@
 #' @param limits The limits for the colour gradient
 #' @param colour The main colour to use for the gradient
 #' @return A ggplot2 graphical object
+#'
 #' @examples
+#' # Load test similarities
 #' data(test_similarities)
-#' plot_heatmap(test_similarities)
+#'
+#' # Plot a similarity heatmap
+#' heatmap <- plot_heatmap(test_similarities)
 plot_heatmap <- function(similarities,
                          annotate      = TRUE,
                          annotate_size = 5,

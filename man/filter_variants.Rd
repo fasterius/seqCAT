@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_variants.R
 \name{filter_variants}
 \alias{filter_variants}
-\title{Filter variants on specified criteria}
+\title{Variant filtering}
 \usage{
 filter_variants(overlaps, filter_depth = 10)
 }
@@ -15,12 +15,18 @@ filter_variants(overlaps, filter_depth = 10)
 A data frame containing the filtered variants.
 }
 \description{
-This is a function for filtering variants on sequencing depth. Variants with
-a depth lower than 10 are removed by default, but can be changed in the
-function call.
+\link{filter_variants} filters variants on sequencing depth
+}
+\details{
+This is a function for filtering variants on sequencing depth.
+Variants with a depth lower than 10 are removed by default, but can be
+changed in the function call.
 }
 \examples{
+# Load test comparisons
 data(test_comparison)
-filter_variants(test_comparison)
-filter_variants(test_comparison, filter_depth = 20)
+
+# Filter variants
+filt_1 <- filter_variants(test_comparison)
+filt_2 <- filter_variants(test_comparison, filter_depth = 20)
 }

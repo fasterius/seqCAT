@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare_many.R
 \name{compare_many}
 \alias{compare_many}
-\title{Overlap and compare genotypes in many SNV profiles}
+\title{Comparisons of many SNV profiles}
 \usage{
 compare_many(many, one = NULL, a = 1, b = 5)
 }
@@ -19,14 +19,28 @@ compare_many(many, one = NULL, a = 1, b = 5)
 A list of summary statistics and comparisons
 }
 \description{
-This is a function that compares all the combinations of the SNV profiles
-input to it, either in a one-to-many or many-to-many manner. It returns both
-a dataframe containing summary statistics for all unique combinations and a
-list of dataframes with all the performed comparisons, for easy re-use and
-downstream analyses of said comparisons.
+\link{compare_many} overlaps  and compares genotypes in many
+ SNV profiles
+}
+\details{
+This is a function that compares all the combinations of the SNV
+profiles input to it, either in a one-to-many or many-to-many manner. It
+returns both a dataframe containing summary statistics for all unique
+combinations and a list of dataframes with all the performed comparisons,
+for easy re-use and downstream analyses of said comparisons.
 }
 \examples{
+# Load test data
 data(test_profile_1)
 data(test_profile_2)
-comparisons <- compare_many(list(test_profile_1, test_profile_2))
+
+# Perform many-to-many comparisons
+profiles <- list(test_profile_1, test_profile_2)
+comparisons <- compare_many(profiles)
+
+# View aggregate similarities
+\dontrun{comparisons[[1]])}
+
+# View data of first comparison
+\dontrun{head(comparisons[[2]][[1]])}
 }

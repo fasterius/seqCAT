@@ -1,19 +1,25 @@
-#' Reads SNV profiles
+#' @title Read SNV profile
 #'
-#' This is a function for reading SNV profiles extracted from VCF files.
-#' The data is returned as a GenomicRanges object, suitable for merging of
-#' metadata.
+#' @description \link{read_profile} reads SNV profiles as GRanges objects for
+#'  downstream profile comparisons
+#'
+#' @details This is a function for reading SNV profiles extracted from VCF
+#' files.  The data is returned as a GenomicRanges object, suitable for merging
+#' of metadata.
 #' 
+#' @export
 #' @param file The file path to be read.
 #' @param sample_name The sample name from which the file originates.
 #' @return A GenomicRanges object.
+#'
 #' @examples
+#' # Path to test data
 #' profile = system.file("extdata",
 #'                       "test_profile_1.txt.gz",
 #'                       package = "seqCAT")
-#' read_profile(profile, "sample1")
-
-#' @export
+#' 
+#' # Read test profile
+#' profile_1 <- read_profile(profile, "sample1")
 read_profile <- function(file, sample_name) {
 
     # Read data

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_heatmap.R
 \name{plot_heatmap}
 \alias{plot_heatmap}
-\title{Plot a heatmap of multiple sample comparisons}
+\title{Plot similarity heatmap}
 \usage{
 plot_heatmap(similarities, annotate = TRUE, annotate_size = 5,
   legend = TRUE, cluster = TRUE, limits = c(0, 50, 90, 100),
@@ -27,11 +27,18 @@ plot_heatmap(similarities, annotate = TRUE, annotate_size = 5,
 A ggplot2 graphical object
 }
 \description{
-This function creates publication-ready plots of heatmaps for many-to-many
-sample comparisons, taking a long-format dataframe containing the summary
-statistics of each comparison as input.
+\link{plot_heatmap} plots a heatmap of similarities from 
+ multiple sample comparisons
+}
+\details{
+This function creates publication-ready plots of heatmaps for
+many-to-many  sample comparisons, taking a long-format dataframe containing
+the summary statistics of each comparison as input.
 }
 \examples{
+# Load test similarities
 data(test_similarities)
-plot_heatmap(test_similarities)
+
+# Plot a similarity heatmap
+heatmap <- plot_heatmap(test_similarities)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_profile.R
 \name{read_profile}
 \alias{read_profile}
-\title{Reads SNV profiles}
+\title{Read SNV profile}
 \usage{
 read_profile(file, sample_name)
 }
@@ -15,13 +15,20 @@ read_profile(file, sample_name)
 A GenomicRanges object.
 }
 \description{
-This is a function for reading SNV profiles extracted from VCF files.
-The data is returned as a GenomicRanges object, suitable for merging of
-metadata.
+\link{read_profile} reads SNV profiles as GRanges objects for
+ downstream profile comparisons
+}
+\details{
+This is a function for reading SNV profiles extracted from VCF
+files.  The data is returned as a GenomicRanges object, suitable for merging
+of metadata.
 }
 \examples{
+# Path to test data
 profile = system.file("extdata",
                       "test_profile_1.txt.gz",
                       package = "seqCAT")
-read_profile(profile, "sample1")
+
+# Read test profile
+profile_1 <- read_profile(profile, "sample1")
 }

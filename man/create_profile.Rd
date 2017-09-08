@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_profile.R
 \name{create_profile}
 \alias{create_profile}
-\title{Create an SNV profile from a VCF file}
+\title{SNV profile creation}
 \usage{
 create_profile(vcf_file, sample, output_file, filter_depth = 10,
   python = FALSE)
@@ -22,19 +22,26 @@ create_profile(vcf_file, sample, output_file, filter_depth = 10,
 Does not return any data object, but output results to output_file
 }
 \description{
-This function creates a SNV profile from a given VCF file by extracting the
-variants that pass the filtering criterias. It can either be performed using
-R, or by the create_profile.py function included (which requires that Python
-is installed, along with the PyVCF package). Profile creation is performed
-to facilitate and accelerate the cell authentication procedures, which is
-especially relevant when more than one pairwise comparison will be performed
-on the same sample.
+\link{create_profile} creates an SNV profile from data in a VCF
+ file
+}
+\details{
+This function creates a SNV profile from a given VCF file by
+extracting the variants that pass the filtering criterias. It can either be
+performed using R, or by the create_profile.py function included (which
+requires that Python  is installed, along with the PyVCF package). Profile
+creation is performed to facilitate and accelerate the cell authentication
+procedures, which is especially relevant when more than one pairwise
+comparison will be performed on the same sample.
 }
 \examples{
-vcf_file = system.file("extdata",
-                       "test.vcf.gz", 
-                       package = "seqCAT")
-create_profile(vcf_file, "sample1", "profile1.txt")
-create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
-create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
+# Path to the test VCF file
+vcf_file = system.file("extdata", "test.vcf.gz", package = "seqCAT")
+
+# Create SNV profiles
+\dontrun{
+ create_profile(vcf_file, "sample1", "profile1.txt")
+ create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
+ create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
+}
 }

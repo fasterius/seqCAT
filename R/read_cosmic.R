@@ -1,20 +1,27 @@
-#' Read COSMIC cell line-specific mutational data
+#' @title Read COSMIC SNV data
 #'
-#' This function reads the "CosmicCLP_MutantExport.tsv.gz" file obtained from
-#' COSMIC and returns a GRanges object with all the listed mutations for the
-#' specified cell line, which can then be use in downstream profile
-#' comparisons. Only non-duplicated (gene-level) SNVs are included in COSMIC
-#' profiles.
+#' @description \link{read_cosmic} reads COSMIC cell line-specific mutational
+#'  data for comparisisons with sample data
+#'
+#' @details This function reads the "CosmicCLP_MutantExport.tsv.gz" file
+#' obtained from COSMIC and returns a GRanges object with all the listed
+#' mutations for the specified cell line, which can then be use in downstream
+#' profile  comparisons. Only non-duplicated (gene-level) SNVs are included in
+#' COSMIC profiles.
 #'
 #' @export
 #' @rdname read_cosmic
 #' @param file_path Location of the CosmicCLP_MutantExport.tsv.gz file
 #' @param cell_line The cell line to be investigated
 #' @return A GRanges object with COSMIC SNVs
+#'
 #' @examples
+#' # Path to COSMIC test data
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",
 #'                     package = "seqCAT")
+#'
+#' # Read COSMIC test data for HCT116 cell line
 #' cosmic_hct116 <- read_cosmic(file, "HCT116")
 read_cosmic <- function(file_path, cell_line) {
 

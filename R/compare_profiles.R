@@ -1,23 +1,30 @@
-#' Overlap and compare genotypes in two SNV profiles.
+#' @title Binary SNV profile comparisons
 #'
-#' This is a function for finding overlapping variants in two different SNV
-#' profiles (stored as GenomicRanges objects), followed by comparing the
-#' genotypes of the overlapping variants. The "compare_overlaps" function calls
-#' the "add_metadata" function twice in succession in order to merge the
-#' metadata for the two profiles (supplied as GRanges objects), returns the
-#' results as a dataframe, compares the genotypes of the overlapping variants
-#' using the "compare_genotypes" function and, finally, returns the final
-#' dataframe with all variant overlaps and their similarity.
+#' @description \link{compare_profiles} overlaps and compares genotypes in two
+#'  SNV profiles.
+#'
+#' @details This is a function for finding overlapping variants in two
+#' different SNV profiles (stored as GenomicRanges objects), followed by
+#' comparing the genotypes of the overlapping variants. The "compare_overlaps"
+#' function calls the "add_metadata" function twice in succession in order to
+#' merge the metadata for the two profiles (supplied as GRanges objects),
+#' returns the results as a dataframe, compares the genotypes of the
+#' overlapping variants using the "compare_genotypes" function and, finally,
+#' returns the final dataframe with all variant overlaps and their similarity.
 
 #' @export
 #' @rdname compare_profiles
 #' @param profile_1 The first variant GRanges object.
 #' @param profile_2 The second variant GRanges object.
 #' @return A data frame.
+#' 
 #' @examples
+#' # Load test data
 #' data(test_profile_1)
 #' data(test_profile_2)
-#' compare_profiles(test_profile_1, test_profile_2)
+#'
+#' # Compare the two profiles
+#' comparison <- compare_profiles(test_profile_1, test_profile_2)
 compare_profiles <- function(profile_1,
                              profile_2) {
 

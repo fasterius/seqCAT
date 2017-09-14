@@ -20,35 +20,37 @@ knitr::opts_chunk$set(fig.align = "center", message = FALSE)
 
 # Introduction
 
-This vignette describes a workflow of using the \Rpackage{"seqCAT"}
-package for authentication, characterisation and evaluation of two or more
-high throughput sequencing (*i.e.* RNA-seq or whole genome sequencing) samples.
-The general principle is to create *single nucelotide variant* (SNV) profiles
+This vignette describes the use of the *seqCAT* package for
+authentication, characterisation and evaluation of two or more *High Throughput
+Sequencing* samples (HTS; RNA-seq or whole genome sequencing). The principle
+of the method is built upon previous work, where it was demonstrated that
+analysing the entirety of the variants found in HTS data provides unprecedented
+statistical power and great opportunities for functional evaluation of genetic
+similarities and differences between biological samples *[@Fasterius2017]*.
+seqCAT work by creating *Single Nucelotide Variant* (SNV) profiles
 of every sample of interest, followed by comparisons between each set to find
-their overall similarity, in addition to detailed analyses of the differences.
-By analysing your data with this workflow you will not only be able to
-authenticate your samples to a high degree of confidence, but you will also be
-able to investigate what genes and transcripts are affected by SNVs differing
-between your samples, what biological effect they will have, and more. The
-workflow consists of three separate steps:
+overall genetic similarity, in addition to detailed analyses of the
+differences. By analysing your data with this workflow you will not only be
+able to authenticate your samples to a high degree of confidence, but you will
+also be able to investigate what genes and transcripts are affected by SNVs
+differing between your samples, what biological effect they will have, and
+more.
+
+seqCAT's workflow consists of three separate steps:
 
     1.  Creation of SNV profiles
     2.  Comparisons of SNV profiles
-    3.  Authentication, characterisation and evaluation of comparisons
+    3.  Authentication, characterisation and evaluation of profile comparisons
 
 Each step has its own section(s) below demonstrating how to perform the
-analyses. Input data should be in the form of [VCF files][1], *i.e* output from
-variant callers such as the [Genome Analysis ToolKit][2] and annotated with
-software such as [SnpEff][3].
-
-[1]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
-[2]: https://software.broadinstitute.org/gatk/
-[3]: http://snpeff.sourceforge.net/
+analyses. Input data should be in the form of [VCF files][vcf-format], *i.e*
+output from variant callers such as the [Genome Analysis ToolKit][gatk] and
+annotated with software such as [SnpEff][snpeff].
 
 ## Installation
 
-The latest stable release of this package can be found on [BioConductor][3] and
-installed using the `biocLite` function:
+The latest stable release of this package can be found on
+[Bioconductor][bioc-home] and installed using the `biocLite` function:
 
 ```{r Installation, eval = FALSE}
 source("https://bioconductor.org/biocLite.R")
@@ -57,40 +59,33 @@ biocLite("seqCAT")
 
 This will also install any missing packages requires for full functionality,
 should they not already exist in your system. If you haven't installed
-BioConductor, you can do so by simply calling `biocLite()` without specifying a
+Bioconductor, you can do so by simply calling `biocLite()` without specifying a
 package, and it will be installed for you. You can read more about this at
-BioConductor's [installation page][4].
-
-[4]: http://bioconductor.org/
-[5]: http://bioconductor.org/install/
-
-You can find the development version of this package on [GitHub][6]. Please
-note that it may contain bugs and work-in-progress.
-
-[6]: https://github.com/fasterius/seqCAT
+Bioconductor's [installation page][bioc-install]. You can find the development
+version of seqCAT on [GitHub][github].
 
 # Creation of SNV profiles
 
 The first step of the workflow is to create the SNV profile of each sample,
-which can then be compared to each other. While computation time is usually not
-an issue for simple binary comparisons (*i.e.* comparisons with only two
-samples), this can quickly become a concern for analyses where samples are
-compared to several others (A vs B, A vs C, ..., and so on). In order to
-decrease the computation time for large comparison sets and to facilitate
-re-analyses with different parameters each SNV profile is saved on disc as a
-normal `.txt` file.
-
-The creation of a SNV profile includes filtering of low-confidence variants and
-removal of variants below a sequencing depth threshold (`10` by default). Only
-records with the highest SNV impact (*i.e.* putative impact on protein 
-function) for each variant is kept, as they are most likely to affect the
-biology of the cells.
+which can then be compared to each other. In order to decrease the computation
+time for large comparison sets and to facilitate re-analyses with different
+parameters each SNV profile is saved on disc as a normal `.txt` file. While
+computation time is usually not an issue for simple binary comparisons (*i.e.*
+comparisons with only two samples), this can quickly become a concern for
+analyses where samples are compared to several others (A vs B, A vs C, ..., and
+so on).  The creation of a SNV profile includes filtering of low-confidence
+variants and removal of variants below a sequencing depth threshold (`10` by
+default). Only records with the highest SNV impact (*i.e.* [impact][]
+on protein function) for each variant is kept, as they are most likely to
+affect the biology of the cells. Creation of SNV profiles is also implemented
+in Python ([section 2.2][Create profiles faster with Python]), which is faster
+than the standard implementation in R ([section 2.1][Create profiles with R]).
 
 ## Create profiles with R
 
 Throughout this vignette we will be using some example data, `example.vcf.gz`,
-which comes from the initial publication of the general process of this method.
-[@Fasterius2017] It is a simplified multi-sample VCF file on a subset of
+which comes from the initial publication of the general process of this method
+*[@Fasterius2017]*. It is a simplified multi-sample VCF file on a subset of
 chromosome 12 (containing all variants up to position `25400000`, in order to
 keep the file size low) for three different colorectal cancer cell lines:
 *HCT116*, *HKE3* and *RKO*.
@@ -109,60 +104,45 @@ create_profile(vcf, "RKO", "rko_profile.txt", filter_depth = 15)
 ```
 
 This creates SNV profiles for the two samples found in the example data
-(`HCT116` and `RKO`) and saves them as `hct116.profile` and `rko_profile.txt`
-in the current directory, respectively. The profile of the second sample was
-created with a non-standard filter for sequencing depth (`15`), which should
-only be done if you want a stricter criteria for your profile.
+(`HCT116` and `RKO`) and saves them as `hct116.profile.txt` and
+`rko_profile.txt` in the current directory, respectively. The profile of the
+second sample was created with a non-standard filter for sequencing depth
+(`15`), which should only be done if you want a stricter criteria for your
+profile (such as when you're only interested in higher-than-standard confidence
+variants).
 
-## Faster profile creation with Python
+## Create profiles faster with Python
 
-SNV profiles can also be created with Python, another scripting langage, if you
-have it installed. The `create_profile` function also doubles as a wrapper
-for the `create_profile.py` script included in the package, which can create
-SNV profiles much quicker than its `R` equivalent. This might not be important
-for a lot of users, but is nevertheless included for cases where it helps to
-have the extra speed.
+SNV profiles can also be created with [Python][python-home], another scripting
+language, if you have installed it. You will also need to install the
+[PyVCF][pyvcf] module, in order for it to run. The `Python` version can create
+SNV profiles quicker than its `R` equivalent. This is not important for most
+users, but is nevertheless included for cases where extra speed is desired.
 
 ```{r Create SNV profile with Python, eval = FALSE}
 create_profile(vcf, "RKO", "RKO_profile.txt", python = TRUE)
 ```
 
-In order to run the `Python` SNV profile creation script, you will need to have
-the [PyVCF](https://pypi.python.org/pypi/PyVCF) module installed. You can also
-run the python script directly from the command line, supplying its input
-arguments from there. To see the arguments, use:
-
-```{r Python command line, engine = "bash", eval = FALSE}
-$ python create_profile.py --help
-```
-
 ## Create COSMIC profiles
 
-While looking at the entirety of either the genome (whole genome sequencing) or
-transcriptome (RNA sequencing) and using the variants found therein gives
-unprecedented statistical power and great opportunities for functional
-evaluations, there are also good reasons to compare your samples' variants to
-some external source. Such a source is the *Catalogue of somatic mutations in
-cancer*, or *COSMIC*. COSMIC has over a thousand cell line-specific mutational
-profiles, and is thus a very useful resource if you are working with cell
-lines.
+It is also possible to to compare your samples' variants to some external
+source. Such a source is the *Catalogue of somatic mutations in cancer*, or
+*COSMIC*. COSMIC has over a thousand cell line-specific mutational profiles,
+and is thus a very useful resource if you are working with cell lines.
 
 In order to use the COSMIC cell line database, you need to sign up for an
-account at their [website][6] and get permission to download their files (which
-is given free of charge to academia and non-profit organisation, but requires a
-commersial license for for-profit organisations). The file you are looking for
-is the `CosmicCLP_MutantExport.tsv.gz`, listed under *complete mutational data*
-[here][7]. As redistributing this file is not allowed, this package includes an
-extremely minimal subset of the original file, only useful for examples in this
-vignette and unit testing. *Do not* use this file for your own analyses, as
-your results will neither be complete nor correct!
+account at their [website][cosmic-home] and get permission to download their
+files (which is given free of charge to academia and non-profit organisation,
+but requires a commersial license for for-profit organisations). The required
+file is the one named `CosmicCLP_MutantExport.tsv.gz`, listed under *complete
+mutational data* [here][cosmic-downloads]. As redistributing this file is not
+allowed, this package includes an extremely minimal subset of the original 
+file, only useful for examples in this vignette and unit testing. *Do not* use
+this file for your own analyses, as your results will neither be complete nor
+accurate!
 
-[7]: http://cancer.sanger.ac.uk/cosmic
-[8]: http://cancer.sanger.ac.uk/cell_lines/download
-
-The first thing you might want to do is to see if your specific cell line is
-available in the database, which can be accomplished using the `list_cosmic`
-function:
+The first thing to check is to see if your specific cell line is available in
+the database, which can be accomplished using the `list_cosmic` function:
 
 ```{r List COSMIC}
 file <- system.file("extdata", "subset_CosmicCLP_MutantExport.tsv.gz",
@@ -199,10 +179,12 @@ length(cosmic)
 ```
 
 Here we only see a single variant for the HCT116 cell line, which is only
-because of the extreme small subset of the actual file being used here. HCT116
-has, in fact, over 2000 listed COSMIC SNVs, making it one of the more
+because of the extreme small subset of the COSMIC databse being used here.
+HCT116 has, in fact, over 2000 listed COSMIC SNVs, making it one of the more
 abundantly characterised cell lines available (as most cell lines has only a
-few hundred SNVs listed in COSMIC).
+few hundred SNVs listed in COSMIC). A COSMIC profile of a couple of hundred
+variants is more common, though, and any analysis based only on COSMIC variants
+is thus inherently limited.
 
 # Comparing SNV profiles
 
@@ -219,10 +201,10 @@ head(hct116)
 ```
 
 SNV profiles contain most of the relevant annotation data from the original VCF
-file, including SNV impacts, gene/transcript IDs, mutational (rs) ID, and so
-on. The `DP` (depth) field lists the total sequencing depth of this variant,
-while the specific allelic depths can be found in `AD1` and `AD2`. The alleles
-of each variant can be found in `A1` and `A2`.
+file, including SNV impacts, gene/transcript IDs and mutational (rs) ID. The
+`DP` (depth) field lists the total sequencing depth of this variant, while the
+specific allelic depths can be found in `AD1` and `AD2`. The alleles of each
+variant can be found in `A1` and `A2`.
 
 Once each profile has been read, the genotypes of the overlapping variants
 between them can be compared using the `compare_profiles` function. Only
@@ -245,8 +227,8 @@ names.
 
 If you are working with cell lines and only want to analyse a subset of your
 data or as a orthogonal method complementary to others, you could compare your
-profile to a COSMIC profile. This works much in the same way as comparing to
-another full profile, but gives slightly different output:
+profile to a COSMIC profile. This works in the same way as comparing to another
+full profile, but gives slightly different output:
 
 ```{r Compare with COSMIC}
 hct116_cosmic <- compare_profiles(hct116, cosmic)
@@ -254,17 +236,16 @@ head(hct116_cosmic)
 ```
 
 You can use all the functions for downstream analyses for comparisons with
-COSMIC data as you would full SNV profiles, but your options for functional
-analyses will be limited, given that the COSMIC database is biased towards
-well-known and characterised mutations. It is, however, an excellent way to
-authenticate your cell lines and to assert the status of those mutations that
-*should* exist in your cells.
+COSMIC data, but your options for functional analyses will be limited, given
+that the COSMIC database is biased towards well-known and characterised
+mutations. It is, however, an excellent way to authenticate your cell lines and
+to assert the status of the mutations that exist in the analysed cells.
 
 # Evaluating binary comparisons
 
 ## Similarity and global statistics
 
-When you finally have your matched, overlapping SNVs, it's time to analyse and
+When you have your matched, overlapping SNVs, it's time to analyse and
 characterise them. The first thing you might want to check are the global
 similarities and summary statistics, which can be done with the
 `calculate_similarity` function. The `concordance` is simply the number of
@@ -278,8 +259,8 @@ $$Similarity = \frac{s + a}{n + a + b}$$
 ... where `s` is the number of matching genotypes, `n` is the total number of 
 overlapping SNVs, `a` and `b` being the parameters used to weigh the
 concordance in favour of comparisons with more overlaps. The default
-parameters of `1` and `5` were selected to yield an equivalent cutoff to a
-previously used one [@Yu2015], which results in a lower limit 44 of perfectly
+parameters of `1` and `5` were selected to yield an equivalent cutoff to one
+suggested by Yu *et al.* (2015), which results in a lower limit 44 of perfectly
 matching overlapping variants with a similarity score of 90. The similarity
 score is thus a better measure of biological equivalency than just the
 concordance.
@@ -293,12 +274,18 @@ Here, you can see a summary of the relevant statistics for your particular
 comparison: the number of overlaps between your two samples, the number of
 matching genotypes, their concordance as well as their similarity score. The
 cutoff used by Yu *et al.* for cell line authenticity was `90 %` for their 48
-SNP panel, something that would be considered the baseline for this method as
+SNP panel, something that could be considered the baseline for this method as
 well. The score, `68.7`, is well below that cutoff, and we can thus be certain
-that these two cells are indeed not the same (as expected). While a score just
-below `90` does not mean that the cell definitely are different, it *does* mean
-that more rigorous evaluation needs to be performed in order to ensure their
-biological equivalency.
+that these two cells are indeed not the same (as expected). While hard
+thresholds for similarity are inadvisable, a general guideline is that
+comparisons with scores above `90` can be considered similar while those below
+can be considered dissimilar. While a score just below `90` does not mean that
+the cells definitely are different, it *does* mean that more rigorous
+evaluation needs to be performed in order to ensure their biological 
+equivalency. Are there specific genes or regions that are of special interest,
+for example? If so, it might be informative to specifically investigate the
+similarity there (more on this [below][Evaluation of specific chromosomes,
+regions, genes and transcripts]).
 
 You may additionally change the parameters of the score (if you, for example,
 want a stricter calculation). You may also supply the `calculate_similarity`
@@ -329,13 +316,15 @@ downstream analyses.
 
 ## Evaluation of SNV impacts
 
-An SNV's *impact* represent the putative effect that variant may have on the
+An SNV's [impact] represent the putative effect that variant may have on the
 function of the resulting protein, and ranges from HIGH through MODERATE, LOW
 and MODIFIER, in decreasing order of magnitude. HIGH impact variants may, for
 example, lead to truncated proteins due to the introduction of a stop codon,
-while MODIFIER variants have little to no effect on the protein at all. It is
-informative to look at the distribution of the impacts of the overlapping SNVs
-between two profiles, a task easily performed by the `plot_impacts` function:
+while MODIFIER variants have little to no effect on the protein at all. While
+there is no guarantee that a specific phenotype arises from a HIGH rather than
+a MODERATE impact variant (for example), it may be informative to look at the
+impact distribution of the overlapping SNVs between two profiles. This can
+easily be performed by the `plot_impacts` function:
 
 ```{r Impact distributions}
 impacts <- plot_impacts(hct116_rko)
@@ -347,11 +336,11 @@ distribution of the overlapping variants. It has a number of arguments with
 defaults, such as if you want to add text with the actual numbers to the plot
 (`annotate = TRUE` by default), if you want to show the legend (`legend =
 TRUE` by default) and what colours you want to plot the match-categories with
-(`palette = c("#0D2D59", "#1954A6")` by default, two nice shades of blue). We
-can see that most of the SNVs are present in the MODIFIER impact category, and
-that there is not a single mismatched HIGH impact SNV. (You can also visualise
-the impact distribution between your sample and the COSMIC database in exactly
-the same way.)
+(`palette = c("#0D2D59", "#1954A6")` by default, two shades of blue). We can
+see that most of the SNVs are present in the MODIFIER impact category, and that
+there is not a single mismatched HIGH impact SNV. (You can also visualise the
+impact distribution between your sample and the COSMIC database in exactly the
+same way.)
 
 You might also want to look at only a subset of variants, *e.g.* only the
 variants with HIGH or MODERATE impacts, which is easily achieved with some data
@@ -387,9 +376,10 @@ head(hct116_rko_ldhb)
 ```
 
 Here we see two mutations in the LDHB gene, one mismatching MODIFIER variant
-and one matching LOW variant. This is a good way to check for known mutations
-in your dataset. For example, the HCT116 cell line is supposed to have a KRAS
-G13D mutation. We might look for this using its known `rsID` or position:
+and one matching LOW variant. This is a good approach to check for known
+mutations in your dataset. For example, the HCT116 cell line is supposed to
+have a KRAS<sup>G13D</sup> mutation. We might look for this using its known
+`rsID` or position:
 
 ```{r Subset KRAS}
 hct116_rko_kras <- hct116_rko[hct116_rko$rsID == "rs112445441", ]
@@ -398,43 +388,38 @@ hct116_rko_kras <- hct116_rko[hct116_rko$chr == 12 &
 nrow(hct116_rko_kras)
 ```
 
-This yields only empty dataframes. Why is this? The likely reason here is that
-this is not a mutation present in the RKO cell line, or that there simply
-wasn't enough data to get a confident variant call for this position. As the
-`compare_profiles` function only looks at SNVs overlapping between two variant
-profiles, variants are only seen if it is present in both profiles (or,
-alternatively, a confident REF/REF call). Luckily, there is a way to check this
-by simply looking for the specific variant in the originating SNV profiles
-individually:
+The reason that we don't find this particular variant in the HCT116 vs. RKO
+comparison is that it is not present in the RKO profile, either because it
+isn't a mutation in RKO or because there was no confident variant call for that
+particular position. The `compare_profiles` function only looks at overlapping
+positions, so we will have to look at the individual profiles instead:
 
 ```{r Subset KRAS individually}
 hct116[seqnames(hct116) == 12 & start(hct116) == 25398281, ]
 rko[seqnames(rko) == 12 & start(rko) == 25398281, ]
 ```
 
-Here we see that the KRAS G13D mutation is indeed present in the HCT116
-profile, but not in RKO. (Please note that this data was aligned and analysed
-using the GRCh37 / hg19 assembly and that listed positions might not be
-accurate for subsequent assemblies.)
+Here we see that the KRAS<sup>G13D</sup> mutation is indeed present in the
+HCT116 profile, but not in RKO. (Please note that this data was aligned and
+analysed using the GRCh37 / hg19 assembly and that listed positions might not
+be accurate for other assemblies.)
 
 # Evaluating multiple comparisons
 
-While binary analyses between two samples can tell you a lot about their
-similarities, many scientific studies have more than just two, not even
-mentioning meta-studies and large-scale comparisons. It is therefore important
-to be able to characterise and evaluate not just binary comparisons, but also
-many-to-one or many-to-many cases - the `seqCAT` package provides a
-number of functions and procedures for doing so. 
+Many scientific studies compare more than just two datasets, not to mention
+meta-studies and large-scale comparisons. It is therefore important to be able
+to characterise and evaluate many-to-one or many-to-many cases as well - the
+`seqCAT` package provides a number of functions and procedures for doing so. 
 
 ## Performing multiple profile comparisons
 
-The first step of any such analyses is to create and read SNV profiles for each
-sample that is to be evaluated (please see the sections above). The example
-data used here has three different samples: HCT116, HKE3 and RKO. The
-`compare_many` function is a helper function for creating either one-to-many or
-many-to-many SNV profile comparisons, and returns a `list` of the global
-similarities for all combinations of profiles and their respective data (for
-downstream analyses):
+The first step of such an analysis is to create and read SNV profiles for each
+sample that is to be evaluated (please see [section 2][Creation of SNV
+profiles]). The example data used here has three different samples: HCT116,
+HKE3 and RKO. The `compare_many` function is a helper function for creating
+either one-to-many or many-to-many SNV profile comparisons, and returns a
+`list` of the global similarities for all combinations of profiles and their
+respective data (for downstream analyses):
 
 ```{r Many-to-many comparisons}
 # Create list of SNV profiles
@@ -502,7 +487,7 @@ the gradient (`colour = "#1954A6"` by default) or change the limits of the
 gradient (`limits = c(0, 50, 90, 100)` by default). The choice of gradient
 limits are based on clarity (comparisons with a similarity score less than 50,
 *i.e.* those that likely have too few overlapping variants to begin with, are
-suppressed) and the previously mentioned 90 % concordance threshold [@Yu2015].
+suppressed) and the previously mentioned 90 % concordance threshold *[@Yu2015]*.
 
 This heatmap makes it clear that HCT116 and HKE3 are, indeed, very similar to
 each other, while RKO differs from them both. These types of heatmaps can be
@@ -524,7 +509,7 @@ file.remove("hke3_profile.txt")
 # Citation {-}
 
 If you are using seqCAT to analyse your samples, please cite the
-article from which the methodology was first published.
+article in which the general methodology was first published.
 
 Fasterius, E., Raso, C., Kennedy, S., Rauch, N., Lundin, P., Kolch, W., et al.
 (2017). A novel RNA sequencing data analysis method for cell line
@@ -539,3 +524,18 @@ sessionInfo()
 
 # References
 
+[bioc-home]: http://bioconductor.org/
+[bioc-install]: http://bioconductor.org/install/
+
+[cosmic-home]: http://cancer.sanger.ac.uk/cosmic
+[cosmic-downloads]: http://cancer.sanger.ac.uk/cell_lines/download
+
+[gatk]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
+
+[github]: https://github.com/fasterius/seqCAT
+
+[impact]: http://snpeff.sourceforge.net/SnpEff_manual.html#eff
+[python-home]: https://www.python.org/
+[pyvcf]: https://pypi.python.org/pypi/PyVCF
+[snpeff]: http://snpeff.sourceforge.net/
+[vcf-format]: https://software.broadinstitute.org/gatk/

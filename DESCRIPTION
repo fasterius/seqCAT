@@ -1,6 +1,6 @@
 Package: seqCAT
 Title: High Throughput Sequencing Cell Authentication Toolkit
-Version: 0.5.4
+Version: 0.99.0
 Authors@R: person("Erik", "Fasterius", email = "erikfas@kth.se", 
     role = c("aut", "cre"))
 Author: Erik Fasterius [aut, cre]

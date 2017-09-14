@@ -30,7 +30,7 @@ The general workflow of seqCAT consists of three steps:
 # Load the package
 library("seqCAT")
 
-# List the example VCF file
+# Path to the example VCF file
 vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 
 # Create SNV profiles
@@ -53,7 +53,7 @@ plot_heatmap(comparisons[[1]])
  <img src="man/figures/README_example_1.png", alt="Example heatmap"/>
 </p>
 
-For more detailed demonstrations on how to use seqCAT, please see the vignette.
+For more detailed instructions on how to use seqCAT, please see the vignette.
 
 ## Citation
 

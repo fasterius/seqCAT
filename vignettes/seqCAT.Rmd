@@ -5,11 +5,12 @@ date: "`r Sys.Date()`"
 package: "`r pkg_ver('seqCAT')`"
 output:
     BiocStyle::html_document:
-        toc: true
+        toc_float: true
         number_sections: true
 bibliography: bibliography.bib
 vignette: >
-    %\VignetteIndexEntry{seqCAT: The High Throughput Sequencing Cell Authentication Toolkit}
+    %\VignetteIndexEntry{seqCAT: The High Throughput Sequencing Cell
+                         Authentication Toolkit}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -27,6 +28,7 @@ of the method is built upon previous work, where it was demonstrated that
 analysing the entirety of the variants found in HTS data provides unprecedented
 statistical power and great opportunities for functional evaluation of genetic
 similarities and differences between biological samples *[@Fasterius2017]*.
+
 seqCAT work by creating *Single Nucelotide Variant* (SNV) profiles
 of every sample of interest, followed by comparisons between each set to find
 overall genetic similarity, in addition to detailed analyses of the
@@ -34,9 +36,7 @@ differences. By analysing your data with this workflow you will not only be
 able to authenticate your samples to a high degree of confidence, but you will
 also be able to investigate what genes and transcripts are affected by SNVs
 differing between your samples, what biological effect they will have, and
-more.
-
-seqCAT's workflow consists of three separate steps:
+more. seqCAT's workflow consists of three separate steps:
 
     1.  Creation of SNV profiles
     2.  Comparisons of SNV profiles
@@ -511,10 +511,10 @@ file.remove("hke3_profile.txt")
 If you are using seqCAT to analyse your samples, please cite the
 article in which the general methodology was first published.
 
-Fasterius, E., Raso, C., Kennedy, S., Rauch, N., Lundin, P., Kolch, W., et al.
-(2017). A novel RNA sequencing data analysis method for cell line
-authentication. PloS One, 12(2), e0171435.
-http://doi.org/10.1371/journal.pone.0171435
+> **A novel RNA sequencing data analysis method for cell line authentication**
+> <br/> Fasterius, E., Raso, C., Kennedy, S., Kolch, W., Al-Khalili C. *et al.*
+> <br/> PloS One, 12(2), e0171435. (2017)
+> <br/> doi: http://doi.org/10.1371/journal.pone.0171435
 
 # Session info {-}
 

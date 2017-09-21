@@ -257,6 +257,9 @@ create_profile_R <- function(vcf_file,
                        sep       = "\t",
                        row.names = FALSE,
                        quote     = FALSE)
+    # Output message
+    message("Created and stored SNV profile for \"", sample, "\" in [",
+            output_file, "].")
 }
 
 # Function for creating profiles with Python
@@ -269,12 +272,26 @@ create_profile_python <- function(vcf_file,
     message("Creating SNV profile with Python ...")
 
     # Python script
-    command <- system.file("python/create_profile.py",
-                           package = "seqCAT")
+    command <- system.file("python/create_profile.py", package = "seqCAT")
 
     # Run Python code
-    system2(command, args = c(vcf_file,
-                              sample,
-                              output_file,
-                              "-f", filter_depth))
+    out <- suppressWarnings(
+        try(silent = TRUE, system2(command = command,
+                                   stderr  = TRUE,
+                                   args    = c(vcf_file,
+                                               sample,
+                                               output_file,
+                                               "-f", filter_depth)))
+        )
+
+    # Catch Python errors and print to user
+    if (length(out) > 0) {
+        message("The Python script produced an ERROR; please make sure that ",
+                "Python and the PyVCF module are installed.")
+        message("Original error message:")
+        write(out[1:length(out)], file = "")
+    } else {
+        message("Created and stored SNV profile for \"", sample, "\" in [",
+                output_file, "].")
+    }
 }

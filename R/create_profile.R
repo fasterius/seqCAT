@@ -144,75 +144,75 @@ create_profile_R <- function(vcf_file,
                           stringsAsFactors = FALSE)
 
     # Loop over each SNV
-    for (n in c(1:nrow(data))) {
+    for (n in seq_len(nrow(data))) {
 
-    # Get annotation data for current SNV
-    ann <- data[n, "ANN"][[1]]
+        # Get annotation data for current SNV
+        ann <- data[n, "ANN"][[1]]
 
-    # Separate into columns
-    ann <- tidyr::separate_(as.data.frame(ann),
-                            col    = "ann",
-                            sep    = "\\|",
-                            extra  = "drop",
-                            fill   = "right",
-                            remove = TRUE,
-                            into   = c("ALT",
-                                       "effect",
-                                       "impact",
-                                       "gene",
-                                       "ENSGID",
-                                       "feature",
-                                       "ENSTID",
-                                       "biotype",
-                                       "rank",
-                                       "HGSV_c",
-                                       "HGSV_p",
-                                       "cDNA_pos",
-                                       "CDS_pos",
-                                       "protein_pos",
-                                       "distance",
-                                       "warnings"))
+        # Separate into columns
+        ann <- tidyr::separate_(as.data.frame(ann),
+                                col    = "ann",
+                                sep    = "\\|",
+                                extra  = "drop",
+                                fill   = "right",
+                                remove = TRUE,
+                                into   = c("ALT",
+                                           "effect",
+                                           "impact",
+                                           "gene",
+                                           "ENSGID",
+                                           "feature",
+                                           "ENSTID",
+                                           "biotype",
+                                           "rank",
+                                           "HGSV_c",
+                                           "HGSV_p",
+                                           "cDNA_pos",
+                                           "CDS_pos",
+                                           "protein_pos",
+                                           "distance",
+                                           "warnings"))
 
-    # Remove unwanted data columns
-    ann <- dplyr::select_(ann,
-                          "-ALT",
-                          "-rank",
-                          "-HGSV_c",
-                          "-HGSV_p",
-                          "-cDNA_pos",
-                          "-CDS_pos",
-                          "-protein_pos",
-                          "-distance")
+        # Remove unwanted data columns
+        ann <- dplyr::select_(ann,
+                              "-ALT",
+                              "-rank",
+                              "-HGSV_c",
+                              "-HGSV_p",
+                              "-cDNA_pos",
+                              "-CDS_pos",
+                              "-protein_pos",
+                              "-distance")
 
-    # Keep only the highest impact SNV(s)
-    impacts <- unique(ann$impact)
-    if ("HIGH" %in% impacts) {
-        ann <- ann[ann$impact == "HIGH", ]
-    } else if ("MODERATE" %in% impacts) {
-        ann <- ann[ann$impact == "MODERATE", ]
-    } else if ("LOW" %in% impacts) {
-        ann <- ann[ann$impact == "LOW", ]
-    }
+        # Keep only the highest impact SNV(s)
+        impacts <- unique(ann$impact)
+        if ("HIGH" %in% impacts) {
+            ann <- ann[ann$impact == "HIGH", ]
+        } else if ("MODERATE" %in% impacts) {
+            ann <- ann[ann$impact == "MODERATE", ]
+        } else if ("LOW" %in% impacts) {
+            ann <- ann[ann$impact == "LOW", ]
+        }
 
-    # SNV data columns
-    data_cols <- c("seqnames",
-                   "start",
-                   "rsID",
-                   "REF",
-                   "ALT",
-                   "DP",
-                   "AD1",
-                   "AD2",
-                   "A1",
-                   "A2")
+        # SNV data columns
+        data_cols <- c("seqnames",
+                       "start",
+                       "rsID",
+                       "REF",
+                       "ALT",
+                       "DP",
+                       "AD1",
+                       "AD2",
+                       "A1",
+                       "A2")
 
-    # Add SNV data to each annotation
-    for (col in data_cols) {
-        ann[[col]] <- data[n, col]
-    }
+        # Add SNV data to each annotation
+        for (col in data_cols) {
+            ann[[col]] <- data[n, col]
+        }
 
-    # Append to final results data frame
-    results <- rbind(results, ann)
+        # Append to final results data frame
+        results <- rbind(results, ann)
 
     }
 

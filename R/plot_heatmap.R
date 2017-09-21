@@ -83,7 +83,7 @@ plot_heatmap <- function(similarities,
 mirror <- function(similarities) {
 
     # Add "y vs. x" data not available in the similarities dataframe
-    for (n in seq(1, nrow(similarities))) {
+    for (n in seq_len(nrow(similarities))) {
 
         # Get samples
         sample_1 <- similarities[n, "sample_1"]

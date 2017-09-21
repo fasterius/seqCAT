@@ -33,7 +33,7 @@ compare_profiles <- function(profile_1,
     sample_2 <- unique(profile_2$sample)
 
     # Message
-    message(paste0("Comparing ", sample_1, " and ", sample_2, " ..."))
+    message("Comparing ", sample_1, " and ", sample_2, " ...")
 
     # Find the intersection of all ranges in both objects
     intersect_gr <- S4Vectors::intersect(profile_1, profile_2)

@@ -54,8 +54,8 @@ calculate_similarity <- function(overlaps,
 
         if (!identical(names(similarity), correct_names)) {
 
-            stop(paste0("supplied similarity dataframe does not have the ",
-                        "correct structure"))
+            stop("supplied similarity dataframe does not have the ",
+                 "correct structure")
 
         }
     }

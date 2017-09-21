@@ -23,8 +23,8 @@
 read_profile <- function(file, sample_name) {
 
     # Message
-    message(paste0("Reading profile for ", sample_name, " in file ",
-                   basename(file), " ..."))
+    message("Reading profile for ", sample_name, " in file ", basename(file),
+            " ...")
 
     # Read data
     data <- utils::read.table(file             = file,

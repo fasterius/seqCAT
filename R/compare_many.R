@@ -52,9 +52,6 @@ compare_many <- function(many,
         # Find sample for one
         sample_one <- unique(one$sample)
 
-        # Message
-        message(paste0("Comparing ", sample_one, " to itself ..."))
-
         # Perform one's self-comparison
         comparison <- compare_profiles(one, one)
         similarities <- calculate_similarity(comparison,
@@ -71,10 +68,6 @@ compare_many <- function(many,
 
             # Find current's sample
             sample_current <- unique(current$sample)
-            
-            # Message
-            message(paste0("Comparing ", sample_one, " and ",
-                           sample_current, " ..."))
 
             # Skip if current combination already exists in data
             exists <- similarities[similarities$sample_1 == sample_one &
@@ -106,10 +99,6 @@ compare_many <- function(many,
 
                 # Find current_2's sample
                 sample_current_2 <- unique(current_2$sample)
-
-                # Message
-                message(paste0("Comparing ", sample_current_1, " and ",
-                               sample_current_2, " ..."))
 
                 # Skip if current combination already exists in data
                 exists <- similarities[

@@ -56,8 +56,7 @@ read_cosmic <- function(file_path, cell_line) {
 
     # Check if cell line is available in the data
     if (!any(grepl(cell_line, cosmic$sample_name))) {
-        stop(paste0("the cell line ", cell_line,
-                    " is not available in COSMIC."))
+        stop("the cell line ", cell_line, " is not available in COSMIC.")
     }
 
     # Remove sites without a listed position

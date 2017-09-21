@@ -260,5 +260,5 @@ create_profile <- function(vcf_file,
     }
 
     # Message (end)
-    message(paste0("Done; profile saved as ", output_file, "."))
+    message("Done; profile saved as ", output_file, ".")
 }

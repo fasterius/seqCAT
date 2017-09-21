@@ -207,9 +207,7 @@ create_profile_R <- function(vcf_file,
                        "A2")
 
         # Add SNV data to each annotation
-        for (col in data_cols) {
-            ann[[col]] <- data[n, col]
-        }
+        ann[data_cols] <- data[n, data_cols]
 
         # Append to final results data frame
         results <- rbind(results, ann)

@@ -38,227 +38,243 @@ create_profile <- function(vcf_file,
                            filter_depth = 10,
                            python       = FALSE) {
 
-    # Use Python
+    # Choose language
     if (python) {
 
-        # Message (start)
-        message("Creating SNV profile with Python ...")
+        # Use Python
+        create_profile_python(vcf_file, sample, output_file, filter_depth)
 
-        # Python script
-        command <- system.file("python/create_profile.py",
-                               package = "seqCAT")
-
-        # Run Python code
-        system2(command, args = c(vcf_file,
-                                  sample,
-                                  output_file,
-                                  "-f", filter_depth))
-
-    # Use R
     } else {
 
-        # Message
-        message("Creating SNV profile ...")
+        # Use R
+        create_profile_R(vcf_file, sample, output_file, filter_depth)
 
-        # Read VCF file
-        vcf <- VariantAnnotation::readVcf(vcf_file)
+    }
+}
 
-        # Gather relevant information to data GRanges object
-        gr <- SummarizedExperiment::rowRanges(vcf)
-        gr$ANN <- VariantAnnotation::info(vcf)$ANN
-        gr$DP <- as.data.frame(VariantAnnotation::geno(vcf)$DP)[[sample]]
-        gr$AD <- as.data.frame(VariantAnnotation::geno(vcf)$AD)[[sample]]
-        gr$GT <- as.data.frame(VariantAnnotation::geno(vcf)$GT)[[sample]]
+# Function for creating profiles with R
+create_profile_R <- function(vcf_file,
+                             sample,
+                             output_file,
+                             filter_depth) {
 
-        # Set ALT as character
-        gr$ALT <- S4Vectors::unstrsplit(IRanges::CharacterList(gr$ALT))
+    # Message
+    message("Creating SNV profile ...")
 
-        # Remove variants not passing variant calling filters
-        gr <- gr[gr$FILTER == "PASS", ]
-        gr$FILTER <- NULL
+    # Read VCF file
+    vcf <- VariantAnnotation::readVcf(vcf_file)
 
-        # Remove variants below the given depth threshold
-        gr <- gr[gr$DP >= filter_depth & !is.na(gr$DP), ]
+    # Gather relevant information to data GRanges object
+    gr <- SummarizedExperiment::rowRanges(vcf)
+    gr$ANN <- VariantAnnotation::info(vcf)$ANN
+    gr$DP <- as.data.frame(VariantAnnotation::geno(vcf)$DP)[[sample]]
+    gr$AD <- as.data.frame(VariantAnnotation::geno(vcf)$AD)[[sample]]
+    gr$GT <- as.data.frame(VariantAnnotation::geno(vcf)$GT)[[sample]]
 
-        # Convert to data frame
-        data <- GenomicRanges::as.data.frame(gr)
+    # Set ALT as character
+    gr$ALT <- S4Vectors::unstrsplit(IRanges::CharacterList(gr$ALT))
 
-        # Remove non-SNVs
-        data <- data[nchar(data$REF) == 1 &
-                     nchar(data$ALT) == 1, ]
+    # Remove variants not passing variant calling filters
+    gr <- gr[gr$FILTER == "PASS", ]
+    gr$FILTER <- NULL
 
-        # Get rsIDs if existing
-        data$rsID <- row.names(data)
-        data[!grepl("^rs[0-9]+", data$rsID), "rsID"] <- "None"
+    # Remove variants below the given depth threshold
+    gr <- gr[gr$DP >= filter_depth & !is.na(gr$DP), ]
 
-        # Remove unwanted columns
-        row.names(data) <- NULL
-        data <- dplyr::select_(data,
-                               "-end",
-                               "-width",
-                               "-strand",
-                               "-paramRangeID",
-                               "-QUAL")
+    # Convert to data frame
+    data <- GenomicRanges::as.data.frame(gr)
 
-        # Separate allelic depths
-        data$AD <- gsub("c\\(", "", gsub("\\)", "", data$AD))
-        data <- tidyr::separate_(data   = data,
-                                 col    = "AD",
-                                 into   = c("AD1", "AD2"),
-                                 fill   = "right",
-                                 remove = TRUE)
+    # Remove non-SNVs
+    data <- data[nchar(data$REF) == 1 &
+                 nchar(data$ALT) == 1, ]
 
-        # Add alleles
-        data <- tidyr::separate_(data   = data,
-                                 col    = "GT",
-                                 sep    = "/",
-                                 into   = c("A1", "A2"),
-                                 fill   = "right",
-                                 remove = TRUE)
+    # Get rsIDs if existing
+    data$rsID <- row.names(data)
+    data[!grepl("^rs[0-9]+", data$rsID), "rsID"] <- "None"
 
-        data[data$A1 == 0, "A1"] <- data[data$A1 == 0, "REF"]
-        data[data$A1 == 1, "A1"] <- data[data$A1 == 1, "ALT"]
-        data[data$A2 == 0, "A2"] <- data[data$A2 == 0, "REF"]
-        data[data$A2 == 1, "A2"] <- data[data$A2 == 1, "ALT"]
+    # Remove unwanted columns
+    row.names(data) <- NULL
+    data <- dplyr::select_(data,
+                           "-end",
+                           "-width",
+                           "-strand",
+                           "-paramRangeID",
+                           "-QUAL")
 
-        # Initialise empty data frame for final results
-        results <- data.frame(effect           = character(),
-                              impact           = character(),
-                              gene             = character(),
-                              ENSGID           = character(),
-                              feature          = character(),
-                              ENSTID           = character(),
-                              biotype          = character(),
-                              warnings         = character(),
-                              seqnames         = integer(),
-                              start            = integer(),
-                              rsID             = character(),
-                              REF              = character(),
-                              ALT              = character(),
-                              DP               = integer(),
-                              AD1              = integer(),
-                              AD2              = integer(),
-                              A1               = character(),
-                              A2               = character(),
-                              stringsAsFactors = FALSE)
+    # Separate allelic depths
+    data$AD <- gsub("c\\(", "", gsub("\\)", "", data$AD))
+    data <- tidyr::separate_(data   = data,
+                             col    = "AD",
+                             into   = c("AD1", "AD2"),
+                             fill   = "right",
+                             remove = TRUE)
 
-        # Loop over each SNV
-        for (n in c(1:nrow(data))) {
+    # Add alleles
+    data <- tidyr::separate_(data   = data,
+                             col    = "GT",
+                             sep    = "/",
+                             into   = c("A1", "A2"),
+                             fill   = "right",
+                             remove = TRUE)
 
-            # Get annotation data for current SNV
-            ann <- data[n, "ANN"][[1]]
+    data[data$A1 == 0, "A1"] <- data[data$A1 == 0, "REF"]
+    data[data$A1 == 1, "A1"] <- data[data$A1 == 1, "ALT"]
+    data[data$A2 == 0, "A2"] <- data[data$A2 == 0, "REF"]
+    data[data$A2 == 1, "A2"] <- data[data$A2 == 1, "ALT"]
 
-            # Separate into columns
-            ann <- tidyr::separate_(as.data.frame(ann),
-                                    col    = "ann",
-                                    sep    = "\\|",
-                                    extra  = "drop",
-                                    fill   = "right",
-                                    remove = TRUE,
-                                    into   = c("ALT",
-                                               "effect",
-                                               "impact",
-                                               "gene",
-                                               "ENSGID",
-                                               "feature",
-                                               "ENSTID",
-                                               "biotype",
-                                               "rank",
-                                               "HGSV_c",
-                                               "HGSV_p",
-                                               "cDNA_pos",
-                                               "CDS_pos",
-                                               "protein_pos",
-                                               "distance",
-                                               "warnings"))
+    # Initialise empty data frame for final results
+    results <- data.frame(effect           = character(),
+                          impact           = character(),
+                          gene             = character(),
+                          ENSGID           = character(),
+                          feature          = character(),
+                          ENSTID           = character(),
+                          biotype          = character(),
+                          warnings         = character(),
+                          seqnames         = integer(),
+                          start            = integer(),
+                          rsID             = character(),
+                          REF              = character(),
+                          ALT              = character(),
+                          DP               = integer(),
+                          AD1              = integer(),
+                          AD2              = integer(),
+                          A1               = character(),
+                          A2               = character(),
+                          stringsAsFactors = FALSE)
 
-            # Remove unwanted data columns
-            ann <- dplyr::select_(ann,
-                                  "-ALT",
-                                  "-rank",
-                                  "-HGSV_c",
-                                  "-HGSV_p",
-                                  "-cDNA_pos",
-                                  "-CDS_pos",
-                                  "-protein_pos",
-                                  "-distance")
+    # Loop over each SNV
+    for (n in c(1:nrow(data))) {
 
-            # Keep only the highest impact SNV(s)
-            impacts <- unique(ann$impact)
-            if ("HIGH" %in% impacts) {
-                ann <- ann[ann$impact == "HIGH", ]
-            } else if ("MODERATE" %in% impacts) {
-                ann <- ann[ann$impact == "MODERATE", ]
-            } else if ("LOW" %in% impacts) {
-                ann <- ann[ann$impact == "LOW", ]
-            }
+    # Get annotation data for current SNV
+    ann <- data[n, "ANN"][[1]]
 
-            # SNV data columns
-            data_cols <- c("seqnames",
-                           "start",
-                           "rsID",
-                           "REF",
-                           "ALT",
-                           "DP",
-                           "AD1",
-                           "AD2",
-                           "A1",
-                           "A2")
+    # Separate into columns
+    ann <- tidyr::separate_(as.data.frame(ann),
+                            col    = "ann",
+                            sep    = "\\|",
+                            extra  = "drop",
+                            fill   = "right",
+                            remove = TRUE,
+                            into   = c("ALT",
+                                       "effect",
+                                       "impact",
+                                       "gene",
+                                       "ENSGID",
+                                       "feature",
+                                       "ENSTID",
+                                       "biotype",
+                                       "rank",
+                                       "HGSV_c",
+                                       "HGSV_p",
+                                       "cDNA_pos",
+                                       "CDS_pos",
+                                       "protein_pos",
+                                       "distance",
+                                       "warnings"))
 
-            # Add SNV data to each annotation
-            for (col in data_cols) {
-                ann[[col]] <- data[n, col]
-            }
+    # Remove unwanted data columns
+    ann <- dplyr::select_(ann,
+                          "-ALT",
+                          "-rank",
+                          "-HGSV_c",
+                          "-HGSV_p",
+                          "-cDNA_pos",
+                          "-CDS_pos",
+                          "-protein_pos",
+                          "-distance")
 
-            # Append to final results data frame
-            results <- rbind(results, ann)
-
-        }
-
-        # Finalise output
-        results <- results[c("seqnames",
-                             "start",
-                             "rsID",
-                             "gene",
-                             "ENSGID",
-                             "ENSTID",
-                             "REF",
-                             "ALT",
-                             "impact",
-                             "effect",
-                             "feature",
-                             "biotype",
-                             "DP",
-                             "AD1",
-                             "AD2",
-                             "A1",
-                             "A2",
-                             "warnings")]
-
-        names(results) <- c("chr", "pos", names(results)[3:18])
-
-        # Remove duplicate rows (if present)
-        results <- unique(results)
-
-        # Sort output
-        results <- results[order(as.character(results$chr),
-                                              results$pos,
-                                              results$gene,
-                                              results$ENSGID,
-                                              gsub("\\:", "\\.",
-                                                   results$ENSTID),
-                                              results$effect,
-                                              results$feature,
-                                              results$biotype), ]
-
-        # Write results to file
-        utils::write.table(results,
-                           file      = output_file,
-                           sep       = "\t",
-                           row.names = FALSE,
-                           quote     = FALSE)
+    # Keep only the highest impact SNV(s)
+    impacts <- unique(ann$impact)
+    if ("HIGH" %in% impacts) {
+        ann <- ann[ann$impact == "HIGH", ]
+    } else if ("MODERATE" %in% impacts) {
+        ann <- ann[ann$impact == "MODERATE", ]
+    } else if ("LOW" %in% impacts) {
+        ann <- ann[ann$impact == "LOW", ]
     }
 
-    # Message (end)
-    message("Done; profile saved as ", output_file, ".")
+    # SNV data columns
+    data_cols <- c("seqnames",
+                   "start",
+                   "rsID",
+                   "REF",
+                   "ALT",
+                   "DP",
+                   "AD1",
+                   "AD2",
+                   "A1",
+                   "A2")
+
+    # Add SNV data to each annotation
+    for (col in data_cols) {
+        ann[[col]] <- data[n, col]
+    }
+
+    # Append to final results data frame
+    results <- rbind(results, ann)
+
+    }
+
+    # Finalise output
+    results <- results[c("seqnames",
+                         "start",
+                         "rsID",
+                         "gene",
+                         "ENSGID",
+                         "ENSTID",
+                         "REF",
+                         "ALT",
+                         "impact",
+                         "effect",
+                         "feature",
+                         "biotype",
+                         "DP",
+                         "AD1",
+                         "AD2",
+                         "A1",
+                         "A2",
+                         "warnings")]
+
+    names(results) <- c("chr", "pos", names(results)[3:18])
+
+    # Remove duplicate rows (if present)
+    results <- unique(results)
+
+    # Sort output
+    results <- results[order(as.character(results$chr),
+                                          results$pos,
+                                          results$gene,
+                                          results$ENSGID,
+                                          gsub("\\:", "\\.", results$ENSTID),
+                                          results$effect,
+                                          results$feature,
+                                          results$biotype), ]
+
+    # Write results to file
+    utils::write.table(results,
+                       file      = output_file,
+                       sep       = "\t",
+                       row.names = FALSE,
+                       quote     = FALSE)
+}
+
+# Function for creating profiles with Python
+create_profile_python <- function(vcf_file,
+                                  sample,
+                                  output_file,
+                                  filter_depth = 10) {
+
+    # Message
+    message("Creating SNV profile with Python ...")
+
+    # Python script
+    command <- system.file("python/create_profile.py",
+                           package = "seqCAT")
+
+    # Run Python code
+    system2(command, args = c(vcf_file,
+                              sample,
+                              output_file,
+                              "-f", filter_depth))
 }

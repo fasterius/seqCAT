@@ -1,14 +1,11 @@
 library("seqCAT")
 context("Read SNV profiles")
 
-# Read variants
-file_1 <- system.file("extdata",
-                      "test_profile_1.txt.gz",
-                      package = "seqCAT")
-file_2 <- system.file("extdata",
-                      "test_profile_2.txt.gz",
-                      package = "seqCAT")
+# Paths
+file_1 <- system.file("extdata", "test_profile_1.txt.gz", package = "seqCAT")
+file_2 <- system.file("extdata", "test_profile_2.txt.gz", package = "seqCAT")
 
+# Read profiles
 test_profile_1 <- suppressMessages(read_profile(file        = file_1,
                                                 sample_name = "sample1"))
 
@@ -21,7 +18,7 @@ test_that("a GRanges object is returned", {
 })
 
 test_that("correct number of variants are read and de-duplicated", {
-    expect_equal(length(test_profile_1), 375)
+    expect_equal(length(test_profile_1), 376)
     expect_equal(length(test_profile_2), 374)
     expect_equal(length(mcols(test_profile_1)), 17)
     expect_equal(length(mcols(test_profile_2)), 17)

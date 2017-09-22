@@ -1,10 +1,8 @@
 library("seqCAT")
 context("Creation of SNV profiles")
 
-# Files
-file <- system.file("extdata",
-                    "test.vcf.gz",
-                    package = "seqCAT")
+# Path
+file <- system.file("extdata", "test.vcf.gz", package = "seqCAT")
 
 # Extract variants
 suppressMessages(create_profile(vcf_file     = file,
@@ -19,7 +17,7 @@ suppressMessages(create_profile(vcf_file     = file,
                                filter_depth = 10,
                                python       = FALSE))
 
-# Read files
+# Read profiles
 profile_1 <- read.table(file             = "profile_1.txt",
                         sep              = "\t",
                         header           = TRUE,
@@ -30,13 +28,13 @@ profile_2 <- read.table(file             = "profile_2.txt",
                         header           = TRUE,
                         stringsAsFactors = FALSE)
 
-# Remove extract file
+# Remove files
 file.remove("profile_1.txt")
 file.remove("profile_2.txt")
 
 # Tests
 test_that("extract_variants yields correct dimensions", {
-    expect_equal(dim(profile_1), c(427, 18))
+    expect_equal(dim(profile_1), c(428, 18))
     expect_equal(dim(profile_2), c(425, 18))
 })
 
@@ -55,4 +53,15 @@ test_that("no indels are extracted", {
 test_that("the MT chromosome only exists in sample 1", {
     expect_equal(nrow(profile_1[profile_1$chr == "MT", ]), 1)
     expect_equal(nrow(profile_2[profile_2$chr == "MT", ]), 0)
+})
+
+test_that("the correct variants across impact categories are extracted", {
+    expect_equal(nrow(profile_1[profile_1$impact == "HIGH", ]), 1)
+    expect_equal(nrow(profile_2[profile_2$impact == "HIGH", ]), 0)
+    expect_equal(nrow(profile_1[profile_1$impact == "MODERATE", ]), 4)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODERATE", ]), 4)
+    expect_equal(nrow(profile_1[profile_1$impact == "LOW", ]), 0)
+    expect_equal(nrow(profile_2[profile_2$impact == "LOW", ]), 0)
+    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 423)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 421)
 })

@@ -122,117 +122,92 @@ create_profile_R <- function(vcf_file,
     data[data$A2 == 0, "A2"] <- data[data$A2 == 0, "REF"]
     data[data$A2 == 1, "A2"] <- data[data$A2 == 1, "ALT"]
 
-    # Initialise empty data frame for final results
-    results <- data.frame(effect           = character(),
-                          impact           = character(),
-                          gene             = character(),
-                          ENSGID           = character(),
-                          feature          = character(),
-                          ENSTID           = character(),
-                          biotype          = character(),
-                          warnings         = character(),
-                          seqnames         = integer(),
-                          start            = integer(),
-                          rsID             = character(),
-                          REF              = character(),
-                          ALT              = character(),
-                          DP               = integer(),
-                          AD1              = integer(),
-                          AD2              = integer(),
-                          A1               = character(),
-                          A2               = character(),
-                          stringsAsFactors = FALSE)
+    # Separate ANN into rows
+    data <- dplyr::mutate_(data, .dots = setNames(strsplit("ANN", ", "),
+                                                  "ANN"))
+    data <- tidyr::unnest_(data, "ANN")
 
-    # Loop over each SNV
-    for (n in seq_len(nrow(data))) {
+    # Separate ANN into columns
+    data <- tidyr::separate_(data,
+                            col    = "ANN",
+                            sep    = "\\|",
+                            extra  = "drop",
+                            fill   = "right",
+                            remove = TRUE,
+                            into   = c("ALT2",
+                                       "effect",
+                                       "impact",
+                                       "gene",
+                                       "ENSGID",
+                                       "feature",
+                                       "ENSTID",
+                                       "biotype",
+                                       "rank",
+                                       "HGSV_c",
+                                       "HGSV_p",
+                                       "cDNA_pos",
+                                       "CDS_pos",
+                                       "protein_pos",
+                                       "distance",
+                                       "warnings"))
 
-        # Get annotation data for current SNV
-        ann <- data[n, "ANN"][[1]]
+    # Remove unwanted data columns
+    data <- dplyr::select_(data,
+                          "-ALT2",
+                          "-rank",
+                          "-HGSV_c",
+                          "-HGSV_p",
+                          "-cDNA_pos",
+                          "-CDS_pos",
+                          "-protein_pos",
+                          "-distance")
 
-        # Separate into columns
-        ann <- tidyr::separate_(as.data.frame(ann),
-                                col    = "ann",
-                                sep    = "\\|",
-                                extra  = "drop",
-                                fill   = "right",
-                                remove = TRUE,
-                                into   = c("ALT",
-                                           "effect",
-                                           "impact",
-                                           "gene",
-                                           "ENSGID",
-                                           "feature",
-                                           "ENSTID",
-                                           "biotype",
-                                           "rank",
-                                           "HGSV_c",
-                                           "HGSV_p",
-                                           "cDNA_pos",
-                                           "CDS_pos",
-                                           "protein_pos",
-                                           "distance",
-                                           "warnings"))
+    # Impact factor priority
+    priority <- c("HIGH", "MODERATE", "LOW", "MODIFIER")
 
-        # Remove unwanted data columns
-        ann <- dplyr::select_(ann,
-                              "-ALT",
-                              "-rank",
-                              "-HGSV_c",
-                              "-HGSV_p",
-                              "-cDNA_pos",
-                              "-CDS_pos",
-                              "-protein_pos",
-                              "-distance")
+    # Loop over each position and remove impacts according to priority
+    for (pos in unique(data$start)) {
 
-        # Keep only the highest impact SNV(s)
-        impacts <- unique(ann$impact)
-        if ("HIGH" %in% impacts) {
-            ann <- ann[ann$impact == "HIGH", ]
-        } else if ("MODERATE" %in% impacts) {
-            ann <- ann[ann$impact == "MODERATE", ]
-        } else if ("LOW" %in% impacts) {
-            ann <- ann[ann$impact == "LOW", ]
+        # Current position
+        current <- data[data$start == pos, ]
+
+        # Skip if current position only contains a single entry
+        if (nrow(current) == 1) {
+            next
         }
 
-        # SNV data columns
-        data_cols <- c("seqnames",
-                       "start",
-                       "rsID",
-                       "REF",
-                       "ALT",
-                       "DP",
-                       "AD1",
-                       "AD2",
-                       "A1",
-                       "A2")
+        # Skip if current position only contains a single impact category
+        if (length(unique(current$impact)) == 1) {
+            next
+        }
 
-        # Add SNV data to each annotation
-        ann[data_cols] <- data[n, data_cols]
+        # Find the highest impact in the current position
+        highest <- min(which(priority %in% unique(current$impact) == TRUE))
 
-        # Append to final results data frame
-        results <- rbind(results, ann)
-
+        # Remove rows in data that don't contain the highest impact
+        idx <- row.names(current[current$impact != priority[highest], ])
+        data <- data[!(row.names(data) %in% idx), ]
     }
 
-    # Finalise output
-    results <- results[c("seqnames",
-                         "start",
-                         "rsID",
-                         "gene",
-                         "ENSGID",
-                         "ENSTID",
-                         "REF",
-                         "ALT",
-                         "impact",
-                         "effect",
-                         "feature",
-                         "biotype",
-                         "DP",
-                         "AD1",
-                         "AD2",
-                         "A1",
-                         "A2",
-                         "warnings")]
+    # Re-order output
+    results <- data[c("seqnames",
+                      "start",
+                      "rsID",
+                      "gene",
+                      "ENSGID",
+                      "ENSTID",
+                      "REF",
+                      "ALT",
+                      "impact",
+                      "effect",
+                      "feature",
+                      "biotype",
+                      "DP",
+                      "AD1",
+                      "AD2",
+                      "A1",
+                      "A2",
+                      "warnings")]
 
     names(results) <- c("chr", "pos", names(results)[3:18])
 

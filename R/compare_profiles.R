@@ -129,14 +129,14 @@ compare_genotypes <- function(overlaps, sample_1, sample_2) {
         # Construct alleles
         overlaps_alleles <- overlaps[alleles]
         overlaps_alleles$in_1 <- paste(overlaps_alleles[, 1],
-                                   overlaps_alleles[, 3],
-                                   sep = ":")
-        overlaps_alleles$in_2 <- paste(overlaps_alleles[, 2],
-                                   overlaps_alleles[, 4],
-                                   sep = ":")
-        overlaps_alleles$in_1_rev <- paste(overlaps_alleles[, 3],
-                                       overlaps_alleles[, 1],
+                                       overlaps_alleles[, 3],
                                        sep = ":")
+        overlaps_alleles$in_2 <- paste(overlaps_alleles[, 2],
+                                       overlaps_alleles[, 4],
+                                       sep = ":")
+        overlaps_alleles$in_1_rev <- paste(overlaps_alleles[, 3],
+                                           overlaps_alleles[, 1],
+                                           sep = ":")
 
         # Check and set matching genotypes as appropriate
         idx_match_1 <- apply(overlaps_alleles, 1,
@@ -186,9 +186,13 @@ collate_metadata <- function(data, sample_1, sample_2) {
         # Create merged metadata column as appropriate
         if (!(all(is.na(data[[mcol_s1]]), is.na(data[[mcol_s2]])))) {
 
-            data[data[[mcol_s1]] == data[[mcol_s2]], mcol] <- data[[mcol_s1]]
-            data[data[[mcol_s1]] != data[[mcol_s2]], mcol] <-
-                paste0("[", data[[mcol_s1]], ",", data[[mcol_s2]], "]")
+            # Get index for identical metadata
+            idx <- data[[mcol_s1]] == data[[mcol_s2]]
+
+            # Create merged metadata
+            data[idx, mcol] <- data[idx, mcol_s1]
+            data[!idx, mcol] <- paste0("[", data[!idx, mcol_s1], ",",
+                                       data[!idx, mcol_s2], "]")
         }
 
         # Remove old metadata columns

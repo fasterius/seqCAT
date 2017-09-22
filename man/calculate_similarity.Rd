@@ -7,20 +7,20 @@
 calculate_similarity(overlaps, similarity = NULL, a = 1, b = 5)
 }
 \arguments{
-\item{overlaps}{The input SNV overlaps dataframe}
+\item{overlaps}{The input SNV overlaps dataframe.}
 
-\item{similarity}{Optional dataframe to add results to}
+\item{similarity}{Optional dataframe to add results to.}
 
-\item{a}{Similarity score parameter a}
+\item{a}{Similarity score parameter a (integer).}
 
-\item{b}{Similarity score parameter b}
+\item{b}{Similarity score parameter b (integer).}
 }
 \value{
-A dataframe with summary statistics
+A dataframe with summary statistics.
 }
 \description{
-\link{calculate_similarity} returns the summary statistics for
- SNV profile comparisons
+Calculate the similarity statistics for SNV profile
+ comparisons.
 }
 \details{
 This function calculates various summary statistics and sample similarities

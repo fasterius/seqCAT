@@ -7,16 +7,15 @@
 compare_profiles(profile_1, profile_2)
 }
 \arguments{
-\item{profile_1}{The first variant GRanges object.}
+\item{profile_1}{The first SNV profile (GRanges object).}
 
-\item{profile_2}{The second variant GRanges object.}
+\item{profile_2}{The second SNV profile (GRanges object).}
 }
 \value{
-A data frame.
+A dataframe.
 }
 \description{
-\link{compare_profiles} overlaps and compares genotypes in two
- SNV profiles.
+Overlap and compare genotypes in two SNV profiles.
 }
 \details{
 This is a function for finding overlapping variants in two

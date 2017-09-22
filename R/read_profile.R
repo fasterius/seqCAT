@@ -1,16 +1,15 @@
 #' @title Read SNV profile
 #'
-#' @description \link{read_profile} reads SNV profiles as GRanges objects for
-#'  downstream profile comparisons
+#' @description Read SNV profiles for use in downstream comparisons.
 #'
-#' @details This is a function for reading SNV profiles extracted from VCF
+#' @details This is a function for reading SNV profiles created from VCF
 #' files.  The data is returned as a GenomicRanges object, suitable for merging
 #' of metadata.
 #' 
 #' @export
-#' @param file The file path to be read.
-#' @param sample_name The sample name from which the file originates.
-#' @return A GenomicRanges object.
+#' @param file The SNV profile to be read (path). 
+#' @param sample_name The sample of the SNV profile (character).
+#' @return A GRanges object.
 #'
 #' @examples
 #' # Path to test data

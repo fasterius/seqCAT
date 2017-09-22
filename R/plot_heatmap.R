@@ -1,7 +1,7 @@
 #' @title Plot similarity heatmap
 #'
-#' @description \link{plot_heatmap} plots a heatmap of similarities from 
-#'  multiple sample comparisons
+#' @description Plot a heatmap of similarities from many-to-many SNV profile
+#'  comparisons.
 #'
 #' @details This function creates publication-ready plots of heatmaps for
 #' many-to-many  sample comparisons, taking a long-format dataframe containing
@@ -9,14 +9,14 @@
 #'
 #' @export
 #' @rdname plot_heatmap
-#' @param similarities The long-format dataframe to be plotted
-#' @param annotate Annotate each cell with the score
-#' @param annotate_size The size of the annotations
-#' @param legend Show a legend for the colour gradient
-#' @param cluster Cluster the samples based on similarity
-#' @param limits The limits for the colour gradient
-#' @param colour The main colour to use for the gradient
-#' @return A ggplot2 graphical object
+#' @param similarities The long-format dataframe containing the data.
+#' @param annotate Annotate each cell with the score (boolean).
+#' @param annotate_size The size of the annotations (numeric).
+#' @param legend Show a legend for the colour gradient (boolean).
+#' @param cluster Cluster the samples based on similarity (boolean).
+#' @param limits The limits for the colour gradient (vector of four integers).
+#' @param colour The main colour to use for the gradient (character).
+#' @return A ggplot2 graphical object.
 #'
 #' @examples
 #' # Load test similarities

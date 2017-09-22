@@ -7,20 +7,19 @@
 compare_many(many, one = NULL, a = 1, b = 5)
 }
 \arguments{
-\item{many}{List of SNV profiles to be compared}
+\item{many}{SNV profiles to be compared (list of GRanges objects).}
 
-\item{one}{Profile to be compared to all others}
+\item{one}{SNV profile to be compared to all others (GRanges object).}
 
-\item{a}{Similarity score parameter a}
+\item{a}{Similarity score parameter a (integer).}
 
-\item{b}{Similarity score parameter b}
+\item{b}{Similarity score parameter b (integer).}
 }
 \value{
-A list of summary statistics and comparisons
+A list of summary statistics and comparisons.
 }
 \description{
-\link{compare_many} overlaps  and compares genotypes in many
- SNV profiles
+Overlap and compare genotypes in many SNV profiles.
 }
 \details{
 This is a function that compares all the combinations of the SNV

@@ -8,20 +8,20 @@ plot_impacts(comparison, annotate = TRUE, legend = TRUE,
   palette = c("#0D2D59", "#1954A6"))
 }
 \arguments{
-\item{comparison}{The profile comparison to be plotted}
+\item{comparison}{The SNV profile comparison to be plotted.}
 
-\item{annotate}{Annotate each category}
+\item{annotate}{Annotate each category (boolean).}
 
-\item{legend}{Show/hide legend}
+\item{legend}{Show the legend (boolean).}
 
-\item{palette}{Colour palette for filling of bars}
+\item{palette}{Colour palette for filling of bars (character vector).}
 }
 \value{
-A ggplot2 graphical object
+A ggplot2 graphical object.
 }
 \description{
-\link{plot_impacts} plots SNV impact distributions for a
- binary comparison
+Plot SNV impact distributions for a binary SNV profile
+ comparison.
 }
 \details{
 This function creates publication-ready plots of the impact

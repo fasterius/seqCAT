@@ -1,7 +1,6 @@
 #' @title SNV profile creation
 #'
-#' @description \link{create_profile} creates an SNV profile from data in a VCF
-#'  file
+#' @description Create an SNV profile from data in a VCF file.
 #'
 #' @details This function creates a SNV profile from a given VCF file by
 #' extracting the variants that pass the filtering criterias. It can either be
@@ -15,12 +14,14 @@
 #' @rdname create_profile
 #' @importFrom GenomicRanges as.data.frame
 #' @importFrom VariantAnnotation geno
-#' @param vcf_file The VCF file from which variants will be extracted.
-#' @param sample The sample in the VCF that will be extracted.
-#' @param output_file Results will be output to this file
-#' @param filter_depth Remove variants below this sequencing depth
-#' @param python Extract variants using Python instead of R
-#' @return Does not return any data object, but output results to output_file
+#' @param vcf_file The VCF file from which the profile will be created (path).
+#' @param sample The sample in the VCF for which a profile will be created
+#'  (character).
+#' @param output_file The output file with the SNV profile (path).
+#' @param filter_depth Remove variants below this sequencing depth (integer).
+#' @param python Extract variants using Python instead of R (boolean).
+#' @return Does not return any data object, but outputs results to output_file
+#'  (to save computational time from having to repeatedly create profiles).
 #'
 #' @examples
 #' # Path to the test VCF file
@@ -123,8 +124,8 @@ create_profile_R <- function(vcf_file,
     data[data$A2 == 1, "A2"] <- data[data$A2 == 1, "ALT"]
 
     # Separate ANN into rows
-    data <- dplyr::mutate_(data, .dots = setNames(strsplit("ANN", ", "),
-                                                  "ANN"))
+    data <- dplyr::mutate_(data, .dots = stats::setNames(strsplit("ANN", ", "),
+                                                         "ANN"))
     data <- tidyr::unnest_(data, "ANN")
 
     # Separate ANN into columns

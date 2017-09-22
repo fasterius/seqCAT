@@ -1,7 +1,6 @@
 #' @title Read COSMIC SNV data
 #'
-#' @description \link{read_cosmic} reads COSMIC cell line-specific mutational
-#'  data for comparisisons with sample data
+#' @description Read COSMIC cell line-specific mutational data.
 #'
 #' @details This function reads the "CosmicCLP_MutantExport.tsv.gz" file
 #' obtained from COSMIC and returns a GRanges object with all the listed
@@ -11,9 +10,9 @@
 #'
 #' @export
 #' @rdname read_cosmic
-#' @param file_path Location of the CosmicCLP_MutantExport.tsv.gz file
-#' @param cell_line The cell line to be investigated
-#' @return A GRanges object with COSMIC SNVs
+#' @param file_path The CosmicCLP_MutantExport.tsv.gz file (path).
+#' @param cell_line The cell line to be investigated (character).
+#' @return A GRanges object with COSMIC SNVs.
 #'
 #' @examples
 #' # Path to COSMIC test data

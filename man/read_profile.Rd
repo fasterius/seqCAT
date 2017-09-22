@@ -7,19 +7,18 @@
 read_profile(file, sample_name)
 }
 \arguments{
-\item{file}{The file path to be read.}
+\item{file}{The SNV profile to be read (path).}
 
-\item{sample_name}{The sample name from which the file originates.}
+\item{sample_name}{The sample of the SNV profile (character).}
 }
 \value{
-A GenomicRanges object.
+A GRanges object.
 }
 \description{
-\link{read_profile} reads SNV profiles as GRanges objects for
- downstream profile comparisons
+Read SNV profiles for use in downstream comparisons.
 }
 \details{
-This is a function for reading SNV profiles extracted from VCF
+This is a function for reading SNV profiles created from VCF
 files.  The data is returned as a GenomicRanges object, suitable for merging
 of metadata.
 }

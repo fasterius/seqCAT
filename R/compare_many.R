@@ -1,7 +1,6 @@
 #' @title Comparisons of many SNV profiles
 #'
-#' @description \link{compare_many} overlaps  and compares genotypes in many
-#'  SNV profiles
+#' @description Overlap and compare genotypes in many SNV profiles.
 #'
 #' @details This is a function that compares all the combinations of the SNV
 #' profiles input to it, either in a one-to-many or many-to-many manner. It
@@ -11,11 +10,11 @@
 #'
 #' @export
 #' @rdname compare_many
-#' @param many List of SNV profiles to be compared
-#' @param one Profile to be compared to all others
-#' @param a Similarity score parameter a
-#' @param b Similarity score parameter b
-#' @return A list of summary statistics and comparisons
+#' @param many SNV profiles to be compared (list of GRanges objects).
+#' @param one SNV profile to be compared to all others (GRanges object).
+#' @param a Similarity score parameter a (integer).
+#' @param b Similarity score parameter b (integer).
+#' @return A list of summary statistics and comparisons.
 #'
 #' @examples
 #' # Load test data

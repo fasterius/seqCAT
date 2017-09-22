@@ -1,14 +1,14 @@
 #' @title Variant filtering
 #'
-#' @description \link{filter_variants} filters variants on sequencing depth
+#' @description Filter variants on sequencing depth.
 #'
 #' @details This is a function for filtering variants on sequencing depth.
 #' Variants with a depth lower than 10 are removed by default, but can be
 #' changed in the function call.
 #'
 #' @export
-#' @param overlaps The data frame containing the variant data to be filtered.
-#' @param filter_depth Threshold for variant depth (default 10)
+#' @param overlaps The dataframe containing the variant data to be filtered.
+#' @param filter_depth Threshold for variant depth (integer; default 10).
 #' @return A data frame containing the filtered variants.
 #'
 #' @examples

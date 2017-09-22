@@ -9,26 +9,26 @@ plot_heatmap(similarities, annotate = TRUE, annotate_size = 5,
   colour = "#1954A6")
 }
 \arguments{
-\item{similarities}{The long-format dataframe to be plotted}
+\item{similarities}{The long-format dataframe containing the data.}
 
-\item{annotate}{Annotate each cell with the score}
+\item{annotate}{Annotate each cell with the score (boolean).}
 
-\item{annotate_size}{The size of the annotations}
+\item{annotate_size}{The size of the annotations (numeric).}
 
-\item{legend}{Show a legend for the colour gradient}
+\item{legend}{Show a legend for the colour gradient (boolean).}
 
-\item{cluster}{Cluster the samples based on similarity}
+\item{cluster}{Cluster the samples based on similarity (boolean).}
 
-\item{limits}{The limits for the colour gradient}
+\item{limits}{The limits for the colour gradient (vector of four integers).}
 
-\item{colour}{The main colour to use for the gradient}
+\item{colour}{The main colour to use for the gradient (character).}
 }
 \value{
-A ggplot2 graphical object
+A ggplot2 graphical object.
 }
 \description{
-\link{plot_heatmap} plots a heatmap of similarities from 
- multiple sample comparisons
+Plot a heatmap of similarities from many-to-many SNV profile
+ comparisons.
 }
 \details{
 This function creates publication-ready plots of heatmaps for

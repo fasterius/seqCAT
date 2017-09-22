@@ -10,18 +10,17 @@ read_cosmic(file_path, cell_line)
 list_cosmic(file_path)
 }
 \arguments{
-\item{file_path}{Location of the CosmicCLP_MutantExport.tsv.gz file}
+\item{file_path}{The CosmicCLP_MutantExport.tsv.gz file (path).}
 
-\item{cell_line}{The cell line to be investigated}
+\item{cell_line}{The cell line to be investigated (character).}
 }
 \value{
-A GRanges object with COSMIC SNVs
+A GRanges object with COSMIC SNVs.
 
 A vector of cell line names
 }
 \description{
-\link{read_cosmic} reads COSMIC cell line-specific mutational
- data for comparisisons with sample data
+Read COSMIC cell line-specific mutational data.
 
 This function lists the available cell lines in the provided
 CosmicCLP_MutantExport.tsv.gz file, and take about half the time it takes to

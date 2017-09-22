@@ -1,7 +1,6 @@
 #' @title Binary SNV profile comparisons
 #'
-#' @description \link{compare_profiles} overlaps and compares genotypes in two
-#'  SNV profiles.
+#' @description Overlap and compare genotypes in two SNV profiles.
 #'
 #' @details This is a function for finding overlapping variants in two
 #' different SNV profiles (stored as GenomicRanges objects), followed by
@@ -14,9 +13,9 @@
 
 #' @export
 #' @rdname compare_profiles
-#' @param profile_1 The first variant GRanges object.
-#' @param profile_2 The second variant GRanges object.
-#' @return A data frame.
+#' @param profile_1 The first SNV profile (GRanges object).
+#' @param profile_2 The second SNV profile (GRanges object).
+#' @return A dataframe.
 #' 
 #' @examples
 #' # Load test data

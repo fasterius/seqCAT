@@ -1,7 +1,7 @@
 #' @title SNV profile similarity calculations
 #'
-#' @description \link{calculate_similarity} returns the summary statistics for
-#'  SNV profile comparisons
+#' @description Calculate the similarity statistics for SNV profile
+#'  comparisons.
 #'
 #' @details
 #' This function calculates various summary statistics and sample similarities
@@ -14,11 +14,11 @@
 #'
 #' @export
 #' @rdname calculate_similarity
-#' @param overlaps The input SNV overlaps dataframe
-#' @param a Similarity score parameter a
-#' @param b Similarity score parameter b
-#' @param similarity Optional dataframe to add results to
-#' @return A dataframe with summary statistics
+#' @param overlaps The input SNV overlaps dataframe.
+#' @param a Similarity score parameter a (integer).
+#' @param b Similarity score parameter b (integer).
+#' @param similarity Optional dataframe to add results to.
+#' @return A dataframe with summary statistics.
 #'
 #' @examples
 #' # Load test data

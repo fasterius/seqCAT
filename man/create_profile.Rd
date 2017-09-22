@@ -8,22 +8,23 @@ create_profile(vcf_file, sample, output_file, filter_depth = 10,
   python = FALSE)
 }
 \arguments{
-\item{vcf_file}{The VCF file from which variants will be extracted.}
+\item{vcf_file}{The VCF file from which the profile will be created (path).}
 
-\item{sample}{The sample in the VCF that will be extracted.}
+\item{sample}{The sample in the VCF for which a profile will be created
+(character).}
 
-\item{output_file}{Results will be output to this file}
+\item{output_file}{The output file with the SNV profile (path).}
 
-\item{filter_depth}{Remove variants below this sequencing depth}
+\item{filter_depth}{Remove variants below this sequencing depth (integer).}
 
-\item{python}{Extract variants using Python instead of R}
+\item{python}{Extract variants using Python instead of R (boolean).}
 }
 \value{
-Does not return any data object, but output results to output_file
+Does not return any data object, but outputs results to output_file
+ (to save computational time from having to repeatedly create profiles).
 }
 \description{
-\link{create_profile} creates an SNV profile from data in a VCF
- file
+Create an SNV profile from data in a VCF file.
 }
 \details{
 This function creates a SNV profile from a given VCF file by

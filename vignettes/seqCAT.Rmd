@@ -115,8 +115,9 @@ variants).
 SNV profiles can also be created with [Python][python-home], another scripting
 language, if you have installed it. You will also need to install the
 [PyVCF][pyvcf] module, in order for it to run. The `Python` version can create
-SNV profiles quicker than its `R` equivalent. This is not important for most
-users, but is nevertheless included for cases where extra speed is desired.
+SNV profiles approximately five to ten times quicker than its `R` equivalent.
+This is not important for most users, but is nevertheless included for cases
+where extra speed is desired.
 
 ```{r Create SNV profile with Python, eval = FALSE}
 create_profile(vcf, "RKO", "RKO_profile.txt", python = TRUE)

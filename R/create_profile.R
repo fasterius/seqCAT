@@ -170,11 +170,16 @@ create_profile_R <- function(vcf_file,
     # Impact factor priority
     priority <- c("HIGH", "MODERATE", "LOW", "MODIFIER")
 
-    # Loop over each position and remove impacts according to priority
-    for (pos in unique(data$start)) {
+    # Initialise vector for storing row indexes to keep after impact filtration
+    unique_pos <- unique(data$start)
+    unique_pos_len <- length(unique_pos)
+    idx <- vector(mode = "list", length = unique_pos_len)
+
+    # Loop over each position and get row indexes of lower impacts
+    for (n in seq_len(unique_pos_len)) {
 
         # Current position
-        current <- data[data$start == pos, ]
+        current <- data[data$start == unique_pos[n], ]
 
         # Skip if current position only contains a single entry
         if (nrow(current) == 1) {
@@ -190,9 +195,12 @@ create_profile_R <- function(vcf_file,
         highest <- min(which(priority %in% unique(current$impact) == TRUE))
 
         # Remove rows in data that don't contain the highest impact
-        idx <- row.names(current[current$impact != priority[highest], ])
-        data <- data[!(row.names(data) %in% idx), ]
+        idx[[n]] <- row.names(current[current$impact != priority[highest], ])
     }
+
+    # Remove impacts
+    idx <- unlist(idx)
+    data <- data[!(row.names(data) %in% idx), ]
 
     # Re-order output
     results <- data[c("seqnames",

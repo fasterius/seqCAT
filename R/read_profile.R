@@ -53,7 +53,8 @@ read_profile <- function(file, sample_name) {
     data_gr <- GenomeInfoDb::dropSeqlevels(data_gr,
                                            "MT",
                                            pruning.mode = "coarse")
-    data_gr <- GenomeInfoDb::keepStandardChromosomes(data_gr)
+    data_gr <- GenomeInfoDb::keepStandardChromosomes(data_gr,
+                                                     pruning.mode = "coarse")
 
     # Return the GenomicRanges object
     return(data_gr)

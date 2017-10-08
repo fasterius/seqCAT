@@ -1,4 +1,10 @@
-Version 0.99.0
---------------
+VERSION 1.0.0
+-------------
 
-First submission of seqCAT to Bioconductor.
+FEATURES:
+
+    o Create single nucleotide variant (SNV) profiles from RNA/DNA-seq samples
+    o Characterise the biological equivalency and difference between samples
+    o Evaluate putative impacts of SNVs differing between samples
+    o Investigate and validate known variants and specific genomic regions
+    o Authenticate cell lines with a known SNV profile or the COSMIC database

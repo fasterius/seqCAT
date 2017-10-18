@@ -1,6 +1,7 @@
-<p align="left">
-    <img src="man/figures/README_seqCAT_icon.png", alt="seqCAT logo"/>
+<p align="center">
+    <img src="man/figures/README_seqCAT_icon.png" width="500", alt="seqCAT"/>
 </p>
+
 [![License: MIT][1]][2] [![Build status][3]][4] [![Coverage Status][5]][6] 
 
 ## Overview

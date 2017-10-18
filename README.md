@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="man/figures/README_seqCAT_icon.png" width="500", alt="seqCAT"/>
+    <img src="man/figures/README_seqCAT_icon.png" width="400", alt="seqCAT"/>
 </p>
 
 ## Overview

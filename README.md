@@ -1,4 +1,6 @@
- <img src="man/figures/README_seqCAT_logo.png", alt="seqCAT logo"/>
+<p align="left">
+    <img src="man/figures/README_seqCAT_icon.png", alt="seqCAT logo"/>
+</p>
 [![License: MIT][1]][2] [![Build status][3]][4] [![Coverage Status][5]][6] 
 
 ## Overview
@@ -50,7 +52,7 @@ comparisons <- compare_many(list(hct116, hke3, rko))
 plot_heatmap(comparisons[[1]])
 ```
 <p align="center">
- <img src="man/figures/README_example_1.png", alt="Example heatmap"/>
+    <img src="man/figures/README_example_1.png", alt="Example heatmap"/>
 </p>
 
 For more detailed instructions on how to use seqCAT, please see the vignette.

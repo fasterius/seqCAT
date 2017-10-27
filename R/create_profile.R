@@ -60,7 +60,7 @@ create_profile_R <- function(vcf_file,
                              filter_depth) {
 
     # Message
-    message("Creating SNV profile ...")
+    message("Reading VCF file ...")
 
     # Define VCF parameters to be read
     svp <- VariantAnnotation::ScanVcfParam(info = "ANN",
@@ -68,6 +68,9 @@ create_profile_R <- function(vcf_file,
 
     # Read VCF file
     vcf <- VariantAnnotation::readVcf(vcf_file, param = svp)
+
+    # Message
+    message("Creating SNV profile ...")
 
     # Gather relevant information to data GRanges object
     gr <- SummarizedExperiment::rowRanges(vcf)

@@ -15,8 +15,18 @@ the [Genome Analysis ToolKit][8] and annotated with software such as
 
 ## Installation
 
+`seqCAT` is available on both [Bioconductor][10] and here on GitHub. You can
+install the latest, stable version from Bioconductor like so:
+
 ```r
-# Install the latest development version from GitHub
+source("https://bioconductor.org/biocLite.R")
+biocLite("seqCAT")
+```
+
+If you are interested in the development version of `seqCAT`, you can install
+it from GitHub:
+
+```r
 # install.packages("devtools")
 devtools::install_github("fasterius/seqCAT")
 ```
@@ -84,3 +94,4 @@ information, please see the `LICENCE` file that comes with the seqCAT package.
 [7]: http://www.internationalgenome.org/wiki/Analysis/variant-call-format
 [8]: https://software.broadinstitute.org/gatk/
 [9]: http://snpeff.sourceforge.net/
+[10]: https://bioconductor.org/packages/release/bioc/html/seqCAT.html

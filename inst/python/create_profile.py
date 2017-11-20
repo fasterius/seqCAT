@@ -92,6 +92,10 @@ for record in vcf_reader:
     except AttributeError:
         continue
 
+    # Skip record if no call was made
+    if gt is None:
+        continue
+
     # Collect annotation infor (skip record if missing)
     try:
         ann = record.INFO['ANN']

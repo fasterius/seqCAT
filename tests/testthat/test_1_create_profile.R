@@ -35,7 +35,7 @@ file.remove("profile_2.txt")
 # Tests
 test_that("extract_variants yields correct dimensions", {
     expect_equal(dim(profile_1), c(428, 18))
-    expect_equal(dim(profile_2), c(425, 18))
+    expect_equal(dim(profile_2), c(428, 18))
 })
 
 test_that("only variants passing the depth threshold are extracted", {
@@ -63,5 +63,10 @@ test_that("the correct variants across impact categories are extracted", {
     expect_equal(nrow(profile_1[profile_1$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_2[profile_2$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 423)
-    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 421)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 424)
+})
+
+test_that("empty calls from multi-sample VCFs are handled correctly", {
+    expect_equal(nrow(profile_1[profile_1$rsID == "rs182017058", ]), 0)
+    expect_equal(nrow(profile_2[profile_2$rsID == "rs182017058", ]), 3)
 })

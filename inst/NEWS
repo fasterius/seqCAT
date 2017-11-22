@@ -1,5 +1,9 @@
-VERSION 1.0.1
+VERSION 1.2.0
 -------------
+
+FEATURES:
+
+    o Add functionality for analysing VCF files containing unannotated variants
 
 FIXES:
 

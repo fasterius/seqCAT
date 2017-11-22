@@ -31,8 +31,12 @@ read_profile <- function(file, sample_name) {
                               header           = TRUE,
                               stringsAsFactors = FALSE)
 
-    # Remove duplicate variants
-    data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
+    # Remove duplicate variants, if present
+    if ("ENSGID" %in% names(data)) {
+        data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
+    } else {
+        data <- data[!duplicated(data[, c("chr", "pos")]), ]
+    }
 
     # Add sample name
     data$sample <- sample_name

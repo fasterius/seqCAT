@@ -64,7 +64,7 @@ create_profile_R <- function(vcf_file,
 
     # Define VCF parameters to be read
     vcf_header <- VariantAnnotation::scanVcfHeader(vcf_file)
-    if ("ANN" %in% row.names(info(vcf_header))) {
+    if ("ANN" %in% row.names(VariantAnnotation::info(vcf_header))) {
         annotations <- TRUE
         svp <- VariantAnnotation::ScanVcfParam(info = "ANN",
                                                geno = c("DP", "AD", "GT"))

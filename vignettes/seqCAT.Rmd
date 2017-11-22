@@ -68,17 +68,20 @@ version of seqCAT on [GitHub][github].
 The first step of the workflow is to create the SNV profile of each sample,
 which can then be compared to each other. In order to decrease the computation
 time for large comparison sets and to facilitate re-analyses with different
-parameters each SNV profile is saved on disc as a normal `.txt` file. While
-computation time is usually not an issue for simple binary comparisons (*i.e.*
-comparisons with only two samples), this can quickly become a concern for
-analyses where samples are compared to several others (A vs B, A vs C, ..., and
-so on).  The creation of a SNV profile includes filtering of low-confidence
+parameters each SNV profile is saved on the harddrive as a normal `.txt` file.
+While computation time is usually not an issue for simple binary comparisons
+(*i.e.* comparisons with only two samples), this can quickly become a concern
+for analyses where samples are compared to several others (A vs B, A vs C, ...,
+and so on); this is doubly true for annotated VCF files.
+
+The creation of a SNV profile includes filtering of low-confidence
 variants and removal of variants below a sequencing depth threshold (`10` by
-default). Only records with the highest SNV impact (*i.e.* [impact][]
-on protein function) for each variant is kept, as they are most likely to
-affect the biology of the cells. Creation of SNV profiles is also implemented
-in Python ([section 2.2][Create profiles faster with Python]), which is faster
-than the standard implementation in R ([section 2.1][Create profiles with R]).
+default). For annotated VCF files, only records with the highest SNV impact
+(*i.e.* [impact][] on protein function) for each variant is kept, as they are
+most likely to affect the biology of the cells. Creation of annotated SNV
+profiles is also implemented in Python ([section 2.2][Create profiles faster
+with Python]), which is faster than the standard implementation in R ([section
+2.1][Create profiles with R]).
 
 ## Create profiles with R
 
@@ -112,12 +115,13 @@ variants).
 
 ## Create profiles faster with Python
 
-SNV profiles can also be created with [Python][python-home], another scripting
-language, if you have installed it. You will also need to install the
+Annotated SNV profiles can also be created with [Python][python-home], another
+scripting language, if you have installed it. You will also need to install the
 [PyVCF][pyvcf] module, in order for it to run. The `Python` version can create
-SNV profiles approximately five to ten times quicker than its `R` equivalent.
-This is not important for most users, but is nevertheless included for cases
-where extra speed is desired.
+SNV profiles approximately five to ten times quicker than its `R` equivalent
+for annotated VCF files. This is not important for most users, but is
+nevertheless included for cases with many annotated VCF files where extra speed
+is desirable.
 
 ```{r Create SNV profile with Python, eval = FALSE}
 create_profile(vcf, "RKO", "RKO_profile.txt", python = TRUE)

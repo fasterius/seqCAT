@@ -63,8 +63,15 @@ create_profile_R <- function(vcf_file,
     message("Reading VCF file ...")
 
     # Define VCF parameters to be read
-    svp <- VariantAnnotation::ScanVcfParam(info = "ANN",
-                                           geno = c("DP", "AD", "GT"))
+    vcf_header <- VariantAnnotation::scanVcfHeader(vcf_file)
+    if ("ANN" %in% row.names(VariantAnnotation::info(vcf_header))) {
+        annotations <- TRUE
+        svp <- VariantAnnotation::ScanVcfParam(info = "ANN",
+                                               geno = c("DP", "AD", "GT"))
+    } else {
+        annotations <- FALSE
+        svp <- VariantAnnotation::ScanVcfParam(geno = c("DP", "AD", "GT"))
+    }
 
     # Read VCF file
     vcf <- VariantAnnotation::readVcf(vcf_file, param = svp)
@@ -74,10 +81,14 @@ create_profile_R <- function(vcf_file,
 
     # Gather relevant information to data GRanges object
     gr <- SummarizedExperiment::rowRanges(vcf)
-    gr$ANN <- VariantAnnotation::info(vcf)$ANN
     gr$DP <- as.data.frame(VariantAnnotation::geno(vcf)$DP)[[sample]]
     gr$AD <- as.data.frame(VariantAnnotation::geno(vcf)$AD)[[sample]]
     gr$GT <- as.data.frame(VariantAnnotation::geno(vcf)$GT)[[sample]]
+
+    # Add annotations, if present
+    if (annotations) {
+        gr$ANN <- VariantAnnotation::info(vcf)$ANN
+    }
 
     # Set ALT as character
     gr$ALT <- S4Vectors::unstrsplit(IRanges::CharacterList(gr$ALT))
@@ -129,6 +140,67 @@ create_profile_R <- function(vcf_file,
     data[data$A1 == 1, "A1"] <- data[data$A1 == 1, "ALT"]
     data[data$A2 == 0, "A2"] <- data[data$A2 == 0, "REF"]
     data[data$A2 == 1, "A2"] <- data[data$A2 == 1, "ALT"]
+
+    # Separate and filter annotations, if present
+    if (annotations) {
+        data <- filter_annotations(data)
+    }
+
+    # Re-order output
+    order <- c("seqnames",
+               "start",
+               "rsID",
+               "gene",
+               "ENSGID",
+               "ENSTID",
+               "REF",
+               "ALT",
+               "impact",
+               "effect",
+               "feature",
+               "biotype",
+               "DP",
+               "AD1",
+               "AD2",
+               "A1",
+               "A2",
+               "warnings")
+    order <- order[order %in% names(data)]
+    data <- data[order]
+
+    names(data) <- c("chr", "pos", names(data)[3:ncol(data)])
+
+    # Remove duplicate rows, if present
+    data <- unique(data)
+
+    # Sort output
+    if (annotations) {
+        data <- data[order(as.character(data$chr),
+                                 data$pos,
+                                 data$gene,
+                                 data$ENSGID,
+                                 gsub("\\:", "\\.", data$ENSTID),
+                                 data$effect,
+                                 data$feature,
+                                 data$biotype), ]
+    } else {
+        data <- data[order(as.character(data$chr),
+                                 data$pos), ]
+    }
+
+    # Write data to file
+    utils::write.table(data,
+                       file      = output_file,
+                       sep       = "\t",
+                       row.names = FALSE,
+                       quote     = FALSE)
+    # Output message
+    message("Created and stored SNV profile for \"", sample, "\" in [",
+            output_file, "].")
+}
+
+# Function for filtering VCF annotations
+filter_annotations <- function(data) {
 
     # Separate ANN into rows
     data <- dplyr::mutate_(data, .dots = stats::setNames(strsplit("ANN", ", "),
@@ -205,50 +277,8 @@ create_profile_R <- function(vcf_file,
     idx <- unlist(idx)
     data <- data[!(row.names(data) %in% idx), ]
 
-    # Re-order output
-    results <- data[c("seqnames",
-                      "start",
-                      "rsID",
-                      "gene",
-                      "ENSGID",
-                      "ENSTID",
-                      "REF",
-                      "ALT",
-                      "impact",
-                      "effect",
-                      "feature",
-                      "biotype",
-                      "DP",
-                      "AD1",
-                      "AD2",
-                      "A1",
-                      "A2",
-                      "warnings")]
-
-    names(results) <- c("chr", "pos", names(results)[3:18])
-
-    # Remove duplicate rows (if present)
-    results <- unique(results)
-
-    # Sort output
-    results <- results[order(as.character(results$chr),
-                                          results$pos,
-                                          results$gene,
-                                          results$ENSGID,
-                                          gsub("\\:", "\\.", results$ENSTID),
-                                          results$effect,
-                                          results$feature,
-                                          results$biotype), ]
-
-    # Write results to file
-    utils::write.table(results,
-                       file      = output_file,
-                       sep       = "\t",
-                       row.names = FALSE,
-                       quote     = FALSE)
-    # Output message
-    message("Created and stored SNV profile for \"", sample, "\" in [",
-            output_file, "].")
+    # Return data
+    return(data)
 }
 
 # Function for creating profiles with Python

@@ -56,6 +56,27 @@
 #' }
 "test_profile_2"
 
+#' SNV profile 3
+#'
+#' SNV profile in GRanges format from "sample3", originating from the
+#' test_profile_3.txt in the inst/extdata directory, for use in unit tests.
+#'
+#' @docType data
+#' @usage data(test_profile_3)
+#' @format A GRanges object with 99 elements and 9 metadata columns:
+#' \describe{
+#'     \item{rsID}{mutation ID, if available}
+#'     \item{REF}{reference allele}
+#'     \item{ALT}{alternative allele}
+#'     \item{DP}{total variant depth}
+#'     \item{AD1}{allelic depth, allele 1}
+#'     \item{AD2}{allelic depth, allele 2}
+#'     \item{A1}{allele 1}
+#'     \item{A2}{allele 2}
+#'     \item{sample}{sample name}
+#' }
+"test_profile_3"
+
 #' Overlapping and compared SNVs
 #'
 #' Overlapping and compared variants from "sample1" and "sample2" originating

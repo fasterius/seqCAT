@@ -14,7 +14,7 @@ test_profile_2 <- suppressMessages(read_profile(file        = file_2,
                                                 sample_name = "sample2"))
 
 test_profile_3 <- suppressMessages(read_profile(file        = file_3,
-                                                sample_name = "sample2"))
+                                                sample_name = "sample3"))
 
 # Tests
 test_that("a GRanges object is returned", {

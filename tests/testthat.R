@@ -1,4 +1,4 @@
-library(testthat)
-library(seqCAT)
+library("testthat")
+library("seqCAT")
 
 test_check("seqCAT")

@@ -60,6 +60,19 @@ read_profile <- function(file, sample_name) {
     data_gr <- GenomeInfoDb::keepStandardChromosomes(data_gr,
                                                      pruning.mode = "coarse")
 
+    # Check if profile contains no variants after filtering
+    if (length(data_gr) == 0) {
+
+        # Add dummy variant to contain sample name
+        dummy_variant <- GenomicRanges::GRanges("1",
+                                                IRanges::IRanges(start = 0,
+                                                                 end   = 0))
+        dummy_variant$sample <- sample_name
+
+        # Add dummy variant to empty profile
+        data_gr <- append(data_gr, dummy_variant)
+    }
+
     # Return the GenomicRanges object
     return(data_gr)
 }

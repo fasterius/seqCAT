@@ -9,6 +9,7 @@
 #' @export
 #' @param file The SNV profile to be read (path). 
 #' @param sample_name The sample of the SNV profile (character).
+#' @param remove_mt Remove or keep mitochondrial variants (boolean).
 #' @return A GRanges object.
 #'
 #' @examples
@@ -19,7 +20,7 @@
 #' 
 #' # Read test profile
 #' profile_1 <- read_profile(profile, "sample1")
-read_profile <- function(file, sample_name) {
+read_profile <- function(file, sample_name, remove_mt = TRUE) {
 
     # Message
     message("Reading profile for ", sample_name, " in file ", basename(file),
@@ -54,11 +55,15 @@ read_profile <- function(file, sample_name) {
     # Rename and remove seqlevels
     GenomeInfoDb::seqlevels(data_gr) <-
         gsub("chr", "", GenomeInfoDb::seqlevels(data_gr))
-    data_gr <- GenomeInfoDb::dropSeqlevels(data_gr,
-                                           "MT",
-                                           pruning.mode = "coarse")
     data_gr <- GenomeInfoDb::keepStandardChromosomes(data_gr,
                                                      pruning.mode = "coarse")
+
+    # Remove mitochondrial variants, if applicable
+    if (remove_mt) {
+        data_gr <- GenomeInfoDb::dropSeqlevels(data_gr,
+                                               "MT",
+                                               pruning.mode = "coarse")
+    }
 
     # Check if profile contains no variants after filtering
     if (length(data_gr) == 0) {

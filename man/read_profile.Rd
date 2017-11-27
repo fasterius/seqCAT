@@ -4,12 +4,14 @@
 \alias{read_profile}
 \title{Read SNV profile}
 \usage{
-read_profile(file, sample_name)
+read_profile(file, sample_name, remove_mt = TRUE)
 }
 \arguments{
 \item{file}{The SNV profile to be read (path).}
 
 \item{sample_name}{The sample of the SNV profile (character).}
+
+\item{remove_mt}{Remove or keep mitochondrial variants (boolean).}
 }
 \value{
 A GRanges object.

@@ -20,6 +20,10 @@ test_profile_3 <- suppressMessages(read_profile(file        = file_3,
 test_profile_4 <- suppressMessages(read_profile(file        = file_4,
                                                 sample_name = "sample4"))
 
+test_profile_5 <- suppressMessages(read_profile(file        = file_4,
+                                                sample_name = "sample5",
+                                                remove_mt   = FALSE))
+
 # Tests
 test_that("a GRanges object is returned", {
     expect_identical(class(test_profile_1)[1], "GRanges")
@@ -44,4 +48,8 @@ test_that("profiles without variant annotations are handled correctly", {
 test_that("empty profiles are handled correcty", {
     expect_equal(length(test_profile_4), 1)
     expect_identical(test_profile_4$sample, "sample4")
+})
+
+test_that("mitochondrial variants are read correctly", {
+    expect_equal(length(test_profile_5), 63)
 })

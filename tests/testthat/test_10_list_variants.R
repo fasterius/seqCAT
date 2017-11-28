@@ -7,8 +7,8 @@ data(test_profile_2)
 
 # Create test variants
 test_variants <- data.frame(chr              = c(1, 1),
-                            pos              = c(16229, 99999),
-                            gene             = c("DDX11L1", "mock_gene"),
+                            pos              = c(16229, 16495),
+                            gene             = c("DDX11L1", "WASH7P"),
                             stringsAsFactors = FALSE)
 
 # List test variants
@@ -26,5 +26,5 @@ test_that("known variants are listed correctly", {
     expect_equal(nrow(variants), 2)
     expect_equal(variants[variants$sample1 == "CA", "gene"], "DDX11L1")
     expect_equal(variants[variants$sample2 == "AA", "gene"], "DDX11L1")
-    expect_equal(variants[variants$sample1 == "0", "gene"], "mock_gene")
+    expect_equal(variants[variants$sample1 == "GC", "gene"], "WASH7P")
 })

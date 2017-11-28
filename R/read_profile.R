@@ -72,7 +72,9 @@ read_profile <- function(file, sample_name, remove_mt = TRUE) {
         dummy_variant <- GenomicRanges::GRanges("1",
                                                 IRanges::IRanges(start = 0,
                                                                  end   = 0))
-        dummy_variant$sample <- sample_name
+        S4Vectors::mcols(dummy_variant)["sample"] <- sample_name
+        S4Vectors::mcols(dummy_variant)["A1"] <- NA
+        S4Vectors::mcols(dummy_variant)["A2"] <- NA
 
         # Add dummy variant to empty profile
         data_gr <- append(data_gr, dummy_variant)

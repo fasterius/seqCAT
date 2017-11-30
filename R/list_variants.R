@@ -68,7 +68,7 @@ list_variants <- function(profiles, known_variants) {
         comp <- comp[!duplicated(comp[, c('seqnames', 'start')]), ]
 
         # Combine alleles
-        comp[[sample]] <- paste0(comp$A1, comp$A2)
+        comp[[sample]] <- paste0(comp$A1, "/", comp$A2)
 
         # Merge with known variants dataframe
         results <- comp[c("seqnames", "start", sample)]

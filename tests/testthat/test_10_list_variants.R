@@ -7,8 +7,8 @@ data(test_profile_2)
 
 # Create test variants
 test_variants <- data.frame(chr              = c(1, 1),
-                            pos              = c(16229, 16495),
-                            gene             = c("DDX11L1", "WASH7P"),
+                            pos              = c(16229, 16298),
+                            gene             = c("DDX11L1", "DDX11L1"),
                             stringsAsFactors = FALSE)
 
 # List test variants
@@ -24,7 +24,8 @@ test_that("errors for malformed input data are raised correctly", {
 
 test_that("known variants are listed correctly", {
     expect_equal(nrow(variants), 2)
-    expect_equal(variants[variants$sample1 == "CA", "gene"], "DDX11L1")
-    expect_equal(variants[variants$sample2 == "AA", "gene"], "DDX11L1")
-    expect_equal(variants[variants$sample1 == "GC", "gene"], "WASH7P")
+    expect_equal(variants[variants$sample1 == "C/A", "gene"], "DDX11L1")
+    expect_equal(variants[variants$sample1 == "C/T", "gene"], "DDX11L1")
+    expect_equal(variants[variants$sample2 == "A/A", "gene"], "DDX11L1")
+    expect_equal(variants[variants$sample2 == 0, "gene"], "DDX11L1")
 })

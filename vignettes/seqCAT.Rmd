@@ -396,17 +396,58 @@ The reason that we don't find this particular variant in the HCT116 vs. RKO
 comparison is that it is not present in the RKO profile, either because it
 isn't a mutation in RKO or because there was no confident variant call for that
 particular position. The `compare_profiles` function only looks at overlapping
-positions, so we will have to look at the individual profiles instead:
+positions, so we will have to look at the individual profiles instead. `seqCAT`
+has two functions to help with this: `list_variants` and `plot_variant_list`.
 
-```{r Subset KRAS individually}
-hct116[seqnames(hct116) == 12 & start(hct116) == 25398281, ]
-rko[seqnames(rko) == 12 & start(rko) == 25398281, ]
+The `list_variants` function looks for the genotypes of each specified variant
+in each provided SNV profile. First, let's create a small set of interesting
+variants we want to look closer at:
+
+```{r Create known variants list}
+known_variants <- data.frame(chr  = c(12, 12, 12, 12),
+                             pos  = c(25358650, 21788465, 21797029, 25398281),
+                             gene = c("LYRM5", "LDHB", "LDHB", "KRAS"),
+                             stringsAsFactors = FALSE)
+known_variants
 ```
 
-Here we see that the KRAS<sup>G13D</sup> mutation is indeed present in the
-HCT116 profile, but not in RKO. (Please note that this data was aligned and
-analysed using the GRCh37 / hg19 assembly and that listed positions might not
-be accurate for other assemblies.)
+The minimum information needed are the `chr` and `pos` columns, any additional
+columns (such as `gene`, here) will just be passed along for later use. We can
+now pass this set (along with our SNV profiles) to the `list_variants`
+function:
+
+```{r List variants}
+variant_list <- list_variants(list(hct116, rko), known_variants)
+variant_list
+```
+
+While this gives you a nice little list of the genotypes of your specified
+variants, we can also visualise this using the `plot_variant_list` function. It
+takes a slightly modified version of the output from the `list_variants`
+function: it may only contain the genotype columns. We thus need to create row
+names to identify the variants, like this:
+
+```{r, Plot variant list}
+# Set row names to "chr: pos (gene)"
+row.names(variant_list) <- paste0(variant_list$chr, ":", variant_list$pos,
+                                  " (", variant_list$gene, ")")
+
+# Remove "chr", "pos" and "gene" columns
+to_remove <- c("chr", "pos", "gene")
+variant_list <- variant_list[, !names(variant_list) %in% to_remove]
+
+# Plot the genotypes in a grid
+genotype_grid <- plot_variant_list(variant_list)
+genotype_grid
+```
+
+This gives us an easily overviewed image of what variants are present in which
+samples, and their precise genotype. We can see that the KRAS<sup>G13D</sup>
+mutation is indeed present in the HCT116, but not in RKO. We can also see that
+RKO has a homozygous `G/G` genotype for one of the LDHB variants, while HCT116
+is heterozygous (`T/G`) for the same. (Please note that this data was aligned
+and analysed using the GRCh37 / hg19 assembly and that listed positions might
+not be accurate for other assemblies.)
 
 # Evaluating multiple comparisons
 

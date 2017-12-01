@@ -132,7 +132,7 @@ add_polygons <- function(genotype_grid, allele_levels, palette) {
     genotype_grid <- genotype_grid +
         ggplot2::geom_polygon(data   = polygon_data,
                               colour = "black",
-                              size   = 0.3,
+                              size   = 0.1,
                               ggplot2::aes_string(x      = "x",
                                                   y      = "y",
                                                   fill   = "A1",

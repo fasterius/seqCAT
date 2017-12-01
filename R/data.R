@@ -134,3 +134,18 @@
 #'      \item{similarity_score}{the similarity score of the profiles}
 #' }
 "test_similarities"
+
+#' Modified variant list object
+#'
+#' A variant list object from the `list_variants` function, where the row names
+#' have been defined as "chr: pos (gene)" and the corresponding columns
+#' removed, for use in plotting.
+#'
+#' @docType data
+#' @usage data(test_variant_list)
+#' @format A dataframe with 2 rows and 2 columns:
+#' \describe{
+#'      \item{sample1}{the genotypes of sample1}
+#'      \item{sample2}{the genotypes of sample2}
+#' }
+"test_variant_list"

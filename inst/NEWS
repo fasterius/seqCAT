@@ -6,6 +6,10 @@ FEATURES:
     o Add functionality for analysing VCF files containing unannotated variants
     o Mitochondrial variants can now be optionally skipped when reading SNV
       profiles in the `read_variants` function
+    o Add the `list_variants` function for listing the genotypes of
+      user-specified variants in each provided SNV profile
+    o Add the `plot_variant_list` function for plotting a genotype grid for
+      each variant output by the `list_variants` function
 
 FIXES:
 

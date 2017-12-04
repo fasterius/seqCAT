@@ -16,6 +16,7 @@ FIXES:
     o Fix a multi-sample VCF profile creation issue (python only)
     o Reading zero-variant profiles now properly returns a GRanges object with
       a dummy-variant profile containing the sample name
+    o Enable the `plot_impacts` function to properly analyse multi-impact SNVs
 
 VERSION 1.0.0
 -------------

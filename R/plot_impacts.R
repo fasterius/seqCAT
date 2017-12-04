@@ -26,9 +26,22 @@ plot_impacts <- function(comparison,
                          legend = TRUE,
                          palette = c("#0D2D59", "#1954A6")) {
 
-    # Factorise match and impact columns
+    # Matches and impact character vectors
     matches <- c("match", "mismatch")
     impacts <- c("HIGH", "MODERATE", "LOW", "MODIFIER")
+    
+    # Prioritise multi-impact variants
+    comparison <- comparison[c("match", "impact")]
+    comparison <- tidyr::separate_(data   = comparison,
+                                   col    = "impact",
+                                   sep    = ",",
+                                   into   = "impact",
+                                   extra  = "drop",
+                                   remove = TRUE)
+    comparison$impact <- gsub("\\[", "", comparison$impact)
+    comparison$impact <- gsub("\\]", "", comparison$impact)
+    
+    # Factorise matches and impacts
     comparison$match <- factor(comparison$match, levels = matches)
     comparison$impact <- factor(comparison$impact, levels = impacts)
 
@@ -59,8 +72,8 @@ plot_impacts <- function(comparison,
 
     # Create plot object
     gg <- ggplot2::ggplot(data, ggplot2::aes_string(x    = "impact",
-                                              y    = "prop",
-                                              fill = "match")) +
+                                                    y    = "prop",
+                                                    fill = "match")) +
         ggplot2::geom_bar(stat     = "identity",
                           position = "dodge",
                           colour   = "#000000",

@@ -23,6 +23,9 @@ plot_variant_list <- function(variant_list,
                               legend        = TRUE,
                               palette       = c("#4e8ce4", "#a6c6f2",
                                                 "#999999", "#cccccc")) {
+
+    # Get sample order from column names
+    sample_order <- names(variant_list)
     
     # Convert to wide format
     variant_list$variant <- row.names(variant_list)
@@ -45,6 +48,9 @@ plot_variant_list <- function(variant_list,
     allele_levels <- c("A", "T", "C", "G")
     variants$A1 <- factor(variants$A1, levels = allele_levels)
     variants$A2 <- factor(variants$A2, levels = allele_levels)
+
+    # Factorise samples
+    variants$sample <- factor(variants$sample, levels = sample_order)
     
     # Plot
     genotype_grid <- ggplot2::ggplot(variants,

@@ -60,6 +60,10 @@ compare_many <- function(many,
 
         # Add comparison to collection
         comparisons[[length(comparisons) + 1]] <- comparison
+        
+        # Calculate total number of comparisons and initialise counter
+        nn_tot <- length(many)
+        nn <- 1
 
         # Perform all one-to-many comparisons
         for (current in many) {
@@ -76,7 +80,9 @@ compare_many <- function(many,
             }
 
             # Compare and calculate
-            comparison <- compare_profiles(one, current)
+            message(paste0("Comparing ", sample_one, " and ", sample_current,
+                           " [", nn, " / ", nn_tot, "]"))
+            comparison <- suppressMessages(compare_profiles(one, current))
             similarities <- calculate_similarity(comparison,
                                                  similarity = similarities,
                                                  a          = a,
@@ -84,9 +90,16 @@ compare_many <- function(many,
 
             # Add comparison to collection
             comparisons[[length(comparisons) + 1]] <- comparison
+            
+            # Increment counter
+            nn <- nn + 1
         }
 
     } else {
+
+        # Calculate total number of comparisons and initialise counter
+        nn_tot <- length(many) * (length(many) - 1) / 2 + length(many)
+        nn <- 1
 
         # Many-to-many comparisons
         for (current_1 in many) {
@@ -110,7 +123,10 @@ compare_many <- function(many,
                 }
 
                 # Compare and calculate
-                comparison <- compare_profiles(current_1, current_2)
+                message(paste0("Comparing ", sample_current_1, " and ", 
+                               sample_current_2, " [", nn, " / ", nn_tot, "]"))
+                comparison <- suppressMessages(compare_profiles(current_1,
+                                                                current_2))
                 similarities <- calculate_similarity(comparison,
                                                      similarity = similarities,
                                                      a          = a,
@@ -118,6 +134,9 @@ compare_many <- function(many,
 
                 # Add comparison to collection
                 comparisons[[length(comparisons) + 1]] <- comparison
+
+                # Increment counter
+                nn <- nn + 1
             }
         }
     }

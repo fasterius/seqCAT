@@ -10,6 +10,8 @@
 #' @rdname plot_variant_list
 #' @param variant_list The data containing the variants (dataframe)
 #' @param legend Show a legend for the genotype colours (boolean)
+#' @param legend_size Size of the legend (numeric).
+#' @param text_size Text size for axes and legend (numeric).
 #' @param palette Nucleotide colour palette (4-element character vector)
 #' @return A ggplot2 graphical object.
 #'
@@ -21,6 +23,8 @@
 #' genotype_grid <- plot_variant_list(test_variant_list)
 plot_variant_list <- function(variant_list, 
                               legend        = TRUE,
+                              legend_size   = 22,
+                              text_size     = 14,
                               palette       = c("#4e8ce4", "#a6c6f2",
                                                 "#999999", "#cccccc")) {
 
@@ -63,7 +67,9 @@ plot_variant_list <- function(variant_list,
                                                          colour = "A2")) +
         ggplot2::geom_tile(size = 0.3) +
         ggplot2::coord_equal() +
-        ggplot2::theme(axis.ticks       = ggplot2::element_blank(),
+        ggplot2::theme(text = ggplot2::element_text(size = text_size),
+                       legend.key.size  = grid::unit(legend_size, "pt"),
+                       axis.ticks       = ggplot2::element_blank(),
                        panel.background = ggplot2::element_blank(),
                        axis.text.x      = ggplot2::element_text(angle = 90,
                                                                 hjust = 1,

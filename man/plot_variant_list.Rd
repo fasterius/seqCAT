@@ -4,13 +4,17 @@
 \alias{plot_variant_list}
 \title{Plot known variants list}
 \usage{
-plot_variant_list(variant_list, legend = TRUE, palette = c("#4e8ce4",
-  "#a6c6f2", "#999999", "#cccccc"))
+plot_variant_list(variant_list, legend = TRUE, legend_size = 22,
+  text_size = 14, palette = c("#4e8ce4", "#a6c6f2", "#999999", "#cccccc"))
 }
 \arguments{
 \item{variant_list}{The data containing the variants (dataframe)}
 
 \item{legend}{Show a legend for the genotype colours (boolean)}
+
+\item{legend_size}{Size of the legend (numeric).}
+
+\item{text_size}{Text size for axes and legend (numeric).}
 
 \item{palette}{Nucleotide colour palette (4-element character vector)}
 }

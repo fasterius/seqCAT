@@ -11,9 +11,11 @@
 #' @rdname plot_heatmap
 #' @param similarities The long-format dataframe containing the data.
 #' @param annotate Annotate each cell with the score (boolean).
-#' @param annotate_size The size of the annotations (numeric).
+#' @param annotate_size Text size of the annotations (numeric).
 #' @param legend Show a legend for the colour gradient (boolean).
+#' @param legend_size Height and width of the legend (vector of two integers).
 #' @param cluster Cluster the samples based on similarity (boolean).
+#' @param text_size Text size for axes, labels and legend (numeric).
 #' @param limits The limits for the colour gradient (vector of four integers).
 #' @param colour The main colour to use for the gradient (character).
 #' @return A ggplot2 graphical object.
@@ -26,9 +28,11 @@
 #' heatmap <- plot_heatmap(test_similarities)
 plot_heatmap <- function(similarities,
                          annotate      = TRUE,
-                         annotate_size = 5,
+                         annotate_size = 9,
                          legend        = TRUE,
+                         legend_size   = c(36, 8),
                          cluster       = TRUE,
+                         text_size     = 14,
                          limits        = c(0, 50, 90, 100),
                          colour        = "#1954A6") {
 
@@ -47,11 +51,15 @@ plot_heatmap <- function(similarities,
                                        fill = "similarity_score")) +
         ggplot2::geom_tile(colour = "white", size = 0.3) +
         ggplot2::coord_equal() +
-        ggplot2::theme(axis.ticks       = ggplot2::element_blank(),
-                       panel.background = ggplot2::element_blank(),
-                       axis.text.x      = ggplot2::element_text(angle = 90,
-                                                                hjust = 1,
-                                                                vjust = 0.5)) +
+        ggplot2::theme(text        = ggplot2::element_text(size = text_size),
+                       legend.key.height = grid::unit(legend_size[1], "pt"),
+                       legend.key.width  = grid::unit(legend_size[2] *
+                                                      ggplot2::.pt, "pt"),
+                       axis.ticks        = ggplot2::element_blank(),
+                       axis.text.x       = ggplot2::element_text(angle = 90,
+                                                                 hjust = 1,
+                                                                 vjust = 0.5),
+                       panel.background  = ggplot2::element_blank()) +
         ggplot2::labs(x    = NULL,
                       y    = NULL,
                       fill = "Score") +
@@ -64,7 +72,7 @@ plot_heatmap <- function(similarities,
     if (annotate) {
         heatmap <- heatmap +
             ggplot2::geom_text(colour = "#FFFFFF",
-                               size   = annotate_size,
+                               size   = annotate_size / ggplot2::.pt,
                                ggplot2::aes_string(label = "similarity_score"))
     }
 

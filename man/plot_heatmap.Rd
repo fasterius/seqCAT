@@ -4,20 +4,24 @@
 \alias{plot_heatmap}
 \title{Plot similarity heatmap}
 \usage{
-plot_heatmap(similarities, annotate = TRUE, annotate_size = 5,
-  legend = TRUE, cluster = TRUE, limits = c(0, 50, 90, 100),
-  colour = "#1954A6")
+plot_heatmap(similarities, annotate = TRUE, annotate_size = 9,
+  legend = TRUE, legend_size = c(36, 8), cluster = TRUE, text_size = 14,
+  limits = c(0, 50, 90, 100), colour = "#1954A6")
 }
 \arguments{
 \item{similarities}{The long-format dataframe containing the data.}
 
 \item{annotate}{Annotate each cell with the score (boolean).}
 
-\item{annotate_size}{The size of the annotations (numeric).}
+\item{annotate_size}{Text size of the annotations (numeric).}
 
 \item{legend}{Show a legend for the colour gradient (boolean).}
 
+\item{legend_size}{Height and width of the legend (vector of two integers).}
+
 \item{cluster}{Cluster the samples based on similarity (boolean).}
+
+\item{text_size}{Text size for axes, labels and legend (numeric).}
 
 \item{limits}{The limits for the colour gradient (vector of four integers).}
 

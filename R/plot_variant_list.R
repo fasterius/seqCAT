@@ -44,8 +44,11 @@ plot_variant_list <- function(variant_list,
                                  into   = c("A1", "A2"),
                                  remove = TRUE)
 
+    # Add white colour to palette for missing variants
+    palette <- c(palette, "#FFFFFF")
+
     # Factorise alleles
-    allele_levels <- c("A", "T", "C", "G")
+    allele_levels <- c("A", "T", "C", "G", "N/A")
     variants$A1 <- factor(variants$A1, levels = allele_levels)
     variants$A2 <- factor(variants$A2, levels = allele_levels)
 
@@ -68,12 +71,12 @@ plot_variant_list <- function(variant_list,
         ggplot2::labs(x    = NULL,
                       y    = NULL,
                       fill = NULL) +
-        ggplot2::scale_fill_manual(breaks = c("A", "T", "C", "G"),
+        ggplot2::scale_fill_manual(breaks = c("A", "T", "C", "G", "N/A"),
                                    values = palette, 
-                                   drop = FALSE) +
-        ggplot2::scale_colour_manual(breaks = c("A", "T", "C", "G"),
+                                   drop   = FALSE) +
+        ggplot2::scale_colour_manual(breaks = c("A", "T", "C", "G", "N/A"),
                                      values = palette,
-                                     drop = FALSE) +
+                                     drop   = FALSE) +
         ggplot2::guides(colour = FALSE)
 
     # Add polygons for A2

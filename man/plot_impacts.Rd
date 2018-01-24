@@ -4,15 +4,19 @@
 \alias{plot_impacts}
 \title{Plot SNV impact distribution}
 \usage{
-plot_impacts(comparison, annotate = TRUE, legend = TRUE,
-  palette = c("#0D2D59", "#1954A6"))
+plot_impacts(comparison, legend = TRUE, annotate = TRUE,
+  annotate_size = 9, text_size = 14, palette = c("#0D2D59", "#1954A6"))
 }
 \arguments{
 \item{comparison}{The SNV profile comparison to be plotted.}
 
+\item{legend}{Show the legend (boolean).}
+
 \item{annotate}{Annotate each category (boolean).}
 
-\item{legend}{Show the legend (boolean).}
+\item{annotate_size}{Text size for annotations (numeric).}
+
+\item{text_size}{Text size for axes, ticks and legend (numeric).}
 
 \item{palette}{Colour palette for filling of bars (character vector).}
 }

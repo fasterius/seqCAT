@@ -10,8 +10,10 @@
 #' @export
 #' @rdname plot_impacts
 #' @param comparison The SNV profile comparison to be plotted.
-#' @param annotate Annotate each category (boolean).
 #' @param legend Show the legend (boolean).
+#' @param annotate Annotate each category (boolean).
+#' @param annotate_size Text size for annotations (numeric).
+#' @param text_size Text size for axes, ticks and legend (numeric).
 #' @param palette Colour palette for filling of bars (character vector).
 #' @return A ggplot2 graphical object.
 #'
@@ -22,9 +24,11 @@
 #' # Plot the impact distribution
 #' impacts <- plot_impacts(test_comparison)
 plot_impacts <- function(comparison,
-                         annotate = TRUE,
-                         legend = TRUE,
-                         palette = c("#0D2D59", "#1954A6")) {
+                         legend        = TRUE,
+                         annotate      = TRUE,
+                         annotate_size = 9,
+                         text_size     = 14,
+                         palette       = c("#0D2D59", "#1954A6")) {
 
     # Matches and impact character vectors
     matches <- c("match", "mismatch")
@@ -79,12 +83,13 @@ plot_impacts <- function(comparison,
                           colour   = "#000000",
                           size     = 0.3) +
         ggplot2::theme_bw() +
-        ggplot2::labs(x    = "Impact category",
+        ggplot2::labs(x    = NULL,
                       y    = "Proportion of SNVs in category (%)",
-                      fill = "") +
+                      fill = NULL) +
         ggplot2::scale_fill_manual(values = palette,
                                    labels = c("Match", "Mismatch")) +
-        ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
+        ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
+                       text = ggplot2::element_text(size = text_size))
 
     # Add text annotation (if applicable)
     if (annotate) {
@@ -99,21 +104,21 @@ plot_impacts <- function(comparison,
                 ggplot2::aes_string(label = "count"),
                 position = ggplot2::position_dodge(width = 0.9),
                 vjust    = -0.5,
-                size     = 2.5,
+                size     = annotate_size / ggplot2::.pt,
                 colour   = "#000000") +
             ggplot2::geom_text(
                 ggplot2::aes_string(label = "percent"),
                 data     = data[data$prop > 5, ],
                 position = ggplot2::position_dodge(width = 0.9),
                 vjust    = 1.6,
-                size     = 3.5,
+                size     = annotate_size / ggplot2::.pt,
                 colour   = "#FFFFFF") +
             ggplot2::geom_text(
                 ggplot2::aes_string(label = "percent", y = 0),
                 data     = data[data$prop <= 5, ],
                 position = ggplot2::position_dodge(width = 0.9),
                 vjust    = 1.5,
-                size     = 3.5,
+                size     = annotate_size / ggplot2::.pt,
                 colour   = "#4D4D4D")
     }
 

@@ -29,6 +29,7 @@ read_profile <- function(file, sample_name, remove_mt = TRUE) {
     # Read data
     data <- utils::read.table(file             = file,
                               sep              = "\t",
+                              quote            = "",
                               header           = TRUE,
                               stringsAsFactors = FALSE)
 

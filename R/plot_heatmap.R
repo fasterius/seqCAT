@@ -90,6 +90,10 @@ plot_heatmap <- function(similarities,
 # Function for adding mirrored data to complete the heatmap
 mirror <- function(similarities) {
 
+    # Get the non-sample column names
+    columns <- names(similarities)
+    columns <- columns[!(columns %in% c("sample_1", "sample_2"))]
+
     # Add "y vs. x" data not available in the similarities dataframe
     for (n in seq_len(nrow(similarities))) {
 
@@ -105,16 +109,14 @@ mirror <- function(similarities) {
             # Get number of rows
             rows <- nrow(similarities)
 
-            # Add reverse data
+            # Add reverse data (sample columns)
             similarities[rows + 1, "sample_1"] <- sample_2
             similarities[rows + 1, "sample_2"] <- sample_1
-            similarities[rows + 1, "overlaps"] <- similarities[n, "overlaps"]
-            similarities[rows + 1, "matches"] <- similarities[n, "matches"]
-            similarities[rows + 1, "concordance"] <-
-                similarities[n, "concordance"]
-            similarities[rows + 1, "similarity_score"] <-
-                similarities[n, "similarity_score"]
 
+            # Add reverse data (non-sample columns)
+            for (col in columns) {
+                similarities[rows + 1, col] <- similarities[n, col]
+            }
         }
     }
 

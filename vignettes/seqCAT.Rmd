@@ -225,7 +225,14 @@ head(hct116_rko)
 The resulting dataframe retains all the information from each input profile
 (including any differing annotation, should they exist), and lists the depths
 and alleles by adding the sample names as suffixes to the relevant column
-names.
+names. An optional parameter, `mode`, can also be supplied: the default value
+(`"intersection"`) discards any non-overlapping variants in the comparison,
+while setting it to `"union"` will retain them.
+
+```{r Compare profiles (union)}
+hct116_rko_union <- compare_profiles(hct116, rko, mode = "union")
+head(hct116_rko_union)
+```
 
 ## Comparing to COSMIC profiles
 
@@ -275,8 +282,10 @@ similarity
 ```
 
 Here, you can see a summary of the relevant statistics for your particular
-comparison: the number of overlaps between your two samples, the number of
-matching genotypes, their concordance as well as their similarity score. The
+comparison: the number of total variants from each profile (if the comparison
+was done with `mode = "union"`, otherwise this number will just be equivalent
+to the overlaps), the number of overlaps between your two samples, the number
+of matching genotypes, their concordance as well as their similarity score. The
 cutoff used by Yu *et al.* for cell line authenticity was `90 %` for their 48
 SNP panel, something that could be considered the baseline for this method as
 well. The score, `68.7`, is well below that cutoff, and we can thus be certain
@@ -335,7 +344,7 @@ impacts <- plot_impacts(hct116_rko)
 impacts
 ```
 
-This function takes a comparison dataframe as input and simply plots the impact
+This function takes a comparison dataframe as input and plots the impact
 distribution of the overlapping variants. It has a number of arguments with
 defaults, such as if you want to add text with the actual numbers to the plot
 (`annotate = TRUE` by default), if you want to show the legend (`legend =
@@ -532,7 +541,8 @@ the gradient (`colour = "#1954A6"` by default) or change the limits of the
 gradient (`limits = c(0, 50, 90, 100)` by default). The choice of gradient
 limits are based on clarity (comparisons with a similarity score less than 50,
 *i.e.* those that likely have too few overlapping variants to begin with, are
-suppressed) and the previously mentioned 90 % concordance threshold *[@Yu2015]*.
+suppressed) and the previously mentioned 90 % concordance threshold
+*[@Yu2015]*.
 
 This heatmap makes it clear that HCT116 and HKE3 are, indeed, very similar to
 each other, while RKO differs from them both. These types of heatmaps can be

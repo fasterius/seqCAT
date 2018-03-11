@@ -4,10 +4,10 @@
 \alias{calculate_similarity}
 \title{SNV profile similarity calculations}
 \usage{
-calculate_similarity(overlaps, similarity = NULL, a = 1, b = 5)
+calculate_similarity(data, similarity = NULL, a = 1, b = 5)
 }
 \arguments{
-\item{overlaps}{The input SNV overlaps dataframe.}
+\item{data}{The input SNV data dataframe.}
 
 \item{similarity}{Optional dataframe to add results to.}
 
@@ -26,7 +26,7 @@ Calculate the similarity statistics for SNV profile
 This function calculates various summary statistics and sample similarities
 for a given profile comparison dataframe. It returns a small dataframe with
 the overall similarity score (whose parameters `a` and `b` can be adjusted
-in the function call), total SNV overlaps, the concordance of the overlaps
+in the function call), total SNV data, the concordance of the data
 and the sample names in question. This dataframe can also be given to the 
 function, in which case it will simply add another row for the current
 samples, facilitating downstream aggregate analyses.

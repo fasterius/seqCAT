@@ -4,12 +4,14 @@
 \alias{compare_profiles}
 \title{Binary SNV profile comparisons}
 \usage{
-compare_profiles(profile_1, profile_2)
+compare_profiles(profile_1, profile_2, mode = "intersection")
 }
 \arguments{
 \item{profile_1}{The first SNV profile (GRanges object).}
 
 \item{profile_2}{The second SNV profile (GRanges object).}
+
+\item{mode}{Merge profiles using "union" or "intersection" (character).}
 }
 \value{
 A dataframe.

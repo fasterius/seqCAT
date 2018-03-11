@@ -4,10 +4,10 @@
 \alias{filter_variants}
 \title{Variant filtering}
 \usage{
-filter_variants(overlaps, filter_depth = 10)
+filter_variants(data, filter_depth = 10)
 }
 \arguments{
-\item{overlaps}{The dataframe containing the variant data to be filtered.}
+\item{data}{The dataframe containing the variant data to be filtered.}
 
 \item{filter_depth}{Threshold for variant depth (integer; default 10).}
 }

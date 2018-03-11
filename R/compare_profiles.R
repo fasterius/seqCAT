@@ -15,6 +15,7 @@
 #' @rdname compare_profiles
 #' @param profile_1 The first SNV profile (GRanges object).
 #' @param profile_2 The second SNV profile (GRanges object).
+#' @param mode Merge profiles using "union" or "intersection" (character).
 #' @return A dataframe.
 #' 
 #' @examples
@@ -25,7 +26,8 @@
 #' # Compare the two profiles
 #' comparison <- compare_profiles(test_profile_1, test_profile_2)
 compare_profiles <- function(profile_1,
-                             profile_2) {
+                             profile_2,
+                             mode = "intersection") {
 
     # Find sample names
     sample_1 <- unique(profile_1$sample)
@@ -34,37 +36,24 @@ compare_profiles <- function(profile_1,
     # Message
     message("Comparing ", sample_1, " and ", sample_2, " ...")
 
-    # Find the intersection of all ranges in both objects
-    intersect_gr <- S4Vectors::intersect(profile_1, profile_2)
+    # Find the overlaps of all ranges in both objects
+    if (mode == "union") {
+        data_gr <- S4Vectors::union(profile_1, profile_2)
+    } else if (mode == "intersection") {
+        data_gr <- S4Vectors::intersect(profile_1, profile_2)
+    } else {
+        stop("`mode` must be either 'union' or 'intersection'")
+    }
 
     # Add metadata from both objects to the union object
-    intersect_gr <- add_metadata(intersect_gr,
-                                 profile_1,
-                                 paste0(".", sample_1))
-    intersect_gr <- add_metadata(intersect_gr,
-                                 profile_2,
-                                 paste0(".", sample_2))
-
+    data_gr <- add_metadata(data_gr,
+                            profile_1,
+                            paste0(".", sample_1))
+    data_gr <- add_metadata(data_gr,
+                            profile_2,
+                            paste0(".", sample_2))
     # Convert to data frame
-    data <- GenomicRanges::as.data.frame(intersect_gr)
-
-    # Remove non-complete variants
-    alleles <- paste(c("A1", "A1", "A2", "A2"),
-                     c(sample_1, sample_2),
-                     sep = ".")
-    data <- data[stats::complete.cases(data[, alleles]), ]
-
-    # Add empty data frame with sample names if no variants overlap
-    if (nrow(data) == 0) {
-
-        data[1, "sample_1"] <- sample_1
-        data[1, "sample_2"] <- sample_2
-
-    } else {
-
-        data$sample_1 <- sample_1
-        data$sample_2 <- sample_2
-    }
+    data <- GenomicRanges::as.data.frame(data_gr)
 
     # Compare genotypes in each overlapping SNV
     data <- compare_genotypes(data, sample_1, sample_2)
@@ -110,49 +99,58 @@ add_metadata <- function(query,
 }
 
 # Function for comparing genotypes in overlapping SNVs
-compare_genotypes <- function(overlaps, sample_1, sample_2) {
+compare_genotypes <- function(data, sample_1, sample_2) {
 
-    # Find overlapping variants with complete genotypes
+    # Remove non-complete variants
     alleles <- paste(c("A1", "A1", "A2", "A2"),
                      c(sample_1, sample_2),
                      sep = ".")
-    idx_notna <- row.names(
-        overlaps[stats::complete.cases(overlaps[, alleles]), ])
+    data <- data[rowSums(is.na(data[, alleles])) == 0 |
+                 rowSums(is.na(data[, alleles])) == 2, ]
 
-    # Check for matches if there are overlapping variants
-    if (length(idx_notna) != 0) {
+    # Check if there are no variants in the data
+    if (nrow(data) == 0) {
 
-        # Set all to "mismatch"
-        overlaps$match <- "mismatch"
+        # Manually add sample names and status
+        data[1, "sample_1"] <- sample_1
+        data[1, "sample_2"] <- sample_2
+        data$match <- "no overlaps"
 
-        # Construct alleles
-        overlaps_alleles <- overlaps[alleles]
-        overlaps_alleles$in_1 <- paste(overlaps_alleles[, 1],
-                                       overlaps_alleles[, 3],
-                                       sep = ":")
-        overlaps_alleles$in_2 <- paste(overlaps_alleles[, 2],
-                                       overlaps_alleles[, 4],
-                                       sep = ":")
-        overlaps_alleles$in_1_rev <- paste(overlaps_alleles[, 3],
-                                           overlaps_alleles[, 1],
-                                           sep = ":")
+        # Return empty data
+        return(data)
+    } 
 
-        # Check and set matching genotypes as appropriate
-        idx_match_1 <- apply(overlaps_alleles, 1,
-                            function(x) x["in_1"] %in% x["in_2"])
-        idx_match_2 <- apply(overlaps_alleles, 1,
-                            function(x) x["in_1_rev"] %in% x["in_2"])
-        overlaps[idx_match_1, "match"] <- "match"
-        overlaps[idx_match_2, "match"] <- "match"
+    # Add sample names
+    data$sample_1 <- sample_1
+    data$sample_2 <- sample_2
 
-    } else {
+    # Set all to "mismatch"
+    data$match <- "mismatch"
 
-        # Add empty match column if no overlapping variants are found
-        overlaps$match <- "no overlaps"
-    }
+    # Construct alleles
+    data_alleles <- data[alleles]
+    data_alleles$in_1 <- paste(data_alleles[, 1], data_alleles[, 3], sep = ":")
+    data_alleles$in_2 <- paste(data_alleles[, 2], data_alleles[, 4], sep = ":")
+    data_alleles$rev <- paste(data_alleles[, 3], data_alleles[, 1], sep = ":")
+
+    # Check and set matching genotypes as appropriate
+    idx_match_1 <- apply(data_alleles, 1, function(x) x["in_1"] %in% x["in_2"])
+    idx_match_2 <- apply(data_alleles, 1, function(x) x["rev"] %in% x["in_2"])
+    data[idx_match_1, "match"] <- "match"
+    data[idx_match_2, "match"] <- "match"
+
+    # Check and set non-overlapping variants as appropriate
+    alleles_1 <- paste(c("A1", "A2"), sample_1, sep = ".")
+    alleles_2 <- paste(c("A1", "A2"), sample_2, sep = ".")
+    data[rowSums(is.na(data[, alleles_1])) == 0 &
+         rowSums(is.na(data[, alleles_2])) != 0, "match"] <-
+             paste0(sample_1, "_only")
+    data[rowSums(is.na(data[, alleles_2])) == 0 &
+         rowSums(is.na(data[, alleles_1])) != 0, "match"] <-
+             paste0(sample_1, "_only")
 
     # Return the results
-    return(overlaps)
+    return(data)
 }
 
 # Function for collating metadata columns from both samples
@@ -187,11 +185,18 @@ collate_metadata <- function(data, sample_1, sample_2) {
 
             # Get index for identical metadata
             idx <- data[[mcol_s1]] == data[[mcol_s2]]
+            idx_na <- is.na(idx)
+            idx[is.na(idx)] <- TRUE
 
             # Create merged metadata
-            data[idx, mcol] <- data[idx, mcol_s1]
-            data[!idx, mcol] <- paste0("[", data[!idx, mcol_s1], ",",
-                                       data[!idx, mcol_s2], "]")
+            data[idx & !is.na(idx), mcol] <- data[idx, mcol_s1]
+            data[is.na(data[idx, mcol]), mcol] <-
+                data[is.na(data[idx, mcol]), mcol_s2]
+            data[idx & is.na(idx), mcol] <- paste0(data[is.na(idx), mcol_s1],
+                                                   data[is.na(idx), mcol_s2])
+            data[!idx & !is.na(!idx), mcol] <-
+                paste0("[", data[!idx, mcol_s1],
+                       ",", data[!idx, mcol_s2], "]")
         }
 
         # Remove old metadata columns

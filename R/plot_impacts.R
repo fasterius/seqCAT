@@ -33,6 +33,10 @@ plot_impacts <- function(comparison,
     # Matches and impact character vectors
     matches <- c("match", "mismatch")
     impacts <- c("HIGH", "MODERATE", "LOW", "MODIFIER")
+
+    # Subset data to only include overlapping variants
+    comparison <- comparison[comparison$match == "match" |
+                             comparison$match == "mismatch", ]
     
     # Prioritise multi-impact variants
     comparison <- comparison[c("match", "impact")]

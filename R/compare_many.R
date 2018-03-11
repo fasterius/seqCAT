@@ -38,6 +38,8 @@ compare_many <- function(many,
     # Initialise objects to be returned
     similarities <- data.frame(sample_1         = character(),
                                sample_2         = character(),
+                               variants_1       = numeric(),
+                               variants_2       = numeric(),
                                overlaps         = numeric(),
                                matches          = numeric(),
                                concordance      = numeric(),

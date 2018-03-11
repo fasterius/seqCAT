@@ -7,7 +7,7 @@
 #' changed in the function call.
 #'
 #' @export
-#' @param overlaps The dataframe containing the variant data to be filtered.
+#' @param data The dataframe containing the variant data to be filtered.
 #' @param filter_depth Threshold for variant depth (integer; default 10).
 #' @return A data frame containing the filtered variants.
 #'
@@ -18,16 +18,18 @@
 #' # Filter variants
 #' filt_1 <- filter_variants(test_comparison)
 #' filt_2 <- filter_variants(test_comparison, filter_depth = 20)
-filter_variants <- function(overlaps, filter_depth = 10) {
+filter_variants <- function(data, filter_depth = 10) {
 
     # Find sample names
-    sample_1 <- unique(overlaps$sample_1)
-    sample_2 <- unique(overlaps$sample_2)
+    sample_1 <- unique(data$sample_1)
+    sample_2 <- unique(data$sample_2)
 
     # Filter on sequencing depth
-    overlaps <- overlaps[overlaps[[paste0("DP.", sample_1)]] >= filter_depth &
-                         overlaps[[paste0("DP.", sample_2)]] >= filter_depth, ]
+    col_1 <- paste0("DP.", sample_1)
+    col_2 <- paste0("DP.", sample_2)
+    data <- data[(data[[col_1]] >= filter_depth | is.null(data[[col_1]])) &
+                 (data[[col_2]] >= filter_depth | is.null(data[[col_2]])), ]
 
-    # Return the filtered overlaps
-    return(overlaps)
+    # Return the filtered data
+    return(data)
 }

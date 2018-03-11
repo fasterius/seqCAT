@@ -27,13 +27,13 @@
 #' # Plot a similarity heatmap
 #' heatmap <- plot_heatmap(test_similarities)
 plot_heatmap <- function(similarities,
+                         cluster       = TRUE,
                          annotate      = TRUE,
                          annotate_size = 9,
                          legend        = TRUE,
                          legend_size   = c(36, 8),
-                         cluster       = TRUE,
-                         text_size     = 14,
                          limits        = c(0, 50, 90, 100),
+                         text_size     = 14,
                          colour        = "#1954A6") {
 
     # Add mirrored data

@@ -12,11 +12,9 @@ similarity <- calculate_similarity(test_comparison, similarity)
 dummy <- data.frame(sample_1 = 1, sample_2 = 2, dummy = 3)
 
 # Tests
-test_that("dataframe checking works correctly", {
-    expect_error(calculate_similarity(test_comparison, 1), "not a dataframe")
-})
-
 test_that("dataframe structure checks are working correctly", {
+    expect_error(calculate_similarity(test_comparison, similarity = 1),
+                 "not a dataframe")
     expect_error(calculate_similarity(test_comparison, dummy), "structure")
 })
 

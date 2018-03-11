@@ -23,8 +23,8 @@ test_that("correct number of comparisons are performed", {
 })
 
 test_that("correct correct summary statistics are calculated", {
-    expect_equal(many[[1]][3, 6], 91.2)
-    expect_equal(one[[1]][2, 5], 98.0)
+    expect_equal(many[[1]][3, "similarity_score"], 91.2)
+    expect_equal(one[[1]][2, "concordance"], 98.0)
 })
 
 test_that("comparisons are correctly ordered in the resulting lists", {

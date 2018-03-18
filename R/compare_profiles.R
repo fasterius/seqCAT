@@ -37,9 +37,9 @@ compare_profiles <- function(profile_1,
     message("Comparing ", sample_1, " and ", sample_2, " ...")
 
     # Find the overlaps of all ranges in both objects
-    if (mode == "union") {
+    if (tolower(mode) == "union") {
         data_gr <- S4Vectors::union(profile_1, profile_2)
-    } else if (mode == "intersection") {
+    } else if (tolower(mode) == "intersection") {
         data_gr <- S4Vectors::intersect(profile_1, profile_2)
     } else {
         stop("`mode` must be either 'union' or 'intersection'")
@@ -147,7 +147,7 @@ compare_genotypes <- function(data, sample_1, sample_2) {
              paste0(sample_1, "_only")
     data[rowSums(is.na(data[, alleles_2])) == 0 &
          rowSums(is.na(data[, alleles_1])) != 0, "match"] <-
-             paste0(sample_1, "_only")
+             paste0(sample_2, "_only")
 
     # Return the results
     return(data)
@@ -232,6 +232,9 @@ collate_metadata <- function(data, sample_1, sample_2) {
     if (nrow(data) == 1 & data[1, "match"] == "no overlaps") {
         data <- data[c("sample_1", "sample_2", "match")]
     }
+
+    # Remove "<NA>" strings
+    data[is.na(data)] <- ""
 
     # Return final data
     return(data)

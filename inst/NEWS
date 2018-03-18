@@ -4,6 +4,7 @@ VERSION 1.2.0
 FEATURES:
 
     o Add functionality for analysing VCF files containing unannotated variants
+    o Add functionality for listing non-overlapping variants between profiles
     o Mitochondrial variants can now be optionally skipped when reading SNV
       profiles in the `read_variants` function
     o Add the `list_variants` function for listing the genotypes of

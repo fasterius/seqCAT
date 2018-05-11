@@ -63,6 +63,9 @@ read_cosmic <- function(file_path, cell_line) {
 
     # Get data for selected cell line
     cosmic <- cosmic[grep(cell_line, cosmic$sample_name), ]
+    if (length(unique(cosmic$sample_name)) > 1) {
+        cosmic <- cosmic[cosmic$sample_name == cell_line, ]
+    }
 
     # Keep only SNVs
     cosmic <- cosmic[grep("Substitution", cosmic$mutation_description), ]
@@ -132,7 +135,8 @@ read_cosmic <- function(file_path, cell_line) {
         starts.in.df.are.0based = FALSE)
 
     # Rename chromosomes (23, 24) to (X, Y)
-    GenomeInfoDb::seqlevels(cosmic_gr) <- c(as.character(1:22), "X", "Y")
+    GenomeInfoDb::seqlevels(cosmic_gr, pruning.mode = "coarse") <-
+        c(as.character(1:22), "X", "Y")
 
     # Return final GRanges object
     return(cosmic_gr)

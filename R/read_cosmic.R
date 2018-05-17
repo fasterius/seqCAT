@@ -142,16 +142,19 @@ read_cosmic <- function(file_path, cell_line) {
     return(cosmic_gr)
 }
 
-#' List available COSMIC cell lines
+#' @title List COSMIC cell lines
 #'
-#' This function lists the available cell lines in the provided
-#' CosmicCLP_MutantExport.tsv.gz file, and take about half the time it takes to
-#' read the full file with the read_cosmic function, making it useful for just
-#' seeing if your particular cell line is listed in COSMIC or not.
+#' @description List all available cell lines in the COSMIC database
+#'
+#' @details This function lists the available cell lines in the provided
+#' CosmicCLP_MutantExport.tsv.gz file, and takes about half the time it takes
+#' to read the full file with the read_cosmic function, making it useful for
+#' just seeing if your particular cell line is listed in COSMIC or not.
 #'
 #' @export
-#' @rdname read_cosmic
+#' @rdname list_cosmic
 #' @return A vector of cell line names
+#' 
 #' @examples
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",

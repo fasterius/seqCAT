@@ -2,12 +2,9 @@
 % Please edit documentation in R/read_cosmic.R
 \name{read_cosmic}
 \alias{read_cosmic}
-\alias{list_cosmic}
 \title{Read COSMIC SNV data}
 \usage{
 read_cosmic(file_path, cell_line)
-
-list_cosmic(file_path)
 }
 \arguments{
 \item{file_path}{The CosmicCLP_MutantExport.tsv.gz file (path).}
@@ -16,16 +13,9 @@ list_cosmic(file_path)
 }
 \value{
 A GRanges object with COSMIC SNVs.
-
-A vector of cell line names
 }
 \description{
 Read COSMIC cell line-specific mutational data.
-
-This function lists the available cell lines in the provided
-CosmicCLP_MutantExport.tsv.gz file, and take about half the time it takes to
-read the full file with the read_cosmic function, making it useful for just
-seeing if your particular cell line is listed in COSMIC or not.
 }
 \details{
 This function reads the "CosmicCLP_MutantExport.tsv.gz" file
@@ -42,8 +32,4 @@ file <- system.file("extdata",
 
 # Read COSMIC test data for HCT116 cell line
 cosmic_hct116 <- read_cosmic(file, "HCT116")
-file <- system.file("extdata",
-                    "subset_CosmicCLP_MutantExport.tsv.gz",
-                    package = "seqCAT")
-cell_lines <- list_cosmic(file)
 }

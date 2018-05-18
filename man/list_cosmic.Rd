@@ -6,6 +6,9 @@
 \usage{
 list_cosmic(file_path)
 }
+\arguments{
+\item{file_path}{The CosmicCLP_MutantExport.tsv.gz file (path).}
+}
 \value{
 A vector of cell line names
 }

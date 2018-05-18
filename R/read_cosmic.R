@@ -136,7 +136,7 @@ read_cosmic <- function(file_path, cell_line) {
 
     # Rename chromosomes (23, 24) to (X, Y)
     GenomeInfoDb::seqlevels(cosmic_gr, pruning.mode = "coarse") <-
-        c(as.character(1:22), "X", "Y")
+        c(as.character(seq_len(22)), "X", "Y")
 
     # Return final GRanges object
     return(cosmic_gr)
@@ -153,6 +153,7 @@ read_cosmic <- function(file_path, cell_line) {
 #'
 #' @export
 #' @rdname list_cosmic
+#' @param file_path The CosmicCLP_MutantExport.tsv.gz file (path).
 #' @return A vector of cell line names
 #' 
 #' @examples

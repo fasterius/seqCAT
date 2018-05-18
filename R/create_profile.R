@@ -383,7 +383,7 @@ create_profile_python <- function(vcf_file,
         message("The Python script produced an ERROR; please make sure that ",
                 "Python and the PyVCF module are installed.")
         message("Original error message:")
-        write(out[1:length(out)], file = "")
+        write(out[seq_len(out)], file = "")
     } else {
         message("Created and stored SNV profile for \"", sample, "\" in [",
                 output_file, "].")

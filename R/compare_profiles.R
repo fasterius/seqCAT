@@ -212,7 +212,7 @@ collate_metadata <- function(data, sample_1, sample_2) {
                           "-strand")
 
     # Rename columns
-    names(data)[1:2] <- c("chr", "pos")
+    names(data)[c(1, 2)] <- c("chr", "pos")
 
     # Fix column names for COSMIC comparisons
     cols <- c("rsID", "ENSGID", "ENSTID", "impact",

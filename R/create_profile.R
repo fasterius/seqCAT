@@ -87,7 +87,7 @@ create_profile <- function(vcf_file,
 #'  create_profiles(vcf_dir, output_dir = "profiles", recursive = TRUE)
 #' }
 create_profiles <- function(vcf_dir,
-                            output_dir,
+                            output_dir   = ".",
                             pattern      = NULL,
                             recursive    = FALSE,
                             filter_depth = 10,

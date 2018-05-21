@@ -136,22 +136,26 @@ read_cosmic <- function(file_path, cell_line) {
 
     # Rename chromosomes (23, 24) to (X, Y)
     GenomeInfoDb::seqlevels(cosmic_gr, pruning.mode = "coarse") <-
-        c(as.character(1:22), "X", "Y")
+        c(as.character(seq_len(22)), "X", "Y")
 
     # Return final GRanges object
     return(cosmic_gr)
 }
 
-#' List available COSMIC cell lines
+#' @title List COSMIC cell lines
 #'
-#' This function lists the available cell lines in the provided
-#' CosmicCLP_MutantExport.tsv.gz file, and take about half the time it takes to
-#' read the full file with the read_cosmic function, making it useful for just
-#' seeing if your particular cell line is listed in COSMIC or not.
+#' @description List all available cell lines in the COSMIC database
+#'
+#' @details This function lists the available cell lines in the provided
+#' CosmicCLP_MutantExport.tsv.gz file, and takes about half the time it takes
+#' to read the full file with the read_cosmic function, making it useful for
+#' just seeing if your particular cell line is listed in COSMIC or not.
 #'
 #' @export
-#' @rdname read_cosmic
+#' @rdname list_cosmic
+#' @param file_path The CosmicCLP_MutantExport.tsv.gz file (path).
 #' @return A vector of cell line names
+#' 
 #' @examples
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",

@@ -17,7 +17,7 @@ read_profile(file, sample_name, remove_mt = TRUE)
 A GRanges object.
 }
 \description{
-Read SNV profiles for use in downstream comparisons.
+Read an SNV profile for use in downstream comparisons.
 }
 \details{
 This is a function for reading SNV profiles created from VCF
@@ -27,9 +27,10 @@ of metadata.
 \examples{
 # Path to test data
 profile = system.file("extdata",
-                      "test_profile_1.txt.gz",
+                      "test_1.profile.txt.gz",
                       package = "seqCAT")
 
 # Read test profile
 profile_1 <- read_profile(profile, "sample1")
+profile_1 <- read_profile(profile, "sample1", remove_mt = FALSE)
 }

@@ -61,7 +61,12 @@ should they not already exist in your system. If you haven't installed
 Bioconductor, you can do so by simply calling `biocLite()` without specifying a
 package, and it will be installed for you. You can read more about this at
 Bioconductor's [installation page][bioc-install]. You can find the development
-version of seqCAT on [GitHub][github].
+version of seqCAT on [GitHub][github], which can be installed like so:
+
+```{r GitHub installation, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("fasterius/seqCAT")
+```
 
 # Creation of SNV profiles
 
@@ -101,13 +106,13 @@ vcf <- system.file("extdata", "example.vcf.gz",
                    package = "seqCAT")
 
 # Create two SNV profiles
-create_profile(vcf, "HCT116", "hct116_profile.txt")
-create_profile(vcf, "RKO", "rko_profile.txt", filter_depth = 15)
+create_profile(vcf, "HCT116", "hct116.profile.txt")
+create_profile(vcf, "RKO", "rko.profile.txt", filter_depth = 15)
 ```
 
 This creates SNV profiles for the two samples found in the example data
 (`HCT116` and `RKO`) and saves them as `hct116.profile.txt` and
-`rko_profile.txt` in the current directory, respectively. The profile of the
+`rko.profile.txt` in the current directory, respectively. The profile of the
 second sample was created with a non-standard filter for sequencing depth
 (`15`), which should only be done if you want a stricter criteria for your
 profile (such as when you're only interested in higher-than-standard confidence
@@ -124,7 +129,26 @@ nevertheless included for cases with many annotated VCF files where extra speed
 is desirable.
 
 ```{r Create SNV profile with Python, eval = FALSE}
-create_profile(vcf, "RKO", "RKO_profile.txt", python = TRUE)
+create_profile(vcf, "RKO", "RKO.profile.txt", python = TRUE)
+```
+
+## Create multiple profiles
+
+The `create_profiles` function is a convenience wrapper for `create_profile`,
+which will create SNV profiles for each VCF file in a given input directory.
+You can use it for all the VCFs in a directory, or a subset specified by a
+string, like so:
+
+```{r Create multiple profiles, messages = FALSE}
+# Directory with VCF files
+vcf_dir <- system.file("extdata", package = "seqCAT")
+
+# Create profiles for each VCF with "sample1" in its name
+create_profiles(vcf_dir, pattern = "sample1")
+```
+
+```{r Remove unused profiles from multiple profile creation, echo = FALSE, results = "hide"}
+file.remove("sample1.profile.txt")
 ```
 
 ## Create COSMIC profiles
@@ -199,8 +223,8 @@ performed. First, each profile is read using the `read_profile` function,
 which outputs `GRanges` objects for fast and efficient comparisons.
 
 ```{r Read SNV profiles}
-hct116 <- read_profile("hct116_profile.txt", "HCT116")
-rko <- read_profile("rko_profile.txt", "RKO")
+hct116 <- read_profile("hct116.profile.txt", "HCT116")
+rko <- read_profile("rko.profile.txt", "RKO")
 head(hct116)
 ```
 
@@ -308,8 +332,8 @@ comparisons.
 
 ```{r Calculate similarities iteratively}
 # Create and read HKE3 profile
-create_profile(vcf, "HKE3", "hke3_profile.txt")
-hke3 <- read_profile("hke3_profile.txt", "HKE3")
+create_profile(vcf, "HKE3", "hke3.profile.txt")
+hke3 <- read_profile("hke3.profile.txt", "HKE3")
 
 # Compare HCT116 and HKE3
 hct116_hke3 <- compare_profiles(hct116, hke3)
@@ -520,6 +544,18 @@ profile has. By returning all the data in a list you may then save each
 comparison to a file, for later re-analysis without having to re-do the
 comparisons.
 
+## Reading multiple profiles
+
+The `read_profiles` function is a convenience-wrapper for `read_profile`, which
+will automatically read all the profiles present in a given directory and
+return them as a list, which is then easily parsed to the `compare_many`
+function.
+
+```{r Read multiple profiles}
+profile_list <- read_profiles("./")
+head(profile_list[[1]])
+```
+
 ## Visualising multiple comparisons
 
 A useful and straightforward way of visualising multiple profile comparisons is
@@ -556,9 +592,9 @@ classical evaluations of sequencing data (read quality, adapter contamination,
 alignments, variant calling, and so on).
 
 ```{r Remove temporary files, echo = FALSE, results = "hide"}
-file.remove("hct116_profile.txt")
-file.remove("rko_profile.txt")
-file.remove("hke3_profile.txt")
+file.remove("hct116.profile.txt")
+file.remove("rko.profile.txt")
+file.remove("hke3.profile.txt")
 ```
 
 # Citation {-}

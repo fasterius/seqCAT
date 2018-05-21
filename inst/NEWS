@@ -1,3 +1,15 @@
+Version 1.4.0
+-------------
+
+FEATURES:
+
+    o Add convenience functions for creating and reading multiple SNV profiles
+
+FIXES:
+
+    o Fix an issue when reading COSMIC data due to new GRanges functionality
+
+
 VERSION 1.2.0
 -------------
 

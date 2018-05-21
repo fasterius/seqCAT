@@ -4,8 +4,8 @@
 \alias{create_profiles}
 \title{SNV profile creation}
 \usage{
-create_profiles(vcf_dir, output_dir, pattern = NULL, recursive = FALSE,
-  filter_depth = 10, python = FALSE)
+create_profiles(vcf_dir, output_dir = ".", pattern = NULL,
+  recursive = FALSE, filter_depth = 10, python = FALSE)
 }
 \arguments{
 \item{vcf_dir}{The VCF directory from which the profiles will be created 

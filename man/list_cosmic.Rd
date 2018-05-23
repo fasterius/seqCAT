@@ -2,28 +2,28 @@
 % Please edit documentation in R/read_cosmic.R
 \name{list_cosmic}
 \alias{list_cosmic}
-\title{List COSMIC cell lines}
+\title{List COSMIC sample names}
 \usage{
 list_cosmic(file_path)
 }
 \arguments{
-\item{file_path}{The CosmicCLP_MutantExport.tsv.gz file (path).}
+\item{file_path}{The file containing COSMIC data (path).}
 }
 \value{
-A vector of cell line names
+A vector of sample names
 }
 \description{
-List all available cell lines in the COSMIC database
+List all available samples in the COSMIC database
 }
 \details{
-This function lists the available cell lines in the provided
-CosmicCLP_MutantExport.tsv.gz file, and takes about half the time it takes
-to read the full file with the read_cosmic function, making it useful for
-just seeing if your particular cell line is listed in COSMIC or not.
+This function lists the available sample names in the provided
+COSMIC file (e.g. CosmicCLP_MutantExport.tsv.gz), and takes about half the
+time it takes to read the full file with the read_cosmic function, making it
+useful for just seeing if your particular sample is listed in COSMIC or not.
 }
 \examples{
 file <- system.file("extdata",
                     "subset_CosmicCLP_MutantExport.tsv.gz",
                     package = "seqCAT")
-cell_lines <- list_cosmic(file)
+cosmic_samples <- list_cosmic(file)
 }

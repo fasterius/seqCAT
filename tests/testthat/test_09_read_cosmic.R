@@ -2,28 +2,36 @@ library("seqCAT")
 context("Read COSMIC data")
 
 # Input file
-file <- system.file("extdata",
-                    "subset_CosmicCLP_MutantExport.tsv.gz",
-                    package = "seqCAT")
+cell_lines_file <- system.file("extdata", package = "seqCAT",
+                               "subset_CosmicCLP_MutantExport.tsv.gz")
+cosmic_file <- system.file("extdata", package = "seqCAT",
+    "subset_CosmicCompleteTargetedScreensMutantExport.tsv.gz")
 
 # Read COSMIC data
-cosmic <- suppressMessages(read_cosmic(file, "HCT116"))
-cosmic_list <- suppressMessages(list_cosmic(file))
+hct116 <- suppressMessages(read_cosmic(cell_lines_file, "HCT116"))
+hct116_list <- suppressMessages(list_cosmic(cell_lines_file))
+cosmic <- suppressMessages(read_cosmic(cosmic_file, "PTCL6"))
+cosmic_list <- suppressMessages(list_cosmic(cosmic_file))
 
 # Tests
 test_that("the returned object is a GRanges object", {
+    expect_identical(class(hct116)[1], "GRanges")
     expect_identical(class(cosmic)[1], "GRanges")
 })
 
 test_that("the returned number of variants and metadata columns are correct", {
+    expect_equal(length(hct116), 1)
     expect_equal(length(cosmic), 1)
-    expect_equal(length(mcols(cosmic[cosmic$sample == "HCT116", ])), 12)
+    expect_equal(length(mcols(hct116[hct116$sample == "HCT116", ])), 39)
+    expect_equal(length(mcols(cosmic[cosmic$sample == "cosmic", ])), 36)
 })
 
 test_that("a character list of cell lines are correctly returned", {
+    expect_identical(class(hct116_list), "character")
     expect_identical(class(cosmic_list), "character")
 })
 
 test_that("correct number of cell lines are listed", {
-    expect_equal(length(cosmic_list), 164)
+    expect_equal(length(hct116_list), 164)
+    expect_equal(length(cosmic_list), 189)
 })

@@ -1,17 +1,17 @@
-#' @title Read COSMIC SNV data
+#' @title Read COSMIC data
 #'
-#' @description Read COSMIC cell line-specific mutational data.
+#' @description Read COSMIC sample-specific mutational data.
 #'
-#' @details This function reads the "CosmicCLP_MutantExport.tsv.gz" file
-#' obtained from COSMIC and returns a GRanges object with all the listed
-#' mutations for the specified cell line, which can then be use in downstream
-#' profile  comparisons. Only non-duplicated (gene-level) SNVs are included in
-#' COSMIC profiles.
+#' @details This function reads the COSMIC data files (e.g.
+#' "CosmicCLP_MutantExport.tsv.gz") and returns a GRanges object with all the
+#' listed mutations for the specified sample, which can then be use in
+#' downstream profile  comparisons. Only non-duplicated (gene-level) SNVs are
+#' included in COSMIC profiles.
 #'
 #' @export
 #' @rdname read_cosmic
-#' @param file_path The CosmicCLP_MutantExport.tsv.gz file (path).
-#' @param cell_line The cell line to be investigated (character).
+#' @param file_path The COSMIC data file path (path).
+#' @param sample_name The sample to be investigated (character).
 #' @return A GRanges object with COSMIC SNVs.
 #'
 #' @examples
@@ -20,51 +20,41 @@
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",
 #'                     package = "seqCAT")
 #'
-#' # Read COSMIC test data for HCT116 cell line
+#' # Read COSMIC test data for the HCT116 cell line
 #' cosmic_hct116 <- read_cosmic(file, "HCT116")
-read_cosmic <- function(file_path, cell_line) {
+read_cosmic <- function(file_path, sample_name) {
 
     # Message
-    message("Reading COSMIC cell line data ...")
+    message("Reading COSMIC data ...")
 
     # Read COSMIC data
     cosmic <- utils::read.table(file_path,
                                 header           = TRUE,
                                 sep              = "\t",
-                                quote            = "\"",
+                                quote            = "",
                                 comment          = "",
+                                fill             = TRUE,
                                 stringsAsFactors = FALSE)
 
-    # Keep only relevant columns
-    cosmic <- cosmic[c("Gene.name",
-                       "Sample.name",
-                       "Mutation.ID",
-                       "Mutation.CDS",
-                       "Mutation.AA",
-                       "Mutation.Description",
-                       "Mutation.zygosity",
-                       "Mutation.genome.position",
-                       "strand",
-                       "Mutation.somatic.status",
-                       "Mutation.verification.status")]
+    # Remove sites without a listed position
+    cosmic <- cosmic[cosmic$Mutation.genome.position != "", ]
+
+    # Fix column naming
     names(cosmic) <- tolower(gsub("\\.", "_", names(cosmic)))
 
-    # Simplify COSMIC cell line names
+    # Simplify COSMIC sample names
     cosmic$sample_name <- toupper(gsub("[-. ]", "", cosmic$sample_name))
-    cell_line <- toupper(gsub("[-. ]", "", cell_line))
+    sample_name <- toupper(gsub("[-. ]", "", sample_name))
 
-    # Check if cell line is available in the data
-    if (!any(grepl(cell_line, cosmic$sample_name))) {
-        stop("the cell line ", cell_line, " is not available in COSMIC.")
+    # Check if sample is available in the data
+    if (!any(grepl(sample_name, cosmic$sample_name))) {
+        stop("the sample ", sample_name, " is not present in this data.")
     }
 
-    # Remove sites without a listed position
-    cosmic <- cosmic[cosmic$mutation_genome_position != "", ]
-
-    # Get data for selected cell line
-    cosmic <- cosmic[grep(cell_line, cosmic$sample_name), ]
+    # Get data for selected sample 
+    cosmic <- cosmic[grep(sample_name, cosmic$sample_name), ]
     if (length(unique(cosmic$sample_name)) > 1) {
-        cosmic <- cosmic[cosmic$sample_name == cell_line, ]
+        cosmic <- cosmic[cosmic$sample_name == sample_name, ]
     }
 
     # Keep only SNVs
@@ -104,21 +94,11 @@ read_cosmic <- function(file_path, cell_line) {
     cosmic$mutation_zygosity <- NULL
 
     # Rename columns to adhere to non-COSMIC structure
-    names(cosmic) <- c("gene",
-                       "sample",
-                       "ID",
-                       "CDS",
-                       "AA",
-                       "description",
-                       "somatic_status",
-                       "verification_status",
-                       "chr",
-                       "start",
-                       "end",
-                       "REF",
-                       "ALT",
-                       "A1",
-                       "A2")
+    names(cosmic) <- gsub("gene_name", "gene", names(cosmic))
+    names(cosmic) <- gsub("sample_name", "sample", names(cosmic))
+    names(cosmic) <- gsub("accession_number", "ENSTID", names(cosmic))
+    names(cosmic) <- gsub("mutation_", "", names(cosmic))
+    cosmic$strand <- NULL
 
     # Add "COSMIC" to sample name
     cosmic$sample <- paste0("COSMIC.", cosmic$sample)
@@ -142,46 +122,51 @@ read_cosmic <- function(file_path, cell_line) {
     return(cosmic_gr)
 }
 
-#' @title List COSMIC cell lines
+#' @title List COSMIC sample names
 #'
-#' @description List all available cell lines in the COSMIC database
+#' @description List all available samples in the COSMIC database
 #'
-#' @details This function lists the available cell lines in the provided
-#' CosmicCLP_MutantExport.tsv.gz file, and takes about half the time it takes
-#' to read the full file with the read_cosmic function, making it useful for
-#' just seeing if your particular cell line is listed in COSMIC or not.
+#' @details This function lists the available sample names in the provided
+#' COSMIC file (e.g. CosmicCLP_MutantExport.tsv.gz), and takes about half the
+#' time it takes to read the full file with the read_cosmic function, making it
+#' useful for just seeing if your particular sample is listed in COSMIC or not.
 #'
 #' @export
 #' @rdname list_cosmic
-#' @param file_path The CosmicCLP_MutantExport.tsv.gz file (path).
-#' @return A vector of cell line names
+#' @param file_path The file containing COSMIC data (path).
+#' @return A vector of sample names
 #' 
 #' @examples
 #' file <- system.file("extdata",
 #'                     "subset_CosmicCLP_MutantExport.tsv.gz",
 #'                     package = "seqCAT")
-#' cell_lines <- list_cosmic(file)
+#' cosmic_samples <- list_cosmic(file)
 list_cosmic <- function(file_path) {
 
     # Message
-    message("Reading COSMIC cell line data ...")
+    message("Reading COSMIC data ...")
+
+    # Get header and the number of columns
+    header <- read.table(file_path, sep = "\t", nrow = 1)
 
     # Set colClasses to only read "Sample names" column
-    col_classes <- c(rep("NULL", 4), "character", rep("NULL", 33))
+    col_classes <- c(rep("NULL", 4), "character",
+                     rep("NULL", ncol(header) - 5))
 
     # Read COSMIC data
     cosmic <- utils::read.table(file_path,
                                 header           = TRUE,
                                 sep              = "\t",
-                                quote            = "\"",
+                                quote            = "",
                                 comment          = "",
+                                fill             = TRUE,
                                 stringsAsFactors = FALSE,
                                 colClasses       = col_classes)
 
-    # Simplify cell line names
+    # Simplify sample names
     cosmic$Sample.name <- toupper(gsub("[-. ]", "", cosmic$Sample.name))
 
-    # Get vector of the cell lines and return it
-    cell_lines <- sort(unique(cosmic$Sample.name))
-    return(cell_lines)
+    # Return unique sample names
+    cosmic_samples <- sort(unique(cosmic$Sample.name))
+    return(cosmic_samples)
 }

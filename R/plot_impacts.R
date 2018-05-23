@@ -58,6 +58,7 @@ plot_impacts <- function(comparison,
     data <- dplyr::summarise_(data, count = ~n())
     data <- dplyr::mutate_(data, .dots = stats::setNames(
         lazyeval::interp("count / sum(count) * 100"), "prop"))
+    data <- dplyr::ungroup(data)
 
     # Add zeroes to empty groups
     for (impact in impacts) {

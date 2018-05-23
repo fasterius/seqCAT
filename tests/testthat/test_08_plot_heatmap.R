@@ -4,9 +4,16 @@ context("Plot heatmap for multiple comparisons")
 # Load similarities
 data(test_similarities)
 
-# Plots
+# Create plot object
 plot <- plot_heatmap(test_similarities)
 plot_obj <- ggplot2::ggplot_build(plot)
+
+# Get plot parameters based on ggplot2 version
+if (utils::packageVersion("ggplot2") < "2.2.1.9000") {
+    plot_params <- plot_obj$layout$panel_ranges[[1]]
+} else {
+    plot_params <- plot_obj$layout$panel_params[[1]]
+}
 
 # Tests
 test_that("mirrored data is added correctly", {
@@ -15,7 +22,7 @@ test_that("mirrored data is added correctly", {
 })
 
 test_that("samples are clustered correctly", {
-    expect_identical(plot_obj$layout$panel_ranges[[1]]$x.labels[1], "sample3")
-    expect_identical(plot_obj$layout$panel_ranges[[1]]$x.labels[2], "sample1")
-    expect_identical(plot_obj$layout$panel_ranges[[1]]$x.labels[3], "sample2")
+    expect_identical(plot_params$x.labels[1], "sample3")
+    expect_identical(plot_params$x.labels[2], "sample1")
+    expect_identical(plot_params$x.labels[3], "sample2")
 })

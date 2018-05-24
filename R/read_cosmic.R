@@ -48,7 +48,8 @@ read_cosmic <- function(file_path, sample_name) {
 
     # Check if sample is available in the data
     if (!any(grepl(sample_name, cosmic$sample_name))) {
-        stop("the sample ", sample_name, " is not present in this data.")
+        stop("the sample ", sample_name, " is either not present in the data",
+             " or has no listed SNVs.")
     }
 
     # Get data for selected sample 
@@ -147,7 +148,7 @@ list_cosmic <- function(file_path) {
     message("Reading COSMIC data ...")
 
     # Get header and the number of columns
-    header <- read.table(file_path, sep = "\t", nrow = 1)
+    header <- utils::read.table(file_path, sep = "\t", nrow = 1)
 
     # Set colClasses to only read "Sample names" column
     col_classes <- c(rep("NULL", 4), "character",

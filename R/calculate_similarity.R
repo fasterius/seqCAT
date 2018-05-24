@@ -38,7 +38,7 @@ calculate_similarity <- function(data,
     if (!is.null(similarity)) {
 
         # Check that similarity is a dataframe
-        if (class(similarity) != "data.frame") {
+        if (!methods::is(similarity, "data.frame")) {
             stop("supplied similarity object is not a dataframe")
         }
 

@@ -26,7 +26,7 @@
 list_variants <- function(profiles, known_variants) {
 
     # Test that `known_variants` is a dataframe
-    if (class(known_variants) != "data.frame") {
+    if (!methods::is(known_variants, "data.frame")) {
         stop("`known_variants` input is a not a dataframe.")
     }
 

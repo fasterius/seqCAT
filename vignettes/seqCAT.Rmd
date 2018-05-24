@@ -156,21 +156,25 @@ file.remove("sample1.profile.txt")
 It is also possible to to compare your samples' variants to some external
 source. Such a source is the *Catalogue of somatic mutations in cancer*, or
 *COSMIC*. COSMIC has over a thousand cell line-specific mutational profiles,
-and is thus a very useful resource if you are working with cell lines.
+a comprehensive list of cancer mutations in across many carcinoma samples,
+and is thus a very useful resource.
 
-In order to use the COSMIC cell line database, you need to sign up for an
-account at their [website][cosmic-home] and get permission to download their
-files (which is given free of charge to academia and non-profit organisation,
-but requires a commersial license for for-profit organisations). The required
-file is the one named `CosmicCLP_MutantExport.tsv.gz`, listed under *complete
-mutational data* [here][cosmic-downloads]. As redistributing this file is not
+In order to use the COSMIC database, you need to sign up for an account at
+their [website][cosmic-home] and get permission to download their files (which
+is given free of charge to academia and non-profit organisation, but requires a
+commersial license for for-profit organisations). SeqCAT can analyse both the
+cell line-specific (the `CosmicCLP_MutantExport.tsv.gz` file) and cancer
+mutation data (the `CosmicCompleteTargetedScreensMutantExport.tsv.gz` file)
+that can be found [here][cosmic-downloads]. As redistributing this data is not
 allowed, this package includes an extremely minimal subset of the original 
-file, only useful for examples in this vignette and unit testing. *Do not* use
-this file for your own analyses, as your results will neither be complete nor
+files, only useful for examples in this vignette and unit testing. *Do not* use
+these file for your own analyses, as your results will neither be complete nor
 accurate!
 
-The first thing to check is to see if your specific cell line is available in
-the database, which can be accomplished using the `list_cosmic` function:
+Here we present an example of how to analyse some cell line-specific COSMIC
+data. The first thing to check is to see if your specific cell line is
+available in the database, which can be accomplished using the `list_cosmic`
+function:
 
 ```{r List COSMIC}
 file <- system.file("extdata", "subset_CosmicCLP_MutantExport.tsv.gz",
@@ -179,7 +183,7 @@ cell_lines <- list_cosmic(file)
 head(cell_lines)
 ```
 
-This gives us a simple vector containing all the available cell lines in the
+This gives us a simple vector containing all the available sample names in the
 COSMIC database (this version of the file is for the GRCh37 assembly). You can
 search it for a cell line of your choice:
 
@@ -187,10 +191,10 @@ search it for a cell line of your choice:
 any(grepl("HCT116", cell_lines))
 ```
 
-All COSMIC-related functions perform some simplification of cell line names (as
+All COSMIC-related functions perform some simplification of sample names (as
 there is variation in the usage of dashes, dots and other symbols), and are
-case-insensitive. When you have asserted that your cell line of interest is
-available, you can then read the profile for that cell line using the
+case-insensitive. When you have asserted that your sample of interest is
+available, you can then read the profile for that sample using the
 `read_cosmic` function:
 
 ```{r Read COSMIC}
@@ -260,10 +264,10 @@ head(hct116_rko_union)
 
 ## Comparing to COSMIC profiles
 
-If you are working with cell lines and only want to analyse a subset of your
-data or as a orthogonal method complementary to others, you could compare your
-profile to a COSMIC profile. This works in the same way as comparing to another
-full profile, but gives slightly different output:
+If you only want to analyse a subset of your data or as a orthogonal method 
+complementary to others, you could compare your profile to a COSMIC profile.
+This works in the same way as comparing to another full profile, but gives
+slightly different output:
 
 ```{r Compare with COSMIC}
 hct116_cosmic <- compare_profiles(hct116, cosmic)

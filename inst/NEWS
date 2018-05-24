@@ -4,6 +4,8 @@ Version 1.4.0
 FEATURES:
 
     o Add convenience functions for creating and reading multiple SNV profiles
+    o Add functionality for reading general COSMIC mutational data, not just
+      cell line mutational data
 
 FIXES:
 

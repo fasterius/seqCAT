@@ -19,8 +19,9 @@ the [Genome Analysis ToolKit][8] and annotated with software such as
 install the latest, stable version from Bioconductor like so:
 
 ```r
-source("https://bioconductor.org/biocLite.R")
-biocLite("seqCAT")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("seqCAT")
 ```
 
 If you are interested in the development version of `seqCAT`, you can install

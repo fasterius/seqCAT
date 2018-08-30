@@ -52,8 +52,9 @@ The latest stable release of this package can be found on
 [Bioconductor][bioc-home] and installed using the `biocLite` function:
 
 ```{r Installation, eval = FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("seqCAT")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("seqCAT")
 ```
 
 This will also install any missing packages requires for full functionality,

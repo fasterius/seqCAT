@@ -29,7 +29,8 @@ Suggests:
     knitr,
     BiocStyle,
     rmarkdown,
-    testthat
+    testthat,
+    BiocManager
 biocViews:
     Coverage,
     GenomicVariation,

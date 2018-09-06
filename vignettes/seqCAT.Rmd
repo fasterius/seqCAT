@@ -49,7 +49,7 @@ annotated with software such as [SnpEff][snpeff].
 ## Installation
 
 The latest stable release of this package can be found on
-[Bioconductor][bioc-home] and installed using the `biocLite` function:
+[Bioconductor][bioc-home] and installed with:
 
 ```{r Installation, eval = FALSE}
 if (!requireNamespace("BiocManager", quietly=TRUE))

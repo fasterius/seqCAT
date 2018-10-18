@@ -11,6 +11,10 @@ FIXES:
 
     o Fix an issue when reading COSMIC data due to new GRanges functionality
 
+MISCELLANEOUS: 
+
+    o Update the citation info with the now-published seqCAT-specific article
+
 
 VERSION 1.2.0
 -------------

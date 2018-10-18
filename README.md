@@ -70,13 +70,14 @@ For more detailed instructions on how to use seqCAT, please see the vignette.
 
 ## Citation
 
-If you are using seqCAT to analyse your samples, please cite the following
-publication: 
+If you are using seqCAT to analyse your data, please cite the
+following article:
 
-> **A novel RNA sequencing data analysis method for cell line authentication**
-> <br/> Fasterius, E., Raso, C., Kennedy, S., Kolch, W., Al-Khalili C. et al.
-> <br/> PloS One, 12(2), e0171435. (2017)
-> <br/> doi: http://doi.org/10.1371/journal.pone.0171435
+> **seqCAT: a Bioconductor R-package for variant analysis of high throughput**
+> **sequencing data**
+> <br/> Fasterius E. and Al-Khalili Szigyarto C.
+> <br/> *F1000Research* (2018), 7:1466
+> <br/> https://f1000research.com/articles/7-1466
 
 ## License
 

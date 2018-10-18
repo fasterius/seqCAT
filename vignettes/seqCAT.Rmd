@@ -49,16 +49,17 @@ annotated with software such as [SnpEff][snpeff].
 ## Installation
 
 The latest stable release of this package can be found on
-[Bioconductor][bioc-home] and installed using the `biocLite` function:
+[Bioconductor][bioc-home] and installed with:
 
 ```{r Installation, eval = FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("seqCAT")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("seqCAT")
 ```
 
 This will also install any missing packages requires for full functionality,
 should they not already exist in your system. If you haven't installed
-Bioconductor, you can do so by simply calling `biocLite()` without specifying a
+Bioconductor, you can do so by simply calling `BiocManager::install()` without specifying a
 package, and it will be installed for you. You can read more about this at
 Bioconductor's [installation page][bioc-install]. You can find the development
 version of seqCAT on [GitHub][github], which can be installed like so:

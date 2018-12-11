@@ -178,6 +178,26 @@ create_profile_R <- function(vcf_file,
     # Convert to data frame
     data <- GenomicRanges::as.data.frame(gr)
 
+    # Check for <NON_REF> sites (i.e. input may be a gVCF file)
+    if ("<NON_REF>" %in% data$ALT) {
+        
+        # Check for non-<NON_REF> ALT alleles
+        non_refs <- nrow(data[data$ALT == "<NON_REF>", ])
+        if (nrow(data) == non_refs) {
+
+            # Only <NON_REF> alleles: stop and issue error
+            stop("VCF only contains <NON_REF> alleles; input may be a gVCF")
+        
+        } else {
+
+            # Some <NON_REF> alleles: isuee warning and keep confident alleles
+            warning(paste("VCF contains", non_refs, "/", nrow(data),
+                          "<NON_REF> alleles; input may be a gVCF"))
+            data <- data[data$ALT != "<NON_REF>", ]
+            data$ALT <- gsub("<NON_REF>", "", data$ALT)
+        }
+    }
+
     # Remove non-SNVs
     data <- data[nchar(data$REF) == 1 &
                  nchar(data$ALT) == 1, ]

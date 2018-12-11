@@ -1,9 +1,10 @@
 library("seqCAT")
 context("Creation of SNV profiles")
 
-# Path
+# Paths and directories
 file1 <- system.file("extdata", "test.vcf.gz", package = "seqCAT")
 file2 <- system.file("extdata", "test.unannotated.vcf.gz", package = "seqCAT")
+file3 <- system.file("extdata", "test.gvcf.gz", package = "seqCAT")
 vcf_dir <- system.file("extdata", package = "seqCAT")
 
 # Create individual profiles
@@ -11,18 +12,21 @@ suppressMessages(create_profile(vcf_file     = file1,
                                 sample       = "sample1",
                                 output_file  = "profile_1.txt",
                                 filter_depth = 10,
+                                filter_vc    = TRUE,
                                 python       = FALSE))
 
 suppressMessages(create_profile(vcf_file     = file1,
                                 sample       = "sample2",
                                 output_file  = "profile_2.txt",
                                 filter_depth = 10,
+                                filter_vc    = TRUE,
                                 python       = FALSE))
 
 suppressMessages(create_profile(vcf_file     = file2,
                                 sample       = "sample3",
                                 output_file  = "profile_3.txt",
                                 filter_depth = 10,
+                                filter_vc    = TRUE,
                                 python       = FALSE))
 
 # Create profiles in directory
@@ -31,6 +35,7 @@ suppressMessages(create_profiles(vcf_dir      = vcf_dir,
                                  pattern      = "sample1",
                                  recursive    = FALSE,
                                  filter_depth = 10,
+                                 filter_vc    = TRUE,
                                  python       = FALSE))
 
 # Read profiles
@@ -53,12 +58,6 @@ profile_dir <- read.table(file             = "sample1.profile.txt",
                           sep              = "\t",
                           header           = TRUE,
                           stringsAsFactors = FALSE)
-
-# Remove files
-file.remove("profile_1.txt")
-file.remove("profile_2.txt")
-file.remove("profile_3.txt")
-file.remove("sample1.profile.txt")
 
 # Tests
 test_that("create_profile yields correct dimensions", {
@@ -111,3 +110,20 @@ test_that("empty calls from multi-sample VCFs are handled correctly", {
 test_that("VCFs without variant annotations are handled correctly", {
     expect_equal(nrow(profile_3), 99)
 })
+
+test_that("VCFs with <NON_REF> alleles are handled properly", {
+    expect_warning(create_profile(vcf_file     = file3,
+                                  sample       = "sample4",
+                                  output_file  = "profile_4.txt",
+                                  filter_depth = 10,
+                                  filter_vc    = FALSE,
+                                  python       = FALSE),
+                   "<NON_REF> alleles; input may be a gVCF")
+})
+
+# Remove files
+file.remove("profile_1.txt")
+file.remove("profile_2.txt")
+file.remove("profile_3.txt")
+file.remove("profile_4.txt")
+file.remove("sample1.profile.txt")

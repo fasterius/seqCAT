@@ -37,6 +37,7 @@ create_profile <- function(vcf_file,
                            sample,
                            output_file,
                            filter_depth = 10,
+                           filter_vc    = TRUE,
                            python       = FALSE) {
 
     # Choose language
@@ -48,7 +49,7 @@ create_profile <- function(vcf_file,
     } else {
 
         # Use R
-        create_profile_R(vcf_file, sample, output_file, filter_depth)
+        create_profile_R(vcf_file, sample, output_file, filter_depth, filter_vc)
 
     }
 }
@@ -91,6 +92,7 @@ create_profiles <- function(vcf_dir,
                             pattern      = NULL,
                             recursive    = FALSE,
                             filter_depth = 10,
+                            filter_vc    = TRUE,
                             python       = FALSE) {
 
     # List VCF files to create profiles for
@@ -121,6 +123,7 @@ create_profiles <- function(vcf_dir,
                                             sample,
                                             output,
                                             filter_depth,
+                                            filter_vc,
                                             python))
         }, error = function(e) {
             message("ERROR; continuing to the next sample.")
@@ -132,7 +135,8 @@ create_profiles <- function(vcf_dir,
 create_profile_R <- function(vcf_file,
                              sample,
                              output_file,
-                             filter_depth) {
+                             filter_depth,
+                             filter_vc) {
 
     # Message
     message("Reading VCF file ...")
@@ -168,8 +172,10 @@ create_profile_R <- function(vcf_file,
     # Set ALT as character
     gr$ALT <- S4Vectors::unstrsplit(IRanges::CharacterList(gr$ALT))
 
-    # Remove variants not passing variant calling filters
-    gr <- gr[gr$FILTER == "PASS", ]
+    # Remove variants not passing variant calling filters (if applicable)
+    if (filter_vc) {
+        gr <- gr[gr$FILTER == "PASS", ]
+    }
     gr$FILTER <- NULL
 
     # Remove variants below the given depth threshold

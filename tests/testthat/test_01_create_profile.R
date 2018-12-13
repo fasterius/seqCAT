@@ -11,22 +11,22 @@ vcf_dir <- system.file("extdata", package = "seqCAT")
 suppressMessages(create_profile(vcf_file     = file1,
                                 sample       = "sample1",
                                 output_file  = "profile_1.txt",
-                                filter_depth = 10,
-                                filter_vc    = TRUE,
+                                min_depth    = 10,
+                                filter       = TRUE,
                                 python       = FALSE))
 
 suppressMessages(create_profile(vcf_file     = file1,
                                 sample       = "sample2",
                                 output_file  = "profile_2.txt",
-                                filter_depth = 10,
-                                filter_vc    = TRUE,
+                                min_depth    = 10,
+                                filter       = TRUE,
                                 python       = FALSE))
 
 suppressMessages(create_profile(vcf_file     = file2,
                                 sample       = "sample3",
                                 output_file  = "profile_3.txt",
-                                filter_depth = 10,
-                                filter_vc    = TRUE,
+                                min_depth    = 10,
+                                filter       = TRUE,
                                 python       = FALSE))
 
 # Create profiles in directory
@@ -34,8 +34,8 @@ suppressMessages(create_profiles(vcf_dir      = vcf_dir,
                                  output_dir   = ".",
                                  pattern      = "sample1",
                                  recursive    = FALSE,
-                                 filter_depth = 10,
-                                 filter_vc    = TRUE,
+                                 min_depth    = 10,
+                                 filter       = TRUE,
                                  python       = FALSE))
 
 # Read profiles
@@ -115,8 +115,8 @@ test_that("VCFs with <NON_REF> alleles are handled properly", {
     expect_warning(create_profile(vcf_file     = file3,
                                   sample       = "sample4",
                                   output_file  = "profile_4.txt",
-                                  filter_depth = 10,
-                                  filter_vc    = FALSE,
+                                  min_depth    = 10,
+                                  filter       = FALSE,
                                   python       = FALSE),
                    "<NON_REF> alleles; input may be a gVCF")
 })

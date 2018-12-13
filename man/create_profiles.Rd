@@ -5,7 +5,7 @@
 \title{SNV profile creation}
 \usage{
 create_profiles(vcf_dir, output_dir = ".", pattern = NULL,
-  recursive = FALSE, filter_depth = 10, python = FALSE)
+  recursive = FALSE, min_depth = 10, filter = TRUE, python = FALSE)
 }
 \arguments{
 \item{vcf_dir}{The VCF directory from which the profiles will be created 
@@ -19,7 +19,9 @@ this pattern (character).}
 \item{recursive}{Find VCF files recursively in sub-directories as well
 (boolean).}
 
-\item{filter_depth}{Remove variants below this sequencing depth (integer).}
+\item{min_depth}{Remove variants below this sequencing depth (integer).}
+
+\item{filter}{Remove variants not passing filtering criteria (boolean).}
 
 \item{python}{Extract variants using Python instead of R (boolean).}
 }

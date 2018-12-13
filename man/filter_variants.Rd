@@ -4,12 +4,12 @@
 \alias{filter_variants}
 \title{Variant filtering}
 \usage{
-filter_variants(data, filter_depth = 10)
+filter_variants(data, min_depth = 10)
 }
 \arguments{
 \item{data}{The dataframe containing the variant data to be filtered.}
 
-\item{filter_depth}{Threshold for variant depth (integer; default 10).}
+\item{min_depth}{Threshold for variant depth (integer; default 10).}
 }
 \value{
 A data frame containing the filtered variants.
@@ -28,5 +28,5 @@ data(test_comparison)
 
 # Filter variants
 filt_1 <- filter_variants(test_comparison)
-filt_2 <- filter_variants(test_comparison, filter_depth = 20)
+filt_2 <- filter_variants(test_comparison, min_depth = 20)
 }

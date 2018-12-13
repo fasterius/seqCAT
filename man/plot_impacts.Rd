@@ -5,7 +5,8 @@
 \title{Plot SNV impact distribution}
 \usage{
 plot_impacts(comparison, legend = TRUE, annotate = TRUE,
-  annotate_size = 9, text_size = 14, palette = c("#0D2D59", "#1954A6"))
+  annotate_size = 9, text_size = 14, palette = c("#0D2D59",
+  "#1954A6"))
 }
 \arguments{
 \item{comparison}{The SNV profile comparison to be plotted.}

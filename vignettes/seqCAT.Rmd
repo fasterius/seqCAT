@@ -108,7 +108,7 @@ vcf <- system.file("extdata", "example.vcf.gz",
 
 # Create two SNV profiles
 create_profile(vcf, "HCT116", "hct116.profile.txt")
-create_profile(vcf, "RKO", "rko.profile.txt", filter_depth = 15)
+create_profile(vcf, "RKO", "rko.profile.txt", min_depth = 15)
 ```
 
 This creates SNV profiles for the two samples found in the example data
@@ -117,7 +117,10 @@ This creates SNV profiles for the two samples found in the example data
 second sample was created with a non-standard filter for sequencing depth
 (`15`), which should only be done if you want a stricter criteria for your
 profile (such as when you're only interested in higher-than-standard confidence
-variants).
+variants). You may also choose to not remove variants below the variant
+caller-specific filtering criteria by passing `filter = FALSE` when creating
+your profile, although it is recommended to do so in most cases in order to
+minimise the number of false positive variant calls.
 
 ## Create profiles faster with Python
 

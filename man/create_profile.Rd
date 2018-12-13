@@ -4,8 +4,8 @@
 \alias{create_profile}
 \title{SNV profile creation}
 \usage{
-create_profile(vcf_file, sample, output_file, filter_depth = 10,
-  python = FALSE)
+create_profile(vcf_file, sample, output_file, min_depth = 10,
+  filter = TRUE, python = FALSE)
 }
 \arguments{
 \item{vcf_file}{The VCF file from which the profile will be created (path).}
@@ -15,7 +15,9 @@ create_profile(vcf_file, sample, output_file, filter_depth = 10,
 
 \item{output_file}{The output file with the SNV profile (path).}
 
-\item{filter_depth}{Remove variants below this sequencing depth (integer).}
+\item{min_depth}{Remove variants below this sequencing depth (integer).}
+
+\item{filter}{Remove variants not passing filtering criteria (boolean).}
 
 \item{python}{Extract variants using Python instead of R (boolean).}
 }
@@ -42,7 +44,7 @@ vcf_file = system.file("extdata", "test.vcf.gz", package = "seqCAT")
 # Create SNV profiles
 \dontrun{
  create_profile(vcf_file, "sample1", "profile1.txt")
- create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
+ create_profile(vcf_file, "sample1", "profile1.txt", min_depth = 15)
  create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
 }
 }

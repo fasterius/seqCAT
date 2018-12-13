@@ -5,7 +5,8 @@
 \title{Plot known variants list}
 \usage{
 plot_variant_list(variant_list, legend = TRUE, legend_size = 22,
-  text_size = 14, palette = c("#4e8ce4", "#a6c6f2", "#999999", "#cccccc"))
+  text_size = 14, palette = c("#4e8ce4", "#a6c6f2", "#999999",
+  "#cccccc"))
 }
 \arguments{
 \item{variant_list}{The data containing the variants (dataframe)}

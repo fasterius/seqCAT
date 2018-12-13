@@ -18,7 +18,8 @@
 #' @param sample The sample in the VCF for which a profile will be created
 #'  (character).
 #' @param output_file The output file with the SNV profile (path).
-#' @param filter_depth Remove variants below this sequencing depth (integer).
+#' @param min_depth Remove variants below this sequencing depth (integer).
+#' @param filter Remove variants not passing filtering criteria (boolean).
 #' @param python Extract variants using Python instead of R (boolean).
 #' @return Does not return any data object, but outputs results to output_file
 #'  (to save computational time from having to repeatedly create profiles).
@@ -30,26 +31,26 @@
 #' # Create SNV profiles
 #' \dontrun{
 #'  create_profile(vcf_file, "sample1", "profile1.txt")
-#'  create_profile(vcf_file, "sample1", "profile1.txt", filter_depth = 15)
+#'  create_profile(vcf_file, "sample1", "profile1.txt", min_depth = 15)
 #'  create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
 #' }
 create_profile <- function(vcf_file,
                            sample,
                            output_file,
-                           filter_depth = 10,
-                           filter_vc    = TRUE,
+                           min_depth    = 10,
+                           filter       = TRUE,
                            python       = FALSE) {
 
     # Choose language
     if (python) {
 
         # Use Python
-        create_profile_python(vcf_file, sample, output_file, filter_depth)
+        create_profile_python(vcf_file, sample, output_file, min_depth)
 
     } else {
 
         # Use R
-        create_profile_R(vcf_file, sample, output_file, filter_depth, filter_vc)
+        create_profile_R(vcf_file, sample, output_file, min_depth, filter)
 
     }
 }
@@ -72,7 +73,8 @@ create_profile <- function(vcf_file,
 #'  this pattern (character).
 #' @param recursive Find VCF files recursively in sub-directories as well
 #'  (boolean).
-#' @param filter_depth Remove variants below this sequencing depth (integer).
+#' @param min_depth Remove variants below this sequencing depth (integer).
+#' @param filter Remove variants not passing filtering criteria (boolean).
 #' @param python Extract variants using Python instead of R (boolean).
 #' @return Does not return any data object, but outputs results to output_dir
 #'  (to save computational time from having to repeatedly create profiles).
@@ -91,8 +93,8 @@ create_profiles <- function(vcf_dir,
                             output_dir   = ".",
                             pattern      = NULL,
                             recursive    = FALSE,
-                            filter_depth = 10,
-                            filter_vc    = TRUE,
+                            min_depth    = 10,
+                            filter       = TRUE,
                             python       = FALSE) {
 
     # List VCF files to create profiles for
@@ -122,8 +124,8 @@ create_profiles <- function(vcf_dir,
             suppressMessages(create_profile(vcf,
                                             sample,
                                             output,
-                                            filter_depth,
-                                            filter_vc,
+                                            min_depth,
+                                            filter,
                                             python))
         }, error = function(e) {
             message("ERROR; continuing to the next sample.")
@@ -135,8 +137,8 @@ create_profiles <- function(vcf_dir,
 create_profile_R <- function(vcf_file,
                              sample,
                              output_file,
-                             filter_depth,
-                             filter_vc) {
+                             min_depth,
+                             filter) {
 
     # Message
     message("Reading VCF file ...")
@@ -173,13 +175,13 @@ create_profile_R <- function(vcf_file,
     gr$ALT <- S4Vectors::unstrsplit(IRanges::CharacterList(gr$ALT))
 
     # Remove variants not passing variant calling filters (if applicable)
-    if (filter_vc) {
+    if (filter) {
         gr <- gr[gr$FILTER == "PASS", ]
     }
     gr$FILTER <- NULL
 
     # Remove variants below the given depth threshold
-    gr <- gr[gr$DP >= filter_depth & !is.na(gr$DP), ]
+    gr <- gr[gr$DP >= min_depth & !is.na(gr$DP), ]
 
     # Convert to data frame
     data <- GenomicRanges::as.data.frame(gr)
@@ -386,7 +388,7 @@ filter_annotations <- function(data) {
 create_profile_python <- function(vcf_file,
                                   sample,
                                   output_file,
-                                  filter_depth = 10) {
+                                  min_depth = 10) {
 
     # Message
     message("Creating SNV profile with Python ...")
@@ -401,7 +403,7 @@ create_profile_python <- function(vcf_file,
                                    args    = c(vcf_file,
                                                sample,
                                                output_file,
-                                               "-f", filter_depth)))
+                                               "-f", min_depth)))
         )
 
     # Catch Python errors and print to user

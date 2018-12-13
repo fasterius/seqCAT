@@ -1,3 +1,13 @@
+Version 1.6.0
+-------------
+
+FEATURES:
+
+    o Make the variant caller-specific filtering optional (on by default) and
+      rename the relevant parameter names for increased clarity
+    o Add a check to look for gVCF files as input, including the existance of
+      <NON_REF> alleles (common for gVCF files)
+
 Version 1.4.0
 -------------
 

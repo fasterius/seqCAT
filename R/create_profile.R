@@ -176,6 +176,14 @@ create_profile_R <- function(vcf_file,
 
     # Remove variants not passing variant calling filters (if applicable)
     if (filter) {
+
+        # Stop execution if FILTER is empty
+        if (nrow(gr) == nrow(gr[gr$FILTER == ".", ]) {
+            stop(paste("VCF contains no FILTER data; please filter the VCF",
+                       "or set `filter = FALSE` to ignore variant filtration"))
+        }
+
+        # Filter the data
         gr <- gr[gr$FILTER == "PASS", ]
     }
     gr$FILTER <- NULL

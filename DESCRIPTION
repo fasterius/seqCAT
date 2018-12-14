@@ -8,7 +8,7 @@ Description: The seqCAT package uses variant calling data (in the
     authenticate and validate the source, function and characteristics of
     biological samples used in scientific endeavours.
 Depends:
-    R (>= 3.5),
+    R (>= 3.6),
     GenomicRanges (>= 1.26.4),
     VariantAnnotation(>= 1.20.3)
 Imports:

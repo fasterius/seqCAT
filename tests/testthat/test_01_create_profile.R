@@ -111,6 +111,16 @@ test_that("VCFs without variant annotations are handled correctly", {
     expect_equal(nrow(profile_3), 99)
 })
 
+test_that("VCFs without FILTER data are handled correctly", {
+    expect_error(create_profile(vcf_file     = file3,
+                                sample       = "sample4",
+                                output_file  = "profile_4.txt",
+                                min_depth    = 10,
+                                filter       = TRUE,
+                                python       = FALSE),
+                 "VCF contains no FILTER data; please")
+})
+
 test_that("VCFs with <NON_REF> alleles are handled properly", {
     expect_warning(create_profile(vcf_file     = file3,
                                   sample       = "sample4",

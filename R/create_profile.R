@@ -166,6 +166,13 @@ create_profile_R <- function(vcf_file,
     gr$AD <- as.data.frame(VariantAnnotation::geno(vcf)$AD)[[sample]]
     gr$GT <- as.data.frame(VariantAnnotation::geno(vcf)$GT)[[sample]]
 
+    # Stop execution if DP, AD or GT is empty
+    for (metacol in c("DP", "AD", "GT")) {
+        if (all(is.na(S4Vectors::mcols(gr)[[metacol]]))) {
+            stop(paste("VCF contains no", metacol, "data"))
+        }
+    }
+
     # Add annotations, if present
     if (annotations) {
         gr$ANN <- VariantAnnotation::info(vcf)$ANN
@@ -178,7 +185,7 @@ create_profile_R <- function(vcf_file,
     if (filter) {
 
         # Stop execution if FILTER is empty
-        if (nrow(gr) == nrow(gr[gr$FILTER == ".", ]) {
+        if (length(gr) == length(gr[gr$FILTER == ".", ])) {
             stop(paste("VCF contains no FILTER data; please filter the VCF",
                        "or set `filter = FALSE` to ignore variant filtration"))
         }

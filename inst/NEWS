@@ -7,6 +7,7 @@ FEATURES:
       rename the relevant parameter names for increased clarity
     o Add a check to look for gVCF files as input, including the existance of
       <NON_REF> alleles (common for gVCF files)
+    o Add checks to see if input VCFs correctly contain DP, AD and GT data
 
 Version 1.4.0
 -------------

@@ -55,7 +55,7 @@ plot_impacts <- function(comparison,
 
     # Calculate impact distribution
     data <- dplyr::group_by_(comparison, "match", "impact")
-    data <- dplyr::summarise_(data, count = ~n())
+    data <- dplyr::summarise_(data, count = ~dplyr::n())
     data <- dplyr::mutate_(data, .dots = stats::setNames(
         lazyeval::interp("count / sum(count) * 100"), "prop"))
     data <- dplyr::ungroup(data)

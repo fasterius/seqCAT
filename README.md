@@ -19,8 +19,7 @@ the [Genome Analysis ToolKit][8] and annotated with software such as
 install the latest, stable version from Bioconductor like so:
 
 ```r
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
+# install.packages("BiocManager")
 BiocManager::install("seqCAT")
 ```
 

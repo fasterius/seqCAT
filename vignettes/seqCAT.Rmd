@@ -2,7 +2,7 @@
 title: "seqCAT: The High Throughput Sequencing Cell Authentication Toolkit"
 author: "Erik Fasterius"
 date: "`r Sys.Date()`"
-package: "`r pkg_ver('seqCAT')`"
+package: "`r BiocStyle::pkg_ver('seqCAT')`"
 output:
     BiocStyle::html_document:
         toc_float: true

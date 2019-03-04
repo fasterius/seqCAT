@@ -1,7 +1,11 @@
 language: r
 cache: packages
+
 r: bioc-devel
+bioc_check: true
+
 r_check_args: --no-build-vignettes
+
 r_github_packages:
   - jimhester/covr
 after_success:

@@ -3,10 +3,8 @@
 #' @description Create an SNV profile from data in a VCF file.
 #'
 #' @details This function creates a SNV profile from a given VCF file by
-#' extracting the variants that pass the filtering criterias. It can either be
-#' performed using R, or by the create_profile.py function included (which
-#' requires that Python  is installed, along with the PyVCF package). Profile
-#' creation is performed to facilitate and accelerate the cell authentication
+#' extracting the variants that pass the filtering criterias. Profile creation
+#' is performed to facilitate and accelerate the cell authentication
 #' procedures, which is especially relevant when more than one pairwise
 #' comparison will be performed on the same sample.
 #'
@@ -20,7 +18,6 @@
 #' @param output_file The output file with the SNV profile (path).
 #' @param min_depth Remove variants below this sequencing depth (integer).
 #' @param filter Remove variants not passing filtering criteria (boolean).
-#' @param python Extract variants using Python instead of R (boolean).
 #' @return Does not return any data object, but outputs results to output_file
 #'  (to save computational time from having to repeatedly create profiles).
 #'
@@ -32,113 +29,14 @@
 #' \dontrun{
 #'  create_profile(vcf_file, "sample1", "profile1.txt")
 #'  create_profile(vcf_file, "sample1", "profile1.txt", min_depth = 15)
-#'  create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
 #' }
+
+# Function for creating profiles with R
 create_profile <- function(vcf_file,
                            sample,
                            output_file,
-                           min_depth    = 10,
-                           filter       = TRUE,
-                           python       = FALSE) {
-
-    # Choose language
-    if (python) {
-
-        # Use Python
-        create_profile_python(vcf_file, sample, output_file, min_depth)
-
-    } else {
-
-        # Use R
-        create_profile_R(vcf_file, sample, output_file, min_depth, filter)
-
-    }
-}
-
-#' @title SNV profile creation
-#'
-#' @description Create SNV profiles from all VCF files in a directory
-#'
-#' @details This functions is a convenience-wrapper for the `create_profile`
-#' function, which will create SNV profiles for each and every VCF file in the
-#' provided directory. The file naming scheme used is `<sample>.vcf` and will
-#' dictate the output profile filenames.
-#'
-#' @export
-#' @rdname create_profiles
-#' @param vcf_dir The VCF directory from which the profiles will be created 
-#'  (path).
-#' @param output_dir The output directory to put the SNV profiles in (path).
-#' @param pattern Only create profiles for a subset of files corresponding to
-#'  this pattern (character).
-#' @param recursive Find VCF files recursively in sub-directories as well
-#'  (boolean).
-#' @param min_depth Remove variants below this sequencing depth (integer).
-#' @param filter Remove variants not passing filtering criteria (boolean).
-#' @param python Extract variants using Python instead of R (boolean).
-#' @return Does not return any data object, but outputs results to output_dir
-#'  (to save computational time from having to repeatedly create profiles).
-#'
-#' @examples
-#' # Path to the test VCF directory
-#' vcf_dir = system.file("extdata", package = "seqCAT")
-#'
-#' # Create SNV profiles
-#' \dontrun{
-#'  create_profiles(vcf_dir, output_dir = "profiles")
-#'  create_profiles(vcf_dir, output_dir = "profiles", pattern = "test")
-#'  create_profiles(vcf_dir, output_dir = "profiles", recursive = TRUE)
-#' }
-create_profiles <- function(vcf_dir,
-                            output_dir   = ".",
-                            pattern      = NULL,
-                            recursive    = FALSE,
-                            min_depth    = 10,
-                            filter       = TRUE,
-                            python       = FALSE) {
-
-    # List VCF files to create profiles for
-    files <- list.files(path       = vcf_dir,
-                        full.names = TRUE,
-                        pattern    = pattern,
-                        recursive  = recursive)
-
-    # Get only VCF files
-    vcf_files <- grep(".vcf", files, value = TRUE)
-    
-    # Create SNV profiles for each VCF file
-    for (vcf in vcf_files) {
-
-        # Get current sample
-        sample <- strsplit(vcf, "/")[[1]]
-        len <- length(sample)
-        sample <- strsplit(sample[len], "\\.")[[1]][1]
-
-        # Set current output
-        output <- paste0(output_dir, "/", sample, ".profile.txt")
-
-        # Create profile for current input file
-        message("Creating profile for sample ", sample, " in VCF file ",
-                vcf, " ...")
-        tryCatch({
-            suppressMessages(create_profile(vcf,
-                                            sample,
-                                            output,
-                                            min_depth,
-                                            filter,
-                                            python))
-        }, error = function(e) {
-            message("ERROR; continuing to the next sample.")
-        })
-    }
-}
-
-# Function for creating profiles with R
-create_profile_R <- function(vcf_file,
-                             sample,
-                             output_file,
-                             min_depth,
-                             filter) {
+                           min_depth = 10,
+                           filter    = TRUE) {
 
     # Message
     message("Reading VCF file ...")
@@ -399,36 +297,77 @@ filter_annotations <- function(data) {
     return(data)
 }
 
-# Function for creating profiles with Python
-create_profile_python <- function(vcf_file,
-                                  sample,
-                                  output_file,
-                                  min_depth = 10) {
+#' @title SNV profile creation
+#'
+#' @description Create SNV profiles from all VCF files in a directory
+#'
+#' @details This functions is a convenience-wrapper for the `create_profile`
+#' function, which will create SNV profiles for each and every VCF file in the
+#' provided directory. The file naming scheme used is `<sample>.vcf` and will
+#' dictate the output profile filenames.
+#'
+#' @export
+#' @rdname create_profiles
+#' @param vcf_dir The VCF directory from which the profiles will be created
+#'  (path).
+#' @param output_dir The output directory to put the SNV profiles in (path).
+#' @param pattern Only create profiles for a subset of files corresponding to
+#'  this pattern (character).
+#' @param recursive Find VCF files recursively in sub-directories as well
+#'  (boolean).
+#' @param min_depth Remove variants below this sequencing depth (integer).
+#' @param filter Remove variants not passing filtering criteria (boolean).
+#' @return Does not return any data object, but outputs results to output_dir
+#'  (to save computational time from having to repeatedly create profiles).
+#'
+#' @examples
+#' # Path to the test VCF directory
+#' vcf_dir = system.file("extdata", package = "seqCAT")
+#'
+#' # Create SNV profiles
+#' \dontrun{
+#'  create_profiles(vcf_dir, output_dir = "profiles")
+#'  create_profiles(vcf_dir, output_dir = "profiles", pattern = "test")
+#'  create_profiles(vcf_dir, output_dir = "profiles", recursive = TRUE)
+#' }
+create_profiles <- function(vcf_dir,
+                            output_dir   = ".",
+                            pattern      = NULL,
+                            recursive    = FALSE,
+                            min_depth    = 10,
+                            filter       = TRUE) {
 
-    # Message
-    message("Creating SNV profile with Python ...")
+    # List VCF files to create profiles for
+    files <- list.files(path       = vcf_dir,
+                        full.names = TRUE,
+                        pattern    = pattern,
+                        recursive  = recursive)
 
-    # Python script
-    command <- system.file("python/create_profile.py", package = "seqCAT")
+    # Get only VCF files
+    vcf_files <- grep(".vcf", files, value = TRUE)
 
-    # Run Python code
-    out <- suppressWarnings(
-        try(silent = TRUE, system2(command = command,
-                                   stderr  = TRUE,
-                                   args    = c(vcf_file,
-                                               sample,
-                                               output_file,
-                                               "-f", min_depth)))
-        )
+    # Create SNV profiles for each VCF file
+    for (vcf in vcf_files) {
 
-    # Catch Python errors and print to user
-    if (length(out) > 0) {
-        message("The Python script produced an ERROR; please make sure that ",
-                "Python and the PyVCF module are installed.")
-        message("Original error message:")
-        write(out[seq_len(out)], file = "")
-    } else {
-        message("Created and stored SNV profile for \"", sample, "\" in [",
-                output_file, "].")
+        # Get current sample
+        sample <- strsplit(vcf, "/")[[1]]
+        len <- length(sample)
+        sample <- strsplit(sample[len], "\\.")[[1]][1]
+
+        # Set current output
+        output <- paste0(output_dir, "/", sample, ".profile.txt")
+
+        # Create profile for current input file
+        message("Creating profile for sample ", sample, " in VCF file ",
+                vcf, " ...")
+        tryCatch({
+            suppressMessages(create_profile(vcf,
+                                            sample,
+                                            output,
+                                            min_depth,
+                                            filter))
+        }, error = function(e) {
+            message("ERROR; continuing to the next sample.")
+        })
     }
 }

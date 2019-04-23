@@ -12,22 +12,19 @@ suppressMessages(create_profile(vcf_file     = file1,
                                 sample       = "sample1",
                                 output_file  = "profile_1.txt",
                                 min_depth    = 10,
-                                filter       = TRUE,
-                                python       = FALSE))
+                                filter       = TRUE))
 
 suppressMessages(create_profile(vcf_file     = file1,
                                 sample       = "sample2",
                                 output_file  = "profile_2.txt",
                                 min_depth    = 10,
-                                filter       = TRUE,
-                                python       = FALSE))
+                                filter       = TRUE))
 
 suppressMessages(create_profile(vcf_file     = file2,
                                 sample       = "sample3",
                                 output_file  = "profile_3.txt",
                                 min_depth    = 10,
-                                filter       = TRUE,
-                                python       = FALSE))
+                                filter       = TRUE))
 
 # Create profiles in directory
 suppressMessages(create_profiles(vcf_dir      = vcf_dir,
@@ -35,8 +32,7 @@ suppressMessages(create_profiles(vcf_dir      = vcf_dir,
                                  pattern      = "sample1",
                                  recursive    = FALSE,
                                  min_depth    = 10,
-                                 filter       = TRUE,
-                                 python       = FALSE))
+                                 filter       = TRUE))
 
 # Read profiles
 profile_1 <- read.table(file             = "profile_1.txt",
@@ -116,8 +112,7 @@ test_that("VCFs without FILTER data are handled correctly", {
                                 sample       = "sample4",
                                 output_file  = "profile_4.txt",
                                 min_depth    = 10,
-                                filter       = TRUE,
-                                python       = FALSE),
+                                filter       = TRUE),
                  "VCF contains no FILTER data; please")
 })
 
@@ -126,8 +121,7 @@ test_that("VCFs with <NON_REF> alleles are handled properly", {
                                   sample       = "sample4",
                                   output_file  = "profile_4.txt",
                                   min_depth    = 10,
-                                  filter       = FALSE,
-                                  python       = FALSE),
+                                  filter       = FALSE),
                    "<NON_REF> alleles; input may be a gVCF")
 })
 

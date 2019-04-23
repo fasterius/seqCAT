@@ -84,12 +84,9 @@ The creation of a SNV profile includes filtering of low-confidence
 variants and removal of variants below a sequencing depth threshold (`10` by
 default). For annotated VCF files, only records with the highest SNV impact
 (*i.e.* [impact][] on protein function) for each variant is kept, as they are
-most likely to affect the biology of the cells. Creation of annotated SNV
-profiles is also implemented in Python ([section 2.2][Create profiles faster
-with Python]), which is faster than the standard implementation in R ([section
-2.1][Create profiles with R]).
+most likely to affect the biology of the cells.
 
-## Create profiles with R
+## Create individual profiles
 
 Throughout this vignette we will be using some example data, `example.vcf.gz`,
 which comes from the initial publication of the general process of this method
@@ -103,8 +100,7 @@ keep the file size low) for three different colorectal cancer cell lines:
 library("seqCAT")
 
 # List the example VCF file
-vcf <- system.file("extdata", "example.vcf.gz",
-                   package = "seqCAT")
+vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 
 # Create two SNV profiles
 create_profile(vcf, "HCT116", "hct116.profile.txt")
@@ -121,20 +117,6 @@ variants). You may also choose to not remove variants below the variant
 caller-specific filtering criteria by passing `filter = FALSE` when creating
 your profile, although it is recommended to do so in most cases in order to
 minimise the number of false positive variant calls.
-
-## Create profiles faster with Python
-
-Annotated SNV profiles can also be created with [Python][python-home], another
-scripting language, if you have installed it. You will also need to install the
-[PyVCF][pyvcf] module, in order for it to run. The `Python` version can create
-SNV profiles approximately five to ten times quicker than its `R` equivalent
-for annotated VCF files. This is not important for most users, but is
-nevertheless included for cases with many annotated VCF files where extra speed
-is desirable.
-
-```{r Create SNV profile with Python, eval = FALSE}
-create_profile(vcf, "RKO", "RKO.profile.txt", python = TRUE)
-```
 
 ## Create multiple profiles
 
@@ -635,7 +617,5 @@ sessionInfo()
 [github]: https://github.com/fasterius/seqCAT
 
 [impact]: http://snpeff.sourceforge.net/SnpEff_manual.html#eff
-[python-home]: https://www.python.org/
-[pyvcf]: https://pypi.python.org/pypi/PyVCF
 [snpeff]: http://snpeff.sourceforge.net/
 [vcf-format]: https://software.broadinstitute.org/gatk/

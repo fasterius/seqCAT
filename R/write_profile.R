@@ -28,5 +28,5 @@ write_profile <- function(profile,
                        quote     = FALSE)
 
     # Output message
-    message("Stored SNV profile in [", file, "].")
+    message("Stored SNV profile in ", file, ".")
 }

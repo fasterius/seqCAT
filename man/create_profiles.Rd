@@ -15,6 +15,8 @@ create_profiles(vcf_dir, min_depth = 10, filter = TRUE,
 
 \item{filter}{Remove variants not passing filtering criteria (boolean).}
 
+\item{remove_mt}{Remove mitochondrial variants (boolean).}
+
 \item{pattern}{Only create profiles for a subset of files corresponding to
 this pattern (character).}
 
@@ -38,6 +40,5 @@ dictate the each profile's sample name.
 vcf_dir = system.file("extdata", package = "seqCAT")
 
 # Create SNV profiles
-profiles <- create_profiles(vcf_dir, output_dir = "profiles",
-                            pattern = "test", recursive = TRUE)
+profiles <- create_profiles(vcf_dir, pattern = "test", recursive = TRUE)
 }

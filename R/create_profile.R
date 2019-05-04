@@ -331,6 +331,7 @@ filter_annotations <- function(data) {
 #'  (path).
 #' @param min_depth Remove variants below this sequencing depth (integer).
 #' @param filter Remove variants not passing filtering criteria (boolean).
+#' @param remove_mt Remove mitochondrial variants (boolean).
 #' @param pattern Only create profiles for a subset of files corresponding to
 #'  this pattern (character).
 #' @param recursive Find VCF files recursively in sub-directories as well
@@ -342,8 +343,7 @@ filter_annotations <- function(data) {
 #' vcf_dir = system.file("extdata", package = "seqCAT")
 #'
 #' # Create SNV profiles
-#' profiles <- create_profiles(vcf_dir, output_dir = "profiles",
-#'                             pattern = "test", recursive = TRUE)
+#' profiles <- create_profiles(vcf_dir, pattern = "test", recursive = TRUE)
 create_profiles <- function(vcf_dir,
                             min_depth = 10,
                             filter    = TRUE,

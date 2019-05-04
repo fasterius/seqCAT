@@ -8,58 +8,37 @@ file3 <- system.file("extdata", "test.gvcf.gz", package = "seqCAT")
 vcf_dir <- system.file("extdata", package = "seqCAT")
 
 # Create individual profiles
-suppressMessages(create_profile(vcf_file     = file1,
-                                sample       = "sample1",
-                                output_file  = "profile_1.txt",
-                                min_depth    = 10,
-                                filter       = TRUE))
+profile_1 <- suppressMessages(create_profile(vcf_file  = file1,
+                                             sample    = "sample1",
+                                             min_depth = 10,
+                                             filter    = TRUE,
+                                             remove_mt = FALSE))
 
-suppressMessages(create_profile(vcf_file     = file1,
-                                sample       = "sample2",
-                                output_file  = "profile_2.txt",
-                                min_depth    = 10,
-                                filter       = TRUE))
+profile_2 <- suppressMessages(create_profile(vcf_file  = file1,
+                                             sample    = "sample2",
+                                             min_depth = 10,
+                                             filter    = TRUE,
+                                             remove_mt = FALSE))
 
-suppressMessages(create_profile(vcf_file     = file2,
-                                sample       = "sample3",
-                                output_file  = "profile_3.txt",
-                                min_depth    = 10,
-                                filter       = TRUE))
+profile_3 <- suppressMessages(create_profile(vcf_file  = file2,
+                                             sample    = "sample3",
+                                             min_depth = 10,
+                                             filter    = TRUE,
+                                             remove_mt = FALSE))
 
 # Create profiles in directory
-suppressMessages(create_profiles(vcf_dir      = vcf_dir,
-                                 output_dir   = ".",
-                                 pattern      = "sample1",
-                                 recursive    = FALSE,
-                                 min_depth    = 10,
-                                 filter       = TRUE))
-
-# Read profiles
-profile_1 <- read.table(file             = "profile_1.txt",
-                        sep              = "\t",
-                        header           = TRUE,
-                        stringsAsFactors = FALSE)
-
-profile_2 <- read.table(file             = "profile_2.txt",
-                        sep              = "\t",
-                        header           = TRUE,
-                        stringsAsFactors = FALSE)
-
-profile_3 <- read.table(file             = "profile_3.txt",
-                        sep              = "\t",
-                        header           = TRUE,
-                        stringsAsFactors = FALSE)
-
-profile_dir <- read.table(file             = "sample1.profile.txt",
-                          sep              = "\t",
-                          header           = TRUE,
-                          stringsAsFactors = FALSE)
+profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
+                                                pattern   = "sample1",
+                                                recursive = FALSE,
+                                                min_depth = 10,
+                                                filter    = TRUE,
+                                                remove_mt = FALSE))[[1]]
 
 # Tests
 test_that("create_profile yields correct dimensions", {
-    expect_equal(dim(profile_1), c(428, 18))
-    expect_equal(dim(profile_2), c(428, 18))
-    expect_equal(dim(profile_dir), c(428, 18))
+    expect_equal(dim(profile_1), c(377, 19))
+    expect_equal(dim(profile_2), c(375, 19))
+    expect_equal(dim(profile_dir), c(377, 19))
 })
 
 test_that("only variants passing the depth threshold are extracted", {
@@ -87,20 +66,20 @@ test_that("the correct variants across impact categories are extracted", {
     expect_equal(nrow(profile_1[profile_1$impact == "HIGH", ]), 1)
     expect_equal(nrow(profile_2[profile_2$impact == "HIGH", ]), 0)
     expect_equal(nrow(profile_dir[profile_dir$impact == "HIGH", ]), 1)
-    expect_equal(nrow(profile_1[profile_1$impact == "MODERATE", ]), 4)
-    expect_equal(nrow(profile_2[profile_2$impact == "MODERATE", ]), 4)
-    expect_equal(nrow(profile_dir[profile_dir$impact == "MODERATE", ]), 4)
+    expect_equal(nrow(profile_1[profile_1$impact == "MODERATE", ]), 1)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODERATE", ]), 1)
+    expect_equal(nrow(profile_dir[profile_dir$impact == "MODERATE", ]), 1)
     expect_equal(nrow(profile_1[profile_1$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_2[profile_2$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_dir[profile_dir$impact == "LOW", ]), 0)
-    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 423)
-    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 424)
-    expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 423)
+    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 375)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 374)
+    expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 375)
 })
 
 test_that("empty calls from multi-sample VCFs are handled correctly", {
     expect_equal(nrow(profile_1[profile_1$rsID == "rs182017058", ]), 0)
-    expect_equal(nrow(profile_2[profile_2$rsID == "rs182017058", ]), 3)
+    expect_equal(nrow(profile_2[profile_2$rsID == "rs182017058", ]), 1)
 })
 
 test_that("VCFs without variant annotations are handled correctly", {
@@ -110,7 +89,6 @@ test_that("VCFs without variant annotations are handled correctly", {
 test_that("VCFs without FILTER data are handled correctly", {
     expect_error(create_profile(vcf_file     = file3,
                                 sample       = "sample4",
-                                output_file  = "profile_4.txt",
                                 min_depth    = 10,
                                 filter       = TRUE),
                  "VCF contains no FILTER data; please")
@@ -119,15 +97,7 @@ test_that("VCFs without FILTER data are handled correctly", {
 test_that("VCFs with <NON_REF> alleles are handled properly", {
     expect_warning(create_profile(vcf_file     = file3,
                                   sample       = "sample4",
-                                  output_file  = "profile_4.txt",
                                   min_depth    = 10,
                                   filter       = FALSE),
                    "<NON_REF> alleles; input may be a gVCF")
 })
-
-# Remove files
-file.remove("profile_1.txt")
-file.remove("profile_2.txt")
-file.remove("profile_3.txt")
-file.remove("profile_4.txt")
-file.remove("sample1.profile.txt")

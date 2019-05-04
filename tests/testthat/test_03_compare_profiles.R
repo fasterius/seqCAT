@@ -24,7 +24,7 @@ zero_2 <- suppressMessages(compare_profiles(test_profile_1, test_profile_4))
 
 # Tests
 test_that("correct number of variants overlap", {
-    expect_equal(nrow(union_1), 53)
+    expect_equal(nrow(union_1), 55)
     expect_equal(nrow(intersect), 51)
     expect_error(compare_profiles(test_profile_1, test_profile_2, mode = ""),
                  "`mode` must be either*")
@@ -36,8 +36,8 @@ test_that("correct number of matches and mismatches are found", {
 })
 
 test_that("correct number of non-overlapping union variants are found", {
-    expect_equal(nrow(union_1[union_1$match == "sample1_only", ]), 2)
-    expect_equal(nrow(union_2[union_2$match == "sample1_only", ]), 2)
+    expect_equal(nrow(union_1[union_1$match == "sample1_only", ]), 3)
+    expect_equal(nrow(union_2[union_2$match == "sample1_only", ]), 3)
 })
 
 test_that("comparisons without annotations are handled correctly", {

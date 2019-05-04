@@ -4,28 +4,25 @@
 \alias{create_profiles}
 \title{SNV profile creation}
 \usage{
-create_profiles(vcf_dir, output_dir = ".", pattern = NULL,
-  recursive = FALSE, min_depth = 10, filter = TRUE)
+create_profiles(vcf_dir, min_depth = 10, filter = TRUE,
+  remove_mt = TRUE, pattern = NULL, recursive = FALSE)
 }
 \arguments{
 \item{vcf_dir}{The VCF directory from which the profiles will be created
 (path).}
 
-\item{output_dir}{The output directory to put the SNV profiles in (path).}
+\item{min_depth}{Remove variants below this sequencing depth (integer).}
+
+\item{filter}{Remove variants not passing filtering criteria (boolean).}
 
 \item{pattern}{Only create profiles for a subset of files corresponding to
 this pattern (character).}
 
 \item{recursive}{Find VCF files recursively in sub-directories as well
 (boolean).}
-
-\item{min_depth}{Remove variants below this sequencing depth (integer).}
-
-\item{filter}{Remove variants not passing filtering criteria (boolean).}
 }
 \value{
-Does not return any data object, but outputs results to output_dir
- (to save computational time from having to repeatedly create profiles).
+A list of data frames.
 }
 \description{
 Create SNV profiles from all VCF files in a directory
@@ -34,16 +31,13 @@ Create SNV profiles from all VCF files in a directory
 This functions is a convenience-wrapper for the `create_profile`
 function, which will create SNV profiles for each and every VCF file in the
 provided directory. The file naming scheme used is `<sample>.vcf` and will
-dictate the output profile filenames.
+dictate the each profile's sample name.
 }
 \examples{
 # Path to the test VCF directory
 vcf_dir = system.file("extdata", package = "seqCAT")
 
 # Create SNV profiles
-\dontrun{
- create_profiles(vcf_dir, output_dir = "profiles")
- create_profiles(vcf_dir, output_dir = "profiles", pattern = "test")
- create_profiles(vcf_dir, output_dir = "profiles", recursive = TRUE)
-}
+profiles <- create_profiles(vcf_dir, output_dir = "profiles",
+                            pattern = "test", recursive = TRUE)
 }

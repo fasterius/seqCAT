@@ -4,25 +4,20 @@
 \alias{read_profile}
 \title{Read SNV profile}
 \usage{
-read_profile(file, sample_name, remove_mt = TRUE)
+read_profile(file)
 }
 \arguments{
 \item{file}{The SNV profile to be read (path).}
-
-\item{sample_name}{The sample of the SNV profile (character).}
-
-\item{remove_mt}{Remove or keep mitochondrial variants (boolean).}
 }
 \value{
-A GRanges object.
+A data frame.
 }
 \description{
-Read an SNV profile for use in downstream comparisons.
+Read an SNV profile stored on disk.
 }
 \details{
 This is a function for reading SNV profiles created from VCF
-files.  The data is returned as a GenomicRanges object, suitable for merging
-of metadata.
+files that were stored on disk.
 }
 \examples{
 # Path to test data
@@ -31,6 +26,5 @@ profile = system.file("extdata",
                       package = "seqCAT")
 
 # Read test profile
-profile_1 <- read_profile(profile, "sample1")
-profile_1 <- read_profile(profile, "sample1", remove_mt = FALSE)
+profile <- read_profile(profile)
 }

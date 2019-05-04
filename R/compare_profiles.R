@@ -36,6 +36,10 @@ compare_profiles <- function(profile_1,
     # Message
     message("Comparing ", sample_1, " and ", sample_2, " ...")
 
+    # Convert data frames to GenomicRanges (if applicable)
+    profile_1 <- convert_to_gr(profile_1)
+    profile_2 <- convert_to_gr(profile_2)
+
     # Find the overlaps of all ranges in both objects
     if (tolower(mode) == "union") {
         data_gr <- S4Vectors::union(profile_1, profile_2)
@@ -63,6 +67,35 @@ compare_profiles <- function(profile_1,
 
     # Return the final data frame
     return(data)
+}
+
+# Function for converting data frames to GRanges objects
+convert_to_gr <- function(profile) {
+
+    # Check if input profile is a data frame
+    if (class(profile) == "data.frame") {
+
+        # Convert to GRanges object
+        profile_gr <- GenomicRanges::makeGRangesFromDataFrame(profile,
+            keep.extra.columns      = TRUE,
+            ignore.strand           = TRUE,
+            seqinfo                 = NULL,
+            seqnames.field          = "chr",
+            start.field             = "pos",
+            end.field               = "pos",
+            starts.in.df.are.0based = FALSE)
+
+        # Rename and remove seqlevels
+        GenomeInfoDb::seqlevels(profile_gr) <-
+            gsub("chr", "", GenomeInfoDb::seqlevels(profile_gr))
+        profile_gr <- GenomeInfoDb::keepStandardChromosomes(profile_gr,
+                                                            pruning.mode = "coarse")
+    } else {
+        profile_gr <- profile
+    }
+
+    # Return GRanges object
+    return(profile_gr)
 }
 
 # Function for adding metadata from a GRanges <subject> to a GRanges <query>,

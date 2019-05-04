@@ -35,6 +35,11 @@ compare_many <- function(many,
                          a    = 1,
                          b    = 5) {
 
+    # Convert `many` to list of GRanges objects
+    for (nn in length(many)) {
+        many[[nn]] <- convert_to_gr(many[[nn]])
+    }
+
     # Initialise objects to be returned
     similarities <- data.frame(sample_1         = character(),
                                sample_2         = character(),
@@ -49,6 +54,9 @@ compare_many <- function(many,
 
     # One-to-many comparisons
     if (!is.null(one)) {
+
+        # Convert `one` to GRanges object
+        one <- convert_to_gr(one)
 
         # Find sample for one
         sample_one <- unique(one$sample)

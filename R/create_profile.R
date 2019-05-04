@@ -15,28 +15,23 @@
 #' @param vcf_file The VCF file from which the profile will be created (path).
 #' @param sample The sample in the VCF for which a profile will be created
 #'  (character).
-#' @param output_file The output file with the SNV profile (path).
 #' @param min_depth Remove variants below this sequencing depth (integer).
 #' @param filter Remove variants not passing filtering criteria (boolean).
-#' @return Does not return any data object, but outputs results to output_file
-#'  (to save computational time from having to repeatedly create profiles).
+#' @param remove_mt Remove mitochondrial variants (boolean).
+#' @return A data frame.
 #'
 #' @examples
 #' # Path to the test VCF file
 #' vcf_file = system.file("extdata", "test.vcf.gz", package = "seqCAT")
 #'
 #' # Create SNV profiles
-#' \dontrun{
-#'  create_profile(vcf_file, "sample1", "profile1.txt")
-#'  create_profile(vcf_file, "sample1", "profile1.txt", min_depth = 15)
-#' }
-
-# Function for creating profiles with R
+#' profile_1 <- create_profile(vcf_file, "sample1")
+#' profile_1 <- create_profile(vcf_file, "sample1", min_depth = 15)
 create_profile <- function(vcf_file,
                            sample,
-                           output_file,
                            min_depth = 10,
-                           filter    = TRUE) {
+                           filter    = TRUE,
+                           remove_mt = TRUE) {
 
     # Message
     message("Reading VCF file ...")
@@ -93,6 +88,13 @@ create_profile <- function(vcf_file,
     }
     gr$FILTER <- NULL
 
+    # Remove mitochondrial variants, if applicable
+    if (remove_mt) {
+        gr <- GenomeInfoDb::dropSeqlevels(gr,
+                                          "MT",
+                                          pruning.mode = "coarse")
+    }
+
     # Remove variants below the given depth threshold
     gr <- gr[gr$DP >= min_depth & !is.na(gr$DP), ]
 
@@ -122,6 +124,21 @@ create_profile <- function(vcf_file,
     # Remove non-SNVs
     data <- data[nchar(data$REF) == 1 &
                  nchar(data$ALT) == 1, ]
+
+    # # Check if profile contains no variants after filtering
+    # if (length(data_gr) == 0) {
+#
+        # # Add dummy variant to contain sample name
+        # dummy_variant <- GenomicRanges::GRanges("1",
+                                                # IRanges::IRanges(start = 0,
+                                                                 # end   = 0))
+        # S4Vectors::mcols(dummy_variant)["sample"] <- sample_name
+        # S4Vectors::mcols(dummy_variant)["A1"] <- NA
+        # S4Vectors::mcols(dummy_variant)["A2"] <- NA
+#
+        # # Add dummy variant to empty profile
+        # data_gr <- append(data_gr, dummy_variant)
+    # }
 
     # Get rsIDs if existing
     data$rsID <- row.names(data)
@@ -183,36 +200,38 @@ create_profile <- function(vcf_file,
                "warnings")
     order <- order[order %in% names(data)]
     data <- data[order]
-
     names(data) <- c("chr", "pos", names(data)[3:ncol(data)])
-
-    # Remove duplicate rows, if present
-    data <- unique(data)
 
     # Sort output
     if (annotations) {
         data <- data[order(as.character(data$chr),
-                                 data$pos,
-                                 data$gene,
-                                 data$ENSGID,
-                                 gsub("\\:", "\\.", data$ENSTID),
-                                 data$effect,
-                                 data$feature,
-                                 data$biotype), ]
+                           data$pos,
+                           data$gene,
+                           data$ENSGID,
+                           gsub("\\:", "\\.", data$ENSTID),
+                           data$effect,
+                           data$feature,
+                           data$biotype), ]
     } else {
         data <- data[order(as.character(data$chr),
-                                 data$pos), ]
+                           data$pos), ]
     }
 
-    # Write data to file
-    utils::write.table(data,
-                       file      = output_file,
-                       sep       = "\t",
-                       row.names = FALSE,
-                       quote     = FALSE)
-    # Output message
-    message("Created and stored SNV profile for \"", sample, "\" in [",
-            output_file, "].")
+    # Remove duplicate rows, if present
+    data <- unique(data)
+
+    # Remove duplicate variants, if present
+    if ("ENSGID" %in% names(data)) {
+        data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
+    } else {
+        data <- data[!duplicated(data[, c("chr", "pos")]), ]
+    }
+
+    # Add sample to profile
+    data$sample <- sample
+
+    # Return profile as data frame
+    return(data)
 }
 
 # Function for filtering VCF annotations
@@ -304,38 +323,33 @@ filter_annotations <- function(data) {
 #' @details This functions is a convenience-wrapper for the `create_profile`
 #' function, which will create SNV profiles for each and every VCF file in the
 #' provided directory. The file naming scheme used is `<sample>.vcf` and will
-#' dictate the output profile filenames.
+#' dictate the each profile's sample name.
 #'
 #' @export
 #' @rdname create_profiles
 #' @param vcf_dir The VCF directory from which the profiles will be created
 #'  (path).
-#' @param output_dir The output directory to put the SNV profiles in (path).
+#' @param min_depth Remove variants below this sequencing depth (integer).
+#' @param filter Remove variants not passing filtering criteria (boolean).
 #' @param pattern Only create profiles for a subset of files corresponding to
 #'  this pattern (character).
 #' @param recursive Find VCF files recursively in sub-directories as well
 #'  (boolean).
-#' @param min_depth Remove variants below this sequencing depth (integer).
-#' @param filter Remove variants not passing filtering criteria (boolean).
-#' @return Does not return any data object, but outputs results to output_dir
-#'  (to save computational time from having to repeatedly create profiles).
+#' @return A list of data frames.
 #'
 #' @examples
 #' # Path to the test VCF directory
 #' vcf_dir = system.file("extdata", package = "seqCAT")
 #'
 #' # Create SNV profiles
-#' \dontrun{
-#'  create_profiles(vcf_dir, output_dir = "profiles")
-#'  create_profiles(vcf_dir, output_dir = "profiles", pattern = "test")
-#'  create_profiles(vcf_dir, output_dir = "profiles", recursive = TRUE)
-#' }
+#' profiles <- create_profiles(vcf_dir, output_dir = "profiles",
+#'                             pattern = "test", recursive = TRUE)
 create_profiles <- function(vcf_dir,
-                            output_dir   = ".",
-                            pattern      = NULL,
-                            recursive    = FALSE,
-                            min_depth    = 10,
-                            filter       = TRUE) {
+                            min_depth = 10,
+                            filter    = TRUE,
+                            remove_mt = TRUE,
+                            pattern   = NULL,
+                            recursive = FALSE) {
 
     # List VCF files to create profiles for
     files <- list.files(path       = vcf_dir,
@@ -346,6 +360,9 @@ create_profiles <- function(vcf_dir,
     # Get only VCF files
     vcf_files <- grep(".vcf", files, value = TRUE)
 
+    # Initialise profile list
+    profile_list <- list()
+
     # Create SNV profiles for each VCF file
     for (vcf in vcf_files) {
 
@@ -354,20 +371,23 @@ create_profiles <- function(vcf_dir,
         len <- length(sample)
         sample <- strsplit(sample[len], "\\.")[[1]][1]
 
-        # Set current output
-        output <- paste0(output_dir, "/", sample, ".profile.txt")
-
         # Create profile for current input file
         message("Creating profile for sample ", sample, " in VCF file ",
                 vcf, " ...")
         tryCatch({
-            suppressMessages(create_profile(vcf,
-                                            sample,
-                                            output,
-                                            min_depth,
-                                            filter))
+            profile <- suppressMessages(create_profile(vcf_file  = vcf,
+                                                       sample    = sample,
+                                                       min_depth = min_depth,
+                                                       filter    = filter,
+                                                       remove_mt = remove_mt))
         }, error = function(e) {
             message("ERROR; continuing to the next sample.")
         })
+
+        # Append profile to profile list
+        profile_list[[length(profile_list) + 1]] <- profile
     }
+
+    # Return the final profile list
+    return(profile_list)
 }

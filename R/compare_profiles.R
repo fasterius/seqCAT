@@ -13,6 +13,7 @@
 
 #' @export
 #' @rdname compare_profiles
+#' @importFrom methods is
 #' @param profile_1 The first SNV profile (GRanges object).
 #' @param profile_2 The second SNV profile (GRanges object).
 #' @param mode Merge profiles using "union" or "intersection" (character).
@@ -73,7 +74,7 @@ compare_profiles <- function(profile_1,
 convert_to_gr <- function(profile) {
 
     # Check if input profile is a data frame
-    if (class(profile) == "data.frame") {
+    if (is(profile, "data.frame")) {
 
         # Convert to GRanges object
         profile_gr <- GenomicRanges::makeGRangesFromDataFrame(profile,
@@ -113,11 +114,11 @@ add_metadata <- function(query,
         S4Vectors::mcols(query)[paste(column, column_suffix, sep = "")] <- NA
 
         # Convert DNAStringSet / DNAStringSetList columns to character vectors
-        if (class(S4Vectors::mcols(subject)[[column]])[1] == "DNAStringSet") {
+        if (is(S4Vectors::mcols(subject)[[column]][1], "DNAStringSet")) {
           S4Vectors::mcols(subject)[column] <-
               as.character(S4Vectors::mcols(subject)[[column]])
-        } else if (class(S4Vectors::mcols(subject)[[column]])[1] ==
-                   "DNAStringSetList") {
+        } else if (is(S4Vectors::mcols(subject)[[column]][1],
+                   "DNAStringSetList")) {
           S4Vectors::mcols(subject)[column] <-
             S4Vectors::unstrsplit(IRanges::CharacterList(
                 S4Vectors::mcols(subject)[[column]]))

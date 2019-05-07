@@ -202,8 +202,7 @@ collate_metadata <- function(data, sample_1, sample_2) {
     mcols <- mcols_sample_1[mcols_sample_1 %in% mcols_sample_2]
 
     # Remove data-specific metadata columns
-    mcols <- grep("DP|AD1|AD2|A1|A2|warnings",
-                  mcols,
+    mcols <- grep("DP|AD1|AD2|A1|A2|FILTER|warnings", mcols,
                   value = TRUE, invert = TRUE)
 
     # Loop over metadata columns and merge as applicable

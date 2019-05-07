@@ -122,20 +122,12 @@ create_profile <- function(vcf_file,
     data <- data[nchar(data$REF) == 1 &
                  nchar(data$ALT) == 1, ]
 
-    # # Check if profile contains no variants after filtering
-    # if (length(data_gr) == 0) {
-#
-        # # Add dummy variant to contain sample name
-        # dummy_variant <- GenomicRanges::GRanges("1",
-                                                # IRanges::IRanges(start = 0,
-                                                                 # end   = 0))
-        # S4Vectors::mcols(dummy_variant)["sample"] <- sample_name
-        # S4Vectors::mcols(dummy_variant)["A1"] <- NA
-        # S4Vectors::mcols(dummy_variant)["A2"] <- NA
-#
-        # # Add dummy variant to empty profile
-        # data_gr <- append(data_gr, dummy_variant)
-    # }
+    # Check if profile contains a non-zero number of variants
+    if (nrow(data) == 0) {
+        stop(paste("No variants left after filtering with the current",
+                   "criteria; please re-run with less stringent criteria or",
+                   "skip the current sample"))
+    }
 
     # Get rsIDs if existing
     data$rsID <- row.names(data)

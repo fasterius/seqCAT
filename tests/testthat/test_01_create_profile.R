@@ -101,3 +101,11 @@ test_that("VCFs with <NON_REF> alleles are handled properly", {
                                   filter       = FALSE),
                    "<NON_REF> alleles; input may be a gVCF")
 })
+
+test_that("Profiles with zero variants after filtering are handled properly", {
+    expect_error(create_profile(vcf_file     = file1,
+                                  sample       = "sample1",
+                                  min_depth    = 10000,
+                                  filter       = TRUE),
+                 "No variants left after filtering with the current")
+})

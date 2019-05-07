@@ -191,9 +191,8 @@ compare_genotypes <- function(data, sample_1, sample_2) {
 collate_metadata <- function(data, sample_1, sample_2) {
 
     # Remove redundant sample name columns
-    data <- dplyr::select_(data,
-                           paste0("-sample.", sample_1),
-                           paste0("-sample.", sample_2))
+    to_remove <- paste0("sample.", c(sample_1, sample_2))
+    data <- data[, !(names(data) %in% to_remove)]
 
     # Find common, sample-specific metadata columns
     s1 <- paste0("\\.", sample_1)
@@ -234,16 +233,12 @@ collate_metadata <- function(data, sample_1, sample_2) {
         }
 
         # Remove old metadata columns
-        data <- dplyr::select_(data,
-                               paste0("-", mcol_s1),
-                               paste0("-", mcol_s2))
+        data <- data[, !(names(data) %in% c(mcol_s1, mcol_s2))]
     }
 
     # Delete unneccesary columns
-    data <- dplyr::select_(data,
-                          "-end",
-                          "-width",
-                          "-strand")
+    to_remove <- c("end", "width", "strand")
+    data <- data[, !(names(data) %in% to_remove)]
 
     # Rename columns
     names(data)[c(1, 2)] <- c("chr", "pos")

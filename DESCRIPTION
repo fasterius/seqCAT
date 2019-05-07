@@ -17,7 +17,6 @@ Imports:
     ggplot2 (>= 2.2.1),
     grid (>= 3.5.0),
     IRanges (>= 2.8.2),
-    lazyeval (>= 0.2.0),
     methods,
     scales (>= 0.4.1),
     S4Vectors (>= 0.12.2),

@@ -141,12 +141,12 @@ create_profile <- function(vcf_file,
 
     # Remove unwanted columns
     row.names(data) <- NULL
-    data <- dplyr::select_(data,
-                           "-end",
-                           "-width",
-                           "-strand",
-                           "-paramRangeID",
-                           "-QUAL")
+    to_remove <- c("end",
+                   "width",
+                   "strand",
+                   "paramRangeID",
+                   "QUAL")
+    data <- data[, !(names(data) %in% to_remove)]
 
     # Separate allelic depths
     data$AD <- gsub("c\\(", "", gsub("\\)", "", data$AD))
@@ -234,8 +234,8 @@ create_profile <- function(vcf_file,
 filter_annotations <- function(data) {
 
     # Separate ANN into rows
-    data <- dplyr::mutate_(data, .dots = stats::setNames(strsplit("ANN", ", "),
-                                                         "ANN"))
+    data <- dplyr::mutate(data, .dots = stats::setNames(strsplit("ANN", ", "),
+                                                        "ANN"))
     data <- tidyr::unnest_(data, "ANN")
 
     # Separate ANN into columns
@@ -263,15 +263,15 @@ filter_annotations <- function(data) {
                                        "warnings"))
 
     # Remove unwanted data columns
-    data <- dplyr::select_(data,
-                          "-ALT2",
-                          "-rank",
-                          "-HGSV_c",
-                          "-HGSV_p",
-                          "-cDNA_pos",
-                          "-CDS_pos",
-                          "-protein_pos",
-                          "-distance")
+    to_remove <- c("-ALT2",
+                   "-rank",
+                   "-HGSV_c",
+                   "-HGSV_p",
+                   "-cDNA_pos",
+                   "-CDS_pos",
+                   "-protein_pos",
+                   "-distance")
+    data <- data[, !(names(data) %in% to_remove)]
 
     # Impact factor priority
     priority <- c("HIGH", "MODERATE", "LOW", "MODIFIER")

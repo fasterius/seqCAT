@@ -54,10 +54,11 @@ plot_impacts <- function(comparison,
     comparison$impact <- factor(comparison$impact, levels = impacts)
 
     # Calculate impact distribution
-    data <- dplyr::group_by_(comparison, "match", "impact")
-    data <- dplyr::summarise_(data, count = ~dplyr::n())
-    data <- dplyr::mutate_(data, .dots = stats::setNames(
-        lazyeval::interp("count / sum(count) * 100"), "prop"))
+    groups <- dplyr::syms(c("match", "impact"))
+    count_var <- dplyr::sym("count")
+    data <- dplyr::group_by(comparison, !!!groups)
+    data <- dplyr::summarise(data, count = dplyr::n())
+    data <- dplyr::mutate(data, prop = !!count_var / sum(!!count_var) * 100)
     data <- dplyr::ungroup(data)
 
     # Add zeroes to empty groups

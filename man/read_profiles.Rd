@@ -4,22 +4,21 @@
 \alias{read_profiles}
 \title{Read SNV profiles}
 \usage{
-read_profiles(profile_dir, remove_mt = TRUE)
+read_profiles(profile_dir)
 }
 \arguments{
 \item{profile_dir}{The directory containing the profiles to be read (path).}
-
-\item{remove_mt}{Remove or keep mitochondrial variants (boolean).}
 }
 \value{
-A list of GRanges objects.
+A list of data frames.
 }
 \description{
 Read SNV profiles in a directory.
 }
 \details{
 This is a wrapper function for reading multiple SNV profiles
- present in a directory (and its sub-directories in recursive mode).
+ present in a directory (and its sub-directories in recursive mode). The
+ format used is `<sample>.profile.txt`.
 }
 \examples{
 # Path to test data

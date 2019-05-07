@@ -14,16 +14,16 @@ cosmic <- suppressMessages(read_cosmic(cosmic_file, "PTCL6"))
 cosmic_list <- suppressMessages(list_cosmic(cosmic_file))
 
 # Tests
-test_that("the returned object is a GRanges object", {
-    expect_identical(class(hct116)[1], "GRanges")
-    expect_identical(class(cosmic)[1], "GRanges")
+test_that("the returned object is a dataframe", {
+    expect_identical(class(hct116)[1], "data.frame")
+    expect_identical(class(cosmic)[1], "data.frame")
 })
 
 test_that("the returned number of variants and metadata columns are correct", {
-    expect_equal(length(hct116), 1)
-    expect_equal(length(cosmic), 1)
-    expect_equal(length(mcols(hct116[hct116$sample == "HCT116", ])), 39)
-    expect_equal(length(mcols(cosmic[cosmic$sample == "cosmic", ])), 36)
+    expect_equal(nrow(hct116), 1)
+    expect_equal(nrow(cosmic), 1)
+    expect_equal(ncol(hct116[hct116$sample == "HCT116", ]), 41)
+    expect_equal(ncol(cosmic[cosmic$sample == "cosmic", ]), 38)
 })
 
 test_that("a character list of cell lines are correctly returned", {

@@ -50,6 +50,9 @@ list_variants <- function(profiles, known_variants) {
     # Loop through each profile and compare to known variants
     for (profile in profiles) {
 
+        # Convert profile to GRanges object
+        profile <- convert_to_gr(profile)
+
         # Compare to known variants
         sample <- unique(profile$sample)
         comp <- S4Vectors::intersect(profile, known_gr)

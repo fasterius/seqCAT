@@ -1,3 +1,27 @@
+Version 1.8.0
+-------------
+
+This is a release with major changes to seqCAT's functionality and how it
+can be used. Several changes to how SNV profiles are created, manupulated and
+stored are introduced, along with some changes to what data objects are used
+internally versus at the user-level. The reason for these changes is to give
+the user a more consistent and optimised workflow where the same objects (data
+frames) are manipulated in all steps, all within R.
+
+FEATURES:
+
+    o The Python implementation of profile creation has been deprecated
+    o SNV profiles are now stored as data frames, rather than GRanges objects
+    o The `create_profile` function now now reads profiles into memory, instead
+      of storing them on disk. De-duplication and removal of mitochondrial
+      chromosomes is now also performed at this stage
+    o The `create_profiles` function now returns a list of data frames
+    o A new function, `write_profile`, can write profiles to disk
+    o The `read_profile` function now reads profiles without performing any
+      de-duplication or removing mitochondrial chromosomes
+    o The `compare_profiles`, `compare_many` and `list_variants` functions now
+      converts input profiles to GRanges internally
+
 Version 1.6.0
 -------------
 

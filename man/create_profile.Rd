@@ -4,8 +4,8 @@
 \alias{create_profile}
 \title{SNV profile creation}
 \usage{
-create_profile(vcf_file, sample, output_file, min_depth = 10,
-  filter = TRUE, python = FALSE)
+create_profile(vcf_file, sample, min_depth = 10, filter = TRUE,
+  remove_mt = TRUE)
 }
 \arguments{
 \item{vcf_file}{The VCF file from which the profile will be created (path).}
@@ -13,27 +13,22 @@ create_profile(vcf_file, sample, output_file, min_depth = 10,
 \item{sample}{The sample in the VCF for which a profile will be created
 (character).}
 
-\item{output_file}{The output file with the SNV profile (path).}
-
 \item{min_depth}{Remove variants below this sequencing depth (integer).}
 
 \item{filter}{Remove variants not passing filtering criteria (boolean).}
 
-\item{python}{Extract variants using Python instead of R (boolean).}
+\item{remove_mt}{Remove mitochondrial variants (boolean).}
 }
 \value{
-Does not return any data object, but outputs results to output_file
- (to save computational time from having to repeatedly create profiles).
+A data frame.
 }
 \description{
 Create an SNV profile from data in a VCF file.
 }
 \details{
 This function creates a SNV profile from a given VCF file by
-extracting the variants that pass the filtering criterias. It can either be
-performed using R, or by the create_profile.py function included (which
-requires that Python  is installed, along with the PyVCF package). Profile
-creation is performed to facilitate and accelerate the cell authentication
+extracting the variants that pass the filtering criterias. Profile creation
+is performed to facilitate and accelerate the cell authentication
 procedures, which is especially relevant when more than one pairwise
 comparison will be performed on the same sample.
 }
@@ -42,9 +37,6 @@ comparison will be performed on the same sample.
 vcf_file = system.file("extdata", "test.vcf.gz", package = "seqCAT")
 
 # Create SNV profiles
-\dontrun{
- create_profile(vcf_file, "sample1", "profile1.txt")
- create_profile(vcf_file, "sample1", "profile1.txt", min_depth = 15)
- create_profile(vcf_file, "sample1", "profile1.txt", python = TRUE)
-}
+profile_1 <- create_profile(vcf_file, "sample1")
+profile_1 <- create_profile(vcf_file, "sample1", min_depth = 15)
 }

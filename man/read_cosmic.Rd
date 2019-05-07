@@ -12,7 +12,7 @@ read_cosmic(file_path, sample_name)
 \item{sample_name}{The sample to be investigated (character).}
 }
 \value{
-A GRanges object with COSMIC SNVs.
+A dataframe with COSMIC SNVs.
 }
 \description{
 Read COSMIC sample-specific mutational data.

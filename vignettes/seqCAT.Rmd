@@ -20,22 +20,22 @@ knitr::opts_chunk$set(fig.align = "center", message = FALSE)
 
 # Introduction
 
-This vignette describes the use of the *seqCAT* package for
-authentication, characterisation and evaluation of two or more *High Throughput
-Sequencing* samples (HTS; RNA-seq or whole genome sequencing). The principle
-of the method is built upon previous work, where it was demonstrated that
-analysing the entirety of the variants found in HTS data provides unprecedented
-statistical power and great opportunities for functional evaluation of genetic
-similarities and differences between biological samples *[@Fasterius2017]*.
+This vignette describes the use of the *seqCAT* package for authentication,
+characterisation and evaluation of two or more *High Throughput Sequencing*
+samples (HTS; RNA-seq or whole genome sequencing). The principle of the method
+is built upon previous work, where it was demonstrated that analysing the
+entirety of the variants found in HTS data provides unprecedented statistical
+power and great opportunities for functional evaluation of genetic similarities
+and differences between biological samples *[@Fasterius2017; @Fasterius2018]*.
 
-seqCAT work by creating *Single Nucelotide Variant* (SNV) profiles
+The seqCAT package work by creating *Single Nucelotide Variant* (SNV) profiles
 of every sample of interest, followed by comparisons between each set to find
 overall genetic similarity, in addition to detailed analyses of the
 differences. By analysing your data with this workflow you will not only be
 able to authenticate your samples to a high degree of confidence, but you will
 also be able to investigate what genes and transcripts are affected by SNVs
 differing between your samples, what biological effect they will have, and
-more. seqCAT's workflow consists of three separate steps:
+more. The workflow consists of three separate steps:
 
     1.  Creation of SNV profiles
     2.  Comparisons of SNV profiles
@@ -44,7 +44,7 @@ more. seqCAT's workflow consists of three separate steps:
 Each step has its own section(s) below demonstrating how to perform the
 analyses. Input data should be in the form of [VCF files][vcf-format], *i.e*
 output from variant callers such as the [Genome Analysis ToolKit][gatk] and
-annotated with software such as [SnpEff][snpeff].
+optionally annotated with software such as [SnpEff][snpeff].
 
 ## Installation
 
@@ -52,17 +52,17 @@ The latest stable release of this package can be found on
 [Bioconductor][bioc-home] and installed with:
 
 ```{r Installation, eval = FALSE}
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
+install.packages("BiocManager")
 BiocManager::install("seqCAT")
 ```
 
 This will also install any missing packages requires for full functionality,
 should they not already exist in your system. If you haven't installed
-Bioconductor, you can do so by simply calling `BiocManager::install()` without specifying a
-package, and it will be installed for you. You can read more about this at
-Bioconductor's [installation page][bioc-install]. You can find the development
-version of seqCAT on [GitHub][github], which can be installed like so:
+Bioconductor, you can do so by simply calling `BiocManager::install()` without
+specifying a package, and it will be installed for you. You can read more about
+this at Bioconductor's [installation page][bioc-install]. You can also find the
+development version of seqCAT on [GitHub][github], which can be installed like
+so:
 
 ```{r GitHub installation, eval = FALSE}
 install.packages("devtools")
@@ -72,96 +72,78 @@ devtools::install_github("fasterius/seqCAT")
 # Creation of SNV profiles
 
 The first step of the workflow is to create the SNV profile of each sample,
-which can then be compared to each other. In order to decrease the computation
-time for large comparison sets and to facilitate re-analyses with different
-parameters each SNV profile is saved on the harddrive as a normal `.txt` file.
-While computation time is usually not an issue for simple binary comparisons
-(*i.e.* comparisons with only two samples), this can quickly become a concern
-for analyses where samples are compared to several others (A vs B, A vs C, ...,
-and so on); this is doubly true for annotated VCF files.
+which can then be compared to each other. The creation of a SNV profile
+includes filtering of low-confidence variants, removal of variants below a
+sequencing depth threshold (`10` by default), de-duplication of variants and an
+optional removal of mitochondrial variants (`TRUE` by default). For annotated
+VCF files, only records with the highest SNV impact (*i.e.* [impact][] on
+protein function) for each variant is kept, as they are most likely to affect
+the biology of the cells.
 
-The creation of a SNV profile includes filtering of low-confidence
-variants and removal of variants below a sequencing depth threshold (`10` by
-default). For annotated VCF files, only records with the highest SNV impact
-(*i.e.* [impact][] on protein function) for each variant is kept, as they are
-most likely to affect the biology of the cells. Creation of annotated SNV
-profiles is also implemented in Python ([section 2.2][Create profiles faster
-with Python]), which is faster than the standard implementation in R ([section
-2.1][Create profiles with R]).
-
-## Create profiles with R
+## Create individual profiles
 
 Throughout this vignette we will be using some example data, `example.vcf.gz`,
 which comes from the initial publication of the general process of this method
 *[@Fasterius2017]*. It is a simplified multi-sample VCF file on a subset of
 chromosome 12 (containing all variants up to position `25400000`, in order to
 keep the file size low) for three different colorectal cancer cell lines:
-*HCT116*, *HKE3* and *RKO*.
+*HCT116*, *HKE3* and *RKO*. The first step is to load the `seqCAT` package and
+to create SNV profiles for each sample:
 
 ```{r Create SNV profile with R}
 # Load the package
 library("seqCAT")
 
 # List the example VCF file
-vcf <- system.file("extdata", "example.vcf.gz",
-                   package = "seqCAT")
+vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 
 # Create two SNV profiles
-create_profile(vcf, "HCT116", "hct116.profile.txt")
-create_profile(vcf, "RKO", "rko.profile.txt", min_depth = 15)
+hct116 <- create_profile(vcf, "HCT116")
+rko <- create_profile(vcf, "RKO", min_depth = 15)
+head(hct116)
 ```
 
-This creates SNV profiles for the two samples found in the example data
-(`HCT116` and `RKO`) and saves them as `hct116.profile.txt` and
-`rko.profile.txt` in the current directory, respectively. The profile of the
-second sample was created with a non-standard filter for sequencing depth
-(`15`), which should only be done if you want a stricter criteria for your
-profile (such as when you're only interested in higher-than-standard confidence
-variants). You may also choose to not remove variants below the variant
-caller-specific filtering criteria by passing `filter = FALSE` when creating
-your profile, although it is recommended to do so in most cases in order to
-minimise the number of false positive variant calls.
+The SNV profile lists all the variants present in the VCF file, in addition
+to any annotations present. This means that information pertaining to the
+genomic position (`chr` and `pos`), reference and alternative alleles (`REF`
+and `ALT`), genotype (`A1` and `A2`) and depth (`DP`, variant depth; `AD1` and
+`AD2`, allelic depth) are always going to be present in all profiles. The
+profiles creates here also contain additional annotations from
+[SnpEff][snpeff], such as gene (`ENSGID`), variant [impact][impact] (`impact`)
+and variant accession (`rsID`).
 
-## Create profiles faster with Python
-
-Annotated SNV profiles can also be created with [Python][python-home], another
-scripting language, if you have installed it. You will also need to install the
-[PyVCF][pyvcf] module, in order for it to run. The `Python` version can create
-SNV profiles approximately five to ten times quicker than its `R` equivalent
-for annotated VCF files. This is not important for most users, but is
-nevertheless included for cases with many annotated VCF files where extra speed
-is desirable.
-
-```{r Create SNV profile with Python, eval = FALSE}
-create_profile(vcf, "RKO", "RKO.profile.txt", python = TRUE)
-```
+The profile of the second sample (`RKO`) was created with a non-standard
+filter for sequencing depth (`15`), which should only be done if you want a
+stricter criteria for your profile (such as when you're only interested in
+higher-than-standard confidence variants). You may also choose to not remove
+variants below the variant caller-specific filtering criteria by passing
+`filter = FALSE` when creating your profile, although it is recommended
+to do so in most cases in order to minimise the number of false positive
+variant calls. Mitochondrial variants are removed by default, but may be kept
+by passing `remove_mt = FALSE`.
 
 ## Create multiple profiles
 
 The `create_profiles` function is a convenience wrapper for `create_profile`,
-which will create SNV profiles for each VCF file in a given input directory.
-You can use it for all the VCFs in a directory, or a subset specified by a
-string, like so:
+which will create SNV profiles for each VCF file in a given input directory and
+return them as a list. You can use it for all the VCFs in a directory or a
+subset specified by a string, like so:
 
 ```{r Create multiple profiles, messages = FALSE}
 # Directory with VCF files
 vcf_dir <- system.file("extdata", package = "seqCAT")
 
 # Create profiles for each VCF with "sample1" in its name
-create_profiles(vcf_dir, pattern = "sample1")
-```
-
-```{r Remove unused profiles from multiple profile creation, echo = FALSE, results = "hide"}
-file.remove("sample1.profile.txt")
+profiles <- create_profiles(vcf_dir, pattern = "sample1")
 ```
 
 ## Create COSMIC profiles
 
 It is also possible to to compare your samples' variants to some external
 source. Such a source is the *Catalogue of somatic mutations in cancer*, or
-*COSMIC*. COSMIC has over a thousand cell line-specific mutational profiles,
-a comprehensive list of cancer mutations in across many carcinoma samples,
-and is thus a very useful resource.
+*COSMIC*. *[@Forbes2015]* COSMIC has over a thousand cell line-specific
+mutational profiles as well as a comprehensive list of cancer mutations in
+across many carcinoma samples, and is thus a very useful resource.
 
 In order to use the COSMIC database, you need to sign up for an account at
 their [website][cosmic-home] and get permission to download their files (which
@@ -211,7 +193,7 @@ compare to any other profile you may have data for (more on this below). You
 can also check how many variants are listed in COSMIC for your particular cell:
 
 ```{r Count COSMIC}
-length(cosmic)
+nrow(cosmic)
 ```
 
 Here we only see a single variant for the HCT116 cell line, which is only
@@ -222,32 +204,53 @@ few hundred SNVs listed in COSMIC). A COSMIC profile of a couple of hundred
 variants is more common, though, and any analysis based only on COSMIC variants
 is thus inherently limited.
 
+## Working with profiles on disk
+
+While computation time is usually not an issue for simple binary comparisons
+(*i.e.* comparisons with only two samples), this can quickly become a concern
+for analyses where samples are compared to several others (A vs B, A vs C, ...,
+and so on); this is doubly true for annotated VCF files. It can thus be highly
+useful to save profiles to disk in some cases, in order to facilitate
+re-analysis at a later stage. This can be done with the `write_profile`
+function:
+
+```{r Write profiles to disk}
+write_profile(hct116, "hct116.profile.txt")
+```
+
+Profiles stored on disk may then be read into R again at a later time using the
+`read_profile` function:
+
+```{r Read profile from disk}
+hct116 <- read_profile("hct116.profile.txt")
+```
+
+The `read_profiles` function is a convenience-wrapper for `read_profile`, which
+will automatically read all the profiles present in a given directory and
+return them as a list.
+
+```{r Read multiple profiles}
+profile_list <- read_profiles("./")
+head(profile_list[[1]])
+```
+
 # Comparing SNV profiles
 
 ## Comparing full profiles
 
 Once each relevant sample has its own SNV profile the comparisons can be
-performed. First, each profile is read using the `read_profile` function,
-which outputs `GRanges` objects for fast and efficient comparisons.
+performed. SNV profiles contain most of the relevant annotation data from the
+original VCF file, including SNV impacts, gene/transcript IDs and mutational
+(rs) ID. The `DP` (depth) field lists the total sequencing depth of this
+variant, while the specific allelic depths can be found in `AD1` and `AD2`. The
+alleles of each variant can be found in `A1` and `A2`.
 
-```{r Read SNV profiles}
-hct116 <- read_profile("hct116.profile.txt", "HCT116")
-rko <- read_profile("rko.profile.txt", "RKO")
-head(hct116)
-```
-
-SNV profiles contain most of the relevant annotation data from the original VCF
-file, including SNV impacts, gene/transcript IDs and mutational (rs) ID. The
-`DP` (depth) field lists the total sequencing depth of this variant, while the
-specific allelic depths can be found in `AD1` and `AD2`. The alleles of each
-variant can be found in `A1` and `A2`.
-
-Once each profile has been read, the genotypes of the overlapping variants
+Once each profile has been defined, the genotypes of the overlapping variants
 between them can be compared using the `compare_profiles` function. Only
-variants found in both profiles are considered to overlap, as similarity
-calculations between profiles where some variants only have confident calls in
-one of the samples are inappropriate. An SNV is considered a match if it has an
-identical genotype in both profiles.
+variants found in both profiles are considered to overlap by default, as
+similarity calculations between profiles where some variants only have
+confident calls in one of the samples may be inappropriate. An SNV is
+considered a match if it has an identical genotype in both profiles.
 
 ```{r Compare profiles}
 hct116_rko <- compare_profiles(hct116, rko)
@@ -340,15 +343,13 @@ comparisons.
 
 ```{r Calculate similarities iteratively}
 # Create and read HKE3 profile
-create_profile(vcf, "HKE3", "hke3.profile.txt")
-hke3 <- read_profile("hke3.profile.txt", "HKE3")
+hke3 <- create_profile(vcf, "HKE3")
 
 # Compare HCT116 and HKE3
 hct116_hke3 <- compare_profiles(hct116, hke3)
 
 # Add HCT116/HKE3 similarities to HCT116/RKO similarities
-similarities <- calculate_similarity(hct116_hke3,
-                                     similarity, a = 1, b = 10)
+similarities <- calculate_similarity(hct116_hke3, similarity, b = 10)
 similarities
 ```
 
@@ -437,8 +438,9 @@ The reason that we don't find this particular variant in the HCT116 vs. RKO
 comparison is that it is not present in the RKO profile, either because it
 isn't a mutation in RKO or because there was no confident variant call for that
 particular position. The `compare_profiles` function only looks at overlapping
-positions, so we will have to look at the individual profiles instead. `seqCAT`
-has two functions to help with this: `list_variants` and `plot_variant_list`.
+positions by default, so we will have to look at the individual profiles
+instead. `seqCAT` has two functions to help with this: `list_variants` and
+`plot_variant_list`:
 
 The `list_variants` function looks for the genotypes of each specified variant
 in each provided SNV profile. First, let's create a small set of interesting
@@ -452,7 +454,7 @@ known_variants <- data.frame(chr  = c(12, 12, 12, 12),
 known_variants
 ```
 
-The minimum information needed are the `chr` and `pos` columns, any additional
+The minimum information needed are the `chr` and `pos` columns; any additional
 columns (such as `gene`, here) will just be passed along for later use. We can
 now pass this set (along with our SNV profiles) to the `list_variants`
 function:
@@ -486,9 +488,9 @@ This gives us an easily overviewed image of what variants are present in which
 samples, and their precise genotype. We can see that the KRAS<sup>G13D</sup>
 mutation is indeed present in the HCT116, but not in RKO. We can also see that
 RKO has a homozygous `G/G` genotype for one of the LDHB variants, while HCT116
-is heterozygous (`T/G`) for the same. (Please note that this data was aligned
+is heterozygous (`T/G`) for the same. *(Please note that this data was aligned
 and analysed using the GRCh37 / hg19 assembly and that listed positions might
-not be accurate for other assemblies.)
+not be accurate for other assemblies.)*
 
 # Evaluating multiple comparisons
 
@@ -552,18 +554,6 @@ profile has. By returning all the data in a list you may then save each
 comparison to a file, for later re-analysis without having to re-do the
 comparisons.
 
-## Reading multiple profiles
-
-The `read_profiles` function is a convenience-wrapper for `read_profile`, which
-will automatically read all the profiles present in a given directory and
-return them as a list, which is then easily parsed to the `compare_many`
-function.
-
-```{r Read multiple profiles}
-profile_list <- read_profiles("./")
-head(profile_list[[1]])
-```
-
 ## Visualising multiple comparisons
 
 A useful and straightforward way of visualising multiple profile comparisons is
@@ -601,8 +591,6 @@ alignments, variant calling, and so on).
 
 ```{r Remove temporary files, echo = FALSE, results = "hide"}
 file.remove("hct116.profile.txt")
-file.remove("rko.profile.txt")
-file.remove("hke3.profile.txt")
 ```
 
 # Citation {-}
@@ -635,7 +623,5 @@ sessionInfo()
 [github]: https://github.com/fasterius/seqCAT
 
 [impact]: http://snpeff.sourceforge.net/SnpEff_manual.html#eff
-[python-home]: https://www.python.org/
-[pyvcf]: https://pypi.python.org/pypi/PyVCF
 [snpeff]: http://snpeff.sourceforge.net/
 [vcf-format]: https://software.broadinstitute.org/gatk/

@@ -13,6 +13,7 @@
 
 #' @export
 #' @rdname compare_profiles
+#' @importFrom methods is
 #' @param profile_1 The first SNV profile (GRanges object).
 #' @param profile_2 The second SNV profile (GRanges object).
 #' @param mode Merge profiles using "union" or "intersection" (character).
@@ -35,6 +36,10 @@ compare_profiles <- function(profile_1,
 
     # Message
     message("Comparing ", sample_1, " and ", sample_2, " ...")
+
+    # Convert data frames to GenomicRanges (if applicable)
+    profile_1 <- convert_to_gr(profile_1)
+    profile_2 <- convert_to_gr(profile_2)
 
     # Find the overlaps of all ranges in both objects
     if (tolower(mode) == "union") {
@@ -65,6 +70,35 @@ compare_profiles <- function(profile_1,
     return(data)
 }
 
+# Function for converting data frames to GRanges objects
+convert_to_gr <- function(profile) {
+
+    # Check if input profile is a data frame
+    if (is(profile, "data.frame")) {
+
+        # Convert to GRanges object
+        profile_gr <- GenomicRanges::makeGRangesFromDataFrame(profile,
+            keep.extra.columns      = TRUE,
+            ignore.strand           = TRUE,
+            seqinfo                 = NULL,
+            seqnames.field          = "chr",
+            start.field             = "pos",
+            end.field               = "pos",
+            starts.in.df.are.0based = FALSE)
+
+        # Rename and remove seqlevels
+        GenomeInfoDb::seqlevels(profile_gr) <-
+            gsub("chr", "", GenomeInfoDb::seqlevels(profile_gr))
+        profile_gr <- GenomeInfoDb::keepStandardChromosomes(profile_gr,
+                                                            pruning.mode = "coarse")
+    } else {
+        profile_gr <- profile
+    }
+
+    # Return GRanges object
+    return(profile_gr)
+}
+
 # Function for adding metadata from a GRanges <subject> to a GRanges <query>,
 # while adding <column_suffix> to the added metadata columns.
 add_metadata <- function(query,
@@ -80,11 +114,11 @@ add_metadata <- function(query,
         S4Vectors::mcols(query)[paste(column, column_suffix, sep = "")] <- NA
 
         # Convert DNAStringSet / DNAStringSetList columns to character vectors
-        if (class(S4Vectors::mcols(subject)[[column]])[1] == "DNAStringSet") {
+        if (is(S4Vectors::mcols(subject)[[column]][1], "DNAStringSet")) {
           S4Vectors::mcols(subject)[column] <-
               as.character(S4Vectors::mcols(subject)[[column]])
-        } else if (class(S4Vectors::mcols(subject)[[column]])[1] ==
-                   "DNAStringSetList") {
+        } else if (is(S4Vectors::mcols(subject)[[column]][1],
+                   "DNAStringSetList")) {
           S4Vectors::mcols(subject)[column] <-
             S4Vectors::unstrsplit(IRanges::CharacterList(
                 S4Vectors::mcols(subject)[[column]]))

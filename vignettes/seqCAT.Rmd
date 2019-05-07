@@ -52,17 +52,17 @@ The latest stable release of this package can be found on
 [Bioconductor][bioc-home] and installed with:
 
 ```{r Installation, eval = FALSE}
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
+install.packages("BiocManager")
 BiocManager::install("seqCAT")
 ```
 
 This will also install any missing packages requires for full functionality,
 should they not already exist in your system. If you haven't installed
-Bioconductor, you can do so by simply calling `BiocManager::install()` without specifying a
-package, and it will be installed for you. You can read more about this at
-Bioconductor's [installation page][bioc-install]. You can find the development
-version of seqCAT on [GitHub][github], which can be installed like so:
+Bioconductor, you can do so by simply calling `BiocManager::install()` without
+specifying a package, and it will be installed for you. You can read more about
+this at Bioconductor's [installation page][bioc-install]. You can also find the
+development version of seqCAT on [GitHub][github], which can be installed like
+so:
 
 ```{r GitHub installation, eval = FALSE}
 install.packages("devtools")
@@ -87,7 +87,8 @@ which comes from the initial publication of the general process of this method
 *[@Fasterius2017]*. It is a simplified multi-sample VCF file on a subset of
 chromosome 12 (containing all variants up to position `25400000`, in order to
 keep the file size low) for three different colorectal cancer cell lines:
-*HCT116*, *HKE3* and *RKO*.
+*HCT116*, *HKE3* and *RKO*. The first step is to load the `seqCAT` package and
+to create SNV profiles for each sample:
 
 ```{r Create SNV profile with R}
 # Load the package
@@ -99,15 +100,24 @@ vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 # Create two SNV profiles
 hct116 <- create_profile(vcf, "HCT116")
 rko <- create_profile(vcf, "RKO", min_depth = 15)
+head(hct116)
 ```
 
-This creates SNV profiles for the two samples found in the example data
-(`HCT116` and `RKO`). The profile of the second sample was created with a
-non-standard filter for sequencing depth (`15`), which should only be done if
-you want a stricter criteria for your profile (such as when you're only
-interested in higher-than-standard confidence variants). You may also choose to
-not remove variants below the variant caller-specific filtering criteria by
-passing `filter = FALSE` when creating your profile, although it is recommended
+The SNV profile lists all the variants present in the VCF file, in addition
+to any annotations present. This means that information pertaining to the
+genomic position (`chr` and `pos`), reference and alternative alleles (`REF`
+and `ALT`), genotype (`A1` and `A2`) and depth (`DP`, variant depth; `AD1` and
+`AD2`, allelic depth) are always going to be present in all profiles. The
+profiles creates here also contain additional annotations from
+[SnpEff][snpeff], such as gene (`ENSGID`), variant [impact][impact] (`impact`)
+and variant accession (`rsID`).
+
+The profile of the second sample (`RKO`) was created with a non-standard
+filter for sequencing depth (`15`), which should only be done if you want a
+stricter criteria for your profile (such as when you're only interested in
+higher-than-standard confidence variants). You may also choose to not remove
+variants below the variant caller-specific filtering criteria by passing
+`filter = FALSE` when creating your profile, although it is recommended
 to do so in most cases in order to minimise the number of false positive
 variant calls. Mitochondrial variants are removed by default, but may be kept
 by passing `remove_mt = FALSE`.
@@ -183,7 +193,7 @@ compare to any other profile you may have data for (more on this below). You
 can also check how many variants are listed in COSMIC for your particular cell:
 
 ```{r Count COSMIC}
-length(cosmic)
+nrow(cosmic)
 ```
 
 Here we only see a single variant for the HCT116 cell line, which is only
@@ -339,8 +349,7 @@ hke3 <- create_profile(vcf, "HKE3")
 hct116_hke3 <- compare_profiles(hct116, hke3)
 
 # Add HCT116/HKE3 similarities to HCT116/RKO similarities
-similarities <- calculate_similarity(hct116_hke3,
-                                     similarity, a = 1, b = 10)
+similarities <- calculate_similarity(hct116_hke3, similarity, b = 10)
 similarities
 ```
 
@@ -429,8 +438,9 @@ The reason that we don't find this particular variant in the HCT116 vs. RKO
 comparison is that it is not present in the RKO profile, either because it
 isn't a mutation in RKO or because there was no confident variant call for that
 particular position. The `compare_profiles` function only looks at overlapping
-positions, so we will have to look at the individual profiles instead. `seqCAT`
-has two functions to help with this: `list_variants` and `plot_variant_list`.
+positions by default, so we will have to look at the individual profiles
+instead. `seqCAT` has two functions to help with this: `list_variants` and
+`plot_variant_list`:
 
 The `list_variants` function looks for the genotypes of each specified variant
 in each provided SNV profile. First, let's create a small set of interesting
@@ -444,7 +454,7 @@ known_variants <- data.frame(chr  = c(12, 12, 12, 12),
 known_variants
 ```
 
-The minimum information needed are the `chr` and `pos` columns, any additional
+The minimum information needed are the `chr` and `pos` columns; any additional
 columns (such as `gene`, here) will just be passed along for later use. We can
 now pass this set (along with our SNV profiles) to the `list_variants`
 function:
@@ -478,9 +488,9 @@ This gives us an easily overviewed image of what variants are present in which
 samples, and their precise genotype. We can see that the KRAS<sup>G13D</sup>
 mutation is indeed present in the HCT116, but not in RKO. We can also see that
 RKO has a homozygous `G/G` genotype for one of the LDHB variants, while HCT116
-is heterozygous (`T/G`) for the same. (Please note that this data was aligned
+is heterozygous (`T/G`) for the same. *(Please note that this data was aligned
 and analysed using the GRCh37 / hg19 assembly and that listed positions might
-not be accurate for other assemblies.)
+not be accurate for other assemblies.)*
 
 # Evaluating multiple comparisons
 

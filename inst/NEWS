@@ -8,7 +8,7 @@ internally versus at the user-level. The reason for these changes is to give
 the user a more consistent and optimised workflow where the same objects (data
 frames) are manipulated in all steps, all within R.
 
-FEATURES:
+MAJOR FEATURES:
 
     o The Python implementation of profile creation has been deprecated
     o SNV profiles are now stored as data frames, rather than GRanges objects
@@ -21,6 +21,11 @@ FEATURES:
       de-duplication or removing mitochondrial chromosomes
     o The `compare_profiles`, `compare_many` and `list_variants` functions now
       converts input profiles to GRanges internally
+
+MINOR FEATURES:
+    o Keep the FILTER column in created SNV profiles
+    o Add a check for creation zero-variant profiles
+    o Add a check for input sample existance in VCF files
 
 Version 1.6.0
 -------------

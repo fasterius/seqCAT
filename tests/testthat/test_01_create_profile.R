@@ -36,9 +36,9 @@ profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
 
 # Tests
 test_that("create_profile yields correct dimensions", {
-    expect_equal(dim(profile_1), c(377, 19))
-    expect_equal(dim(profile_2), c(375, 19))
-    expect_equal(dim(profile_dir), c(377, 19))
+    expect_equal(dim(profile_1), c(377, 20))
+    expect_equal(dim(profile_2), c(375, 20))
+    expect_equal(dim(profile_dir), c(377, 20))
 })
 
 test_that("only variants passing the depth threshold are extracted", {

@@ -86,13 +86,10 @@ create_profile <- function(vcf_file,
         # Filter the data
         gr <- gr[gr$FILTER == "PASS", ]
     }
-    gr$FILTER <- NULL
 
     # Remove mitochondrial variants, if applicable
     if (remove_mt) {
-        gr <- GenomeInfoDb::dropSeqlevels(gr,
-                                          "MT",
-                                          pruning.mode = "coarse")
+        gr <- GenomeInfoDb::dropSeqlevels(gr, "MT", pruning.mode = "coarse")
     }
 
     # Remove variants below the given depth threshold
@@ -197,6 +194,7 @@ create_profile <- function(vcf_file,
                "AD2",
                "A1",
                "A2",
+               "FILTER",
                "warnings")
     order <- order[order %in% names(data)]
     data <- data[order]

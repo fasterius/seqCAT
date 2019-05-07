@@ -12,7 +12,7 @@
 #' @rdname read_cosmic
 #' @param file_path The COSMIC data file path (path).
 #' @param sample_name The sample to be investigated (character).
-#' @return A GRanges object with COSMIC SNVs.
+#' @return A dataframe with COSMIC SNVs.
 #'
 #' @examples
 #' # Path to COSMIC test data
@@ -95,32 +95,24 @@ read_cosmic <- function(file_path, sample_name) {
     cosmic$mutation_zygosity <- NULL
 
     # Rename columns to adhere to non-COSMIC structure
+    names(cosmic) <- gsub("start", "pos", names(cosmic))
     names(cosmic) <- gsub("gene_name", "gene", names(cosmic))
     names(cosmic) <- gsub("sample_name", "sample", names(cosmic))
     names(cosmic) <- gsub("accession_number", "ENSTID", names(cosmic))
     names(cosmic) <- gsub("mutation_", "", names(cosmic))
+    cosmic$end <- NULL
     cosmic$strand <- NULL
+
+    # Re-order columns
+    first <- c("chr", "pos", "REF", "ALT", "A1", "A2")
+    extra <- setdiff(names(cosmic), first)
+    cosmic <- cosmic[c(first, extra)]
 
     # Add "COSMIC" to sample name
     cosmic$sample <- paste0("COSMIC.", cosmic$sample)
 
-    # Convert to GRanges object
-    cosmic_gr <- GenomicRanges::makeGRangesFromDataFrame(
-        cosmic,
-        keep.extra.columns      = TRUE,
-        ignore.strand           = TRUE,
-        seqinfo                 = NULL,
-        seqnames.field          = "chr",
-        start.field             = "start",
-        end.field               = "end",
-        starts.in.df.are.0based = FALSE)
-
-    # Rename chromosomes (23, 24) to (X, Y)
-    GenomeInfoDb::seqlevels(cosmic_gr, pruning.mode = "coarse") <-
-        c(as.character(seq_len(22)), "X", "Y")
-
-    # Return final GRanges object
-    return(cosmic_gr)
+    # Return final data frame
+    return(cosmic)
 }
 
 #' @title List COSMIC sample names

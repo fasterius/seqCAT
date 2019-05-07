@@ -36,8 +36,14 @@ create_profile <- function(vcf_file,
     # Message
     message("Reading VCF file ...")
 
-    # Define VCF parameters to be read
+    # Check if provided sample is present in VCF
     vcf_header <- VariantAnnotation::scanVcfHeader(vcf_file)
+    vcf_samples <- VariantAnnotation::samples(vcf_header)
+    if (!(sample %in% vcf_samples)) {
+        stop(paste0("Sample \"", sample, "\" is not present in the VCF file"))
+    }
+
+    # Define VCF parameters to be read
     if ("ANN" %in% row.names(VariantAnnotation::info(vcf_header))) {
         annotations <- TRUE
         svp <- VariantAnnotation::ScanVcfParam(info = "ANN",

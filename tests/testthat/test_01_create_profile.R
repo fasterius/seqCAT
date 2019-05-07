@@ -104,8 +104,16 @@ test_that("VCFs with <NON_REF> alleles are handled properly", {
 
 test_that("Profiles with zero variants after filtering are handled properly", {
     expect_error(create_profile(vcf_file     = file1,
-                                  sample       = "sample1",
-                                  min_depth    = 10000,
-                                  filter       = TRUE),
+                                sample       = "sample1",
+                                min_depth    = 10000,
+                                filter       = TRUE),
                  "No variants left after filtering with the current")
+})
+
+test_that("Samples not present in the VCF file are handled properly", {
+    expect_error(create_profile(vcf_file     = file1,
+                                sample       = "sampleX",
+                                min_depth    = 10,
+                                filter       = TRUE),
+                 "is not present in the VCF file")
 })

@@ -47,17 +47,13 @@ library("seqCAT")
 vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 
 # Create SNV profiles
-create_profile(vcf, "HCT116", "hct116_profile.txt")
-create_profile(vcf, "HKE3", "hke3_profile.txt")
-create_profile(vcf, "RKO", "rko_profile.txt")
-
-# Read the created profiles
-hct116 <- read_profile("hct116_profile.txt", "HCT116")
-hke3 <- read_profile("hke3_profile.txt", "HKE3")
-rko <- read_profile("rko_profile.txt", "RKO")
+hct116 <- create_profile(vcf, "HCT116")
+hke3 <- create_profile(vcf, "HKE3")
+rko <- create_profile(vcf, "RKO")
 
 # Compare all profiles to each other
-comparisons <- compare_many(list(hct116, hke3, rko))
+profiles <- list(hct116, hke3, rko)
+comparisons <- compare_many(profiles)
 
 # Create an heatmap of comparisons and their similarity scores
 plot_heatmap(comparisons[[1]])
@@ -66,7 +62,8 @@ plot_heatmap(comparisons[[1]])
     <img src="man/figures/README_example_1.png", alt="Example heatmap"/>
 </p>
 
-For more detailed instructions on how to use seqCAT, please see the vignette.
+For more detailed instructions on how to use seqCAT, please see the
+[vignette][11].
 
 ## Citation
 
@@ -96,3 +93,4 @@ information, please see the `LICENCE` file that comes with the seqCAT package.
 [8]: https://software.broadinstitute.org/gatk/
 [9]: http://snpeff.sourceforge.net/
 [10]: https://bioconductor.org/packages/release/bioc/html/seqCAT.html
+[11]: https://bioconductor.org/packages/release/bioc/vignettes/seqCAT/inst/doc/seqCAT.html

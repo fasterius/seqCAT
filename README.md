@@ -33,7 +33,7 @@ devtools::install_github("fasterius/seqCAT")
 
 ## Usage
 
-The general workflow of seqCAT consists of three steps:
+The general workflow of `seqCAT` consists of three steps:
 
     1.  Creation of SNV profiles
     2.  Comparisons of SNV profiles
@@ -62,12 +62,12 @@ plot_heatmap(comparisons[[1]])
     <img src="man/figures/README_example_1.png", alt="Example heatmap"/>
 </p>
 
-For more detailed instructions on how to use seqCAT, please see the
+For more detailed instructions on how to use `seqCAT`, please see the
 [vignette][11].
 
 ## Citation
 
-If you are using seqCAT to analyse your data, please cite the
+If you are using `seqCAT` to analyse your data, please cite the
 following article:
 
 > **seqCAT: a Bioconductor R-package for variant analysis of high throughput**
@@ -78,9 +78,9 @@ following article:
 
 ## License
 
-seqCAT is released with a MIT licence. seqCAT is free software: you may
-redistribute it and/or modify it under the terms of the MIT license. For more
-information, please see the `LICENCE` file that comes with the seqCAT package.
+`seqCAT` is released with a MIT licence and is a free software: you may
+redistribute and/or modify it under the terms of the license. For more
+information, please see the `LICENCE` file.
 
 [1]: https://img.shields.io/badge/License-MIT-blue.svg
 [2]: https://opensource.org/licenses/MIT

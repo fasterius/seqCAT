@@ -15,8 +15,8 @@ the [Genome Analysis ToolKit][8] and annotated with software such as
 
 ## Installation
 
-`seqCAT` is available on both [Bioconductor][10] and here on GitHub. You can
-install the latest, stable version from Bioconductor like so:
+The `seqCAT` package is available on both [Bioconductor][10] and here on
+GitHub. You can install the latest, stable version from Bioconductor like so:
 
 ```r
 # install.packages("BiocManager")
@@ -29,6 +29,12 @@ it from GitHub:
 ```r
 # install.packages("devtools")
 devtools::install_github("fasterius/seqCAT")
+```
+
+You may also install `seqCAT` using [Conda][11]:
+
+```bash
+conda install -c bioconda bioconductor-seqcat
 ```
 
 ## Usage
@@ -63,7 +69,7 @@ plot_heatmap(comparisons[[1]])
 </p>
 
 For more detailed instructions on how to use `seqCAT`, please see the
-[vignette][11].
+[vignette][12].
 
 ## Citation
 
@@ -78,8 +84,8 @@ following article:
 
 ## License
 
-`seqCAT` is released with a MIT licence and is a free software: you may
-redistribute and/or modify it under the terms of the license. For more
+The `seqCAT` package is released with a MIT licence and is a free software: you
+may redistribute and/or modify it under the terms of the license. For more
 information, please see the `LICENCE` file.
 
 [1]: https://img.shields.io/badge/License-MIT-blue.svg
@@ -93,4 +99,5 @@ information, please see the `LICENCE` file.
 [8]: https://software.broadinstitute.org/gatk/
 [9]: http://snpeff.sourceforge.net/
 [10]: https://bioconductor.org/packages/release/bioc/html/seqCAT.html
-[11]: https://bioconductor.org/packages/release/bioc/vignettes/seqCAT/inst/doc/seqCAT.html
+[11]: https://conda.io/en/latest/
+[12]: https://bioconductor.org/packages/release/bioc/vignettes/seqCAT/inst/doc/seqCAT.html

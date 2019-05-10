@@ -37,6 +37,13 @@ You may also install `seqCAT` using [Conda][11]:
 conda install -c bioconda bioconductor-seqcat
 ```
 
+To list the versions of `seqCAT` available on Conda, you can use the `search`
+functionality:
+
+```bash
+conda search -c bioconda bioconductor-seqcat
+```
+
 ## Usage
 
 The general workflow of `seqCAT` consists of three steps:

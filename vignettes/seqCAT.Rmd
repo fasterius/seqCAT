@@ -214,7 +214,7 @@ useful to save profiles to disk in some cases, in order to facilitate
 re-analysis at a later stage. This can be done with the `write_profile`
 function:
 
-```{r Write profiles to disk}
+```{r Write profile to disk}
 write_profile(hct116, "hct116.profile.txt")
 ```
 
@@ -223,6 +223,13 @@ Profiles stored on disk may then be read into R again at a later time using the
 
 ```{r Read profile from disk}
 hct116 <- read_profile("hct116.profile.txt")
+```
+
+You may also store profiles in several other formats, including BED, GTF and
+GFF:
+
+```{r Write profile to disk (BED)}
+write_profile(hct116, "hct116.profile.bed", format = "BED")
 ```
 
 The `read_profiles` function is a convenience-wrapper for `read_profile`, which

@@ -19,7 +19,9 @@ Write an SNV profile to a file for later re-use.
 }
 \details{
 This is a function for writing SNV profiles (created from VCF
-files) to disk for later re-use.
+files) to disk for later re-use. Several formats are allowed, including BED,
+GTF, GFF and normal text files, which are automatically recognised based on
+the supplied filename.
 }
 \examples{
 # Load test profile

@@ -18,6 +18,7 @@ Imports:
     grid (>= 3.5.0),
     IRanges (>= 2.8.2),
     methods,
+    rtracklayer,
     scales (>= 0.4.1),
     S4Vectors (>= 0.12.2),
     stats,

@@ -89,8 +89,9 @@ convert_to_gr <- function(profile) {
         # Rename and remove seqlevels
         GenomeInfoDb::seqlevels(profile_gr) <-
             gsub("chr", "", GenomeInfoDb::seqlevels(profile_gr))
-        profile_gr <- GenomeInfoDb::keepStandardChromosomes(profile_gr,
-                                                            pruning.mode = "coarse")
+        profile_gr <- 
+            GenomeInfoDb::keepStandardChromosomes(profile_gr,
+                                                  pruning.mode = "coarse")
     } else {
         profile_gr <- profile
     }

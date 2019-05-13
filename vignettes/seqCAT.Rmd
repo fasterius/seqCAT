@@ -218,26 +218,33 @@ function:
 write_profile(hct116, "hct116.profile.txt")
 ```
 
-Profiles stored on disk may then be read into R again at a later time using the
+You may also store profiles in several other formats, including BED, GTF and
+GFF; these are automatically detected based on the filename:
+
+```{r Write profile to disk (BED)}
+write_profile(hct116, "hct116.profile.bed")
+```
+
+The `write_profiles` function is a convenience-wrapper from `write_profile`,
+which can save many profiles (stored in a list) to disk at the same time:
+
+```{r Write multiple profiles to disk (GTF)}
+write_profiles(profiles, format = "GTF", directory = "./")
+```
+
+Profiles stored on disk may be read into R again at a later time using the
 `read_profile` function:
 
 ```{r Read profile from disk}
 hct116 <- read_profile("hct116.profile.txt")
 ```
 
-You may also store profiles in several other formats, including BED, GTF and
-GFF:
-
-```{r Write profile to disk (BED)}
-write_profile(hct116, "hct116.profile.bed", format = "BED")
-```
-
 The `read_profiles` function is a convenience-wrapper for `read_profile`, which
-will automatically read all the profiles present in a given directory and
-return them as a list.
+will automatically read all the profiles present in a given directory (based on
+the `pattern` argument) and return them as a list.
 
-```{r Read multiple profiles}
-profile_list <- read_profiles("./")
+```{r Read multiple profiles (GTF)}
+profile_list <- read_profiles(profile_dir = "./", pattern = ".gtf")
 head(profile_list[[1]])
 ```
 

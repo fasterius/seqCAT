@@ -23,12 +23,64 @@ read_profile <- function(file) {
     # Message
     message("Reading SNV profile in file ", basename(file), " ...")
 
+    # Get file format
+    format <- rev(strsplit(gsub("\\.gz", "", file), ".", fixed = TRUE)[[1]])[1]
+
+    # Allowed non-txt formats
+    non_text <- c("bed", "gtf", "gff", "gff2", "gff3")
+
     # Read SNV profile
-    profile <- utils::read.table(file             = file,
-                                 sep              = "\t",
-                                 quote            = "",
-                                 header           = TRUE,
-                                 stringsAsFactors = FALSE)
+    if (format == "txt") {
+
+        profile <- utils::read.table(file             = file,
+                                     sep              = "\t",
+                                     quote            = "",
+                                     header           = TRUE,
+                                     stringsAsFactors = FALSE)
+
+    } else if (format %in% non_text) {
+
+        # Read non-txt profile
+        profile_gr <- rtracklayer::import(file)
+
+        # Convert to dataframe
+        profile <- GenomicRanges::as.data.frame(profile_gr)
+
+        # Re-order and keep relevant data
+        order <- c("seqnames",
+                   "start",
+                   "rsID",
+                   "gene",
+                   "ENSGID",
+                   "ENSTID",
+                   "REF",
+                   "ALT",
+                   "impact",
+                   "effect",
+                   "feature",
+                   "biotype",
+                   "DP",
+                   "AD1",
+                   "AD2",
+                   "A1",
+                   "A2",
+                   "FILTER",
+                   "warnings",
+                   "sample")
+        order <- order[order %in% names(profile)]
+        profile <- profile[order]
+        if (length(names(profile)) > 2) {
+            names(profile) <- c("chr", "pos", names(profile)[3:ncol(profile)])
+        } else {
+            names(profile) <- c("chr", "pos")
+        }
+
+    } else {
+
+        # Stop execution for unsupported format specifications
+        stop(paste0("Unsupported format specification \"", format,
+                    "\"; please use txt, bed, gtf, gff, gff2 or gff3"))
+    }
 
     # Return the SNV profile data frame
     return(profile)
@@ -39,26 +91,27 @@ read_profile <- function(file) {
 #' @description Read SNV profiles in a directory. 
 #'
 #' @details This is a wrapper function for reading multiple SNV profiles
-#'  present in a directory (and its sub-directories in recursive mode). The
-#'  format used is `<sample>.profile.txt`.
+#'  present in a directory (and its sub-directories in recursive mode).
 #' 
 #' @export
 #' @rdname read_profiles
 #' @param profile_dir The directory containing the profiles to be read (path). 
+#' @param pattern Pattern for filename or file extension to be read (character).
 #' @return A list of data frames.
 #'
 #' @examples
 #' # Path to test data
-#' profile_dir = system.file("extdata",
-#'                           package = "seqCAT")
+#' profile_dir = system.file("extdata", package = "seqCAT")
 #' 
 #' # Read test profiles
-#' profile_list <- read_profiles(profile_dir)
-read_profiles <- function(profile_dir) {
+#' profile_list <- read_profiles(profile_dir, pattern = "profile.txt")
+read_profiles <- function(profile_dir,
+                          pattern = "profile.txt") {
 
     # Get all SNV profiles in the input directory
-    profiles <- list.files(profile_dir, full.names = TRUE,
-                           pattern = "profile.txt")
+    profiles <- list.files(profile_dir,
+                           full.names = TRUE,
+                           pattern    = pattern)
 
     # Calculate total number of profiles to read and initialise counter
     nn_tot <- length(profiles)

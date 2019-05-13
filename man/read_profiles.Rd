@@ -4,10 +4,12 @@
 \alias{read_profiles}
 \title{Read SNV profiles}
 \usage{
-read_profiles(profile_dir)
+read_profiles(profile_dir, pattern = "profile.txt")
 }
 \arguments{
 \item{profile_dir}{The directory containing the profiles to be read (path).}
+
+\item{pattern}{Pattern for filename or file extension to be read (character).}
 }
 \value{
 A list of data frames.
@@ -17,14 +19,12 @@ Read SNV profiles in a directory.
 }
 \details{
 This is a wrapper function for reading multiple SNV profiles
- present in a directory (and its sub-directories in recursive mode). The
- format used is `<sample>.profile.txt`.
+ present in a directory (and its sub-directories in recursive mode).
 }
 \examples{
 # Path to test data
-profile_dir = system.file("extdata",
-                          package = "seqCAT")
+profile_dir = system.file("extdata", package = "seqCAT")
 
 # Read test profiles
-profile_list <- read_profiles(profile_dir)
+profile_list <- read_profiles(profile_dir, pattern = "profile.txt")
 }

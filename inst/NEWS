@@ -24,8 +24,8 @@ MAJOR FEATURES:
 
 MINOR FEATURES:
     o Keep the FILTER column in created SNV profiles
-    o Add a check for creation zero-variant profiles
-    o Add a check for input sample existance in VCF files
+    o Add a check for the creation of zero-variant profiles
+    o Add a check for the existance of the specified input samples
 
 Version 1.6.0
 -------------

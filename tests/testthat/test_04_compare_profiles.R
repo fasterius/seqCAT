@@ -1,5 +1,5 @@
 library("seqCAT")
-context("Overlap and compare SNV profiles")
+context("Compare SNV profiles")
 
 # Get GRanges objects containing the variants
 data(test_profile_1)

@@ -26,6 +26,8 @@ MINOR FEATURES:
     o Keep the FILTER column in created SNV profiles
     o Add a check for the creation of zero-variant profiles
     o Add a check for the existance of the specified input samples
+    o Removal of non-standard chromosomes and variant de-duplication is now
+      optional, and filtration documentation has been extended
 
 Version 1.6.0
 -------------

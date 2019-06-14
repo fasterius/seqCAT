@@ -12,32 +12,36 @@ profile_1 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample1",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE))
+                                             remove_mt = FALSE,
+                                             remove_ns = TRUE))
 
 profile_2 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample2",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE))
+                                             remove_mt = FALSE,
+                                             remove_ns = FALSE))
 
 profile_3 <- suppressMessages(create_profile(vcf_file  = file2,
                                              sample    = "sample3",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE))
+                                             remove_mt = FALSE,
+                                             remove_ns = TRUE))
 
 # Create profiles in directory
 profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
-                                                pattern   = "sample1",
-                                                recursive = FALSE,
                                                 min_depth = 10,
                                                 filter    = TRUE,
-                                                remove_mt = FALSE))[[1]]
+                                                remove_mt = FALSE,
+                                                remove_ns = TRUE,
+                                                pattern   = "sample1",
+                                                recursive = FALSE))[[1]]
 
 # Tests
 test_that("create_profile yields correct dimensions", {
     expect_equal(dim(profile_1), c(377, 20))
-    expect_equal(dim(profile_2), c(375, 20))
+    expect_equal(dim(profile_2), c(376, 20))
     expect_equal(dim(profile_dir), c(377, 20))
 })
 
@@ -73,7 +77,7 @@ test_that("the correct variants across impact categories are extracted", {
     expect_equal(nrow(profile_2[profile_2$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_dir[profile_dir$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 375)
-    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 374)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 375)
     expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 375)
 })
 

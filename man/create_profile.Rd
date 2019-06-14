@@ -5,7 +5,8 @@
 \title{SNV profile creation}
 \usage{
 create_profile(vcf_file, sample, min_depth = 10, filter = TRUE,
-  remove_mt = TRUE, remove_ns = TRUE)
+  remove_mt = TRUE, remove_ns = TRUE, remove_gd = TRUE,
+  remove_pd = FALSE)
 }
 \arguments{
 \item{vcf_file}{The VCF file from which the profile will be created (path).}
@@ -20,6 +21,10 @@ create_profile(vcf_file, sample, min_depth = 10, filter = TRUE,
 \item{remove_mt}{Remove mitochondrial variants (boolean).}
 
 \item{remove_ns}{Remove non-standard chromosomes (boolean).}
+
+\item{remove_gd}{Remove duplicate variants at the gene-level (boolean).}
+
+\item{remove_pd}{Remove duplicate variants at the position-level (boolean).}
 }
 \value{
 A data frame.

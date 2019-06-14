@@ -124,6 +124,19 @@ number of false positive variant calls. Mitochondrial variants are removed by
 default, but may be kept by passing `remove_mt = FALSE`; the same goes for
 non-standard chromosomes and the `remove_ns` parameter.
 
+Duplicate variants can either be removed at the gene-level (`remove_gd = TRUE`
+by default) or at the positional level (`remove_pd = FALSE` by default). The
+former will remove variants that have more than one entry on a per-gene basis
+(*i.e.* variants that affect more than one transcript for the same gene), but
+keep multiple entries for variants affecting more than one gene; the impact is
+used to determine which of the same-gene variants to keep. The latter will
+remove duplicated variants purely by their position, regardless of the genes or
+transcripts they affect. It is thus important to know what type of downstream
+analyses you want to perform at this stage: if analysis of which genes or
+transcripts are affected by the variants is desired, duplicates should either
+be remove at the gene-level or not at all; if only not, variant duplicates may
+be remove at the positional level.
+
 ## Create multiple profiles
 
 The `create_profiles` function is a convenience wrapper for `create_profile`,

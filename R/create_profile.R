@@ -19,6 +19,8 @@
 #' @param filter Remove variants not passing filtering criteria (boolean).
 #' @param remove_mt Remove mitochondrial variants (boolean).
 #' @param remove_ns Remove non-standard chromosomes (boolean).
+#' @param remove_gd Remove duplicate variants at the gene-level (boolean).
+#' @param remove_pd Remove duplicate variants at the position-level (boolean).
 #' @return A data frame.
 #'
 #' @examples
@@ -33,7 +35,9 @@ create_profile <- function(vcf_file,
                            min_depth = 10,
                            filter    = TRUE,
                            remove_mt = TRUE,
-                           remove_ns = TRUE) {
+                           remove_ns = TRUE,
+                           remove_gd = TRUE,
+                           remove_pd = FALSE) {
 
     # Message
     message("Reading VCF file ...")
@@ -227,10 +231,13 @@ create_profile <- function(vcf_file,
     # Remove duplicate rows, if present
     data <- unique(data)
 
-    # Remove duplicate variants, if present
-    if ("ENSGID" %in% names(data)) {
+    # Remove duplicate variants, if applicable
+    if (remove_gd & "ENSGID" %in% names(data)) {
         data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
-    } else {
+    }
+
+    # Remove duplicate variants, if applicable
+    if (remove_pd) {
         data <- data[!duplicated(data[, c("chr", "pos")]), ]
     }
 
@@ -340,6 +347,8 @@ filter_annotations <- function(data) {
 #' @param filter Remove variants not passing filtering criteria (boolean).
 #' @param remove_mt Remove mitochondrial variants (boolean).
 #' @param remove_ns Remove non-standard chromosomes (boolean).
+#' @param remove_gd Remove duplicate variants at the gene-level (boolean).
+#' @param remove_pd Remove duplicate variants at the position-level (boolean).
 #' @param pattern Only create profiles for a subset of files corresponding to
 #'  this pattern (character).
 #' @param recursive Find VCF files recursively in sub-directories as well
@@ -357,6 +366,8 @@ create_profiles <- function(vcf_dir,
                             filter    = TRUE,
                             remove_mt = TRUE,
                             remove_ns = TRUE,
+                            remove_gd = TRUE,
+                            remove_pd = FALSE,
                             pattern   = NULL,
                             recursive = FALSE) {
 
@@ -389,7 +400,9 @@ create_profiles <- function(vcf_dir,
                                                        min_depth = min_depth,
                                                        filter    = filter,
                                                        remove_mt = remove_mt,
-                                                       remove_ns = remove_ns))
+                                                       remove_ns = remove_ns,
+                                                       remove_gd = remove_gd,
+                                                       remove_pd = remove_pd))
         }, error = function(e) {
             message("ERROR; continuing to the next sample.")
         })

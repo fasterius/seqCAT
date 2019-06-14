@@ -5,8 +5,8 @@
 \title{SNV profile creation}
 \usage{
 create_profiles(vcf_dir, min_depth = 10, filter = TRUE,
-  remove_mt = TRUE, remove_ns = TRUE, pattern = NULL,
-  recursive = FALSE)
+  remove_mt = TRUE, remove_ns = TRUE, remove_gd = TRUE,
+  remove_pd = FALSE, pattern = NULL, recursive = FALSE)
 }
 \arguments{
 \item{vcf_dir}{The VCF directory from which the profiles will be created
@@ -19,6 +19,10 @@ create_profiles(vcf_dir, min_depth = 10, filter = TRUE,
 \item{remove_mt}{Remove mitochondrial variants (boolean).}
 
 \item{remove_ns}{Remove non-standard chromosomes (boolean).}
+
+\item{remove_gd}{Remove duplicate variants at the gene-level (boolean).}
+
+\item{remove_pd}{Remove duplicate variants at the position-level (boolean).}
 
 \item{pattern}{Only create profiles for a subset of files corresponding to
 this pattern (character).}

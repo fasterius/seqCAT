@@ -113,14 +113,16 @@ profiles creates here also contain additional annotations from
 and variant accession (`rsID`).
 
 The profile of the second sample (`RKO`) was created with a non-standard
-filter for sequencing depth (`15`), which should only be done if you want a
-stricter criteria for your profile (such as when you're only interested in
-higher-than-standard confidence variants). You may also choose to not remove
-variants below the variant caller-specific filtering criteria by passing
-`filter = FALSE` when creating your profile, although it is recommended
-to do so in most cases in order to minimise the number of false positive
-variant calls. Mitochondrial variants are removed by default, but may be kept
-by passing `remove_mt = FALSE`.
+filter for sequencing depth (`min_depth = 15`), which should only be done if
+you want a stricter criteria for your profile (such as when you're only
+interested in higher-than-standard confidence variants).
+
+You may also choose to not remove variants using the variant caller-specific
+filtering criteria by passing `filter = FALSE` when creating your profile,
+although it is recommended to do so in most cases in order to minimise the
+number of false positive variant calls. Mitochondrial variants are removed by
+default, but may be kept by passing `remove_mt = FALSE`; the same goes for
+non-standard chromosomes and the `remove_ns` parameter.
 
 ## Create multiple profiles
 

@@ -9,7 +9,8 @@ output:
         number_sections: true
 bibliography: bibliography.bib
 vignette: >
-    %\VignetteIndexEntry{seqCAT: The High Throughput Sequencing Cell Authentication Toolkit}
+    %\VignetteIndexEntry{seqCAT: The High Throughput Sequencing Cell
+                         Authentication Toolkit}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -90,7 +91,7 @@ keep the file size low) for three different colorectal cancer cell lines:
 *HCT116*, *HKE3* and *RKO*. The first step is to load the `seqCAT` package and
 to create SNV profiles for each sample:
 
-```{r Create SNV profile with R}
+```{r Create an SNV profile}
 # Load the package
 library("seqCAT")
 
@@ -99,7 +100,6 @@ vcf <- system.file("extdata", "example.vcf.gz", package = "seqCAT")
 
 # Create two SNV profiles
 hct116 <- create_profile(vcf, "HCT116")
-rko <- create_profile(vcf, "RKO", min_depth = 15)
 head(hct116)
 ```
 
@@ -112,20 +112,34 @@ profiles creates here also contain additional annotations from
 [SnpEff][snpeff], such as gene (`ENSGID`), variant [impact][impact] (`impact`)
 and variant accession (`rsID`).
 
-The profile of the second sample (`RKO`) was created with a non-standard
-filter for sequencing depth (`min_depth = 15`), which should only be done if
-you want a stricter criteria for your profile (such as when you're only
-interested in higher-than-standard confidence variants).
+## Variant filtration
+
+The creation of SNV profiles include several optional variant filtration steps,
+including criteria for sequencing depth, variant caller-specific thresholds,
+mitochondrial variants, variants in non-standard chromosomes and variants
+duplicated at either the gene-level or positional level. The `create_profile`
+function performs all of these by default (with a sequencing depth of at least
+10 and de-duplication at the gene-level), but you can omit or change these as
+required, like so:
+
+```{r Create a filtered SNV profile}
+rko <- create_profile(vcf, "RKO", min_depth = 15, filter_gd = FALSE)
+```
+
+The profile of this sample (`RKO`) was created with a non-standard filter for
+sequencing depth (`min_depth = 15`), which should only be done if you want a
+stricter criteria for your profile (such as when you're only interested in
+higher-than-standard confidence variants).
 
 You may also choose to not remove variants using the variant caller-specific
-filtering criteria by passing `filter = FALSE` when creating your profile,
+filtering criteria by passing `filter_vc = FALSE` when creating your profile,
 although it is recommended to do so in most cases in order to minimise the
 number of false positive variant calls. Mitochondrial variants are removed by
-default, but may be kept by passing `remove_mt = FALSE`; the same goes for
-non-standard chromosomes and the `remove_ns` parameter.
+default, but may be kept by passing `filter_mt = FALSE`; the same goes for
+non-standard chromosomes and the `filter_ns` parameter.
 
-Duplicate variants can either be removed at the gene-level (`remove_gd = TRUE`
-by default) or at the positional level (`remove_pd = FALSE` by default). The
+Duplicate variants can either be removed at the gene-level (`filter_gd = TRUE`
+by default) or at the positional level (`filter_pd = FALSE` by default). The
 former will remove variants that have more than one entry on a per-gene basis
 (*i.e.* variants that affect more than one transcript for the same gene), but
 keep multiple entries for variants affecting more than one gene; the impact is
@@ -136,6 +150,17 @@ analyses you want to perform at this stage: if analysis of which genes or
 transcripts are affected by the variants is desired, duplicates should either
 be remove at the gene-level or not at all; if only not, variant duplicates may
 be remove at the positional level.
+
+Filtration can also be performed after the initial SNV profile creation, using
+two separate functions:
+
+```{r Filter an SNV profile}
+# Filter on sequencing depth
+rko_filtered <- filter_variants(rko, min_depth = 20)
+
+# Filter position-level variants duplicates
+rko_deduplicated <- filter_duplicates(rko, filter_pd = TRUE)
+```
 
 ## Create multiple profiles
 

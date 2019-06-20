@@ -40,7 +40,7 @@ test_that("VCFs with <NON_REF> alleles are handled properly", {
 })
 
 test_that("VCFs without FILTER data are handled correctly", {
-    expect_error(filter_variants(test_profile_5, filter = TRUE),
+    expect_error(filter_variants(test_profile_5, filter_vc = TRUE),
                  "VCF contains no FILTER data; please")
 })
 
@@ -50,10 +50,10 @@ test_that("Profiles with zero variants after filtering are handled properly", {
 })
 
 test_that("De-duplication yields the correct number of variants", {
-    expect_equal(nrow(filter_duplicates(test_profile_1, remove_pd = TRUE)), 54)
+    expect_equal(nrow(filter_duplicates(test_profile_1, filter_pd = TRUE)), 54)
 })
 
 test_that("Profiles without gene-level information are handled correctly", {
-    expect_error(filter_duplicates(test_profile_6, remove_gd = TRUE),
-                 "No 'ENSGID' gene data available")
+    expect_error(filter_duplicates(test_profile_6, filter_gd = TRUE),
+                 "No ENSGID gene data available")
 })

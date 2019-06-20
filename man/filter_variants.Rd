@@ -4,19 +4,19 @@
 \alias{filter_variants}
 \title{Variant filtering}
 \usage{
-filter_variants(data, min_depth = 10, filter = FALSE,
-  remove_mt = FALSE, remove_ns = FALSE)
+filter_variants(data, min_depth = 10, filter_vc = FALSE,
+  filter_mt = FALSE, filter_ns = FALSE)
 }
 \arguments{
 \item{data}{The dataframe containing the variant data to be filtered.}
 
 \item{min_depth}{Threshold for variant depth (integer).}
 
-\item{filter}{Remove variants not passing filtering criteria (boolean).}
+\item{filter_vc}{Filter variants not passing filtering criteria (boolean).}
 
-\item{remove_mt}{Remove mitochondrial variants (boolean).}
+\item{filter_mt}{Filter mitochondrial variants (boolean).}
 
-\item{remove_ns}{Remove non-standard chromosomes (boolean).}
+\item{filter_ns}{Filter non-standard chromosomes (boolean).}
 }
 \value{
 A data frame containing the filtered variants.

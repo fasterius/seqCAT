@@ -4,9 +4,9 @@
 \alias{create_profile}
 \title{SNV profile creation}
 \usage{
-create_profile(vcf_file, sample, min_depth = 10, filter = TRUE,
-  remove_mt = TRUE, remove_ns = TRUE, remove_gd = TRUE,
-  remove_pd = FALSE)
+create_profile(vcf_file, sample, min_depth = 10, filter_vc = TRUE,
+  filter_mt = TRUE, filter_ns = TRUE, filter_gd = TRUE,
+  filter_pd = FALSE)
 }
 \arguments{
 \item{vcf_file}{The VCF file from which the profile will be created (path).}
@@ -14,17 +14,17 @@ create_profile(vcf_file, sample, min_depth = 10, filter = TRUE,
 \item{sample}{The sample in the VCF for which a profile will be created
 (character).}
 
-\item{min_depth}{Remove variants below this sequencing depth (integer).}
+\item{min_depth}{Filter variants below this sequencing depth (integer).}
 
-\item{filter}{Remove variants not passing filtering criteria (boolean).}
+\item{filter_vc}{Filter variants failing variant caller criteria (boolean).}
 
-\item{remove_mt}{Remove mitochondrial variants (boolean).}
+\item{filter_mt}{Filter mitochondrial variants (boolean).}
 
-\item{remove_ns}{Remove non-standard chromosomes (boolean).}
+\item{filter_ns}{Filter non-standard chromosomes (boolean).}
 
-\item{remove_gd}{Remove duplicate variants at the gene-level (boolean).}
+\item{filter_gd}{Filter duplicate variants at the gene-level (boolean).}
 
-\item{remove_pd}{Remove duplicate variants at the position-level (boolean).}
+\item{filter_pd}{Filter duplicate variants at the position-level (boolean).}
 }
 \value{
 A data frame.

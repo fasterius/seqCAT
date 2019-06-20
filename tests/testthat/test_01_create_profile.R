@@ -12,37 +12,37 @@ profile_1 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample1",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE,
-                                             remove_ns = TRUE,
-                                             remove_gd = TRUE,
-                                             remove_pd = FALSE))
+                                             filter_mt = FALSE,
+                                             filter_ns = TRUE,
+                                             filter_gd = TRUE,
+                                             filter_pd = FALSE))
 
 profile_2 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample2",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE,
-                                             remove_ns = FALSE,
-                                             remove_gd = FALSE,
-                                             remove_pd = TRUE))
+                                             filter_mt = FALSE,
+                                             filter_ns = FALSE,
+                                             filter_gd = FALSE,
+                                             filter_pd = TRUE))
 
 profile_3 <- suppressMessages(create_profile(vcf_file  = file2,
                                              sample    = "sample3",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE,
-                                             remove_ns = TRUE,
-                                             remove_gd = FALSE,
-                                             remove_pd = TRUE))
+                                             filter_mt = FALSE,
+                                             filter_ns = TRUE,
+                                             filter_gd = FALSE,
+                                             filter_pd = TRUE))
 
 # Create profiles in directory
 profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
                                                 min_depth = 10,
                                                 filter    = TRUE,
-                                                remove_mt = FALSE,
-                                                remove_ns = TRUE,
-                                                remove_gd = TRUE,
-                                                remove_pd = FALSE,
+                                                filter_mt = FALSE,
+                                                filter_ns = TRUE,
+                                                filter_gd = TRUE,
+                                                filter_pd = FALSE,
                                                 pattern   = "sample1",
                                                 recursive = FALSE))[[1]]
 
@@ -81,6 +81,6 @@ test_that("Samples not present in the VCF file are handled properly", {
     expect_error(create_profile(vcf_file     = file1,
                                 sample       = "sampleX",
                                 min_depth    = 10,
-                                filter       = TRUE),
+                                filter_vc    = TRUE),
                  "is not present in the VCF file")
 })

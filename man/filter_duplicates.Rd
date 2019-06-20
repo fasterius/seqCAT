@@ -4,14 +4,14 @@
 \alias{filter_duplicates}
 \title{Variant de-duplication}
 \usage{
-filter_duplicates(data, remove_gd = TRUE, remove_pd = FALSE)
+filter_duplicates(data, filter_gd = TRUE, filter_pd = FALSE)
 }
 \arguments{
 \item{data}{The dataframe containing the variant data to be filtered.}
 
-\item{remove_gd}{Remove duplicate variants at the gene-level (boolean).}
+\item{filter_gd}{Filter duplicate variants at the gene-level (boolean).}
 
-\item{remove_pd}{Remove duplicate variants at the position-level (boolean).}
+\item{filter_pd}{Filter duplicate variants at the position-level (boolean).}
 }
 \value{
 A data frame containing the filtered variants.
@@ -29,5 +29,5 @@ data(test_profile_1)
 
 # Filter variants
 filtered_gene <- filter_duplicates(test_profile_1)
-filtered_position <- filter_duplicates(test_profile_1, remove_pd = TRUE)
+filtered_position <- filter_duplicates(test_profile_1, filter_pd = TRUE)
 }

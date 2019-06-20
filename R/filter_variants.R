@@ -10,9 +10,9 @@
 #' @export
 #' @param data The dataframe containing the variant data to be filtered.
 #' @param min_depth Threshold for variant depth (integer).
-#' @param filter Remove variants not passing filtering criteria (boolean).
-#' @param remove_mt Remove mitochondrial variants (boolean).
-#' @param remove_ns Remove non-standard chromosomes (boolean).
+#' @param filter_vc Filter variants not passing filtering criteria (boolean).
+#' @param filter_mt Filter mitochondrial variants (boolean).
+#' @param filter_ns Filter non-standard chromosomes (boolean).
 #' @return A data frame containing the filtered variants.
 #'
 #' @examples
@@ -23,9 +23,9 @@
 #' filtered <- filter_variants(test_profile_1, min_depth = 15)
 filter_variants <- function(data,
                             min_depth = 10,
-                            filter    = FALSE,
-                            remove_mt = FALSE,
-                            remove_ns = FALSE) {
+                            filter_vc  = FALSE,
+                            filter_mt = FALSE,
+                            filter_ns = FALSE) {
 
     # Convert to GRanges object, if applicable
     if (is(data, "data.frame")) {
@@ -35,7 +35,7 @@ filter_variants <- function(data,
     }
 
     # Remove variants not passing variant calling filters (if applicable)
-    if (filter) {
+    if (filter_vc) {
 
         # Stop execution if FILTER is empty
         if (length(gr) == length(gr[gr$FILTER == ".", ])) {
@@ -54,12 +54,12 @@ filter_variants <- function(data,
     GenomeInfoDb::seqlevels(gr) <- gsub("chr", "", GenomeInfoDb::seqlevels(gr))
     
     # Remove mitochondrial variants, if applicable
-    if (remove_mt) {
+    if (filter_mt) {
         gr <- GenomeInfoDb::dropSeqlevels(gr, "MT", pruning.mode = "coarse")
     }
 
     # Remove non-standard chromosomes, if applicable
-    if (remove_ns) {
+    if (filter_ns) {
         gr <- GenomeInfoDb::keepStandardChromosomes(gr,
                                                     pruning.mode = "coarse")
     }
@@ -111,8 +111,8 @@ filter_variants <- function(data,
 #'
 #' @export
 #' @param data The dataframe containing the variant data to be filtered.
-#' @param remove_gd Remove duplicate variants at the gene-level (boolean).
-#' @param remove_pd Remove duplicate variants at the position-level (boolean).
+#' @param filter_gd Filter duplicate variants at the gene-level (boolean).
+#' @param filter_pd Filter duplicate variants at the position-level (boolean).
 #' @return A data frame containing the filtered variants.
 #'
 #' @examples
@@ -121,22 +121,22 @@ filter_variants <- function(data,
 #'
 #' # Filter variants
 #' filtered_gene <- filter_duplicates(test_profile_1)
-#' filtered_position <- filter_duplicates(test_profile_1, remove_pd = TRUE)
+#' filtered_position <- filter_duplicates(test_profile_1, filter_pd = TRUE)
 filter_duplicates <- function(data,
-                              remove_gd = TRUE,
-                              remove_pd = FALSE) {
+                              filter_gd = TRUE,
+                              filter_pd = FALSE) {
 
     # Remove duplicate variants at the gene-level, if applicable
-    if (remove_gd) {
+    if (filter_gd) {
         if ("ENSGID" %in% names(data)) {
             data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
         } else {
-            stop("No 'ENSGID' gene data available for gene-level de-duplication")
+            stop("No ENSGID gene data available for gene-level de-duplication")
         }
     }
 
     # Remove duplicate variants at the position-level, if applicable
-    if (remove_pd) {
+    if (filter_pd) {
         data <- data[!duplicated(data[, c("chr", "pos")]), ]
     }
 

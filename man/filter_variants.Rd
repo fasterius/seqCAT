@@ -4,29 +4,36 @@
 \alias{filter_variants}
 \title{Variant filtering}
 \usage{
-filter_variants(data, min_depth = 10)
+filter_variants(data, min_depth = 10, filter_vc = FALSE,
+  filter_mt = FALSE, filter_ns = FALSE)
 }
 \arguments{
 \item{data}{The dataframe containing the variant data to be filtered.}
 
-\item{min_depth}{Threshold for variant depth (integer; default 10).}
+\item{min_depth}{Threshold for variant depth (integer).}
+
+\item{filter_vc}{Filter variants not passing filtering criteria (boolean).}
+
+\item{filter_mt}{Filter mitochondrial variants (boolean).}
+
+\item{filter_ns}{Filter non-standard chromosomes (boolean).}
 }
 \value{
 A data frame containing the filtered variants.
 }
 \description{
-Filter variants on sequencing depth.
+Filter variants on several criteria.
 }
 \details{
-This is a function for filtering variants on sequencing depth.
-Variants with a depth lower than 10 are removed by default, but can be
-changed in the function call.
+This is a function for filtering SNV profiles on several criteria:
+sequencing depth, variant caller-specific filtering, mitochondrial variants
+and variants in non-standard chromosomes. Only filters by sequencing depth
+by default.
 }
 \examples{
 # Load test comparisons
-data(test_comparison)
+data(test_profile_1)
 
 # Filter variants
-filt_1 <- filter_variants(test_comparison)
-filt_2 <- filter_variants(test_comparison, min_depth = 20)
+filtered <- filter_variants(test_profile_1, min_depth = 15)
 }

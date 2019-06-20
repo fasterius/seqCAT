@@ -12,37 +12,37 @@ profile_1 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample1",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE,
-                                             remove_ns = TRUE,
-                                             remove_gd = TRUE,
-                                             remove_pd = FALSE))
+                                             filter_mt = FALSE,
+                                             filter_ns = TRUE,
+                                             filter_gd = TRUE,
+                                             filter_pd = FALSE))
 
 profile_2 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample2",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE,
-                                             remove_ns = FALSE,
-                                             remove_gd = FALSE,
-                                             remove_pd = TRUE))
+                                             filter_mt = FALSE,
+                                             filter_ns = FALSE,
+                                             filter_gd = FALSE,
+                                             filter_pd = TRUE))
 
 profile_3 <- suppressMessages(create_profile(vcf_file  = file2,
                                              sample    = "sample3",
                                              min_depth = 10,
                                              filter    = TRUE,
-                                             remove_mt = FALSE,
-                                             remove_ns = TRUE,
-                                             remove_gd = FALSE,
-                                             remove_pd = TRUE))
+                                             filter_mt = FALSE,
+                                             filter_ns = TRUE,
+                                             filter_gd = FALSE,
+                                             filter_pd = TRUE))
 
 # Create profiles in directory
 profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
                                                 min_depth = 10,
                                                 filter    = TRUE,
-                                                remove_mt = FALSE,
-                                                remove_ns = TRUE,
-                                                remove_gd = TRUE,
-                                                remove_pd = FALSE,
+                                                filter_mt = FALSE,
+                                                filter_ns = TRUE,
+                                                filter_gd = TRUE,
+                                                filter_pd = FALSE,
                                                 pattern   = "sample1",
                                                 recursive = FALSE))[[1]]
 
@@ -51,27 +51,6 @@ test_that("create_profile yields correct dimensions", {
     expect_equal(dim(profile_1), c(377, 20))
     expect_equal(dim(profile_2), c(53, 20))
     expect_equal(dim(profile_dir), c(377, 20))
-})
-
-test_that("only variants passing the depth threshold are extracted", {
-    expect_equal(nrow(profile_1[profile_1$DP == 0, ]), 0)
-    expect_equal(nrow(profile_2[profile_2$DP == 0, ]), 0)
-    expect_equal(nrow(profile_dir[profile_dir$DP == 0, ]), 0)
-})
-
-test_that("no indels are extracted", {
-    expect_equal(nrow(profile_1[nchar(profile_1$REF) != 1, ]), 0)
-    expect_equal(nrow(profile_1[nchar(profile_1$ALT) != 1, ]), 0)
-    expect_equal(nrow(profile_2[nchar(profile_2$REF) != 1, ]), 0)
-    expect_equal(nrow(profile_2[nchar(profile_2$ALT) != 1, ]), 0)
-    expect_equal(nrow(profile_dir[nchar(profile_dir$REF) != 1, ]), 0)
-    expect_equal(nrow(profile_dir[nchar(profile_dir$ALT) != 1, ]), 0)
-})
-
-test_that("the MT chromosome only exists in sample 1", {
-    expect_equal(nrow(profile_1[profile_1$chr == "MT", ]), 1)
-    expect_equal(nrow(profile_2[profile_2$chr == "MT", ]), 0)
-    expect_equal(nrow(profile_dir[profile_dir$chr == "MT", ]), 1)
 })
 
 test_that("the correct variants across impact categories are extracted", {
@@ -98,34 +77,10 @@ test_that("VCFs without variant annotations are handled correctly", {
     expect_equal(nrow(profile_3), 99)
 })
 
-test_that("VCFs without FILTER data are handled correctly", {
-    expect_error(create_profile(vcf_file     = file3,
-                                sample       = "sample4",
-                                min_depth    = 10,
-                                filter       = TRUE),
-                 "VCF contains no FILTER data; please")
-})
-
-test_that("VCFs with <NON_REF> alleles are handled properly", {
-    expect_warning(create_profile(vcf_file     = file3,
-                                  sample       = "sample4",
-                                  min_depth    = 10,
-                                  filter       = FALSE),
-                   "<NON_REF> alleles; input may be a gVCF")
-})
-
-test_that("Profiles with zero variants after filtering are handled properly", {
-    expect_error(create_profile(vcf_file     = file1,
-                                sample       = "sample1",
-                                min_depth    = 10000,
-                                filter       = TRUE),
-                 "No variants left after filtering with the current")
-})
-
 test_that("Samples not present in the VCF file are handled properly", {
     expect_error(create_profile(vcf_file     = file1,
                                 sample       = "sampleX",
                                 min_depth    = 10,
-                                filter       = TRUE),
+                                filter_vc    = TRUE),
                  "is not present in the VCF file")
 })

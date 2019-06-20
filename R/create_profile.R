@@ -174,15 +174,9 @@ create_profile <- function(vcf_file,
     # Remove duplicate rows, if present
     data <- unique(data)
 
-    # Remove duplicate variants, if applicable
-    if (remove_gd & "ENSGID" %in% names(data)) {
-        data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
-    }
-
-    # Remove duplicate variants, if applicable
-    if (remove_pd) {
-        data <- data[!duplicated(data[, c("chr", "pos")]), ]
-    }
+    data <- filter_duplicates(data,
+                              remove_gd = remove_gd,
+                              remove_pd = remove_pd)
 
     # Add sample to profile
     data$sample <- sample

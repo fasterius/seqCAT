@@ -28,7 +28,7 @@ filter_variants <- function(data,
                             remove_ns = FALSE) {
 
     # Convert to GRanges object, if applicable
-    if (class(data) == "data.frame") {
+    if (is(data, "data.frame")) {
         gr <- convert_to_gr(data)
     } else {
         gr <- data
@@ -99,5 +99,47 @@ filter_variants <- function(data,
     }
 
     # Return the filtered data
+    return(data)
+}
+
+#' @title Variant de-duplication
+#'
+#' @description Filter duplicated variants.
+#'
+#' @details This is a function for filtering duplicated variants either on the
+#'  gene-level or the position-level.
+#'
+#' @export
+#' @param data The dataframe containing the variant data to be filtered.
+#' @param remove_gd Remove duplicate variants at the gene-level (boolean).
+#' @param remove_pd Remove duplicate variants at the position-level (boolean).
+#' @return A data frame containing the filtered variants.
+#'
+#' @examples
+#' # Load test comparisons
+#' data(test_profile_1)
+#'
+#' # Filter variants
+#' filtered_gene <- filter_duplicates(test_profile_1)
+#' filtered_position <- filter_duplicates(test_profile_1, remove_pd = TRUE)
+filter_duplicates <- function(data,
+                              remove_gd = TRUE,
+                              remove_pd = FALSE) {
+
+    # Remove duplicate variants at the gene-level, if applicable
+    if (remove_gd) {
+        if ("ENSGID" %in% names(data)) {
+            data <- data[!duplicated(data[, c("chr", "pos", "ENSGID")]), ]
+        } else {
+            stop("No 'ENSGID' gene data available for gene-level de-duplication")
+        }
+    }
+
+    # Remove duplicate variants at the position-level, if applicable
+    if (remove_pd) {
+        data <- data[!duplicated(data[, c("chr", "pos")]), ]
+    }
+
+    # Return de-duplicated variants
     return(data)
 }

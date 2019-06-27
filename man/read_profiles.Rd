@@ -4,12 +4,16 @@
 \alias{read_profiles}
 \title{Read SNV profiles}
 \usage{
-read_profiles(profile_dir, pattern = "profile.txt")
+read_profiles(profile_dir, pattern = ".profile.txt",
+  sample_names = FALSE)
 }
 \arguments{
 \item{profile_dir}{The directory containing the profiles to be read (path).}
 
-\item{pattern}{Pattern for filename or file extension to be read (character).}
+\item{pattern}{Pattern for file name or extension to be read (character).}
+
+\item{sample_names}{Add sample name based on file name; overrides profile
+sample if it already exists (boolean).}
 }
 \value{
 A list of data frames.

@@ -18,6 +18,7 @@ test_bed <- suppressMessages(read_profile(file = file_bed))
 test_gtf <- suppressMessages(read_profile(file = file_gtf))
 test_gff <- suppressMessages(read_profile(file = file_gff))
 test_dir <- suppressMessages(read_profiles(profile_dir = profile_dir))
+test_name <- suppressMessages(read_profile(file = file_1, sample_name = "new_name"))
 
 # Tests
 test_that("correct object types are returned", {
@@ -44,4 +45,8 @@ test_that("profiles without variant annotations are handled correctly", {
 test_that("unsupported format specifications are handled correctly", {
     expect_error(read_profile("test.bef"),
                  "Unsupported format specification \"")
+})
+
+test_that("sample names can be overridden correctly", {
+    expect_identical(unique(test_name$sample), "new_name")
 })

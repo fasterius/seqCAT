@@ -4,10 +4,13 @@
 \alias{read_profile}
 \title{Read SNV profile}
 \usage{
-read_profile(file)
+read_profile(file, sample_name = NULL)
 }
 \arguments{
 \item{file}{The SNV profile to be read (path).}
+
+\item{sample_name}{Sample name to be added; overrides profile sample if it
+already exists (character).}
 }
 \value{
 A data frame.

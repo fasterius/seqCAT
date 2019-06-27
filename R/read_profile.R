@@ -8,6 +8,8 @@
 #' @export
 #' @rdname read_profile
 #' @param file The SNV profile to be read (path). 
+#' @param sample_name Sample name to be added; overrides profile sample if it
+#'  already exists (character).
 #' @return A data frame.
 #'
 #' @examples
@@ -18,7 +20,8 @@
 #' 
 #' # Read test profile
 #' profile <- read_profile(profile)
-read_profile <- function(file) {
+read_profile <- function(file,
+                         sample_name = NULL) {
 
     # Message
     message("Reading SNV profile in file ", basename(file), " ...")
@@ -82,6 +85,11 @@ read_profile <- function(file) {
                     "\"; please use txt, bed, gtf, gff, gff2 or gff3"))
     }
 
+    # Add sample name (if applicable)
+    if (!is.null(sample_name)) {
+        profile$sample <- sample_name
+    }
+
     # Return the SNV profile data frame
     return(profile)
 }
@@ -96,7 +104,9 @@ read_profile <- function(file) {
 #' @export
 #' @rdname read_profiles
 #' @param profile_dir The directory containing the profiles to be read (path). 
-#' @param pattern Pattern for filename or file extension to be read (character).
+#' @param pattern Pattern for file name or extension to be read (character).
+#' @param sample_names Add sample name based on file name; overrides profile
+#'  sample if it already exists (boolean).
 #' @return A list of data frames.
 #'
 #' @examples
@@ -106,7 +116,8 @@ read_profile <- function(file) {
 #' # Read test profiles
 #' profile_list <- read_profiles(profile_dir, pattern = "profile.txt")
 read_profiles <- function(profile_dir,
-                          pattern = "profile.txt") {
+                          pattern      = ".profile.txt",
+                          sample_names = FALSE) {
 
     # Get all SNV profiles in the input directory
     profiles <- list.files(profile_dir,
@@ -121,10 +132,19 @@ read_profiles <- function(profile_dir,
     profile_list <- list()
     for (profile in profiles) {
 
+        # Add or override sample name (if applicable)
+        if (sample_names) {
+            current_sample <- gsub(pattern, "", basename(profile))
+        } else {
+            current_sample <- NULL
+        }
+
         # Read current profile
         message(paste0("Reading profile in file ", basename(profile),
                        " [", nn, " / ", nn_tot, "]"))
-        current_profile <- suppressMessages(read_profile(profile))
+        current_profile <-
+            suppressMessages(read_profile(profile,
+                                          sample_name = current_sample))
 
         # Append profile to profile list
         profile_list[[length(profile_list) + 1]] <- current_profile

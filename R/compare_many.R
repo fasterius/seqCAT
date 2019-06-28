@@ -10,8 +10,8 @@
 #'
 #' @export
 #' @rdname compare_many
-#' @param many SNV profiles to be compared (list of GRanges objects).
-#' @param one SNV profile to be compared to all others (GRanges object).
+#' @param many SNV profiles to be compared (list of dataframes).
+#' @param one SNV profile to be compared to all others (dataframe).
 #' @param a Similarity score parameter a (integer).
 #' @param b Similarity score parameter b (integer).
 #' @return A list of summary statistics and comparisons.
@@ -36,7 +36,7 @@ compare_many <- function(many,
                          b    = 5) {
 
     # Convert `many` to list of GRanges objects
-    for (nn in length(many)) {
+    for (nn in seq(length(many))) {
         many[[nn]] <- convert_to_gr(many[[nn]])
     }
 

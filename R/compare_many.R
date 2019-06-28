@@ -37,7 +37,7 @@ compare_many <- function(many,
 
     # Convert `many` to list of GRanges objects
     for (nn in seq(length(many))) {
-        many[[nn]] <- convert_to_gr(many[[nn]])
+        many[[nn]] <- df_to_gr(many[[nn]])
     }
 
     # Initialise objects to be returned
@@ -56,7 +56,7 @@ compare_many <- function(many,
     if (!is.null(one)) {
 
         # Convert `one` to GRanges object
-        one <- convert_to_gr(one)
+        one <- df_to_gr(one)
 
         # Find sample for one
         sample_one <- unique(one$sample)

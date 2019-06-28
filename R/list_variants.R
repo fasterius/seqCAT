@@ -51,7 +51,7 @@ list_variants <- function(profiles, known_variants) {
     for (profile in profiles) {
 
         # Convert profile to GRanges object
-        profile <- convert_to_gr(profile)
+        profile <- df_to_gr(profile)
 
         # Compare to known variants
         sample <- unique(profile$sample)

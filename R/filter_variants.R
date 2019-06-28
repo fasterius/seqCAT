@@ -29,7 +29,7 @@ filter_variants <- function(data,
 
     # Convert to GRanges object, if applicable
     if (is(data, "data.frame")) {
-        gr <- convert_to_gr(data)
+        gr <- df_to_gr(data)
     } else {
         gr <- data
     }

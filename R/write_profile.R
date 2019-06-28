@@ -41,7 +41,7 @@ write_profile <- function(profile,
     } else if (format %in% non_text) {
 
         # Convert to GRanges
-        profile_gr <- convert_to_gr(profile)
+        profile_gr <- df_to_gr(profile)
 
         # Write to specified format
         rtracklayer::export(profile_gr, file)

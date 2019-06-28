@@ -38,8 +38,8 @@ compare_profiles <- function(profile_1,
     message("Comparing ", sample_1, " and ", sample_2, " ...")
 
     # Convert data frames to GenomicRanges (if applicable)
-    profile_1 <- convert_to_gr(profile_1)
-    profile_2 <- convert_to_gr(profile_2)
+    profile_1 <- df_to_gr(profile_1)
+    profile_2 <- df_to_gr(profile_2)
 
     # Find the overlaps of all ranges in both objects
     if (tolower(mode) == "union") {
@@ -71,7 +71,7 @@ compare_profiles <- function(profile_1,
 }
 
 # Function for converting data frames to GRanges objects
-convert_to_gr <- function(profile) {
+df_to_gr <- function(profile) {
 
     # Check if input profile is a data frame
     if (is(profile, "data.frame")) {

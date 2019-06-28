@@ -4,12 +4,14 @@
 \alias{read_cosmic}
 \title{Read COSMIC data}
 \usage{
-read_cosmic(file_path, sample_name)
+read_cosmic(file_path, sample_name = NULL, primary_site = NULL)
 }
 \arguments{
 \item{file_path}{The COSMIC data file path (path).}
 
-\item{sample_name}{The sample to be investigated (character).}
+\item{sample_name}{Subset the data on sample name (character).}
+
+\item{primary_site}{Subset the data on primary tumour site (character).}
 }
 \value{
 A dataframe with COSMIC SNVs.

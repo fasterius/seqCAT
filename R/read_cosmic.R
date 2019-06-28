@@ -11,7 +11,8 @@
 #' @export
 #' @rdname read_cosmic
 #' @param file_path The COSMIC data file path (path).
-#' @param sample_name The sample to be investigated (character).
+#' @param sample_name Subset the data on sample name (character).
+#' @param primary_site Subset the data on primary tumour site (character).
 #' @return A dataframe with COSMIC SNVs.
 #'
 #' @examples
@@ -22,7 +23,9 @@
 #'
 #' # Read COSMIC test data for the HCT116 cell line
 #' cosmic_hct116 <- read_cosmic(file, "HCT116")
-read_cosmic <- function(file_path, sample_name) {
+read_cosmic <- function(file_path,
+                        sample_name  = NULL,
+                        primary_site = NULL) {
 
     # Message
     message("Reading COSMIC data ...")
@@ -42,20 +45,39 @@ read_cosmic <- function(file_path, sample_name) {
     # Fix column naming
     names(cosmic) <- tolower(gsub("\\.", "_", names(cosmic)))
 
-    # Simplify COSMIC sample names
+    # Simplify COSMIC sample/site names
     cosmic$sample_name <- toupper(gsub("[-. ]", "", cosmic$sample_name))
-    sample_name <- toupper(gsub("[-. ]", "", sample_name))
+    cosmic$primary_site <- toupper(gsub("[-. ]", "", cosmic$primary_site))
 
-    # Check if sample is available in the data
-    if (!any(grepl(sample_name, cosmic$sample_name))) {
-        stop("the sample ", sample_name, " is either not present in the data",
-             " or has no listed SNVs.")
+    # Get data for selected sample (if applicable)
+    if (!is.null(sample_name)) {
+        sample_name <- toupper(gsub("[-. ]", "", sample_name))
+        if (any(grepl(sample_name, cosmic$sample_name))) {
+            cosmic <- cosmic[grep(sample_name, cosmic$sample_name), ]
+            if (length(unique(cosmic$sample_name)) > 1) {
+                cosmic <- cosmic[cosmic$sample_name == sample_name, ]
+            }
+        } else {
+            stop("the sample ", sample_name, " is either not present in the data",
+                 " or has no listed SNVs.")
+        }
     }
 
-    # Get data for selected sample 
-    cosmic <- cosmic[grep(sample_name, cosmic$sample_name), ]
-    if (length(unique(cosmic$sample_name)) > 1) {
-        cosmic <- cosmic[cosmic$sample_name == sample_name, ]
+    # Get data for selected tumour site (if applicable)
+    if (!is.null(primary_site)) {
+        primary_site <- toupper(gsub("[-. ]", "", primary_site))
+        if (any(grepl(primary_site, cosmic$primary_site))) {
+            cosmic <- cosmic[grep(primary_site, cosmic$primary_site), ]
+            if (length(unique(cosmic$primary_site)) > 1) {
+                cosmic <- cosmic[cosmic$primary_site == primary_site, ]
+            }
+
+            # Rename sample to primary_site for downstream comparisons
+            cosmic$sample_name <- primary_site
+        } else {
+            stop("the primary site ", primary_site, " is either not present in the data",
+                 " or has no listed SNVs.")
+        }
     }
 
     # Keep only SNVs

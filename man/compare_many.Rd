@@ -7,9 +7,9 @@
 compare_many(many, one = NULL, a = 1, b = 5)
 }
 \arguments{
-\item{many}{SNV profiles to be compared (list of GRanges objects).}
+\item{many}{SNV profiles to be compared (list of dataframes).}
 
-\item{one}{SNV profile to be compared to all others (GRanges object).}
+\item{one}{SNV profile to be compared to all others (dataframe).}
 
 \item{a}{Similarity score parameter a (integer).}
 

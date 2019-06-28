@@ -48,9 +48,9 @@ profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
 
 # Tests
 test_that("create_profile yields correct dimensions", {
-    expect_equal(dim(profile_1), c(377, 20))
+    expect_equal(dim(profile_1), c(378, 20))
     expect_equal(dim(profile_2), c(53, 20))
-    expect_equal(dim(profile_dir), c(377, 20))
+    expect_equal(dim(profile_dir), c(378, 20))
 })
 
 test_that("the correct variants across impact categories are extracted", {
@@ -63,9 +63,9 @@ test_that("the correct variants across impact categories are extracted", {
     expect_equal(nrow(profile_1[profile_1$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_2[profile_2$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_dir[profile_dir$impact == "LOW", ]), 0)
-    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 375)
+    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 376)
     expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 52)
-    expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 375)
+    expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 376)
 })
 
 test_that("empty calls from multi-sample VCFs are handled correctly", {

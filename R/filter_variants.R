@@ -67,6 +67,15 @@ filter_variants <- function(data,
     # Convert to data frame
     data <- GenomicRanges::as.data.frame(gr)
 
+    # Remove unwanted columns
+    to_remove <- c("end",
+                   "width",
+                   "strand",
+                   "paramRangeID",
+                   "QUAL")
+    data <- data[, !(names(data) %in% to_remove)]
+    names(data) <- c("chr", "pos", names(data)[3:ncol(data)])
+
     # Check for <NON_REF> sites (i.e. input may be a gVCF file)
     if ("<NON_REF>" %in% data$ALT) {
         

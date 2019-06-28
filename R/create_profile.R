@@ -95,16 +95,8 @@ create_profile <- function(vcf_file,
 
     # Get rsIDs, if present
     data$rsID <- row.names(data)
-    data[!grepl("^rs[0-9]+", data$rsID), "rsID"] <- "None"
-
-    # Remove unwanted columns
     row.names(data) <- NULL
-    to_remove <- c("end",
-                   "width",
-                   "strand",
-                   "paramRangeID",
-                   "QUAL")
-    data <- data[, !(names(data) %in% to_remove)]
+    data[!grepl("^rs[0-9]+", data$rsID), "rsID"] <- "None"
 
     # Separate allelic depths
     data$AD <- gsub("c\\(", "", gsub("\\)", "", data$AD))
@@ -133,8 +125,8 @@ create_profile <- function(vcf_file,
     }
 
     # Re-order output
-    order <- c("seqnames",
-               "start",
+    order <- c("chr",
+               "pos",
                "rsID",
                "gene",
                "ENSGID",
@@ -154,7 +146,6 @@ create_profile <- function(vcf_file,
                "warnings")
     order <- order[order %in% names(data)]
     data <- data[order]
-    names(data) <- c("chr", "pos", names(data)[3:ncol(data)])
 
     # Sort output
     if (annotations) {

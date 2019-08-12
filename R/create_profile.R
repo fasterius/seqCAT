@@ -321,9 +321,7 @@ create_profile_R <- function(vcf_file,
 filter_annotations <- function(data) {
 
     # Separate ANN into rows
-    data <- dplyr::mutate_(data, .dots = stats::setNames(strsplit("ANN", ", "),
-                                                         "ANN"))
-    data <- tidyr::unnest_(data, "ANN")
+    data <- tidyr::unnest(data, cols = c("ANN"))
 
     # Separate ANN into columns
     data <- tidyr::separate_(data,

@@ -100,19 +100,19 @@ create_profile <- function(vcf_file,
 
     # Separate allelic depths
     data$AD <- gsub("c\\(", "", gsub("\\)", "", data$AD))
-    data <- tidyr::separate_(data   = data,
-                             col    = "AD",
-                             into   = c("AD1", "AD2"),
-                             fill   = "right",
-                             remove = TRUE)
+    data <- tidyr::separate(data   = data,
+                            col    = "AD",
+                            into   = c("AD1", "AD2"),
+                            fill   = "right",
+                            remove = TRUE)
 
     # Add alleles
-    data <- tidyr::separate_(data   = data,
-                             col    = "GT",
-                             sep    = "/",
-                             into   = c("A1", "A2"),
-                             fill   = "right",
-                             remove = TRUE)
+    data <- tidyr::separate(data   = data,
+                            col    = "GT",
+                            sep    = "/",
+                            into   = c("A1", "A2"),
+                            fill   = "right",
+                            remove = TRUE)
 
     data[data$A1 == 0, "A1"] <- data[data$A1 == 0, "REF"]
     data[data$A1 == 1, "A1"] <- data[data$A1 == 1, "ALT"]
@@ -184,7 +184,7 @@ filter_annotations <- function(data) {
     data <- tidyr::unnest(data, "ANN")
 
     # Separate ANN into columns
-    data <- tidyr::separate_(data,
+    data <- tidyr::separate(data,
                             col    = "ANN",
                             sep    = "\\|",
                             extra  = "drop",

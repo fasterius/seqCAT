@@ -11,7 +11,7 @@ vcf_dir <- system.file("extdata", package = "seqCAT")
 profile_1 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample1",
                                              min_depth = 10,
-                                             filter    = TRUE,
+                                             filter_vc = TRUE,
                                              filter_mt = FALSE,
                                              filter_ns = TRUE,
                                              filter_gd = TRUE,
@@ -20,7 +20,7 @@ profile_1 <- suppressMessages(create_profile(vcf_file  = file1,
 profile_2 <- suppressMessages(create_profile(vcf_file  = file1,
                                              sample    = "sample2",
                                              min_depth = 10,
-                                             filter    = TRUE,
+                                             filter_vc = TRUE,
                                              filter_mt = FALSE,
                                              filter_ns = FALSE,
                                              filter_gd = FALSE,
@@ -29,7 +29,7 @@ profile_2 <- suppressMessages(create_profile(vcf_file  = file1,
 profile_3 <- suppressMessages(create_profile(vcf_file  = file2,
                                              sample    = "sample3",
                                              min_depth = 10,
-                                             filter    = TRUE,
+                                             filter_vc = TRUE,
                                              filter_mt = FALSE,
                                              filter_ns = TRUE,
                                              filter_gd = FALSE,
@@ -38,7 +38,7 @@ profile_3 <- suppressMessages(create_profile(vcf_file  = file2,
 # Create profiles in directory
 profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
                                                 min_depth = 10,
-                                                filter    = TRUE,
+                                                filter_vc = TRUE,
                                                 filter_mt = FALSE,
                                                 filter_ns = TRUE,
                                                 filter_gd = TRUE,
@@ -48,9 +48,9 @@ profile_dir <- suppressMessages(create_profiles(vcf_dir   = vcf_dir,
 
 # Tests
 test_that("create_profile yields correct dimensions", {
-    expect_equal(dim(profile_1), c(378, 20))
-    expect_equal(dim(profile_2), c(53, 20))
-    expect_equal(dim(profile_dir), c(378, 20))
+    expect_equal(dim(profile_1), c(374, 20))
+    expect_equal(dim(profile_2), c(52, 20))
+    expect_equal(dim(profile_dir), c(374, 20))
 })
 
 test_that("the correct variants across impact categories are extracted", {
@@ -63,9 +63,9 @@ test_that("the correct variants across impact categories are extracted", {
     expect_equal(nrow(profile_1[profile_1$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_2[profile_2$impact == "LOW", ]), 0)
     expect_equal(nrow(profile_dir[profile_dir$impact == "LOW", ]), 0)
-    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 376)
-    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 52)
-    expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 376)
+    expect_equal(nrow(profile_1[profile_1$impact == "MODIFIER", ]), 372)
+    expect_equal(nrow(profile_2[profile_2$impact == "MODIFIER", ]), 51)
+    expect_equal(nrow(profile_dir[profile_dir$impact == "MODIFIER", ]), 372)
 })
 
 test_that("empty calls from multi-sample VCFs are handled correctly", {

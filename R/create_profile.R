@@ -222,7 +222,7 @@ filter_annotations <- function(data) {
     priority <- c("HIGH", "MODERATE", "LOW", "MODIFIER")
 
     # Initialise vector for storing row indexes to keep after impact filtration
-    unique_pos <- unique(data$start)
+    unique_pos <- unique(data$pos)
     unique_pos_len <- length(unique_pos)
     idx <- vector(mode = "list", length = unique_pos_len)
 
@@ -230,7 +230,7 @@ filter_annotations <- function(data) {
     for (n in seq_len(unique_pos_len)) {
 
         # Current position
-        current <- data[data$start == unique_pos[n], ]
+        current <- data[data$pos == unique_pos[n], ]
 
         # Skip if current position only contains a single entry
         if (nrow(current) == 1) {

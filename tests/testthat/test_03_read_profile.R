@@ -18,7 +18,8 @@ test_bed <- suppressMessages(read_profile(file = file_bed))
 test_gtf <- suppressMessages(read_profile(file = file_gtf))
 test_gff <- suppressMessages(read_profile(file = file_gff))
 test_dir <- suppressMessages(read_profiles(profile_dir = profile_dir))
-test_name <- suppressMessages(read_profile(file = file_1, sample_name = "new_name"))
+test_name <- suppressMessages(read_profile(file = file_1,
+                                           sample_name = "new_name"))
 
 # Tests
 test_that("correct object types are returned", {

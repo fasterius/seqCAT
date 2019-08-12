@@ -8,7 +8,8 @@ cosmic_file <- system.file("extdata", package = "seqCAT",
     "subset_CosmicCompleteTargetedScreensMutantExport.tsv.gz")
 
 # Read COSMIC data
-hct116 <- suppressMessages(read_cosmic(cell_lines_file, sample_name = "HCT116"))
+hct116 <- suppressMessages(read_cosmic(cell_lines_file,
+                                       sample_name = "HCT116"))
 hct116_list <- suppressMessages(list_cosmic(cell_lines_file))
 cosmic <- suppressMessages(read_cosmic(cosmic_file, primary_site = "liver"))
 cosmic_list <- suppressMessages(list_cosmic(cosmic_file))

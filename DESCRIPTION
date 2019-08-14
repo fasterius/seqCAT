@@ -19,6 +19,7 @@ Imports:
     IRanges (>= 2.8.2),
     methods,
     rtracklayer,
+    rlang,
     scales (>= 0.4.1),
     S4Vectors (>= 0.12.2),
     stats,

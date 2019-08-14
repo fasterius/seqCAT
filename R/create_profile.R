@@ -217,6 +217,7 @@ filter_annotations <- function(data) {
                    "-protein_pos",
                    "-distance")
     data <- data[, !(names(data) %in% to_remove)]
+    data <- as.data.frame(data)
 
     # Impact factor priority
     priority <- c("HIGH", "MODERATE", "LOW", "MODIFIER")

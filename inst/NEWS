@@ -1,92 +1,75 @@
 Version 1.8.0
 -------------
 
-This is a release with major changes to seqCAT's functionality and how it
-can be used. Several changes to how SNV profiles are created, manipulated and
-stored are introduced, along with some changes to what data objects are used
-internally versus at the user-level. The reason for these changes is to give
-the user a more consistent and optimised workflow where the same objects (data
-frames) are manipulated in all steps, all within R.
-
-MAJOR FEATURES:
-
-    o The Python implementation of profile creation has been deprecated
-    o SNV profiles are now stored as data frames, rather than GRanges objects
-    o The `create_profile` function now now reads profiles into memory, instead
+Features:
+    + The Python implementation of profile creation has been deprecated
+    + SNV profiles are now stored as data frames, rather than GRanges objects
+    + The `create_profile` function now now reads profiles into memory, instead
       of storing them on disk. De-duplication and removal of mitochondrial
       variants is now also performed at this stage
-    o The `create_profiles` function now returns a list of data frames
-    o A new function, `write_profile`, can write profiles to disk
-    o The `read_profile` function now reads profiles without performing any
+    + The `create_profiles` function now returns a list of data frames
+    + A new function, `write_profile`, can write profiles to disk
+    + The `read_profile` function now reads profiles without performing any
       de-duplication or removing mitochondrial chromosomes
-    o The `compare_profiles`, `compare_many` and `list_variants` functions now
+    + The `compare_profiles`, `compare_many` and `list_variants` functions now
       converts input profiles to GRanges internally
-
-MINOR FEATURES:
-    o Keep the FILTER column in created SNV profiles
-    o Add a check for the creation of zero-variant profiles
-    o Add a check for the existance of the specified input samples
-    o Removal of non-standard chromosomes and variant de-duplication is now
+    + Keep the FILTER column in created SNV profiles
+    + Add a check for the creation of zero-variant profiles
+    + Add a check for the existance of the specified input samples
+    + Removal of non-standard chromosomes and variant de-duplication is now
       optional, and filtration documentation has been extended
 
 Version 1.6.0
 -------------
 
-FEATURES:
-
-    o Make the variant caller-specific filtering optional (on by default) and
+Features:
+    + Make the variant caller-specific filtering optional (on by default) and
       rename the relevant parameter names for increased clarity
-    o Add a check to look for gVCF files as input, including the existance of
+    + Add a check to look for gVCF files as input, including the existance of
       <NON_REF> alleles (common for gVCF files)
-    o Add checks to see if input VCFs correctly contain DP, AD and GT data
+    + Add checks to see if input VCFs correctly contain DP, AD and GT data
 
 Version 1.4.0
 -------------
 
-FEATURES:
-
-    o Add convenience functions for creating and reading multiple SNV profiles
-    o Add functionality for reading general COSMIC mutational data, not just
+Features:
+    + Add convenience functions for creating and reading multiple SNV profiles
+    + Add functionality for reading general COSMIC mutational data, not just
       cell line mutational data
 
-FIXES:
+Fixes:
+    + Fix an issue when reading COSMIC data due to new GRanges functionality
 
-    o Fix an issue when reading COSMIC data due to new GRanges functionality
-
-MISCELLANEOUS: 
-
-    o Update the citation info with the now-published seqCAT-specific article
+Miscellaneous:
+    + Update the citation info with the now-published seqCAT-specific article
 
 
 VERSION 1.2.0
 -------------
 
-FEATURES:
-
-    o Add functionality for analysing VCF files containing unannotated variants
-    o Add functionality for listing non-overlapping variants between profiles
-    o Mitochondrial variants can now be optionally skipped when reading SNV
+Features:
+    + Add functionality for analysing VCF files containing unannotated variants
+    + Add functionality for listing non-overlapping variants between profiles
+    + Mitochondrial variants can now be optionally skipped when reading SNV
       profiles in the `read_variants` function
-    o Add the `list_variants` function for listing the genotypes of
+    + Add the `list_variants` function for listing the genotypes of
       user-specified variants in each provided SNV profile
-    o Add the `plot_variant_list` function for plotting a genotype grid for
+    + Add the `plot_variant_list` function for plotting a genotype grid for
       each variant output by the `list_variants` function
 
-FIXES:
-
-    o Fix a multi-sample VCF profile creation issue (python only)
-    o Reading zero-variant profiles now properly returns a GRanges object with
+Fixes:
+    + Fix a multi-sample VCF profile creation issue (python only)
+    + Reading zero-variant profiles now properly returns a GRanges object with
       a dummy-variant profile containing the sample name
-    o Enable the `plot_impacts` function to properly analyse multi-impact SNVs
-    o Fix reading of SNV profiles containing single-quoted strings
+    + Enable the `plot_impacts` function to properly analyse multi-impact SNVs
+    + Fix reading of SNV profiles containing single-quoted strings
 
 VERSION 1.0.0
 -------------
 
-FEATURES:
-
-    o Create single nucleotide variant (SNV) profiles from RNA/DNA-seq samples
-    o Characterise the biological equivalency and difference between samples
-    o Evaluate putative impacts of SNVs differing between samples
-    o Investigate and validate known variants and specific genomic regions
-    o Authenticate cell lines with a known SNV profile or the COSMIC database
+Features:
+    + Create single nucleotide variant (SNV) profiles from RNA/DNA-seq samples
+    + Characterise the biological equivalency and difference between samples
+    + Evaluate putative impacts of SNVs differing between samples
+    + Investigate and validate known variants and specific genomic regions
+    + Authenticate cell lines with a known SNV profile or the COSMIC database

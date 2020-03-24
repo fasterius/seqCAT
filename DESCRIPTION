@@ -1,6 +1,6 @@
 Package: seqCAT
 Title: High Throughput Sequencing Cell Authentication Toolkit
-Version: 1.7.6
+Version: 1.9.0
 Authors@R: person("Erik", "Fasterius", email = "erik.fasterius@outlook.com",
     role = c("aut", "cre"))
 Description: The seqCAT package uses variant calling data (in the

@@ -181,7 +181,7 @@ create_profile <- function(vcf_file,
 filter_annotations <- function(data) {
 
     # Separate ANN into rows
-    data <- tidyr::unnest(data, !!rlang::sym("ANN"))
+    data <- tidyr::unnest_longer(data, !!rlang::sym("ANN"))
 
     # Separate ANN into columns
     data <- tidyr::separate(data,

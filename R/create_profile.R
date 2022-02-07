@@ -180,6 +180,11 @@ create_profile <- function(vcf_file,
 # Function for filtering VCF annotations
 filter_annotations <- function(data) {
 
+    # Unclass AsIs (if applicable); unnest_longer() cannot handle the AsIs class
+    if (class(data$ANN) == "AsIs") {
+        data$ANN <- unclass(data$ANN)
+    }
+
     # Separate ANN into rows
     data <- tidyr::unnest_longer(data, !!rlang::sym("ANN"))
 
